@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHomeAssistant.Web", "IoTHomeAssistant.Web\IoTHomeAssistant.Web.csproj", "{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHomeAssistant.Domain", "IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj", "{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHomeAssistant.Infrastructure", "IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj", "{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
