@@ -69,3 +69,125 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.modal-backdrop.show {
+    opacity: 0.4;
+}
+
+.modal-backdrop {
+    background-color: #707070;
+}
+
+.widget i.fa, .widget i.far {
+    font-size: 3em;
+}
+
+.widget .icon-sprite {
+    font-size: 4em;
+    width: 1em;
+    height: 1em;
+}
+
+.widget i.fa-single {
+    font-size: 5em;
+    margin-left: 0.1em;
+}
+
+.widget i.fa-round {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px #888;
+    padding: 0.4em;
+    font-size: 2em;
+}
+
+.widget i.fa-power-off {
+    cursor: pointer;
+}
+
+.widget ul.list-group {
+    margin-top: 1em;    
+}
+
+.widget ul.list-group li.list-group-item {
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    justify-content: space-between;
+    display: flex;
+    min-height: 8em;
+}
+
+.widget ul.list-group li.list-group-item span {
+    margin-left: 1rem;
+    margin-top: 0.3em;
+    padding-right: 0.5em;
+}
+
+.widget ul.list-group li.list-group-item div:first-child {
+    align-items: center;
+    display: flex;
+    min-width: 4em;
+}
+
+    .widget ul.list-group li.list-group-item div.icon {
+        align-items: center;
+        display: flex;
+    }
+
+.widget ul.list-group li.list-group-item:first-child {
+    padding-top: 1em;
+}
+
+.widget ul.list-group li div {
+    vertical-align: central;
+}
+
+.widget .droplet-half {
+    margin-left: 0.01em;
+}
+
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+h2.area {
+    background: linear-gradient(135deg, #ff5e55 0%, #ff9966 100%);
+    line-height: 2em;
+    padding-left: 0.5em;
+    color: white;
+}
+
+/* STEPS */
+
+.steps {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    text-align: center;
+}
+
+
+.steps li.is-active {
+    border-bottom: 0.3em solid #3498db;
+    color: #3498db;
+    font-size: 1.5em;
+}
+
+.steps li {
+    display: inline-block;
+    margin: 0.8em;
+    color: #ccc;
+    padding-bottom: 0.4em;
+    font-size: 1.3em;
+}
+
+.widget-types {
+    text-align: center;
+    vertical-align: central;
+
+}
+
+.widget-types h5 {
+    line-height: 3em;
+}

@@ -1,10 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHomeAssistant.Web", "IoTHomeAssistant.Web\IoTHomeAssistant.Web.csproj", "{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.64
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTHomeAssistant.Web", "IoTHomeAssistant.Web\IoTHomeAssistant.Web.csproj", "{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHomeAssistant.Domain", "IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj", "{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTHomeAssistant.Domain", "IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj", "{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTHomeAssistant.Infrastructure", "IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj", "{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTHomeAssistant.Infrastructure", "IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj", "{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{639BA317-8956-4F09-99EF-2A2C2632D789}"
+	ProjectSection(SolutionItems) = preProject
+		Data\app.db = Data\app.db
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +32,11 @@ Global
 		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45BCED82-88B0-4B36-A0BB-42121286C5C2}
 	EndGlobalSection
 EndGlobal

@@ -1,17 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using IoTHomeAssistant.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IoTHomeAssistant.Infrastructure.EntityConfigurations;
+using IoTHomeAssistant.Domain.Repositories;
+using IoTHomeAssistant.Infrastructure.Repositories;
+using IoTHomeAssistant.Domain.Services;
+using IoTHomeAssistant.Web.Hubs;
 
 namespace IoTHomeAssistant.Web
 {
@@ -30,11 +29,25 @@ namespace IoTHomeAssistant.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<IoTDbContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<ConnectionHubManager>();
+            services.AddTransient<NotificationHub>();
+            services.AddTransient<IDeviceMqttTopicRepository, DeviceMqttTopicRepository>();
+            services.AddTransient<IWidgetRepository, WidgetRepository>();
+            services.AddTransient<IWidgetService, WidgetService>();
+
+
             services.AddControllersWithViews();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +79,7 @@ namespace IoTHomeAssistant.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<DeviceHub>("/devicehub");
             });
         }
     }

@@ -6,15 +6,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0" />
+        <PackageReference Include="MQTTnet" Version="3.0.13" />
+        <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.0.13" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj" />
+      <ProjectReference Include="..\IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

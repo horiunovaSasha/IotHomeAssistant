@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
+using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace IoTHomeAssistant.Infrastructure.Repositories
@@ -13,10 +14,10 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         where TEntity : class, IEntity<TType> 
         where TType : struct, IEquatable<TType>
     {
-        private readonly DbContext _dbContext;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly IoTDbContext _dbContext;
+        protected readonly DbSet<TEntity> _dbSet;
 
-        protected Repository(DbContext dbContext)
+        protected Repository(IoTDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();

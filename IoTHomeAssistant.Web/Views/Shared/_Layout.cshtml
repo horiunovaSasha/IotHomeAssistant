@@ -1,394 +1,102 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - IoTHomeAssistant.Web</title>
-    <link rel="stylesheet" href="~/css/bootstrap_custom.css"/>
-    <link rel="stylesheet" href="~/css/iot_theme.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap_custom.css" />
+    <link rel="stylesheet" href="~/css/iot_theme.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-@* *@
-@* <header> *@
-@*     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"> *@
-@*         <div class="container"> *@
-@*             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IoTHomeAssistant.Web</a> *@
-@*             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" *@
-@*                     aria-expanded="false" aria-label="Toggle navigation"> *@
-@*                 <span class="navbar-toggler-icon"></span> *@
-@*             </button> *@
-@*             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"> *@
-@*                 <ul class="navbar-nav flex-grow-1"> *@
-@*                     <li class="nav-item"> *@
-@*                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> *@
-@*                     </li> *@
-@*                     <li class="nav-item"> *@
-@*                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-@*                     </li> *@
-@*                 </ul> *@
-@*                 <partial name="_LoginPartial"/> *@
-@*             </div> *@
-@*         </div> *@
-@*     </nav> *@
-@* </header> *@
-@* <div class="container"> *@
-@*     <main role="main" class="pb-3"> *@
-@*         @RenderBody() *@
-@*     </main> *@
-@* </div> *@
-@* *@
-@* <footer class="border-top footer text-muted"> *@
-@*     <div class="container"> *@
-@*         &copy; 2020 - IoTHomeAssistant.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-@*     </div> *@
-@* </footer> *@
+    <!-- Wrapper START -->
+    <div id="wrapper">
 
-<!-- Wrapper START -->
-<!-- Preloader START -->
-	<div id="iot-preloader">
-		<div class="center-preloader d-flex align-items-center">
-			<div class="spinners">
-				<div class="spinner01"></div>
-				<div class="spinner02"></div>
-			</div>
-		</div>
-	</div>
-	<!-- Preloader END -->
+        <!-- Top navbar START -->
+        <nav class="navbar fixed-top border-bottom" style="background: linear-gradient(135deg, #52a0e5 0%, #0856a5 100%);height: 6em">
+            <a class="navbar-brand pt-0 px-lg-3 px-1 mr-0 text-uppercase" href="#" style="color: white">IoT Home Assistant</a>
+            <div class="ml-auto">
+                <div class="navbar-nav navbar-icons flex-row">
+                    <div class="nav-item">
+                        <button id="alerts-toggler" class="btn btn-link nav-link" title="Alerts" type="button" data-alerts="3" data-toggle="modal" data-target="#alertsModal">
+                            <svg class="icon-sprite" style="color: whitesmoke">
+                                <use xlink:href="assets/images/icons-sprite.svg#alert" />
+                                <svg class="text-danger"><use class="icon-dot" xlink:href="assets/images/icons-sprite.svg#icon-dot" /></svg>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="settings.html">
+                            <svg class="icon-sprite" style="color: whitesmoke"><use xlink:href="assets/images/icons-sprite.svg#settings" /></svg>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <svg class="icon-sprite" style="color: whitesmoke"><use xlink:href="assets/images/icons-sprite.svg#logout" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Top navbar END -->
+        <br />
+        <!-- Main content START -->
+        <div class="container-fluid px-4 px-sm-5">
+            @RenderBody()
+            <br><br>
+        </div>
+        <!-- Main content END -->
+        <!-- Bottom navbar START -->
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+            <button class="navbar-toggler mx-auto text-primary collapsed" type="button" data-toggle="collapse" data-target="#bottomCollapse" aria-expanded="false">
+                <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#menu-arrow" /></svg>
+            </button>
+            <div class="collapse navbar-collapse" id="bottomCollapse">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="index.html">
+                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#dashboard" /></svg> <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="lights.html">
+                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#bulb-eco" /></svg> <span>Lights</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cameras.html">
+                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#camera" /></svg> <span>Cameras</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="climate.html">
+                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#thermometer" /></svg> <span>Climate</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="appliances.html">
+                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#appliances" /></svg> <span>Appliances</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Bottom navbar END -->
 
-	<!-- Alerts Modal START -->
-	<div class="modal modal-nobg centered fade" id="alertsModal" tabindex="-1" role="dialog" aria-label="Alerts" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="alert alert-danger alert-dismissible fade show border-0" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button> Security SW update available
-					</div>
-					<div class="alert alert-warning alert-dismissible fade show border-0" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button> New device recognized
-					</div>
-					<div class="alert alert-warning alert-dismissible fade show border-0" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button> User profile is not complete
-					</div>
-				</div>
-			</div>
-		</div>
-		<button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-      		<span aria-hidden="true">&times;</span>
-    	</button>
-	</div>
-	<!-- Alerts Modal END -->
+    </div>
+    <!-- Wrapper END -->
+    @*<script src='https://kit.fontawesome.com/a076d05399.js'></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
-	<!-- Arming Modal START -->
-	<div class="modal modal-warning centered fade" id="armModal" tabindex="-1" role="dialog" aria-label="Arming" aria-hidden="true">
-		<div class="modal-dialog modal-sm" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div id="armTimer">
-						<h3 class="font-weight-bold">EXIT NOW! <span class="timer font-weight-normal"></span></h3>
-					</div>
-				</div>
-			</div>
-		</div>
-		<button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<!-- Arming Modal END -->
-
-	<!-- Arming Modal with key START -->
-	<div class="modal modal-nobg centered fade" id="armModalPIN" tabindex="-1" role="dialog" aria-label="Arming/Disarming" aria-hidden="true" data-backdrop="static">
-		<div class="modal-dialog modal-sm" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<div class="keyboard">
-						<div class="row">
-							<div class="col-12 p-2">
-								<h3 id="hidden-key">&nbsp;</h3>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">1</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">2</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">3</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">4</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">5</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">6</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">7</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">8</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">9</button>
-							</div>
-							<div class="col-4 p-2">
-								<button data-action="enter-key" type="button" class="btn btn-outline-primary btn-lg">0</button>
-							</div>
-							<div class="col-8 p-2">
-								<button data-action="clear-key" type="button" class="btn btn-outline-secondary btn-lg w-100">CLEAR</button>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-12 p-2">
-								<p class="">Enter any 4 numbers :)</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<button id="cancel-keyboard" type="button" class="close close-modal">
-			<span>&times;</span>
-		</button>
-	</div>
-	<!-- Arming Modal with key END -->
-
-	<!-- Alarm Modal START -->
-	<div class="modal modal-danger centered fade" id="alarmModal" tabindex="-1" role="dialog" aria-label="ALARM" aria-hidden="true" data-backdrop="static">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content" data-dismiss="modal">
-				<div class="modal-body d-flex">
-					<svg class="icon-sprite icon-2x icon-pulse"><use xlink:href="assets/images/icons-sprite.svg#alarm"/></svg>
-					<h3 class="text-right font-weight-bold ml-auto align-self-center">MOTION DETECTED!</h3>
-				</div>
-			</div>
-			<p class="mt-2 text-center text-danger">Click the red area to accept/close message</p>
-		</div>
-	</div>
-	<!-- Alarm Modal END -->
-
-	<!-- Fire Alarm Modal START -->
-	<div class="modal modal-danger centered fade" id="fire-alarmModal" tabindex="-1" role="dialog" aria-label="FIRE ALARM" aria-hidden="true" data-backdrop="static">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content" data-dismiss="modal">
-				<div class="modal-body d-flex">
-					<svg class="icon-sprite icon-2x icon-pulse"><use xlink:href="assets/images/icons-sprite.svg#fire"/></svg>
-					<h3 class="text-right font-weight-bold ml-auto align-self-center">SMOKE DETECTED!</h3>
-				</div>
-			</div>
-			<p class="mt-2 text-center text-danger">Click the red area to accept/close message</p>
-		</div>
-	</div>
-	<!-- Fire Alarm Modal END -->
-
-	<!-- Wrapper START -->
-	<div id="wrapper" class="hidden">
-
-		<!-- Top navbar START -->
-		<nav class="navbar fixed-top border-bottom">
-			<a class="navbar-brand pt-0 px-lg-3 px-1 mr-0" href="#">IoT Home Assistant</a>
-			<div class="ml-auto">
-				<div class="navbar-nav navbar-icons flex-row">
-					<div class="nav-item">
-						<button id="alerts-toggler" class="btn btn-link nav-link" title="Alerts" type="button" data-alerts="3" data-toggle="modal" data-target="#alertsModal">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#alert"/>
-								<svg class="text-danger"><use class="icon-dot" xlink:href="assets/images/icons-sprite.svg#icon-dot"/></svg>
-							</svg>
-						</button>
-					</div>
-					<div class="nav-item">
-						<a class="nav-link" href="settings.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#settings"/></svg> 
-						</a>
-					</div>
-					<div class="nav-item">
-						<a class="nav-link" href="login.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#logout"/></svg> 
-						</a>
-					</div>
-				</div>
-			</div>
-		</nav>
-		<!-- Top navbar END -->
-
-		<!-- Main content START -->
-		<div class="container-fluid px-4 px-sm-5">
-			@RenderBody()
-			<br><br>
-			<div class="row">
-				<div class="col-sm-12">
-					<!-- Demonstration - buttons -->
-					<button type="button" class="btn btn-primary my-2">PRIMARY</button>
-					<button type="button" class="btn btn-secondary my-2">SECONDARY</button>
-					<button type="button" class="btn btn-lg btn-danger mx-2 my-2" data-toggle="modal" data-target="#alarmModal"> Demo ALARM </button>
-					<button type="button" class="btn btn-danger my-2" data-toggle="modal" data-target="#fire-alarmModal"> Fire ALARM </button>
-					<button type="button" class="btn btn-warning my-2">WARNING</button>
-					<button type="button" class="btn btn-success my-2">SUCCESS</button>
-					<button type="button" class="btn btn-info my-2">INFO</button>
-				</div>
-			</div>
-		</div>
-		<!-- Main content END -->
-
-		<!-- Bottom navbar START -->
-		<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-			<button class="navbar-toggler mx-auto text-primary collapsed" type="button" data-toggle="collapse" data-target="#bottomCollapse" aria-expanded="false">
-        		<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#menu-arrow"/></svg>
-      		</button>
-			<div class="collapse navbar-collapse" id="bottomCollapse">
-				<ul class="navbar-nav mx-auto">
-					<li class="nav-item active">
-						<a class="nav-link active" href="index.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#dashboard"/></svg> <span>Dashboard</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="lights.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/></svg> <span>Lights</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="cameras.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#camera"/></svg> <span>Cameras</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="climate.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#thermometer"/></svg> <span>Climate</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="appliances.html">
-							<svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#appliances"/></svg> <span>Appliances</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<!-- Bottom navbar END -->
-
-	</div>
-	<!-- Wrapper END -->
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> 
-	<script src="~/js/site.js" asp-append-version="true"></script>
-
-<!-- Cross browser support for SVG icon sprites -->
-	<script src="~/js/svg4everybody.min.js"></script>
-
-	<!-- jQuery countdown timer plugin (Exit modal, Garage doors, Washing machine) -->
-	<script src="~/js/iot-timer.min.js"></script>
-
-	<!-- Basic theme functionality (arming, garage doors, switches ...) - using jQuery -->
-	<script src="~/js/iot-functions.min.js"></script>
-
-	<script>
-		$(document).ready(function() {
-			// Switch (checkbox element) toogler
-			$('.switch input[type="checkbox"]').on("change", function(t) {
-
-				// Check the time between changes to prevert Android native browser execute twice
-				// If you dont need support for Android native browser - just call "switchSingle" function
-				if (this.last) {
-
-					this.diff = t.timeStamp - this.last;
-
-					// Don't execute if the time between changes is too short (less than 250ms) - Android native browser "twice bug"
-					// The real time between two human taps/clicks is usually much more than 250ms"
-					if (this.diff > 250) {
-
-						this.last = t.timeStamp;
-
-						iot.switchSingle(this.id, this.checked);
-
-					} else {
-						return false;
-					}
-
-				} else {
-
-					// First attempt on this switch element
-					this.last = t.timeStamp;
-
-					iot.switchSingle(this.id, this.checked);
-
-				}
-			});
-
-			// All ON/OFF controls
-			$('.lights-control').click(function() {
-
-				var target = $(this).closest('.lights-controls').data('controls');
-				var action = $(this).data('action');
-
-				iot.switchGroup(target, action);
-			});
-
-			// Reposition to center when a modal is shown
-			$('.modal.centered').on('show.bs.modal', iot.centerModal);
-		});
-
-		// Apply necessary changes, functionality when content is loaded
-		$(window).on('load', function() {
-
-			// This script is necessary for cross browsers icon sprite support (IE9+, ...) 
-			svg4everybody();
+    <!-- Cross browser support for SVG icon sprites -->
+    <script src="~/js/svg4everybody.min.js"></script>
 
 
-			if ($('[data-unit="switch-camera-1"]').hasClass("active")) {
-				var activeVideo = $('[data-unit="switch-camera-1"] video').get(0);
-
-				if (activeVideo.paused) {
-					activeVideo.autoplay = true;
-					activeVideo.load();
-					activeVideo.play();
-				} else {
-					activeVideo.pause();
-				}
-			}
-
-			if ($('[data-unit="switch-camera-2"]').hasClass("active")) {
-				var activeVideo = $('[data-unit="switch-camera-2"] video').get(0);
-
-				if (activeVideo.paused) {
-					activeVideo.autoplay = true;
-					activeVideo.load();
-					activeVideo.play();
-				} else {
-					activeVideo.pause();
-				}
-			}
-
-			// "Timeout" function is not neccessary - important is to hide the preloader overlay
-			setTimeout(function() {
-
-				// Hide preloader overlay when content is loaded
-				$('#iot-preloader,.card-preloader').fadeOut();
-				$("#wrapper").removeClass("hidden");
-			}, 800);
-
-		});
-
-		// Apply necessary changes if window resized
-		$(window).on('resize', function() {
-
-			// Modal reposition when the window is resized
-			$('.modal.centered:visible').each(iot.centerModal);
-		});
-
-	</script>
-@await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

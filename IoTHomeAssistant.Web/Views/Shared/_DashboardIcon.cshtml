@@ -1,0 +1,18 @@
+﻿@using IoTHomeAssistant.Domain.Entities
+@model WidgetItem
+@{
+    string colorStyle = Model.IconColor.Value;
+    if (Model.IconColor.Value.StartsWith("#"))
+        colorStyle = $"' style='color: {Model.IconColor.Value}";
+}
+
+@if (Model.Icon.Value.Contains("icon-sprite"))
+{
+    <svg class='@Model.Icon.Value @Html.Raw(colorStyle)'>
+        <use xlink:href="assets/images/icons-sprite.svg#@Model.Icon.Value.Split(' ').Last()" />
+    </svg>
+}
+else
+{
+    <i class='fa fa-single @Model.Icon.Value @Html.Raw(colorStyle)'></i>
+}

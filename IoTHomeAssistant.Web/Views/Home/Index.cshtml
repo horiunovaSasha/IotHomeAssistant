@@ -1,247 +1,265 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using IoTHomeAssistant.Domain.Enums
+@model List<IoTHomeAssistant.Domain.Entities.Widget>
+@{ ViewData["Title"] = "Home Page"; }
+
+
+@foreach (var area in Model.GroupBy(x => x.Area))
+{
+<h2 class="text-secondary font-weight-bold">@area.Key.Title</h2>
+                <div class="row">
+                    @foreach (var widget in area.OrderBy(x => x.Order))
+                    {
+                        <div class="col-sm-12 col-md-6 col-xl-4 widget">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">@widget.Title</h4>
+                                    <ul class="list-group">
+                                        @foreach (var item in widget.Items)
+                                        {
+                                            <li class="list-group-item">
+                                                @if (item.Type == WidgetItemTypeEnum.Informer)
+                                                {
+                                                    <div>
+                                                        @await Html.PartialAsync("_DashboardIcon", item)
+                                                    </div>
+                                                                                <div>
+                                                                                    <div class="card-title h3 text-uppercase">@item.Title</div>
+                                                                                    <div class="float-right h2 font-weight-bold text-success m-0" id="device-topic-@item.Id"></div>
+                                                                                </div>
+                                                                            }
+                                                @if (item.Type == WidgetItemTypeEnum.Switcher)
+                                                {
+                                                    <div>
+                                                        @await Html.PartialAsync("_DashboardIcon", item)
+                                                        <span class="h5">@item.Title</span>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa fa-power-off text-secondary"></i>
+                                                    </div>
+                                                }
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>}
+
+@section Scripts {
+    <script type="text/javascript">
+    @foreach(var item in Model.SelectMany(x => x.Items))
+    {
+        <text>
+        setupDeviceNotification(@item.Id);
+        </text>
+    }
+    </script>
 }
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-1">
+            <div class="modal-header">
+                <h3 class="modal-title">Create new Widget</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background: #f8f9fa">
+                <ul class="steps">
+                    <li class="is-active">Widget Type</li>
+                    <li>Configuration</li>
+                    <li>Summary</li>
+                </ul>
+                <div class="fade show p-3">
+                    <div class="row widget-types ">
+                        <div class="col-4 d-flex justify-content-center">
+                            <input type="radio" name="type" checked />
+                            <i class="h1 fa fa-info-circle text-secondary m-2"></i>
+                            <h5 class="text-uppercase"> Informers </h5>
+                        </div>
+                        <div class="col-4 d-flex justify-content-center">
+                            <input type="radio" name="type" />
+                            <i class="h1 fa fa fa-toggle-on m-2"></i>
+                            <h5 class="text-uppercase"> Commands </h5>
+                        </div>
+                        <div class="col-4 d-flex justify-content-center">
+                            <input type="radio" name="type" />
+                            <i class="h1 fa fa-dropbox m-2"></i>
+                            <h5 class="text-uppercase"> Plugins </h5>
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item p-0 row">
+                            <div class="col-6" style="border-color:#ff7f5f">
+                                <div class="card m-2" style="width: 100%;">
+                                    <div class="card-body p-2">
+                                        <svg data-name="Icon/Check Fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                            <path data-name="Icon Color" d="M12,24A12,12,0,0,1,3.515,3.515,12,12,0,1,1,20.485,20.485,11.922,11.922,0,0,1,12,24ZM6.273,11.786,5,13.135l4.272,4.532L19,7.35,17.727,6,9.273,14.967Z" fill="#006EFF"></path>
+                                        </svg>
+                                        <svg width="4em" height="4em" viewBox="0 0 17 16" class="bi bi-image-fill m-1" fill="#1b6ec2" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                        </svg>
+                                        <span class="float-right">
+                                            <br />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                <path data-name="Icon Color" d="M13.889,2.889a1.445,1.445,0,1,1,1.445-1.445A1.446,1.446,0,0,1,13.889,2.889Zm-6.222,0A1.445,1.445,0,1,1,9.111,1.444,1.446,1.446,0,0,1,7.667,2.889Zm-6.223,0A1.445,1.445,0,1,1,2.889,1.444,1.446,1.446,0,0,1,1.444,2.889Z" transform="translate(9.778 0.444) rotate(90)" fill="#3f3b3b"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="float-right">
+                                            <span class="text-uppercase">Custom Title</span> <br />
+                                            <span class="h4 float-right" style="color: #1b6ec2"><b>25*</b></span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card m-2" style="width: 100%">
+                                    <div class="card-body p-2">
+                                        <input type="radio" class="h3" />
+                                        <svg width="4em" height="4em" viewBox="0 0 17 16" class="bi bi-image-fill m-1" fill="#1b6ec2" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                        </svg>
+                                        <span class="text-uppercase">Custom Title</span>
+                                        <span class="float-right">
+                                            <br />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                <path data-name="Icon Color" d="M13.889,2.889a1.445,1.445,0,1,1,1.445-1.445A1.446,1.446,0,0,1,13.889,2.889Zm-6.222,0A1.445,1.445,0,1,1,9.111,1.444,1.446,1.446,0,0,1,7.667,2.889Zm-6.223,0A1.445,1.445,0,1,1,2.889,1.444,1.446,1.446,0,0,1,1.444,2.889Z" transform="translate(9.778 0.444) rotate(90)" fill="#3f3b3b"></path>
+                                            </svg>
+                                        </span>
+                                        <span class="h5 float-right">
+                                            <span style="color: #1b6ec2; position: relative; margin-right: -52px; font-size: 0.7em">50%</span>
+                                            <svg xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="3em" height="3em" viewBox="1 1 98 98"><defs><filter id="ldBar-bef9918d73c9c8-filter" x="-1" y="-1" width="3" height="3"><feMorphology operator="dilate" radius="3"></feMorphology><feColorMatrix values="0 0 0 0 1    0 0 0 0 1    0 0 0 0 1    0 0 0 1 0" result="cm"></feColorMatrix></filter><mask id="ldBar-bef9918d73c9c8-mask"><image xlink:href="" filter="url(#ldBar-bef9918d73c9c8-filter)" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid"></image></mask><g><mask id="ldBar-bef9918d73c9c8-mask-path"><path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="#fff" stroke="#fff" filter="url(#ldBar-bef9918d73c9c8-filter)"></path></mask></g><clipPath id="ldBar-bef9918d73c9c8-clip"><rect class="mask" fill="#000"></rect></clipPath><pattern id="ldBar-bef9918d73c9c8-pattern" patternUnits="userSpaceOnUse" x="0" y="0" width="300" height="300"><image x="0" y="0" width="300" height="300"></image></pattern></defs><g><path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" fill="none" class="baseline" stroke="#f3f3f3" stroke-width="6"></path></g><g><path d="M50 10A40 40 0 0 1 50 90A40 40 0 0 1 50 10" class="mainline" clip-path="" fill="none" stroke-width="6" stroke="#006EFF" stroke-dasharray="125.68132019042969 126.68132019042969"></path></g></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </li>
+                        <li class="list-group-item p-0">
+                            
+                        </li>
+                    </ul>
+                    
+                </div>
+                <div class="fade"><h2>Test 2</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h2 class="text-secondary font-weight-bold">Living room</h2>
 <div class="row">
-				<div class="col-sm-12 col-md-6 col-xl-4">
-					<!-- Interior lights  START -->
-					<div class="card" data-unit-group="switch-lights">
-						<div class="card-body">
-							<h3 class="card-title">Lights - interior</h3>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item d-flex active" data-unit="switch-light-1">
-								<svg class="icon-sprite">
-									<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-								</svg>
-								<h5>Kitchen</h5>
-								<label class="switch ml-auto checked">
-									<input type="checkbox" id="switch-light-1" checked>
-								</label>
-								<div class="info-holder info-rb" style="right:40px;">
-									<div data-toggle="popover-all" data-content="Checkbox element using localStorage to remember the last status." data-original-title="Switch ON/OFF" data-container="body" data-placement="top" data-offset="0,-6"></div>
-								</div>
-							</li>
-							<li class="list-group-item d-flex" data-unit="switch-light-2">
-								<svg class="icon-sprite">
-									<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-								</svg>
-								<h5>Dining room</h5>
-								<label class="switch ml-auto">
-									<input type="checkbox" id="switch-light-2">
-								</label>
-							</li>
-							<li class="list-group-item d-flex" data-unit="switch-light-3">
-								<svg class="icon-sprite">
-									<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-								</svg>
-								<h5>Living room</h5>
-								<label class="switch ml-auto">
-									<input type="checkbox" id="switch-light-3">
-								</label>
-							</li>
-							<li class="list-group-item d-flex" data-unit="switch-light-4">
-								<svg class="icon-sprite">
-									<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-								</svg>
-								<h5>Bedroom</h5>
-								<label class="switch ml-auto">
-									<input type="checkbox" id="switch-light-4">
-								</label>
-							</li>
-							<li class="list-group-item d-flex" data-unit="switch-light-5">
-								<svg class="icon-sprite">
-									<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-								</svg>
-								<h5>Bathroom</h5>
-								<label class="switch ml-auto">
-									<input type="checkbox" id="switch-light-5">
-								</label>
-							</li>
-						</ul>
-						<div class="card-body">
-							<div class="lights-controls" data-controls="switch-lights">
-								<button data-action="all-on" type="button" class="btn btn-secondary lights-control">All <strong>ON</strong></button>
-								<button data-action="all-off" type="button" class="btn btn-primary lights-control">All <strong>OFF</strong></button>
-							</div>
-						</div>
-					</div>
-					<!-- Interior lights  END -->
-				</div>
-				<div class="col-sm-12 col-md-6 col-xl-4">
-					<!-- Exterior lights  START -->
-					<h3 class="card-title my-3">Lights - exterior</h3>
-					<div class="card" data-unit="switch-light-6">
-						<div class="card-body d-flex flex-row justify-content-start">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-							</svg>
-							<h5>Front doors</h5>
-							<label class="switch ml-auto">
-								<input type="checkbox" id="switch-light-6">
-							</label>
-						</div>
-					</div>
-					<div class="card" data-unit="switch-light-7">
-						<div class="card-body d-flex">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-							</svg>
-							<h5>Back doors</h5>
-							<label class="switch ml-auto">
-								<input type="checkbox" id="switch-light-7">
-							</label>
-						</div>
-					</div>
-					<div class="card" data-unit="switch-light-8">
-						<div class="card-body d-flex">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-							</svg>
-							<h5>Pool</h5>
-							<label class="switch ml-auto">
-								<input type="checkbox" id="switch-light-8">
-							</label>
-						</div>
-					</div>
-					<div class="card" data-unit="switch-light-9">
-						<div class="card-body d-flex">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#bulb-eco"/>
-							</svg>
-							<h5>Garage</h5>
-							<label class="switch ml-auto">
-								<input type="checkbox" id="switch-light-9">
-							</label>
-						</div>
-					</div>
-					<!-- Exterior lights  END -->
-				</div>
-				<div class="col-sm-12 col-md-6 col-xl-4">
-					<!-- Appliances  START -->
-					<div class="card">
-						<div class="card-body">
-							<h3 class="card-title">Appliances</h3>
-						</div>
-						<hr class="my-0">
-						<!-- Washing machine  START -->
-						<ul class="list-group borderless active" data-unit="wash-machine">
-							<li class="list-group-item d-flex pb-0">
-								<svg class="icon-sprite icon-1x">
-									<use xlink:href="assets/images/icons-sprite.svg#wash-machine"/>
-								</svg>
-								<h5>Washing machine</h5>
-								<p class="ml-auto status">ON</p>
-							</li>
-							<li class="list-group-item d-flex pt-0 pb-4">
-								<p class="entry">Remaining time</p>
-								<p id="wash-machine" class="ml-auto mb-0"></p>
-							</li>
-						</ul>
-						<!-- Washing machine  END -->
-						<hr class="my-0">
-						<!-- Fridge  START -->
-						<ul class="list-group borderless active" data-unit="home-fridge">
-							<li class="list-group-item d-flex pb-0">
-								<svg class="icon-sprite icon-1x">
-									<use xlink:href="assets/images/icons-sprite.svg#home-fridge"/>
-								</svg>
-								<h5>Fridge</h5>
-								<p class="ml-auto status">ON</p>
-							</li>
-							<li class="list-group-item d-flex pt-0 pb-4">
-								<p class="entry">Temperature</p>
-								<p class="ml-auto mb-0">35<sup>°F</sup></p>
-							</li>
-						</ul>
-						<!-- Fridge  END -->
-						<hr class="my-0">
-						<!-- TV  START -->
-						<ul class="list-group borderless" data-unit="tv-lcd">
-							<li class="list-group-item d-flex">
-								<svg class="icon-sprite icon-1x">
-									<use xlink:href="assets/images/icons-sprite.svg#tv-lcd"/>
-								</svg>
-								<h5>TV</h5>
-								<p class="ml-auto status">OFF</p>
-							</li>
-						</ul>
-						<!-- TV  END -->
-					</div>
-					<!-- Appliances  END -->
-				</div>
-			</div>
-<div class="row">
-				<div class="col-sm-12 col-md-6">
-					<!-- Camera 1  START -->
-					<div class="card active" data-unit="switch-camera-1">
-						<div class="card-img-top card-stream">
-							<div class="embed-responsive embed-responsive-16by9">
-								<video muted loop>
-									<source src="assets/videos/street.mp4" type="video/mp4" />
-									<source src="assets/videos/street.webm" type="video/webm" />
-								</video>
-								<div class="card-preloader">
-									<div class="center-preloader d-flex align-items-center">
-										<div class="spinners">
-											<div class="spinner01"></div>
-											<div class="spinner02"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card-img-top card-stream off">
-							<div class="embed-responsive embed-responsive-16by9">
-								<h2 class="center-abs">OFF</h2>
-							</div>
-						</div>
-						<div class="card-body d-flex">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#camera"/>
-							</svg>
-							<h5>Outdoor front</h5>
-							<label class="switch ml-auto checked">
-								<input type="checkbox" id="switch-camera-1" checked>
-							</label>
-						</div>
-					</div>
-					<!-- Camera 1  END -->
-				</div>
-				<div class="col-sm-12 col-md-6">
-					<!-- Camera 2  START -->
-					<div class="card" data-unit="switch-camera-2">
-						<div class="card-img-top card-stream">
-							<div class="embed-responsive embed-responsive-16by9">
-								<video muted loop>
-									<source src="assets/videos/room.mp4" type="video/mp4" />
-									<source src="assets/videos/room.webm" type="video/webm" />
-								</video>
-								<div class="card-preloader">
-									<div class="center-preloader d-flex align-items-center">
-										<div class="spinners">
-											<div class="spinner01"></div>
-											<div class="spinner02"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card-img-top card-stream off">
-							<div class="embed-responsive embed-responsive-16by9">
-								<h2 class="center-abs">OFF</h2>
-							</div>
-						</div>
-						<div class="card-body d-flex">
-							<svg class="icon-sprite">
-								<use xlink:href="assets/images/icons-sprite.svg#camera"/>
-							</svg>
-							<h5>Joe's room</h5>
-							<label class="switch ml-auto">
-								<input type="checkbox" id="switch-camera-2">
-							</label>
-						</div>
-					</div>
-					<!-- Camera 2  END -->
-				</div>
-			</div>
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Climate</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div>
+                            <i class="fa fa-single fa-thermometer-2 text-secondary "></i>
+                        </div>
+                        <div>
+                            <div class="card-title h3 text-uppercase">Temperature</div>
+                            <div class="float-right h2 font-weight-bold text-success m-0">20°C</div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div>
+                            <svg class="icon-sprite droplet-half" style="color: #1b6ec2">
+                                <use xlink:href="assets/images/icons-sprite.svg#droplet-half" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="card-title h3 text-uppercase">Humidity</div>
+                            <div class="float-right h2 font-weight-bold m-0" style="color: #1b6ec2">65%</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Lights</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div>
+                            <svg class="icon-sprite text-secondary">
+                                <use xlink:href="assets/images/icons-sprite.svg#bulb-eco" />
+                            </svg>
+                            <span class="h5">Main Light plus extra text</span>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-power-off text-secondary"></i>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div>
+                            <svg class="icon-sprite">
+                                <use xlink:href="assets/images/icons-sprite.svg#bulb-eco" />
+                            </svg>
+                            <span class="h5">Extra Light</span>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-power-off text-primary"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-xl-4">
+        <div class="card" data-unit-group="switch-lights">
+            <div class="card-body">
+                <h3 class="card-title">Rosettes</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex active" data-unit="switch-light-1">
+                    <svg class="icon-sprite" style="width: 2em; height: 2em; color: #ff7f5f">
+                        <use xlink:href="assets/images/icons-sprite.svg#appliances" />
+                    </svg>
+                    <h5>Rosette 1</h5>
+                    <label class="switch ml-auto checked">
+                        <input type="checkbox" id="switch-light-1" checked>
+                    </label>
+                </li>
+                <li class="list-group-item d-flex" data-unit="switch-light-2">
+                    <svg class="icon-sprite" style="width: 2em; height: 2em;">
+                        <use xlink:href="assets/images/icons-sprite.svg#appliances" />
+                    </svg>
+                    <h5>Rosette 2</h5>
+                    <label class="switch ml-auto">
+                        <input type="checkbox" id="switch-light-1" checked>
+                    </label>
+                </li>
+                <li class="list-group-item d-flex" data-unit="switch-light-3">
+                    <svg class="icon-sprite" style="width: 2em; height: 2em;">
+                        <use xlink:href="assets/images/icons-sprite.svg#appliances" />
+                    </svg>
+                    <h5>Rosette 3</h5>
+                    <label class="switch ml-auto">
+                        <input type="checkbox" id="switch-light-1">
+                    </label>
+                </li>
+            </ul>
+            <div class="card-body">
+                <div class="lights-controls" data-controls="switch-lights">
+                    <button data-action="all-on" type="button" class="btn btn-secondary lights-control">All <strong>ON</strong></button>
+                    <button data-action="all-off" type="button" class="btn btn-primary lights-control">All <strong>OFF</strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />

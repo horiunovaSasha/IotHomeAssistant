@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using IoTHomeAssistant.Web.Models;
+using IoTHomeAssistant.Domain.Services;
 
 namespace IoTHomeAssistant.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IWidgetService _widgetService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IWidgetService widgetService)
         {
             _logger = logger;
+            _widgetService = widgetService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var widgets = _widgetService.GetAllWidgets();
+            return View(widgets);
         }
 
         public IActionResult Privacy()
