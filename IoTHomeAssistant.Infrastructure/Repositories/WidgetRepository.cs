@@ -9,7 +9,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
 {
     public class WidgetRepository : Repository<Widget, int>, IWidgetRepository 
     {
-        public WidgetRepository(IoTDbContext dbContext) :base(dbContext)
+        public WidgetRepository(IoTDbContext dbContext) :base(dbContext) 
         { 
         }
 
