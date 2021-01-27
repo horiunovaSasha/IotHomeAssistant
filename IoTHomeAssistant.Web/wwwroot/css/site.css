@@ -300,6 +300,7 @@ hr {
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
+    min-height: 55em;
 }
 
 .widget-wrapper #left-side ul li {
