@@ -17,10 +17,10 @@ namespace IoTHomeAssistant.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<MqttBackgroundService>();
                 });
-                //.ConfigureServices(services =>
-                //{
-                //    services.AddHostedService<MqttBackgroundService>();
-                //});
     }
 }
