@@ -141,7 +141,10 @@
                                 <label for="">Title for Temperature</label>
                                 <input type="text" class="form-control">
                             </div>
-                            <span class="h4 mt-3 ml-4 select-color-trg">20</span>
+                            <span style="display:inline; font-size: 0.8rem;" class="select-color-trg">
+                                <span class="h4 mt-3 ml-4">20</span>
+                                <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
+                            </span>
                         </div>
                         <div class="d-flex">
                             <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3 select-image-trg">
@@ -149,13 +152,17 @@
                                 <label for="">Title for Huminity</label>
                                 <input type="text" class="form-control">
                             </div>
-                            <span class="h4 mt-3 ml-4 select-color-trg">68</span>
+                            <span style="display:inline; font-size: 0.8rem;" class="select-color-trg">
+                                <span class="h4 mt-3 ml-4">68</span>
+                                <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
+                            </span>
                         </div>
                         <div class="icons-popup">
                             <h2 class="m-2 p-2">Select icon for "Температура" <img id="selectedImage" style="width: 1.5em; cursor: pointer; margin-top: -0.6em; display: none" /></h2>
                             <hr />
                             <script type="text/javascript">
                                 var selectImageTarget;
+                                var selectColorTarget;
 
                                 document.addEventListener('DOMContentLoaded', function () {
                                     $('.image-list img').on('click', function (el) {
@@ -177,13 +184,22 @@
 
                                     });
 
-                                    $('.select-color-trg').on('click', function (el) {
-                                        $('.color-popup').addClass('show-color');
-                                    });
-
                                     $('#applyImage').on('click', function () {
                                         selectImageTarget.attr("src", $("#selectedImage").attr("src"));
                                         $('.icons-popup').removeClass('show-icons');
+                                    })
+
+
+                                    $('.select-color-trg').on('click', function (el) {
+                                        var target = $(el.target);
+                                        selectColorTarget = (target.siblings("span").first()).length > 0 ?
+                                            target.siblings("span").first() : target;
+                                        $('.color-popup').addClass('show-color');
+                                    });
+
+                                    $('#applyColor').on('click', function () {
+                                        selectColorTarget.css("color", $("#setting-title").css("color"));
+                                        $('.color-popup').removeClass('show-color');
                                     })
                                 });
                             </script>
@@ -255,7 +271,7 @@
                             </div>
                         </div>
                         <div class="color-popup">
-                            <h2>Edit "<span style="color: rgb(33, 150, 243)">Температура</span>" value</h2>
+                            <h2>Edit "<span id="setting-title" style="color: rgb(33, 150, 243)">Температура</span>" value</h2>
                             <hr />
                             <h3>Format</h3>
                             <div class="d-flex mb-4">
@@ -276,67 +292,7 @@
                             <h3>Color</h3>
                             <div class="d-flex mt-2">
                                 <svg id="donut-chart"></svg>
-                                <ol class="color-palette ml-4">
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(255, 235, 238);">
-                                        <span data-bind="text: weight">50</span>
-                                        <span data-bind="text: hex">#FFEBEE</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(255, 205, 210);">
-                                        <span data-bind="text: weight">100</span>
-                                        <span data-bind="text: hex">#FFCDD2</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(239, 154, 154);">
-                                        <span data-bind="text: weight">200</span>
-                                        <span data-bind="text: hex">#EF9A9A</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(229, 115, 115);">
-                                        <span data-bind="text: weight">300</span>
-                                        <span data-bind="text: hex">#E57373</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(239, 83, 80);">
-                                        <span data-bind="text: weight">400</span>
-                                        <span data-bind="text: hex">#EF5350</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(244, 67, 54);">
-                                        <span data-bind="text: weight">500</span>
-                                        <span data-bind="text: hex">#F44336</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(229, 57, 53);">
-                                        <span data-bind="text: weight">600</span>
-                                        <span data-bind="text: hex">#E53935</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(211, 47, 47);">
-                                        <span data-bind="text: weight">700</span>
-                                        <span data-bind="text: hex">#D32F2F</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(198, 40, 40);">
-                                        <span data-bind="text: weight">800</span>
-                                        <span data-bind="text: hex">#C62828</span>
-
-                                    </li>
-
-                                    <li id="clipboardItem" class="color-palette__item" style="background-color: rgb(183, 28, 28);">
-                                        <span data-bind="text: weight">900</span>
-                                        <span data-bind="text: hex">#B71C1C</span>
-
-                                    </li>
-                                </ol>
+                                @await Html.PartialAsync("_ColorPicker")
                                 <ul class="range" style="display: none">
                                     <li class="header">RANGE:</li>
                                     <li style="color: rgb(13, 71, 161);">MIN .. -05</li>
@@ -348,7 +304,7 @@
                             </div>
                             <div class="float-right">
                                 <button class="m-4 btn btn-danger" onclick="$('.color-popup').removeClass('show-color')">Cancel</button>
-                                <button class="m-4 btn btn-success" id="applyColor" onclick="$('.color-popup').removeClass('show-color')">Apply</button>
+                                <button class="m-4 btn btn-success" id="applyColor">Apply</button>
                             </div>
                         </div>
                     </div>
@@ -399,7 +355,7 @@
         mainPie("donut-chart");
         $('.selectpicker').selectpicker();
     });
-
+   
     function mainPie(id) {
         var seedData = [{"value": 25}, {"value": 25}, {"value": 25}, {"value": 25}, {"value": 25}, {"value": 25 }, {"value": 25 }, {"value": 25 }, {"value": 25}, {"value": 25}, {"value": 25}, {"value": 25        }, {"value": 25}, {"value": 25}, {"value": 25}, {"value": 25}, {"value": 25}, {"value": 25}];
 
@@ -446,7 +402,15 @@
                 });
 
                 $(el[i]).attr("stroke-width", "15");
+                $("#setting-title").css("color", $(el[i]).attr("stroke"));
+                showColorPalette(i);
             });
+
+        function showColorPalette(i) {
+            $(".color-palette").hide();
+            var colorId = "#color-" + i;
+            $(colorId).show();
+        }
 
         g.append("path")
             .attr("d", arc)
