@@ -1,26 +1,26 @@
 ﻿"use strict";
 
-function setupDeviceNotification(deviceId) {
+function setupDeviceNotification(topicId) {
 
     var connection = new signalR
         .HubConnectionBuilder()
-        .withUrl("/DeviceHub?deviceId=" + deviceId)
+        .withUrl("/DeviceHub?topicId=" + topicId)
         .build();
 
     connection.on("ReceiveData", (payload) => {
-        var element = $("#device-topic-" + deviceId);
+        var element = $("#device-topic-" + topicId);
         if (element != undefined) {
             element.text(payload);
         }
 
-        console.log(deviceId);
+        console.log(topicId);
     });
 
     connection.start()
         .catch(function (err) {
             return console.error(err.toString());
         }).then(function () {
-            connection.invoke("GetConnectionId", deviceId);
+            connection.invoke("GetConnectionId", topicId);
         });
 }
 

@@ -9,7 +9,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
 {
     public class WidgetRepository : Repository<Widget, int>, IWidgetRepository 
     {
-        public WidgetRepository(IoTDbContext dbContext) :base(dbContext)  
+        public WidgetRepository(IoTDbContext dbContext) :base(dbContext)
         { 
         }
 
@@ -19,6 +19,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .Include(x => x.Items)
                 .Include("Items.Icon")
                 .Include("Items.IconColor")
+                .Include("Items.DeviceTopic")
                 .ToList();
         }
     }

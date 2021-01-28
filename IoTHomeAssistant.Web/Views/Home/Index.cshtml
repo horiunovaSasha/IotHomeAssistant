@@ -25,7 +25,7 @@
                                     </div>
                                     <div>
                                         <div class="card-title h3 text-uppercase">@item.Title</div>
-                                        <div class="float-right h2 font-weight-bold text-success m-0" id="device-topic-@item.Id"></div>
+                                        <div class="float-right h2 font-weight-bold text-success m-0" id="device-topic-@item.DeviceTopic.Id"></div>
                                     </div>
                                 }
                                 @if (item.Type == WidgetItemTypeEnum.Switcher)
@@ -47,13 +47,13 @@
     }
 </div>
 }
-
+S
 @section Scripts {
     <script type="text/javascript">
     @foreach(var item in Model.SelectMany(x => x.Items))
     {
         <text>
-        setupDeviceNotification(@item.Id);
+        setupDeviceNotification(@item.DeviceTopic.Id);
         </text>
     }
     </script>
