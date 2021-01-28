@@ -12,7 +12,6 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite(@"DataSource=..\Data\app.db;Cache=Shared");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
