@@ -10,10 +10,12 @@ function setupDeviceNotification(topicId) {
     connection.on("ReceiveData", (payload) => {
         var element = $("#device-topic-" + topicId);
         if (element != undefined) {
+            if (!element.hasClass("fade-in")) {
+                element.addClass("fade-in");
+            }
+
             element.text(payload);
         }
-
-        console.log(topicId);
     });
 
     connection.start()

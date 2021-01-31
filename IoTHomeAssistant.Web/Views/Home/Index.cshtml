@@ -21,11 +21,19 @@
                                 @if (item.Type == WidgetItemTypeEnum.Informer)
                                 {
                                     <div>
-                                        @await Html.PartialAsync("_DashboardIcon", item)
+                                        @await Html.PartialAsync("_DashboardIcon", item)                                         
                                     </div>
                                     <div>
                                         <div class="card-title h3 text-uppercase">@item.Title</div>
-                                        <div class="float-right h2 font-weight-bold text-success m-0" id="device-topic-@item.DeviceTopic.Id"></div>
+                                        <div class="float-right h2 font-weight-bold text-success m-0" id="device-topic-@item.DeviceTopic.Id">
+                                            <i class="load-text">Loading</i>
+                                            <div class="loader">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 }
                                 @if (item.Type == WidgetItemTypeEnum.Switcher)
