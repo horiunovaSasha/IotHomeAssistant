@@ -2,7 +2,7 @@
 @model List<IoTHomeAssistant.Domain.Entities.Widget>
 @{ ViewData["Title"] = "Home Page"; }
 
-@await Html.PartialAsync("_WidgetModal")
+@await Html.PartialAsync("_WidgetModal", Model)
 
 @foreach (var area in Model.GroupBy(x => x.Area))
 {
