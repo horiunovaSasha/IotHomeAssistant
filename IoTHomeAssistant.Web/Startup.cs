@@ -11,6 +11,7 @@ using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.Repositories;
 using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Web.Hubs;
+using Microsoft.OpenApi.Models;
 
 namespace IoTHomeAssistant.Web
 {
@@ -43,11 +44,18 @@ namespace IoTHomeAssistant.Web
             services.AddTransient<NotificationHub>();
             services.AddTransient<IDeviceMqttTopicRepository, DeviceMqttTopicRepository>();
             services.AddTransient<IWidgetRepository, WidgetRepository>();
+            services.AddTransient<IDeviceRepository, DeviceRepository>();
             services.AddTransient<IWidgetService, WidgetService>();
+            services.AddTransient<IDeviceService, DeviceService>();
 
 
+            services.AddControllers();
             services.AddControllersWithViews();
             services.AddSignalR();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IoT Home Assistant", Version = "alpha" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +65,9 @@ namespace IoTHomeAssistant.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IoT Home Assistant alpha"));
             }
             //else
             //{
@@ -75,6 +86,7 @@ namespace IoTHomeAssistant.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

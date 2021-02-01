@@ -3,6 +3,9 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/.vs/IoTHomeAssistant/v16/.suo
+/.vs/IoTHomeAssistant/DesignTimeBuild/.dtbcache.v2
+/_ReSharper.Caches/
 *.suo
 *.json
 *.v2
