@@ -50,111 +50,98 @@
                     <div class="main active">
                         <h3>Enter title and choose type</h3>
                         <hr />
-                        <form>
-                            <div class="input-block shadow mt-1">
-                                <label for="">Title</label>
-                                <input type="text" class="form-control">
+                        <div class="input-block shadow mt-1 required">
+                            <label for="">Title</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="row category-list required">
+                            <input type="hidden" />
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/fluent/64/000000/info.png" />
+                                </label>
+                                <br />
+                                info
                             </div>
-                            <div class="row category-list">
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/fluent/64/000000/info.png" />
-                                    </label>
-                                    <br />
-                                    info
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/fluent/64/000000/combo-chart.png" />
-                                    </label>
-                                    <br />
-                                    chart
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/fluent/64/000000/toggle-indeterminate.png" />
-                                    </label>
-                                    <br/>
-                                    switch/toggle
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/officel/64/000000/light-dimming-10-percent.png" />
-                                    </label>
-                                    <br />
-                                    dimmer
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/officel/64/000000/blind-automatic-mode.png" />
-                                    </label>
-                                    <br />
-                                    blinds
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/color/64/000000/wallmount-camera.png" />
-                                    </label>
-                                    <br />
-                                    camera
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/officel/64/000000/command-line.png" />
-                                    </label>
-                                    <br />
-                                    custom command
-                                </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/fluent/64/000000/combo-chart.png" />
+                                </label>
+                                <br />
+                                chart
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/fluent/64/000000/toggle-indeterminate.png" />
+                                </label>
+                                <br/>
+                                switch/toggle
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/officel/64/000000/light-dimming-10-percent.png" />
+                                </label>
+                                <br />
+                                dimmer
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/officel/64/000000/blind-automatic-mode.png" />
+                                </label>
+                                <br />
+                                blinds
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/color/64/000000/wallmount-camera.png" />
+                                </label>
+                                <br />
+                                camera
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/officel/64/000000/command-line.png" />
+                                </label>
+                                <br />
+                                custom command
+                            </div>
 
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/fluent/64/000000/strategy-news.png" />
-                                    </label>
-                                    <br />
-                                    news feed
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/cute-clipart/64/000000/calendar.png" />
-                                    </label>
-                                    <br />
-                                    calendar
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/fluent/64/000000/weather.png" />
-                                    </label>
-                                    <br />
-                                    weather forecast
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/officel/64/000000/wind-gauge.png" />
-                                    </label>
-                                    <br />
-                                    weather station
-                                </div>
-                                <div class="col-3">
-                                    <label>
-                                        <input type="radio" name="widgetType" value="small">
-                                        <img src="https://img.icons8.com/color/64/000000/widescreen-tv.png" /><br />
-                                    </label>
-                                    <br />
-                                    custom display
-                                </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/fluent/64/000000/strategy-news.png" />
+                                </label>
+                                <br />
+                                news feed
                             </div>
-                        </form>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/cute-clipart/64/000000/calendar.png" />
+                                </label>
+                                <br />
+                                calendar
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/fluent/64/000000/weather.png" />
+                                </label>
+                                <br />
+                                weather forecast
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/officel/64/000000/wind-gauge.png" />
+                                </label>
+                                <br />
+                                weather station
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://img.icons8.com/color/64/000000/widescreen-tv.png" /><br />
+                                </label>
+                                <br />
+                                custom display
+                            </div>
+                        </div>
                         <div class="row ">
                             <div class="col-12 btn-bottom">
                                 <div class="float-right">
@@ -436,12 +423,36 @@
 
 <script type="text/javascript">
     function goto(from, to) {
-        $('#right-side .' + from).removeClass("active");
-        $('#right-side .' + to).addClass("active");
+        var requires = $("." + from + " .required");
+        var emptyFields = 0;
+
+        requires.each(function () {
+            var input = $('input', this);
+            
+            if (input && input.val() == "") {
+                $(this).addClass("vibration");
+                emptyFields++;
+            }
+        });
+        
+        setTimeout(function() {
+            $("." + from + " .required").removeClass("vibration");
+        }, 1500);
+
+        if (emptyFields == 0) {
+            $('#right-side .' + from).removeClass("active");
+            $('#right-side .' + to).addClass("active");
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function () {
         $('.carousel').carousel();
+
+        $('.category-list img').on('click', function () {
+            $('.category-list label').parent().css('opacity', '0.3');
+            $(this).parent().parent().css('opacity', '1');
+            $('.category-list input').val("1");
+        });
 
         $('.widget-wrapper').find('.form-control').each(function () {
             var targetItem = $(this).parent();
