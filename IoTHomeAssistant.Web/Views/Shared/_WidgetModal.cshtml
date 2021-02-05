@@ -47,7 +47,7 @@
                     <div id="line" class="one"></div>
                 </div>
                 <div id="right-side">
-                    <div class="main active">
+                    <div class="main active" name_attr="main">
                         <h3>Enter title and choose type</h3>
                         <hr />
                         <div class="input-block shadow mt-1 required">
@@ -58,49 +58,49 @@
                             <input type="hidden" />
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/info.png" />
+                                    <img src="https://img.icons8.com/fluent/64/000000/info.png" type_attr="info" />
                                 </label>
                                 <br />
                                 info
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/combo-chart.png" />
+                                    <img src="https://img.icons8.com/fluent/64/000000/combo-chart.png" type_attr="chart" />
                                 </label>
                                 <br />
                                 chart
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/toggle-indeterminate.png" />
+                                    <img src="https://img.icons8.com/fluent/64/000000/toggle-indeterminate.png" type_attr="toggle"  />
                                 </label>
                                 <br/>
                                 switch/toggle
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/light-dimming-10-percent.png" />
+                                    <img src="https://img.icons8.com/officel/64/000000/light-dimming-10-percent.png" type_attr="dimmer" />
                                 </label>
                                 <br />
                                 dimmer
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/blind-automatic-mode.png" />
+                                    <img src="https://img.icons8.com/officel/64/000000/blind-automatic-mode.png" type_attr="blinds" />
                                 </label>
                                 <br />
                                 blinds
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/color/64/000000/wallmount-camera.png" />
+                                    <img src="https://img.icons8.com/color/64/000000/wallmount-camera.png" type_attr="camera" />
                                 </label>
                                 <br />
                                 camera
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/command-line.png" />
+                                    <img src="https://img.icons8.com/officel/64/000000/command-line.png" type_attr="command" />
                                 </label>
                                 <br />
                                 custom command
@@ -108,35 +108,35 @@
 
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/strategy-news.png" />
+                                    <img src="https://img.icons8.com/fluent/64/000000/strategy-news.png" type_attr="feed" />
                                 </label>
                                 <br />
                                 news feed
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/cute-clipart/64/000000/calendar.png" />
+                                    <img src="https://img.icons8.com/cute-clipart/64/000000/calendar.png" type_attr="calendar" />
                                 </label>
                                 <br />
                                 calendar
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/weather.png" />
+                                    <img src="https://img.icons8.com/fluent/64/000000/weather.png" type_attr="forecast" />
                                 </label>
                                 <br />
                                 weather forecast
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/wind-gauge.png" />
+                                    <img src="https://img.icons8.com/officel/64/000000/wind-gauge.png" type_attr="weather" />
                                 </label>
                                 <br />
                                 weather station
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/color/64/000000/widescreen-tv.png" /><br />
+                                    <img src="https://img.icons8.com/color/64/000000/widescreen-tv.png" type_attr="display" /><br />
                                 </label>
                                 <br />
                                 custom display
@@ -145,19 +145,20 @@
                         <div class="row ">
                             <div class="col-12 btn-bottom">
                                 <div class="float-right">
-                                    <button class="btn btn-primary" onclick="goto('main', 'info-types')">Next</button>
+                                    <button class="btn btn-primary" onclick="next(this)">Next</button>
                                 </div>
                             </div>
 
                         </div>
 
                     </div>
-                    <div class="info-types">
+                    <div class="info-types" name_attr="info-types">
                         <h3 class="mb-3">Select Type</h3>
                         <hr />
-                        <div class="row">
+                        <div class="row required">
+                            <input type="hidden" />
                             <div class="col-sm-6" style="padding: 0 90px">
-                                <div class="flat-card">
+                                <div class="flat-card" type_attr="flat">
                                     <div class="card__flipper">
                                         <div class="card__front">
                                             <p class="card__name">Temperature</p>
@@ -167,7 +168,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="card-grad text-center">
+                                <div class="card-grad text-center" type_attr="gradient">
                                     <div class="title">
                                         <i class="fa " aria-hidden="true">
                                             <img height="75" src="/assets/images/1684375.svg" />
@@ -180,7 +181,7 @@
                                 </div>
                             </div>
                             <div class="col-12 widget">
-                                <div class="list-group-item">
+                                <div class="list-group-item" type_attr="doubleLine">
                                     <div class="float-left">
                                         <img height="75" src="/assets/images/1684375.svg" />
                                     </div>
@@ -191,7 +192,7 @@
                                 </div>
                             </div>
                             <div class="col-12 widget">
-                                <div class="list-group-item">
+                                <div class="list-group-item" type_attr="singleLine">
                                     <div class="float-left">
                                         <img height="75" src="/assets/images/1684375.svg" />
                                         <span class="card-title h3 text-uppercase text-dark mt-1">Temperature</span>
@@ -207,15 +208,15 @@
                         <div class="row">
                             <div class="col-12 btn-bottom">
                                 <div class="float-left">
-                                    <button class="btn btn-primary" onclick="goto('info-types', 'main')">Back</button>
+                                    <button class="btn btn-primary" onclick="back(this)">Back</button>
                                 </div>
                                 <div class="float-right">
-                                    <button class="btn btn-primary" onclick="goto('info-types', 'single-info')">Next</button>
+                                    <button class="btn btn-primary" onclick="infoConfigShow(this)">Next</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="single-info">
+                    <div class="info-configuration" name_attr="info-configuration">
                         <h3 class="mb-3">Select device and sensors</h3>
                         <hr />
                         <div class="row">
@@ -365,15 +366,12 @@
                                 <button class="m-4 btn btn-success" id="applyImage">Apply</button>
                             </div>
                         </div>
-                        <div class="row">
-
-                            <div class="col-12 btn-bottom">
-                                <div class="float-left">
-                                    <button class="btn btn-primary" onclick="goto('single-info', 'info-types')">Back</button>
-                                </div>
-                                <div class="float-right">
-                                    <button class="btn btn-primary" onclick="goto('single-info', 'single-info-step1')">Next</button>
-                                </div>
+                        <div class="col-12 btn-bottom">
+                            <div class="float-left">
+                                <button class="btn btn-primary" onclick="back(this)">Back</button>
+                            </div>
+                            <div class="float-right">
+                                <button class="btn btn-primary" onclick="next(this)">Next</button>
                             </div>
                         </div>
                         <div class="color-popup">
@@ -414,7 +412,16 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="to-be-implemented" name_attr="to-be-implemented">
+                        <h1><center>To be implemented soon...</center></h1>
+                        <div class="row">
+                            <div class="col-12 btn-bottom">
+                                <div class="float-left">
+                                    <button class="btn btn-primary" onclick="back(this)">Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -422,36 +429,102 @@
 </div>
 
 <script type="text/javascript">
-    function goto(from, to) {
+    var widgetRequest = {};
+    var nextPage = [];
+    var prevPage = [];
+    var pageIndex = 0;
+    var currentType = '';
+
+    function next(target) {
+        var from = $(target).closest('.active').attr('name_attr');
         var requires = $("." + from + " .required");
         var emptyFields = 0;
 
         requires.each(function () {
             var input = $('input', this);
-            
+
             if (input && input.val() == "") {
                 $(this).addClass("vibration");
                 emptyFields++;
             }
         });
-        
-        setTimeout(function() {
+
+        setTimeout(function () {
             $("." + from + " .required").removeClass("vibration");
         }, 1500);
 
         if (emptyFields == 0) {
             $('#right-side .' + from).removeClass("active");
-            $('#right-side .' + to).addClass("active");
+            $('#right-side .' + nextPage[pageIndex]).addClass("active");
+            pageIndex++;
+            return true;
+        }
+
+        return false;
+    }
+
+    function back(target) {
+        var from = $(target).closest('.active').attr('name_attr');
+        $('#right-side .' + from).removeClass("active");
+        $('#right-side .' + prevPage[pageIndex-1]).addClass("active");
+        pageIndex--;
+    }
+
+    function clearForm(type) {
+        if (currentType != type) {
+            $('.category-list label').parent().css('opacity', '1');
+            $('.info-types div.required>div').css('opacity', '1');
+
+            $('.category-list input').val('');
+            $('.info-types div.required input').val('');
+
+            nextPage = [];
+            prevPage = [];
+            prevPage.push('main');
+            currentType = type;
         }
     }
+
+    function infoConfigShow(target) {
+        if (next(target) && pageIndex == prevPage.length) {
+            prevPage.push('info-configuration');
+            nextPage.push('to-be-implemented');
+        }
+    };
 
     document.addEventListener('DOMContentLoaded', function () {
         $('.carousel').carousel();
 
         $('.category-list img').on('click', function () {
+            var type = $(this).attr('type_attr');
+            clearForm(type);
+
             $('.category-list label').parent().css('opacity', '0.3');
             $(this).parent().parent().css('opacity', '1');
             $('.category-list input').val("1");
+
+            switch (type) {
+                case 'info':
+                    nextPage.push('info-types');
+                    widgetRequest.url = 'info'
+                    break;
+                default:
+                    nextPage.push('to-be-implemented');
+            }
+
+        });
+
+        $('.info-types .flat-card, .info-types .list-group-item, .info-types .card-grad').on('click', function () {
+            $('.info-types div.required>div').css('opacity', '0.3');
+            $(this).parent().css('opacity', '1');
+            $('.info-types div.required input').val('1');
+
+            prevPage.push('info-types');
+            nextPage.push('info-configuration');
+
+            widgetRequest.data = {
+                type: $(this).attr('type_attr')
+            };
         });
 
         $('.widget-wrapper').find('.form-control').each(function () {
