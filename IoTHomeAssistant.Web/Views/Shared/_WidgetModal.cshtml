@@ -219,48 +219,52 @@
                     <div class="info-configuration" name_attr="info-configuration">
                         <h3 class="mb-3">Select device and sensors</h3>
                         <hr />
-                        <div class="row">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <div class="preloader">
+                                <div class="loading-text">LOADING...</div>
+                            </div>
+                        </div>
+                        <div class="row devices">
                             <div class="col-6">
-                                <select data-style="bg-white shadow" class="selectpicker w-100">
-                                    <option value="0" disabled selected>Select device</option>
-                                    <option value="1">Meteo Station</option>
+                                <select data-style="bg-white shadow device-list" class="w-100">
                                 </select>
                             </div>
                             <div class="col-6">
-                                <select multiple data-style="bg-white shadow" class="selectpicker w-100">
-                                    <option value="1">Temperature</option>
-                                    <option value="2">Huminity</option>
+                                <select multiple data-style="bg-white shadow sensors" class="w-100" style="display: none">
                                 </select>
                             </div>
                         </div>
-                        <h3 class="mb-3 pt-4">Titles</h3>
-                        <div class="d-flex">
-                            <span style="display:inline;" class="select-image-trg">
-                                <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3">
-                                <i class="fa fa-pencil-square-o fa-sm" style="vertical-align:bottom; margin-left:-1em; padding-right:1em" aria-hidden="true"></i>
-                            </span>
-                            <div class="input-block shadow mt-1 mb-2 w-50">
-                                <label for="">Title for Temperature</label>
-                                <input type="text" class="form-control">
+                        <h3 class="mb-3 pt-4 titles" style="display: none;">Titles</h3>
+                        <div class="controls" style="display: none;">
+                            <div class="d-flex">
+                                <span style="display:inline;" class="select-image-trg">
+                                    <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3">
+                                    <i class="fa fa-pencil-square-o fa-sm" style="vertical-align:bottom; margin-left:-1em; padding-right:1em" aria-hidden="true"></i>
+                                </span>
+                                <div class="input-block shadow mt-1 mb-2 w-50">
+                                    <label for="">Title for Temperature</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <span style="display:inline; margin:auto 0.2em" class="select-color-trg">
+                                    <span class="h2 mt-3 ml-4">20</span>
+                                    <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
+                                </span>
                             </div>
-                            <span style="display:inline; margin:auto 0.2em" class="select-color-trg">
-                                <span class="h2 mt-3 ml-4">20</span>
-                                <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="d-flex select-image-trg">
-                            <span style="display:inline;">
-                                <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3">
-                                <i class="fa fa-pencil-square-o fa-sm" style="vertical-align:bottom; margin-left:-1em; padding-right:1em" aria-hidden="true"></i>
-                            </span>
-                            <div class="input-block shadow mt-1 mb-2 w-50">
-                                <label for="">Title for Huminity</label>
-                                <input type="text" class="form-control">
+                            <div class="d-flex select-image-trg">
+                                <span style="display:inline;">
+                                    <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3">
+                                    <i class="fa fa-pencil-square-o fa-sm" style="vertical-align:bottom; margin-left:-1em; padding-right:1em" aria-hidden="true"></i>
+                                </span>
+                                <div class="input-block shadow mt-1 mb-2 w-50">
+                                    <label for="">Title for Huminity</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <span style="display:inline; margin:auto 0.2em" class="select-color-trg">
+                                    <span class="h2 mt-3 ml-4">68</span>
+                                    <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
+                                </span>
                             </div>
-                            <span style="display:inline; margin:auto 0.2em" class="select-color-trg">
-                                <span class="h2 mt-3 ml-4">68</span>
-                                <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
-                            </span>
                         </div>
                         <div class="icons-popup">
                             <h2 class="m-2 p-2">Select icon for "Температура" <img id="selectedImage" style="width: 1.5em; cursor: pointer; margin-top: -0.6em; display: none" /></h2>
@@ -366,7 +370,7 @@
                                 <button class="m-4 btn btn-success" id="applyImage">Apply</button>
                             </div>
                         </div>
-                        <div class="col-12 btn-bottom">
+                        <div class="col-12 btn-bottom" style="display: none;">
                             <div class="float-left">
                                 <button class="btn btn-primary" onclick="back(this)">Back</button>
                             </div>
@@ -487,6 +491,67 @@
 
     function infoConfigShow(target) {
         if (next(target) && pageIndex == prevPage.length) {
+            $.ajax({
+                url: "/api/Devices/Info",
+                success: function (result) {
+                    var page = $('.info-configuration');
+                    var deviceList = $('select[data-style*=device-list]', page);                    
+
+                    deviceList.html('').append($('<option>', {
+                        value: 0,
+                        text: 'Select device',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    $.each(result, function (i, item) {
+                        deviceList.append($('<option>', {
+                            value: item.id,
+                            text: item.title                            
+                        }));
+                    });
+
+                    deviceList.on('change', function (event) {
+                        var value = $(event.target).val();
+
+                        if (value) {
+                            var device = result.find(function (e) { return e.id == value; });
+                            if (device) {
+                                sensorList = $('select[data-style*=sensors]', page);
+
+                                if (sensorList) {
+                                    sensorList
+                                        .hide()
+                                        .html('')
+                                        .removeClass('selectpicker');
+
+                                    $.each(device.sensors, function (i, item) {
+                                        sensorList.append($('<option>', {
+                                            value: item.id,
+                                            text: item.title
+                                        }));
+                                    });
+
+                                    sensorList
+                                        .addClass('selectpicker')
+                                        .selectpicker()
+                                        .show();
+                                }
+                            }
+                        }
+                    });
+
+                    deviceList.addClass('selectpicker');
+                    deviceList.selectpicker();
+
+                    $('.loading', page).hide();
+                    //$('.devices, .titles, .controls', page).show();
+                    $('.devices', page).show();
+                    $('.btn-bottom', page).show();
+                }
+            });
+
+
             prevPage.push('info-configuration');
             nextPage.push('to-be-implemented');
         }
