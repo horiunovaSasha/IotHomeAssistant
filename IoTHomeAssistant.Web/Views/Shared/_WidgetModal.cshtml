@@ -55,7 +55,7 @@
                             <input type="text" class="form-control">
                         </div>
                         <div class="row category-list required">
-                            <input type="hidden" />
+                            <input type="hidden" name="category-item" />
                             <div class="col-3">
                                 <label>
                                     <img src="https://img.icons8.com/fluent/64/000000/info.png" type_attr="info" />
@@ -153,57 +153,11 @@
 
                     </div>
                     <div class="info-types" name_attr="info-types">
-                        <h3 class="mb-3">Select Type</h3>
+                        <h3 class="mb-3">Preview</h3>
                         <hr />
+                        <h4 class="pl-3 mb-2"></h4>
                         <div class="row required">
                             <input type="hidden" />
-                            <div class="col-sm-6" style="padding: 0 90px">
-                                <div class="flat-card" type_attr="flat">
-                                    <div class="card__flipper">
-                                        <div class="card__front">
-                                            <p class="card__name">Temperature</p>
-                                            <p class="card__num">25<br />°C</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="card-grad text-center" type_attr="gradient">
-                                    <div class="title">
-                                        <i class="fa " aria-hidden="true">
-                                            <img height="75" src="/assets/images/1684375.svg" />
-                                        </i>
-                                        <h2>Temperature</h2>
-                                    </div>
-                                    <div class="price">
-                                        <h4>25<sup>°C</sup></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 widget">
-                                <div class="list-group-item" type_attr="doubleLine">
-                                    <div class="float-left">
-                                        <img height="75" src="/assets/images/1684375.svg" />
-                                    </div>
-                                    <div class="float-right">
-                                        <div class="card-title h3 text-uppercase text-dark">Temperature</div>
-                                        <div class="float-right h2 font-weight-bold m-0">25 °C</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 widget">
-                                <div class="list-group-item" type_attr="singleLine">
-                                    <div class="float-left">
-                                        <img height="75" src="/assets/images/1684375.svg" />
-                                        <span class="card-title h3 text-uppercase text-dark mt-1">Temperature</span>
-                                    </div>
-                                    <div class="float-right">
-
-                                        <div class="float-right h2 font-weight-bold m-0 mt-3">25 °C</div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="row">
                             <div class="col-12 btn-bottom">
@@ -211,7 +165,7 @@
                                     <button class="btn btn-primary" onclick="back(this)">Back</button>
                                 </div>
                                 <div class="float-right">
-                                    <button class="btn btn-primary" onclick="infoConfigShow(this)">Next</button>
+                                    @*<button class="btn btn-primary" onclick="next(this)">Next</button>*@
                                 </div>
                             </div>
                         </div>
@@ -226,48 +180,38 @@
                             </div>
                         </div>
                         <div class="row devices">
-                            <div class="col-6">
+                            <div class="col-6 required">
                                 <select data-style="bg-white shadow device-list" class="w-100">
                                 </select>
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 required">
                                 <select multiple data-style="bg-white shadow sensors" class="w-100" style="display: none">
                                 </select>
                             </div>
                         </div>
                         <h3 class="mb-3 pt-4 titles" style="display: none;">Titles</h3>
-                        <div class="controls" style="display: none;">
-                            <div class="d-flex">
-                                <span style="display:inline;" class="select-image-trg">
-                                    <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3">
-                                    <i class="fa fa-pencil-square-o fa-sm" style="vertical-align:bottom; margin-left:-1em; padding-right:1em" aria-hidden="true"></i>
-                                </span>
-                                <div class="input-block shadow mt-1 mb-2 w-50">
-                                    <label for="">Title for Temperature</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <span style="display:inline; margin:auto 0.2em" class="select-color-trg">
-                                    <span class="h2 mt-3 ml-4">20</span>
-                                    <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
-                                </span>
+                        <div class="controls" style="display: none;"></div>
+                        <br />
+                        <h3 class="mt-4">Types</h3>
+                        <div class="row category-list types required">
+                            <input type="hidden" />
+                            <div class="col-6" attr_val="list">
+                                <label>
+                                    <img src="~/assets/images/list.png" type_attr="skip" />
+                                </label>
+                                <br />
+                                List Items
                             </div>
-                            <div class="d-flex select-image-trg">
-                                <span style="display:inline;">
-                                    <img src="/assets/images/smart house/018-settings.png" style="width: 3em; cursor: pointer; height: 3em; margin-top: 0.4em;" class="mr-3">
-                                    <i class="fa fa-pencil-square-o fa-sm" style="vertical-align:bottom; margin-left:-1em; padding-right:1em" aria-hidden="true"></i>
-                                </span>
-                                <div class="input-block shadow mt-1 mb-2 w-50">
-                                    <label for="">Title for Huminity</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <span style="display:inline; margin:auto 0.2em" class="select-color-trg">
-                                    <span class="h2 mt-3 ml-4">68</span>
-                                    <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
-                                </span>
+                            <div class="col-6" attr_val="cards">
+                                <label>
+                                    <img src="~/assets/images/image.png" type_attr="skip" />
+                                </label>
+                                <br />
+                                Cards
                             </div>
                         </div>
                         <div class="icons-popup">
-                            <h2 class="m-2 p-2">Select icon for "Температура" <img id="selectedImage" style="width: 1.5em; cursor: pointer; margin-top: -0.6em; display: none" /></h2>
+                            <h2 class="m-2 p-2">Select icon <img id="selectedImage" style="width: 1.5em; cursor: pointer; margin-top: -0.6em; display: none" /></h2>
                             <hr />
                             <script type="text/javascript">
                                 var selectImageTarget;
@@ -282,30 +226,11 @@
                                         selectedImage.show();
                                     });
 
-                                    $('.select-image-trg').on('click', function (el) {
-                                        var target = $(el.target);
-                                        var selectedImage = $("#selectedImage");
-                                        selectImageTarget = (target.siblings("img").first()).length > 0 ?
-                                            target.siblings("img").first() : target;
-
-                                        selectedImage.attr("src", target.attr('src'));
-                                        selectedImage.show();
-                                        $('.icons-popup').addClass('show-icons');
-
-                                    });
-
                                     $('#applyImage').on('click', function () {
                                         selectImageTarget.attr("src", $("#selectedImage").attr("src"));
                                         $('.icons-popup').removeClass('show-icons');
                                     })
 
-
-                                    $('.select-color-trg').on('click', function (el) {
-                                        var target = $(el.target);
-                                        selectColorTarget = (target.siblings("span").first()).length > 0 ?
-                                            target.siblings("span").first() : target;
-                                        $('.color-popup').addClass('show-color');
-                                    });
 
                                     $('#applyColor').on('click', function () {
                                         selectColorTarget.css("color", $("#setting-title").css("color"));
@@ -375,7 +300,7 @@
                                 <button class="btn btn-primary" onclick="back(this)">Back</button>
                             </div>
                             <div class="float-right">
-                                <button class="btn btn-primary" onclick="next(this)">Next</button>
+                                <button class="btn btn-primary" onclick="showInfoPreview(this)">Next</button>
                             </div>
                         </div>
                         <div class="color-popup">
@@ -438,16 +363,18 @@
     var prevPage = [];
     var pageIndex = 0;
     var currentType = '';
+    var nextPageFunc = undefined;
 
     function next(target) {
         var from = $(target).closest('.active').attr('name_attr');
-        var requires = $("." + from + " .required");
+        var requires = $("." + from + " .required:visible");
         var emptyFields = 0;
 
         requires.each(function () {
-            var input = $('input', this);
+            var input = $('input, select:visible', this);
 
-            if (input && input.val() == "") {
+            if (input && (input.val() == "" || input.val() == null)) {
+                console.log($(this));
                 $(this).addClass("vibration");
                 emptyFields++;
             }
@@ -461,6 +388,12 @@
             $('#right-side .' + from).removeClass("active");
             $('#right-side .' + nextPage[pageIndex]).addClass("active");
             pageIndex++;
+
+            if (nextPageFunc != undefined) {
+                nextPageFunc();
+                nextPageFunc = undefined;
+            }
+
             return true;
         }
 
@@ -476,10 +409,10 @@
 
     function clearForm(type) {
         if (currentType != type) {
-            $('.category-list label').parent().css('opacity', '1');
+            $('.category-list .col-3 label').parent().css('opacity', '1');
             $('.info-types div.required>div').css('opacity', '1');
 
-            $('.category-list input').val('');
+            $('.category-list .col-3 input').val('');
             $('.info-types div.required input').val('');
 
             nextPage = [];
@@ -490,7 +423,7 @@
     }
 
     function infoConfigShow(target) {
-        if (next(target) && pageIndex == prevPage.length) {
+        if (pageIndex == prevPage.length) {
             $.ajax({
                 url: "/api/Devices/Info",
                 success: function (result) {
@@ -536,6 +469,99 @@
                                         .addClass('selectpicker')
                                         .selectpicker()
                                         .show();
+
+                                    sensorList.on('change', function (event) {
+                                        var values = $(event.target).val();
+                                        if (values && values.length > 0) {
+                                            $('.devices, .titles', page).show();
+                                            
+
+                                            $('.controls .d-flex').each(function (index, el) {
+                                                var id = $(el).attr('sensor');
+                                                if (!values.includes(id)) {
+                                                    console.log($('.d-flex[sensor=' + id + ']'));
+
+                                                    $('.d-flex[sensor=' + id + '] input').attr('visible', false);
+
+                                                    $('.d-flex[sensor=' + id + ']')
+                                                        .removeClass('d-flex')
+                                                        .hide();
+                                                }
+                                            });
+
+
+                                            for (var i = 0; i < values.length; i++) {
+                                                var container = $('div[sensor=' + values[i] + ']');
+
+                                                if (container.length == 0) {
+                                                    var container = $('<div>')
+                                                        .addClass('d-flex')
+                                                        .attr('sensor', values[i]);
+
+                                                    var gear = $('<span>')
+                                                        .addClass('select-image-trg')
+                                                        .css('display', 'inline');
+
+                                                    gear.append(
+                                                        $('<img>')
+                                                            .attr('src', '/assets/images/smart house/018-settings.png')
+                                                            .addClass('mr-3')
+                                                            .css('width', '3em')
+                                                            .css('cursor', 'pointer')
+                                                            .css('height', '3em')
+                                                            .css('margin-top', '0.4em')
+                                                            .on('click', selectSensorIcon)
+                                                    );
+
+                                                    gear.append(
+                                                        $('<i>')
+                                                            .addClass('fa fa-pencil-square-o fa-sm')
+                                                            .attr('aria-hidden', true)
+                                                            .css('vertical-align', 'middle')
+                                                            .css('padding-top', '1em')
+                                                            .css('padding-right', '1em')
+                                                            .on('click', selectSensorIcon)
+                                                    );
+                                                    var text = $('option[value=' + values[i] + ']', event.target).text();
+                                                    container.append(gear);
+                                                    container.append(
+                                                        $('<div>').addClass('input-block shadow mt-1 mb-2 w-50 required')
+                                                            .append($('<label>').text('Title for ' + text))
+                                                            .append($('<input>')
+                                                                .addClass('form-control')
+                                                                .attr('type', 'text')
+                                                                .focus(onTextInputFocus)
+                                                                .blur(onTextInputBlur))
+                                                    );
+
+                                                    container.append(
+                                                        $('<span>').addClass('select-color-trg')
+                                                            .css('display', 'inline')
+                                                            .css('margin', 'auto 0.2em')
+                                                            .append($('<span>')
+                                                                .addClass('h2 mt-3 ml-4 device-topic-' + values[i])
+                                                                .text(0)
+                                                                .on('click', selectSensorColor))
+                                                            .append($('<i>')
+                                                                .addClass('fa fa-pencil-square-o fa-sm-control')
+                                                                .css('margin-left', '1em')
+                                                                .attr('aria-hidden', true)
+                                                                .on('click', selectSensorColor))
+                                                    );                                                    
+
+                                                    $('.controls', page).append(container);
+                                                } else {
+                                                    container.addClass('d-flex');
+                                                    $('input', container).attr('visible', true);;
+                                                    container.show();
+                                                }
+                                            }
+
+                                            $('.controls', page).show();
+                                        } else {
+                                            $('.devices .titles, .controls', page).hide();
+                                        }
+                                    });
                                 }
                             }
                         }
@@ -544,8 +570,7 @@
                     deviceList.addClass('selectpicker');
                     deviceList.selectpicker();
 
-                    $('.loading', page).hide();
-                    //$('.devices, .titles, .controls', page).show();
+                    $('.loading', page).hide();                    
                     $('.devices', page).show();
                     $('.btn-bottom', page).show();
                 }
@@ -553,25 +578,204 @@
 
 
             prevPage.push('info-configuration');
-            nextPage.push('to-be-implemented');
+            nextPage.push('info-types');
+
+            widgetRequest.url = 'info'
+
+            widgetRequest.data = {
+                type: $(this).attr('type_attr')
+            };
         }
+    }
+
+    function showInfoPreview(target) {
+        if (next(target)) {
+            var type = $('.category-list.types .col-6').filter(function () {
+                return $(this).css('opacity') == 1;
+            }).attr('attr_val');
+
+            /*
+             <div class="col-sm-6">
+                                <div class="card-grad text-center" type_attr="gradient">
+                                    <div class="title">
+                                        <i class="fa " aria-hidden="true">
+                                            <img height="75" src="/assets/images/1684375.svg" />
+                                        </i>
+                                        <h2>SOME TEXT</h2>
+                                    </div>
+                                    <div class="price">
+                                        <h4>100<sup>#</sup></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 widget">
+                                <div class="list-group-item" type_attr="singleLine">
+                                    <div class="float-left">
+                                        <img height="75" src="/assets/images/1684375.svg" />
+                                        <span class="card-title h3 text-uppercase text-dark mt-1">SOME TEXT</span>
+                                    </div>
+                                    <div class="float-right">
+
+                                        <div class="float-right h2 font-weight-bold m-0 mt-3">Value Symbol</div>
+                                    </div>
+                                </div>
+                            </div>
+             */
+
+            $('.info-types .row.required').html('');
+            $('.info-types h4').text($('.main input.form-control').val());
+
+            if (type == 'list') {
+                $('.controls .d-flex').each(function () {
+                    var widget = $('<div>')
+                        .addClass('col-12 widget');
+
+                    var id = $(this).attr('sensor');
+                    var text = $('input', this).val();
+                    var img = $('img', this).attr('src');
+                    var color = $('.device-topic-' + id, this).css('color');
+                    
+                    var leftSide = $('<div>').addClass('float-left');
+                    var rightSide = $('<div>').addClass('float-right');
+
+                    leftSide.append(
+                        $('<img>')
+                            .attr('src', img)
+                            .attr('height', 75)
+                    );
+
+                    leftSide.append(
+                        $('<span>')
+                            .addClass('h3 text-uppercase text-dark pl-3')                            
+                            .text(text)
+                    );
+
+                    rightSide.append(
+                        $('<div>')
+                            .addClass('float-right h2 font-weight-bold m-0 mt-3 device-topic-' + id)
+                            .css('color', color)
+                            .text(0)
+                    );
+
+                    widget.append(
+                        $('<div>').addClass('list-group-item')
+                            .append(leftSide)
+                            .append(rightSide)
+                    );
+
+                    $('.info-types .row.required').append(widget);
+                });
+            } else {
+                $('.controls .d-flex').each(function () {
+                    var widget = $('<div>', { 'class': 'col-4' });
+                    var card = $('<div>', { 'class': 'card-grad text-center' });
+                    var title = $('<div>', { 'class': 'title' });
+
+                    var id = $(this).attr('sensor');
+                    var text = $('input', this).val();
+                    var img = $('img', this).attr('src');
+                    var color = $('.device-topic-' + id, this).css('color');
+
+                    title.append(
+                        $('<i>', { 'class': 'fa', 'aria-hidden': true }).append(
+                            $('<img>', { 'src': img, 'height': 75 })
+                        )
+                    );
+
+                    title.append(
+                        $('<h2>', { 'text': text })
+                    );
+
+                    card.append(title);
+                    card.append(
+                        $('<div>', { 'class': 'price' }).append(
+                            $('<h4>', { 'class': 'device-topic-' + id, text: '0' })
+                                .css('color', color)
+                        )
+                    );
+
+                    widget.append(card);
+                    $('.info-types .row.required').append(widget);
+                });
+            }
+
+            /*
+             <div class="card-grad text-center" type_attr="gradient">
+                                    <div class="title">
+                                        <i class="fa " aria-hidden="true">
+                                            <img height="75" src="/assets/images/1684375.svg" />
+                                        </i>
+                                        <h2>SOME TEXT</h2>
+                                    </div>
+                                    <div class="price">
+                                        <h4>100<sup>#</sup></h4>
+                                    </div>
+                                </div>
+             */
+        }
+    }
+
+    function selectSensorIcon(el) {
+        var target = $(el.target);
+        var selectedImage = $("#selectedImage");
+        selectImageTarget = (target.siblings("img").first()).length > 0 ?
+            target.siblings("img").first() : target;
+
+        selectedImage.attr("src", target.attr('src'));
+        selectedImage.show();
+        $('.icons-popup').addClass('show-icons');
+
     };
+
+    function selectSensorColor(el) {
+        var target = $(el.target);
+        selectColorTarget = (target.siblings("span").first()).length > 0 ?
+            target.siblings("span").first() : target;
+        $('.color-popup').addClass('show-color');
+    };
+
+    function onTextInputFocus() {
+        $(this).parent('.input-block').addClass('focus');
+        $(this).parent().find('label').animate({
+            'top': '1em',
+            'fontSize': '1em'
+        }, 300);
+    }
+
+    function onTextInputBlur() {
+        if ($(this).val().length == 0) {
+            $(this).parent('.input-block').removeClass('focus');
+            $(this).parent().find('label').animate({
+                'top': '1.3em',
+                'fontSize': '1.2em'
+            }, 300);
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
         $('.carousel').carousel();
 
-        $('.category-list img').on('click', function () {
+        $('.category-list.types img').on('click', function () {
+            $('.category-list.types label').parent().css('opacity', '0.3');
+            $(this).parent().parent().css('opacity', '1');
+            $('.category-list.types input').val("1");
+        })
+
+        $('.category-list .col-3 img').on('click', function () {
             var type = $(this).attr('type_attr');
             clearForm(type);
 
-            $('.category-list label').parent().css('opacity', '0.3');
+            $('.category-list .col-3 label').parent().css('opacity', '0.3');
             $(this).parent().parent().css('opacity', '1');
-            $('.category-list input').val("1");
+            $('.category-list input[name=category-item]').val("1");
+            nextPageFunc = undefined;
 
             switch (type) {
                 case 'info':
-                    nextPage.push('info-types');
-                    widgetRequest.url = 'info'
+                    nextPage.push('info-configuration');
+                    nextPageFunc = infoConfigShow;
+                    break;
+                case 'skip':
                     break;
                 default:
                     nextPage.push('to-be-implemented');
@@ -584,12 +788,10 @@
             $(this).parent().css('opacity', '1');
             $('.info-types div.required input').val('1');
 
-            prevPage.push('info-types');
-            nextPage.push('info-configuration');
+            //prevPage.push('info-types');
+            //nextPage.push('info-configuration');
 
-            widgetRequest.data = {
-                type: $(this).attr('type_attr')
-            };
+           
         });
 
         $('.widget-wrapper').find('.form-control').each(function () {
@@ -602,23 +804,9 @@
             }
         });
 
-        $('.widget-wrapper').find('.form-control').focus(function () {
-            $(this).parent('.input-block').addClass('focus');
-            $(this).parent().find('label').animate({
-                'top': '1em',
-                'fontSize': '1em'
-            }, 300);
-        });
-
-        $('.widget-wrapper').find('.form-control').blur(function () {
-            if ($(this).val().length == 0) {
-                $(this).parent('.input-block').removeClass('focus');
-                $(this).parent().find('label').animate({
-                    'top': '1.3em',
-                    'fontSize': '1.2em'
-                }, 300);
-            }
-        })
+        $('.widget-wrapper').find('.form-control').focus(onTextInputFocus);
+        $('.widget-wrapper').find('.form-control').blur(onTextInputBlur);
+        
 
         mainPie("donut-chart");
         $('.selectpicker').selectpicker();

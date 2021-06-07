@@ -8,7 +8,7 @@ function setupDeviceNotification(topicId) {
         .build();
 
     connection.on("ReceiveData", (payload) => {
-        var element = $("#device-topic-" + topicId);
+        var element = $(".device-topic-" + topicId);
         if (element != undefined) {
             if (!element.hasClass("fade-in")) {
                 element.addClass("fade-in");
