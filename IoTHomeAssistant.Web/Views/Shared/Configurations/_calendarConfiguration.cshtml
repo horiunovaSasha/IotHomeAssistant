@@ -1,0 +1,52 @@
+﻿@{
+    var reqExp = @"/@gmail\.com$/";
+}
+<div class="calendar" name_attr="calendar">
+    <h3 class="mb-3">Google Calendar</h3>
+    <hr />
+    <div class="row">
+        <div class="col-8">
+            <div class="input-block shadow mt-1 required">
+                <label for="">Email</label>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-success mt-2" onclick="integrateGoogleCalendar()">Apply</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <iframe src="" style="border: 0; width: 100%; height: 450px;" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <div class="col-12 btn-bottom">
+        <div class="float-left">
+            <button class="btn btn-primary" onclick="back(this)">Back</button>
+        </div>
+        <div class="float-right">
+            <button class="btn btn-primary save" disabled="disabled">Save</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function integrateGoogleCalendar() {
+        var container = $('.calendar');
+        var email = $('input[type=text]', container).val();
+
+        if (@(reqExp).test(email)) {
+            $('iframe', container).attr('src', 'https://calendar.google.com/calendar/embed?src=' + email + '&ctz=Europe%2FKiev')
+            $('.btn-bottom button.save', container).prop('disabled', false);
+        } else {            
+            $('.required', container).addClass("vibration");
+
+            setTimeout(function () {
+                $('.required', container).removeClass("vibration");
+            }, 1500);
+
+            $('.btn-bottom button.save', container).prop('disabled', true);
+        }
+    }
+</script>

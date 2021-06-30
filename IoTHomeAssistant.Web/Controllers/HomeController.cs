@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using IoTHomeAssistant.Web.Models;
 using IoTHomeAssistant.Domain.Services;
+using System.Net.Http;
 
 namespace IoTHomeAssistant.Web.Controllers
 {
@@ -25,6 +26,20 @@ namespace IoTHomeAssistant.Web.Controllers
         {
             var widgets = _widgetService.GetAllWidgets();
             return View(widgets);
+        }
+
+        public async Task<IActionResult> Weather(string place_id, string city)
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://forecast7.com/api/getUrl/" + place_id);
+            ViewBag.City = city;
+
+            if (response.IsSuccessStatusCode) {
+                ViewBag.PlaceId = await response.Content.ReadAsStringAsync();
+                ViewBag.FoundWeather = (await httpClient.GetAsync($"https://forecast7.com/uk/{ViewBag.PlaceId}/")).IsSuccessStatusCode;
+            }
+
+            return View();
         }
 
         public IActionResult Privacy()

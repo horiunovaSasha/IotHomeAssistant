@@ -1,0 +1,85 @@
+﻿<div class="icons-popup">
+    <h2 class="m-2 p-2">Select icon <img id="selectedImage" style="width: 1.5em; cursor: pointer; margin-top: -0.6em; display: none" /></h2>
+    <hr />
+    <script type="text/javascript">
+        var selectImageTarget;
+        var selectColorTarget;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            $('.image-list img').on('click', function (el) {
+                var selectedImage = $("#selectedImage");
+                var target = $(el.target);
+
+                selectedImage.attr("src", target.attr("src"));
+                selectedImage.show();
+            });
+
+            $('#applyImage').on('click', function () {
+                selectImageTarget.attr("src", $("#selectedImage").attr("src"));
+                $('.icons-popup').removeClass('show-icons');
+            })
+
+
+            $('#applyColor').on('click', function () {
+                selectColorTarget.css("color", $("#setting-title").css("color"));
+                $('.color-popup').removeClass('show-color');
+            })
+        });
+    </script>
+    <div class="row image-list" style="overflow-y: scroll; height: 42em;">
+        <div class="col-2"><img src="~/assets/images/smart house/001-mobile phone.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/002-humidity.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/003-home control.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/004-smart trash.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/005-cctv.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/006-smart watch.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/007-fingerprint.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/008-alarm.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/009-voice assistant.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/010-heater.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/011-smart washing machine.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/012-toilet.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/013-kettle.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/014-smarthome.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/015-video doorbell.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/016-smarthome.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/017-water dispenser.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/018-lamp.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/019-heater.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/020-knob.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/021-smart refrigerator.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/022-alarm.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/023-voice assistant.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/024-charger.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/025-gps.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/026-air conditioner.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/027-smart tv.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/028-dishwasher.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/029-app.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/030-key car.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/031-microwave.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/032-airpods.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/033-coffee machine.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/034-ebook.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/035-socket.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/036-smart scale.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/037-air fryer.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/038-smartphone.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/039-garage.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/040-remote control.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/041-wifi.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/042-gate.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/043-robot vacuum cleaner.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/044-cctv.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/045-voice assistant.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/046-stove.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/047-smarthome.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/048-mouse.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/049-wireless router.png" /></div>
+        <div class="col-2"><img src="~/assets/images/smart house/050-thermostat.png" /></div>
+    </div>
+    <div class="float-right">
+        <button class="m-4 btn btn-danger" onclick="$('.icons-popup').removeClass('show-icons')">Cancel</button>
+        <button class="m-4 btn btn-success" id="applyImage">Apply</button>
+    </div>
+</div>
