@@ -966,3 +966,185 @@ ul.range {
         transform: translate3d(4px, 0, 0);
     }
 }
+
+input[type=checkbox].toggle {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label.toggle {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 100px;
+    height: 50px;
+    background: grey;
+    display: block;
+    border-radius: 50px;
+    position: relative;
+}
+
+    label.toggle:after {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 45px;
+        transition: 0.3s;
+    }
+
+input.toggle:checked + label.toggle {
+    background: #bada55;
+}
+
+    input.toggle:checked + label.toggle:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+
+label.toggle:active:after {
+    width: 30px;
+}
+
+.air {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+}
+
+    .air .degree-air {
+        padding-top: 30%;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .air .degree-air:before, .air .degree-air:after {
+            content: "";
+            width: 40%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            z-index: 2;
+        }
+
+        .air .degree-air:before {
+            left: 0;
+            background-image: linear-gradient(to right, white, rgba(255, 255, 255, 0));
+        }
+
+        .air .degree-air:after {
+            right: 0;
+            background-image: linear-gradient(to left, white, rgba(255, 255, 255, 0));
+        }
+
+        .air .degree-air .degree-box {
+            font-size: 0;
+            position: absolute;
+            top: -50px;
+            display: block;
+            white-space: nowrap;
+            height: 100%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+            .air .degree-air .degree-box:after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 30%;
+                width: 100%;
+                background-image: linear-gradient(to bottom, rgba(230, 230, 230, 0), rgba(230, 230, 230, 0.5));
+            }
+
+            .air .degree-air .degree-box .degree {
+                display: inline-block;
+                vertical-align: baseline;
+                font-size: 72px;
+                font-weight: bold;
+                padding: 0 0.32em;
+                position: relative;
+                color: #cfcfcf;
+            }
+
+                
+                .air .degree-air .degree-box .degree.current {
+                    font-size: 160px;
+                    color: #ff7575;
+                }
+
+    .air .detail-air {
+        font-size: 0;
+    }
+
+        .air .detail-air .detail-col {
+            font-size: 18px;
+            display: inline-block;
+            width: 25%;
+            padding: 5px;
+            position: relative;
+        }
+
+            .air .detail-air .detail-col:after {
+                content: "";
+                position: absolute;
+                background-color: #f7f7f7;
+                width: 1px;
+                right: 0;
+                height: 60%;
+                top: 20%;
+            }
+
+            .air .detail-air .detail-col > * {
+                display: block;
+            }
+
+            .air .detail-air .detail-col span {
+                color: #cfcfcf;
+            }
+
+            .air .detail-air .detail-col .text {
+                color: #767676;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            }
+
+.red {
+    color: #ff7575;
+}
+
+.blue {
+    color: #97dbff;
+}
+
+.green {
+    color: #b0eba4;
+}
+
+.form-range {
+    vertical-align: middle;
+}
+
+ol.bulb-palette {
+    list-style-type: decimal;
+}
+
+ol.bulb-palette li {
+    display: initial;
+    width: 200px;
+    border-radius: 25px;
+    padding: 10px 21px;
+    margin: 5px;
+    border: 1px solid #b2b2b2;
+    box-shadow: 1px 4px 10px -5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+    ol.bulb-palette li:hover {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+    }

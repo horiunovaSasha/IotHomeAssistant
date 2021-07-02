@@ -6,84 +6,309 @@
 
 @foreach (var area in Model.GroupBy(x => x.Area))
 {
-<h2 class="text-secondary font-weight-bold">@area.Key.Title</h2>
+<h2 class="font-weight-bold pb-3">@area.Key.Title</h2>
 <div class="row">
     @foreach (var widget in area.OrderBy(x => x.Order))
     {
-        <div class="col-sm-12 col-md-6 col-xl-4 widget">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">@widget.Title</h4>
-                    <ul class="list-group">
-                        @foreach (var item in widget.Items)
-                        {
-                            <li class="list-group-item">
-                                @if (item.Type == WidgetItemTypeEnum.Informer)
-                                {
-                                    <div>
-                                        @await Html.PartialAsync("_DashboardIcon", item)
-                                    </div>
-                                    <div>
-                                        <div class="card-title h3 text-uppercase">@item.Title</div>
-                                        <div class="float-right h2 font-weight-bold text-success m-0 device-topic-@item.DeviceTopic.Id">
-                                            <i class="load-text">Loading</i>
-                                            <div class="loader">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (item.Type == WidgetItemTypeEnum.Switcher)
-                                {
-                                    <div>
-                                        @await Html.PartialAsync("_DashboardIcon", item)
-                                        <span class="h5">@item.Title</span>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fa fa-power-off text-secondary"></i>
-                                    </div>
-                                }
-                            </li>
-                        }
-                    </ul>
-                </div>
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <div class="list-group-item">
+            <h4 class="pl-2">@widget.Title</h4>
+        </div>
+        @foreach (var item in widget.Items)
+        {
+            <div class="list-group-item">
+                @if (item.Type == WidgetItemTypeEnum.Informer)
+                {
+                    <div class="float-left">
+                        @await Html.PartialAsync("_DashboardIcon", item)
+                        <span class="h4 pl-3">@item.Title</span>
+                    </div>
+                    <div class="float-right device-topic-@item.DeviceTopic.Id">
+                        <i class="load-text">Loading</i>
+                        <div class="loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                }
+                @if (item.Type == WidgetItemTypeEnum.Switcher)
+                {
+                    <div class="float-left">
+                        @*@await Html.PartialAsync("_DashboardIcon", item)*@
+                        <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="90" />
+                        <span class="h4 pl-3">@item.Title</span>
+                    </div>
+                    <div class="float-right mr-2">
+                        <input type="checkbox" checked id="switch@item.Id" class="toggle" /><label for="switch@item.Id" class="toggle">Toggle</label>
+                    </div>
+                }
+            </div>
+        }
+        @if (widget.Id > 1) { 
+        <br />
+        <div class="list-group-item">
+            <div class="w-100">
+                <a class="weatherwidget-io" href="https://forecast7.com/uk/48d2925d94/chernivtsi/" data-label_1="ЧЕРНІВЦІ" data-label_2="Погода" data-font="Roboto Slab" data-icons="Climacons Animated" data-theme="pure">ЧЕРНІВЦІ Погода</a>
             </div>
         </div>
+        }
+    </div>
     }
 
 
     <div class="col-sm-12 col-md-6 col-xl-4 widget">
-        <div class="w-100">
-            <a class="weatherwidget-io" href="https://forecast7.com/uk/48d2925d94/chernivtsi/" data-label_1="ЧЕРНІВЦІ" data-label_2="Погода" data-font="Roboto Slab" data-icons="Climacons Animated" data-theme="pure">ЧЕРНІВЦІ Погода</a>
+        <div class="list-group-item">
+            <h4 class="pl-2">Test Chart</h4>
         </div>
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Test Chart</h4>
-                <div id="chartdiv" style="height: 300px"></div>
+        <div class="list-group-item">
+            <div id="chartdiv" style="height: 300px"></div>
+        </div>                
+    </div>
+</div>   
+
+<br />
+<h2 class="font-weight-bold pb-3">Static Room</h2>
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <div class="list-group-item">
+            <h4 class="pl-2">Освітлення</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/2865/2865478.png" height="90" />
+                <span class="h4 pl-3">Основне Освітлення</span>
+            </div>
+            <div class="float-right mr-2">
+                <input type="checkbox" checked id="switch1" class="toggle" /><label for="switch1" class="toggle">Toggle</label>
             </div>
         </div>
-        <div class="w-100">
-            <a class="weatherwidget-io" href="https://forecast7.com/uk/48d4425d77/kitsman/" data-label_1="КІЦМАНЬ" data-label_2="Погода" data-font="Roboto Slab" data-icons="Climacons Animated" data-theme="pure">КІЦМАНЬ Погода</a>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="90" />
+                <span class="h4 pl-3">Основне Освітлення</span>
+            </div>
+            <div class="float-right mr-2">
+                <input type="checkbox" id="switch2" class="toggle" /><label for="switch2" class="toggle">Toggle</label>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/2922/2922352.png" height="90" />
+                <span class="h4 pl-3">Основне Освітлення</span>
+            </div>
+            <div class="float-right mr-2">
+                <input type="checkbox" id="switch" class="toggle" /><label for="switch" class="toggle">Toggle</label>
+            </div>
         </div>
     </div>
     <div class="col-sm-12 col-md-6 col-xl-4 widget">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Calendar</h4>
-                <iframe src="https://calendar.google.com/calendar/embed?src=koshman.yura%40gmail.com&ctz=Europe%2FKiev" style="border: 0; width: 100%; height: 450px;" frameborder="0" scrolling="no"></iframe>
+        <div class="list-group-item">
+            <h4 class="pl-2">Climate</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="air">
+                <div class="degree-air">
+                    <div class="degree-box">
+                        <div class="degree"></div>
+                        <div class="degree">21°</div>
+                        <div class="degree current">22°</div>
+                        <div class="degree">23°</div>
+                        <div class="degree"></div>
+                    </div>
+                </div>
+                <div class="detail-air">
+                    <div class="detail-col">
+                        <i class="fa fa-gg red"></i>
+                        <span>Current</span>
+                    </div>
+                    <div class="detail-col">
+                        <i class="fa fa-hourglass-o blue"></i>
+                        <span>Time</span>
+                    </div>
+                    <div class="detail-col">
+                        <i class="fa fa-money green"></i>
+                        <span>Expenses</span>
+                    </div>
+                    <div class="detail-col">
+                        <i class="fa fa-gg red"></i>
+                        <span>Current</span>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <div class="list-group-item">
+            <h4 class="pl-2">YeeLight</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/2779/2779861.png" height="90" />
+                <span class="m-auto">
+                    <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
+                    <span>
+                        <input type="range" class="form-range form-control-lg p-4 m-4" id="customRange1" min="0" max="100" />
+                    </span>
+                    <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
+                    <span class="text-secondary text-uppercase">brightness</span>
+                </span>
+            </div>
+            <div class="float-right mr-2">
+                <input type="checkbox" id="switch3" checked class="toggle" /><label for="switch3" class="toggle">Toggle</label>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <h5 class="pl-2">Colors and Scenes</h5>
+        </div>
+        <div class="list-group-item">
+            <ol class="bulb-palette">
+                <li style="background-color: white"></li>
+                <li style="background-color: #FFEB3B"></li>
+                <li style="background-color: #FF9800"></li>
+                <li style="background-color: #FF5722"></li>
+                <li style="background-color: #E91E63"></li>
+                <li style="background-color: #9C27B0"></li>
+                <li style="background-color: #673AB7"></li>
+                <li style="background-color: #2196F3"></li>
+                <li style="background-color: #03A9F4"></li>
+                <li style="background-color: #00BCD4"></li>
+                <li style="background-color: #009688"></li>
+                <li style="background-color: #4CAF50"></li>
+                <li style="background-color: #CDDC39"></li>
+            </ol>
+        </div>
+        <div class="list-group-item p-4">
+            <button type="button" class="m-2 ml-4 btn btn-secondary">None</button>
+            <button type="button" class="m-2 btn btn-primary">Sleeping</button>
+            <button type="button" class="m-2 btn btn-primary">Reading</button>
+            <button type="button" class="m-2 mr-4 btn btn-primary">Working</button>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <br />
+        <br />
+        <div class="list-group-item">
+            <h4 class="pl-2">Light with dimmer</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="90" />
+                <span class="m-auto">
+                    <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
+                    <span>
+                        <input type="range" class="form-range form-control-lg p-4 m-4" id="customRange1" min="0" max="100" />
+                    </span>
+                    <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
+                    <span class="text-secondary text-uppercase">brightness</span>
+                </span>
+            </div>
+            <div class="float-right mr-2">
+                <input type="checkbox" id="switch3" checked class="toggle" /><label for="switch3" class="toggle">Toggle</label>
+            </div>
+        </div>
+        <br />
+        <div class="list-group-item">
+            <h4 class="pl-2">Additional Light</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="90" />
+                <span class="m-auto">
+                    <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
+                    <span>
+                        <input type="range" class="form-range form-control-lg p-4 m-4" id="customRange1" min="0" max="100" />
+                    </span>
+                    <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
+                    <span class="text-secondary text-uppercase">brightness</span>
+                </span>
+            </div>
+            <div class="float-right mr-2">
+                <input type="checkbox" id="switch3" class="toggle" /><label for="switch3" class="toggle">Toggle</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <br /><br />
+        <div class="list-group-item">
+            <h4 class="pl-2">Doors</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/351/351684.png" height="90" />
+                <span class="h4 pl-3">Вхідні Двері</span>
+            </div>
+            <div class="float-right mr-2">
+                <img src="https://image.flaticon.com/icons/png/512/880/880779.png" height="90" />
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/1229/1229960.png" height="90" />
+                <span class="h4 pl-3">Двері на кухню</span>
+            </div>
+            <div class="float-right mr-2">
+                <img src="https://image.flaticon.com/icons/png/512/861/861673.png" height="90" />
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/1229/1229960.png" height="90" />
+                <span class="h4 pl-3">Двері в кабінет</span>
+            </div>
+            <div class="float-right mr-2">
+                <img src="https://image.flaticon.com/icons/png/512/861/861673.png" height="90" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+        <br /><br />
+        <div class="list-group-item">
+            <h4 class="pl-2">Windows</h4>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/1353/1353187.png" height="90" />
+                <span class="h4 pl-3">Вікно у вітальні</span>
+            </div>
+            <div class="float-right mr-2">
+                <img src="https://image.flaticon.com/icons/png/512/861/861673.png" height="90" />
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/1353/1353213.png" height="90" />
+                <span class="h4 pl-3">Вікно на Кухні</span>
+            </div>
+            <div class="float-right mr-2">
+                <img src="https://image.flaticon.com/icons/png/512/880/880779.png" height="90" />
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="float-left">
+                <img src="https://image.flaticon.com/icons/png/512/1353/1353187.png" height="90" />
+                <span class="h4 pl-3">Вікно в спальній</span>
+            </div>
+            <div class="float-right mr-2">
+                <img src="https://image.flaticon.com/icons/png/512/861/861673.png" height="90" />
+            </div>
+        </div>
+    </div>
+
+    @*<div class="col-sm-12 col-md-6 col-xl-4 widget">
+            <div class="list-group-item">Calendar</div>
+            <div class="list-group-item">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=koshman.yura%40gmail.com&ctz=Europe%2FKiev" style="border: 0; width: 100%; height: 450px;" frameborder="0" scrolling="no"></iframe>
+            </div>
+        </div>*@
     <div class="weather-script"></div>
 </div>
-}
+    }
 
-@section Scripts {
-    <script type="text/javascript">
+    @section Scripts {
+        <script type="text/javascript">
     @foreach(var item in Model.SelectMany(x => x.Items))
     {
         <text>
@@ -195,87 +420,13 @@
 
 
         !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
-    </script>
-}
+        </script>
+    }
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#widgetModal">
-    Launch demo modal
-</button>
-
-
-    <div class="col-sm-12 col-md-6 col-xl-4 widget">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Lights</h4>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <div>
-                            <svg class="icon-sprite text-secondary">
-                                <use xlink:href="assets/images/icons-sprite.svg#bulb-eco" />
-                            </svg>
-                            <span class="h5">Main Light plus extra text</span>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-power-off text-secondary"></i>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div>
-                            <svg class="icon-sprite">
-                                <use xlink:href="assets/images/icons-sprite.svg#bulb-eco" />
-                            </svg>
-                            <span class="h5">Extra Light</span>
-                        </div>
-                        <div class="icon">
-                            <i class="fa fa-power-off text-primary"></i>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-6 col-xl-4">
-        <div class="card" data-unit-group="switch-lights">
-            <div class="card-body">
-                <h3 class="card-title">Rosettes</h3>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex active" data-unit="switch-light-1">
-                    <svg class="icon-sprite" style="width: 2em; height: 2em; color: #ff7f5f">
-                        <use xlink:href="assets/images/icons-sprite.svg#appliances" />
-                    </svg>
-                    <h5>Rosette 1</h5>
-                    <label class="switch ml-auto checked">
-                        <input type="checkbox" id="switch-light-1" checked>
-                    </label>
-                </li>
-                <li class="list-group-item d-flex" data-unit="switch-light-2">
-                    <svg class="icon-sprite" style="width: 2em; height: 2em;">
-                        <use xlink:href="assets/images/icons-sprite.svg#appliances" />
-                    </svg>
-                    <h5>Rosette 2</h5>
-                    <label class="switch ml-auto">
-                        <input type="checkbox" id="switch-light-1" checked>
-                    </label>
-                </li>
-                <li class="list-group-item d-flex" data-unit="switch-light-3">
-                    <svg class="icon-sprite" style="width: 2em; height: 2em;">
-                        <use xlink:href="assets/images/icons-sprite.svg#appliances" />
-                    </svg>
-                    <h5>Rosette 3</h5>
-                    <label class="switch ml-auto">
-                        <input type="checkbox" id="switch-light-1">
-                    </label>
-                </li>
-            </ul>
-            <div class="card-body">
-                <div class="lights-controls" data-controls="switch-lights">
-                    <button data-action="all-on" type="button" class="btn btn-secondary lights-control">All <strong>ON</strong></button>
-                    <button data-action="all-off" type="button" class="btn btn-primary lights-control">All <strong>OFF</strong></button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Button trigger modal -->
+    <br />
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#widgetModal">
+        Launch demo modal
+    </button>
 </div>
 <br />
