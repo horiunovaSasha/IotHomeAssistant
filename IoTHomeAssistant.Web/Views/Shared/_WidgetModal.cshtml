@@ -1,50 +1,48 @@
 ﻿<!-- Modal -->
+<script type="text/javascript">
+    function onTextInputFocus() {
+        $(this).parent('.input-block').addClass('focus');
+        $(this).parent().find('label').animate({
+            'top': '1em',
+            'fontSize': '1em'
+        }, 300);
+    }
+
+    function onTextInputBlur() {
+        if ($(this).val().length == 0) {
+            $(this).parent('.input-block').removeClass('focus');
+            $(this).parent().find('label').animate({
+                'top': '1.3em',
+                'fontSize': '1.2em'
+            }, 300);
+        }
+    }
+</script>
 <div class="modal fade" id="widgetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content p-0">
             <div class="widget-wrapper">
                 <div id="left-side">
                     <ul>
-                        <li class="choose active">
-                            <div class="icon active">
-                                <svg viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                </svg>
-                            </div>
-                            Edit
+                        <li class="types-icon">
+                            <i class="fa fa-list-alt" aria-hidden="true" style="font-size: 120px;"></i>
                         </li>
-                        <li class="wrap">
-                            <div class="icon">
-                                <svg viewBox="0 0 16 16" class="bi bi-gear-wide-connected" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8.932.727c-.243-.97-1.62-.97-1.864 0l-.071.286a.96.96 0 0 1-1.622.434l-.205-.211c-.695-.719-1.888-.03-1.613.931l.08.284a.96.96 0 0 1-1.186 1.187l-.284-.081c-.96-.275-1.65.918-.931 1.613l.211.205a.96.96 0 0 1-.434 1.622l-.286.071c-.97.243-.97 1.62 0 1.864l.286.071a.96.96 0 0 1 .434 1.622l-.211.205c-.719.695-.03 1.888.931 1.613l.284-.08a.96.96 0 0 1 1.187 1.187l-.081.283c-.275.96.918 1.65 1.613.931l.205-.211a.96.96 0 0 1 1.622.434l.071.286c.243.97 1.62.97 1.864 0l.071-.286a.96.96 0 0 1 1.622-.434l.205.211c.695.719 1.888.03 1.613-.931l-.08-.284a.96.96 0 0 1 1.187-1.187l.283.081c.96.275 1.65-.918.931-1.613l-.211-.205a.96.96 0 0 1 .434-1.622l.286-.071c.97-.243.97-1.62 0-1.864l-.286-.071a.96.96 0 0 1-.434-1.622l.211-.205c.719-.695.03-1.888-.931-1.613l-.284.08a.96.96 0 0 1-1.187-1.186l.081-.284c.275-.96-.918-1.65-1.613-.931l-.205.211a.96.96 0 0 1-1.622-.434L8.932.727zM8 12.997a4.998 4.998 0 1 0 0-9.995 4.998 4.998 0 0 0 0 9.996z" />
-                                    <path fill-rule="evenodd" d="M7.375 8L4.602 4.302l.8-.6L8.25 7.5h4.748v1H8.25L5.4 12.298l-.8-.6L7.376 8z" />
-                                </svg>
-                            </div>
-                            Configuration
-                        </li>
-                        <li class="pay">
-                            <div class="icon">
-                                <svg viewBox="0 0 16 16" class="bi bi-card-checklist" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-                                    <path fill-rule="evenodd" d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                            </div>
+                        <li class="types-text ml-3" style="font-size: 36px;">
                             Types
                         </li>
-                        <li class="ship">
-                            <div class="icon">
-                                <svg viewBox="0 0 16 16" class="bi bi-clipboard-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                    <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3zm4.354 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                                </svg>
-                            </div>
+                        <li class="conf-icon ml-4" style="display: none">
+                            <i class="fa fa-cogs" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="conf-text" style="font-size: 36px; display: none">
+                            Configuration
+                        </li>
+                        <li class="review-icon ml-2" style="display: none">
+                            <i class="fa fa-file-text" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="review-text mr-3" style="font-size: 36px; display: none">
                             Review
                         </li>
                     </ul>
-                </div>
-                <div id="border">
-                    <div id="line" class="one"></div>
                 </div>
                 <div id="right-side">
                     <div class="main active" name_attr="main">
@@ -58,67 +56,95 @@
                             <input type="hidden" name="category-item" />
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/info.png" type_attr="info" />
+                                    <img src="https://image.flaticon.com/icons/png/512/1041/1041728.png" type_attr="info" height="64" />
                                 </label>
                                 <br />
                                 info
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/combo-chart.png" type_attr="chart" />
+                                    <img src="https://image.flaticon.com/icons/png/512/248/248965.png" height="64" type_attr="toggle" />
                                 </label>
                                 <br />
-                                chart
-                            </div>
-                            <div class="col-3">
-                                <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/toggle-indeterminate.png" type_attr="toggle"  />
-                                </label>
-                                <br/>
                                 switch/toggle
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/light-dimming-10-percent.png" type_attr="dimmer" />
+                                    <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="64" type_attr="light_dimmer" />
                                 </label>
                                 <br />
-                                dimmer
+                                light with dimmer
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/blind-automatic-mode.png" type_attr="blinds" />
+                                    <img src="https://image.flaticon.com/icons/png/512/763/763812.png" height="64" type_attr="move" />
+                                </label>
+                                <br />
+                                movement sensor
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1169/1169906.png" height="64" type_attr="open_close" />
+                                </label>
+                                <br />
+                                open\close sensor
+                            </div>
+                            @*<div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/809/809744.png" height="64" type_attr="smoke" />
+                                </label>
+                                <br />
+                                smoke & fire alarm sensor
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/2898/2898756.png" height="64" type_attr="water_leak" />
+                                </label>
+                                <br />
+                                water leak sensor
+                            </div>*@
+
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/911/911409.png" height="64" type_attr="climate" />
+                                </label>
+                                <br />
+                                AC
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/741/741236.png" height="64" type_attr="heating" />
+                                </label>
+                                <br />
+                                heating
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1606/1606312.png" type_attr="blinds" />
                                 </label>
                                 <br />
                                 blinds
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/color/64/000000/wallmount-camera.png" type_attr="camera" />
-                                </label>
-                                <br />
-                                camera
-                            </div>
-                            <div class="col-3">
-                                <label>
                                     <img src="https://img.icons8.com/officel/64/000000/command-line.png" type_attr="command" />
                                 </label>
                                 <br />
-                                custom command
+                                custom script
                             </div>
-
                             <div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/fluent/64/000000/strategy-news.png" type_attr="feed" />
+                                    <img src="https://image.flaticon.com/icons/png/512/3616/3616866.png" type_attr="chart" />
+                                </label>
+                                <br />
+                                chart
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/237/237014.png" type_attr="feed" />
                                 </label>
                                 <br />
                                 news feed
-                            </div>
-                            <div class="col-3">
-                                <label>
-                                    <img src="https://img.icons8.com/cute-clipart/64/000000/calendar.png" type_attr="calendar" />
-                                </label>
-                                <br />
-                                calendar
                             </div>
                             <div class="col-3">
                                 <label>
@@ -127,20 +153,13 @@
                                 <br />
                                 weather forecast
                             </div>
-                            <div class="col-3">
+                            @*<div class="col-3">
                                 <label>
-                                    <img src="https://img.icons8.com/officel/64/000000/wind-gauge.png" type_attr="weather" />
+                                    <img src="https://image.flaticon.com/icons/png/512/1809/1809664.png" type_attr="weather" />
                                 </label>
                                 <br />
                                 weather station
-                            </div>
-                            <div class="col-3">
-                                <label>
-                                    <img src="https://img.icons8.com/color/64/000000/widescreen-tv.png" type_attr="display" /><br />
-                                </label>
-                                <br />
-                                custom display
-                            </div>
+                            </div>*@
                         </div>
                         <div class="row ">
                             <div class="col-12 btn-bottom">
@@ -152,8 +171,18 @@
                         </div>
 
                     </div>
-                    @await Html.PartialAsync("Configurations/_calendarConfiguration")
+                    @await Html.PartialAsync("Configurations/_infoConfiguration")
+                    @await Html.PartialAsync("Configurations/_toggleConfiguration")
+                    @await Html.PartialAsync("Configurations/_lightDimmerConfiguration")
+                    @await Html.PartialAsync("Configurations/_moveConfiguration")
                     @await Html.PartialAsync("Configurations/_forecastConfiguration")
+                    @await Html.PartialAsync("Configurations/_openCloseConfiguration")
+                    @await Html.PartialAsync("Configurations/_climateConfiguration")
+                    @await Html.PartialAsync("Configurations/_commandConfiguration")
+                    @await Html.PartialAsync("Configurations/_chartConfiguration")
+                    @await Html.PartialAsync("Configurations/_heatingConfiguration")
+                    @await Html.PartialAsync("Configurations/_blindsConfiguration")
+                    @await Html.PartialAsync("Configurations/_feedConfiguration")
                     <div class="info-types" name_attr="info-types">
                         <h3 class="mb-3">Preview</h3>
                         <hr />
@@ -171,104 +200,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="info-configuration" name_attr="info-configuration">
-                        <h3 class="mb-3">Select device and sensors</h3>
-                        <hr />
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <div class="preloader">
-                                <div class="loading-text">LOADING...</div>
-                            </div>
-                        </div>
-                        <div class="row devices">
-                            <div class="col-6 required">
-                                <select data-style="bg-white shadow device-list" class="w-100">
-                                </select>
-                            </div>
-                            <div class="col-6 required">
-                                <select multiple data-style="bg-white shadow sensors" class="w-100" style="display: none">
-                                </select>
-                            </div>
-                        </div>
-                        <h3 class="mb-3 pt-4 titles" style="display: none;">Titles</h3>
-                        <div class="controls" style="display: none;"></div>
-                        <br />
-                        <h3 class="mt-4">Types</h3>
-                        <div class="row category-list types required">
-                            <input type="hidden" />
-                            <div class="col-6" attr_val="list">
-                                <label>
-                                    <img src="~/assets/images/list.png" type_attr="skip" />
-                                </label>
-                                <br />
-                                List Items
-                            </div>
-                            <div class="col-6" attr_val="cards">
-                                <label>
-                                    <img src="~/assets/images/image.png" type_attr="skip" />
-                                </label>
-                                <br />
-                                Cards
-                            </div>
-                        </div>
-                        @await Html.PartialAsync("_IconsPopup") 
-                        <div class="col-12 btn-bottom" style="display: none;">
-                            <div class="float-left">
-                                <button class="btn btn-primary" onclick="back(this)">Back</button>
-                            </div>
-                            <div class="float-right">
-                                <button class="btn btn-primary" onclick="showInfoPreview(this)">Next</button>
-                            </div>
-                        </div>
-                        <div class="color-popup">
-                            <h2>Edit value</h2>
-                            <hr />
-                            <h3>Format</h3>
-                            <div class="d-flex mb-4">
-                                <div class="input-block shadow mt-1 mb-2 w-25">
-                                    <label for="">Symbol before</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <span class="h4 m-3" id="setting-title">68</span>
-                                <div class="input-block shadow mt-1 mb-2 w-25">
-                                    <label for="">Symbol after</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <select multiple data-style="bg-white shadow" class="selectpicker w-25 mt-1 ml-5">
-                                    <option value="1">Decimal 0.00</option>
-                                    <option value="2">Datetime dd-mm-yyyy</option>
-                                </select>
-                            </div>
-                            <h3>Color</h3>
-                            <div class="d-flex mt-2">
-                                <svg id="donut-chart"></svg>
-                                @await Html.PartialAsync("_ColorPicker")
-                                <ul class="range" style="display: none">
-                                    <li class="header">RANGE:</li>
-                                    <li style="color: rgb(13, 71, 161);">MIN .. -05</li>
-                                    <li style="color: rgb(33, 150, 243);">-05 .. 0</li>
-                                    <li style="color: #62c5ef;"> 0 ..  15</li>
-                                    <li class="active" style="color: #ffa726;"> 15 .. 27</li>
-                                    <li style="color: #ef5350;"> 27 .. MAX</li>
-                                </ul>
-                            </div>
-                            <div class="float-right">
-                                <button class="m-4 btn btn-danger" onclick="$('.color-popup').removeClass('show-color')">Cancel</button>
-                                <button class="m-4 btn btn-success" id="applyColor">Apply</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="to-be-implemented" name_attr="to-be-implemented">
-                        <h1><center>To be implemented soon...</center></h1>
-                        <div class="row">
-                            <div class="col-12 btn-bottom">
-                                <div class="float-left">
-                                    <button class="btn btn-primary" onclick="back(this)">Back</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -307,6 +239,8 @@
             $('#right-side .' + nextPage[pageIndex]).addClass("active");
             pageIndex++;
 
+            updateLeftIcon(pageIndex);
+
             if (nextPageFunc != undefined) {
                 nextPageFunc();
                 nextPageFunc = undefined;
@@ -323,6 +257,27 @@
         $('#right-side .' + from).removeClass("active");
         $('#right-side .' + prevPage[pageIndex-1]).addClass("active");
         pageIndex--;
+
+        updateLeftIcon(pageIndex); 
+    }
+
+    function updateLeftIcon(pageIndex) {
+        $('.widget-wrapper ul > li').hide();
+
+        if (pageIndex == 0) {
+            $('.widget-wrapper ul > li.types-icon').show();
+            $('.widget-wrapper ul > li.types-text').show();
+        }
+
+        if (pageIndex == 1) {
+            $('.widget-wrapper ul > li.conf-icon').show();
+            $('.widget-wrapper ul > li.conf-text').show();
+        }
+
+        if (pageIndex == 2) {
+            $('.widget-wrapper ul > li.review-icon').show();
+            $('.widget-wrapper ul > li.review-text').show();
+        }
     }
 
     function clearForm(type) {
@@ -337,336 +292,6 @@
             prevPage = [];
             prevPage.push('main');
             currentType = type;
-        }
-    }
-
-    function infoConfigShow(target) {
-        if (pageIndex == prevPage.length) {
-            $.ajax({
-                url: "/api/Devices/Info",
-                success: function (result) {
-                    var page = $('.info-configuration');
-                    var deviceList = $('select[data-style*=device-list]', page);                    
-
-                    deviceList.html('').append($('<option>', {
-                        value: 0,
-                        text: 'Select device',
-                        disabled: true,
-                        selected: true
-                    }));
-
-                    $.each(result, function (i, item) {
-                        deviceList.append($('<option>', {
-                            value: item.id,
-                            text: item.title                            
-                        }));
-                    });
-
-                    deviceList.on('change', function (event) {
-                        var value = $(event.target).val();
-
-                        if (value) {
-                            var device = result.find(function (e) { return e.id == value; });
-                            if (device) {
-                                sensorList = $('select[data-style*=sensors]', page);
-
-                                if (sensorList) {
-                                    sensorList
-                                        .hide()
-                                        .html('')
-                                        .removeClass('selectpicker');
-
-                                    $.each(device.sensors, function (i, item) {
-                                        sensorList.append($('<option>', {
-                                            value: item.id,
-                                            text: item.title
-                                        }));
-                                    });
-
-                                    sensorList
-                                        .addClass('selectpicker')
-                                        .selectpicker()
-                                        .show();
-
-                                    sensorList.on('change', function (event) {
-                                        var values = $(event.target).val();
-                                        if (values && values.length > 0) {
-                                            $('.devices, .titles', page).show();
-                                            
-
-                                            $('.controls .d-flex').each(function (index, el) {
-                                                var id = $(el).attr('sensor');
-                                                if (!values.includes(id)) {
-                                                    console.log($('.d-flex[sensor=' + id + ']'));
-
-                                                    $('.d-flex[sensor=' + id + '] input').attr('visible', false);
-
-                                                    $('.d-flex[sensor=' + id + ']')
-                                                        .removeClass('d-flex')
-                                                        .hide();
-                                                }
-                                            });
-
-
-                                            for (var i = 0; i < values.length; i++) {
-                                                var container = $('div[sensor=' + values[i] + ']');
-
-                                                if (container.length == 0) {
-                                                    var container = $('<div>')
-                                                        .addClass('d-flex')
-                                                        .attr('sensor', values[i]);
-
-                                                    var gear = $('<span>')
-                                                        .addClass('select-image-trg')
-                                                        .css('display', 'inline');
-
-                                                    gear.append(
-                                                        $('<img>')
-                                                            .attr('src', '/assets/images/smart house/018-settings.png')
-                                                            .addClass('mr-3')
-                                                            .css('width', '3em')
-                                                            .css('cursor', 'pointer')
-                                                            .css('height', '3em')
-                                                            .css('margin-top', '0.4em')
-                                                            .on('click', selectSensorIcon)
-                                                    );
-
-                                                    gear.append(
-                                                        $('<i>')
-                                                            .addClass('fa fa-pencil-square-o fa-sm')
-                                                            .attr('aria-hidden', true)
-                                                            .css('vertical-align', 'middle')
-                                                            .css('padding-top', '1em')
-                                                            .css('padding-right', '1em')
-                                                            .on('click', selectSensorIcon)
-                                                    );
-                                                    var text = $('option[value=' + values[i] + ']', event.target).text();
-                                                    container.append(gear);
-                                                    container.append(
-                                                        $('<div>').addClass('input-block shadow mt-1 mb-2 w-50 required')
-                                                            .append($('<label>').text('Title for ' + text))
-                                                            .append($('<input>')
-                                                                .addClass('form-control')
-                                                                .attr('type', 'text')
-                                                                .focus(onTextInputFocus)
-                                                                .blur(onTextInputBlur))
-                                                    );
-
-                                                    container.append(
-                                                        $('<span>').addClass('select-color-trg')
-                                                            .css('display', 'inline')
-                                                            .css('margin', 'auto 0.2em')
-                                                            .append($('<span>')
-                                                                .addClass('h2 mt-3 ml-4 device-topic-' + values[i])
-                                                                .text(0)
-                                                                .on('click', selectSensorColor))
-                                                            .append($('<i>')
-                                                                .addClass('fa fa-pencil-square-o fa-sm-control')
-                                                                .css('margin-left', '1em')
-                                                                .attr('aria-hidden', true)
-                                                                .on('click', selectSensorColor))
-                                                    );                                                    
-
-                                                    $('.controls', page).append(container);
-                                                } else {
-                                                    container.addClass('d-flex');
-                                                    $('input', container).attr('visible', true);;
-                                                    container.show();
-                                                }
-                                            }
-
-                                            $('.controls', page).show();
-                                        } else {
-                                            $('.devices .titles, .controls', page).hide();
-                                        }
-                                    });
-                                }
-                            }
-                        }
-                    });
-
-                    deviceList.addClass('selectpicker');
-                    deviceList.selectpicker();
-
-                    $('.loading', page).hide();                    
-                    $('.devices', page).show();
-                    $('.btn-bottom', page).show();
-                }
-            });
-
-
-            prevPage.push('info-configuration');
-            nextPage.push('info-types');
-
-            widgetRequest.url = 'info'
-
-            widgetRequest.data = {
-                type: $(this).attr('type_attr')
-            };
-        }
-    }
-
-    function showInfoPreview(target) {
-        if (next(target)) {
-            var type = $('.category-list.types .col-6').filter(function () {
-                return $(this).css('opacity') == 1;
-            }).attr('attr_val');
-
-            /*
-             <div class="col-sm-6">
-                                <div class="card-grad text-center" type_attr="gradient">
-                                    <div class="title">
-                                        <i class="fa " aria-hidden="true">
-                                            <img height="75" src="/assets/images/1684375.svg" />
-                                        </i>
-                                        <h2>SOME TEXT</h2>
-                                    </div>
-                                    <div class="price">
-                                        <h4>100<sup>#</sup></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 widget">
-                                <div class="list-group-item" type_attr="singleLine">
-                                    <div class="float-left">
-                                        <img height="75" src="/assets/images/1684375.svg" />
-                                        <span class="card-title h3 text-uppercase text-dark mt-1">SOME TEXT</span>
-                                    </div>
-                                    <div class="float-right">
-
-                                        <div class="float-right h2 font-weight-bold m-0 mt-3">Value Symbol</div>
-                                    </div>
-                                </div>
-                            </div>
-             */
-
-            $('.info-types .row.required').html('');
-            $('.info-types h4').text($('.main input.form-control').val());
-
-            if (type == 'list') {
-                $('.controls .d-flex').each(function () {
-                    var widget = $('<div>')
-                        .addClass('col-12 widget');
-
-                    var id = $(this).attr('sensor');
-                    var text = $('input', this).val();
-                    var img = $('img', this).attr('src');
-                    var color = $('.device-topic-' + id, this).css('color');
-                    
-                    var leftSide = $('<div>').addClass('float-left');
-                    var rightSide = $('<div>').addClass('float-right');
-
-                    leftSide.append(
-                        $('<img>')
-                            .attr('src', img)
-                            .attr('height', 75)
-                    );
-
-                    leftSide.append(
-                        $('<span>')
-                            .addClass('h3 text-uppercase text-dark pl-3')                            
-                            .text(text)
-                    );
-
-                    rightSide.append(
-                        $('<div>')
-                            .addClass('float-right h2 font-weight-bold m-0 mt-3 device-topic-' + id)
-                            .css('color', color)
-                            .text(0)
-                    );
-
-                    widget.append(
-                        $('<div>').addClass('list-group-item')
-                            .append(leftSide)
-                            .append(rightSide)
-                    );
-
-                    $('.info-types .row.required').append(widget);
-                });
-            } else {
-                $('.controls .d-flex').each(function () {
-                    var widget = $('<div>', { 'class': 'col-4' });
-                    var card = $('<div>', { 'class': 'card-grad text-center' });
-                    var title = $('<div>', { 'class': 'title' });
-
-                    var id = $(this).attr('sensor');
-                    var text = $('input', this).val();
-                    var img = $('img', this).attr('src');
-                    var color = $('.device-topic-' + id, this).css('color');
-
-                    title.append(
-                        $('<i>', { 'class': 'fa', 'aria-hidden': true }).append(
-                            $('<img>', { 'src': img, 'height': 75 })
-                        )
-                    );
-
-                    title.append(
-                        $('<h2>', { 'text': text })
-                    );
-
-                    card.append(title);
-                    card.append(
-                        $('<div>', { 'class': 'price' }).append(
-                            $('<h4>', { 'class': 'device-topic-' + id, text: '0' })
-                                .css('color', color)
-                        )
-                    );
-
-                    widget.append(card);
-                    $('.info-types .row.required').append(widget);
-                });
-            }
-
-            /*
-             <div class="card-grad text-center" type_attr="gradient">
-                                    <div class="title">
-                                        <i class="fa " aria-hidden="true">
-                                            <img height="75" src="/assets/images/1684375.svg" />
-                                        </i>
-                                        <h2>SOME TEXT</h2>
-                                    </div>
-                                    <div class="price">
-                                        <h4>100<sup>#</sup></h4>
-                                    </div>
-                                </div>
-             */
-        }
-    }
-
-    function selectSensorIcon(el) {
-        var target = $(el.target);
-        var selectedImage = $("#selectedImage");
-        selectImageTarget = (target.siblings("img").first()).length > 0 ?
-            target.siblings("img").first() : target;
-
-        selectedImage.attr("src", target.attr('src'));
-        selectedImage.show();
-        $('.icons-popup').addClass('show-icons');
-
-    };
-
-    function selectSensorColor(el) {
-        var target = $(el.target);
-        selectColorTarget = (target.siblings("span").first()).length > 0 ?
-            target.siblings("span").first() : target;
-        $('.color-popup').addClass('show-color');
-    };
-
-    function onTextInputFocus() {
-        $(this).parent('.input-block').addClass('focus');
-        $(this).parent().find('label').animate({
-            'top': '1em',
-            'fontSize': '1em'
-        }, 300);
-    }
-
-    function onTextInputBlur() {
-        if ($(this).val().length == 0) {
-            $(this).parent('.input-block').removeClass('focus');
-            $(this).parent().find('label').animate({
-                'top': '1.3em',
-                'fontSize': '1.2em'
-            }, 300);
         }
     }
 
@@ -693,14 +318,8 @@
                     nextPage.push('info-configuration');
                     nextPageFunc = infoConfigShow;
                     break;
-                case 'calendar':
-                    nextPage.push('calendar');
-                case 'forecast':
-                    nextPage.push('forecast');
-                case 'skip':
-                    break;
                 default:
-                    nextPage.push('to-be-implemented');
+                    nextPage.push(type);
             }
 
         });
@@ -709,11 +328,6 @@
             $('.info-types div.required>div').css('opacity', '0.3');
             $(this).parent().css('opacity', '1');
             $('.info-types div.required input').val('1');
-
-            //prevPage.push('info-types');
-            //nextPage.push('info-configuration');
-
-           
         });
 
         $('.widget-wrapper').find('.form-control').each(function () {
@@ -724,11 +338,11 @@
                     'fontSize': '18px'
                 });
             }
-        });
+        });        
 
         $('.widget-wrapper').find('.form-control').focus(onTextInputFocus);
         $('.widget-wrapper').find('.form-control').blur(onTextInputBlur);
-        
+
 
         mainPie("donut-chart");
         $('.selectpicker').selectpicker();

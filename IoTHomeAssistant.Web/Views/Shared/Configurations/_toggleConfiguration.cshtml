@@ -1,0 +1,65 @@
+﻿<div class="toggle" name_attr="toggle">
+    <h3>Switch\Toggle Configuration</h3>
+    <hr />
+    <div class="input-block shadow mt-1 required">
+        <label for="">Title</label>
+        <input type="text" class="form-control">
+    </div>
+    <div class="row devices">
+        <div class="col-12 required">
+            <select data-style="bg-white shadow device-list" class="w-100 selectpicker">
+                <option>Select Device</option>
+            </select>
+        </div>
+    </div>
+    <br />
+    <div class="row category-list types required mt-4 pt-4">
+        <input type="hidden" />
+        <div class="col-4" attr_val="socket">
+            <label>
+                <img src="https://image.flaticon.com/icons/png/512/2865/2865478.png" />
+            </label>
+            <br />
+            Socket
+        </div>
+        <div class="col-4" attr_val="bulb">
+            <label>
+                <img src="https://image.flaticon.com/icons/png/512/427/427735.png" />
+            </label>
+            <br />
+            Bulb
+        </div>
+        <div class="col-4" attr_val="floor_bulb">
+            <label>
+                <img src="https://image.flaticon.com/icons/png/512/2922/2922352.png" />
+            </label>
+            <br />
+            Floor Bulb
+        </div>
+    </div>
+    <h5>Preview:</h5>
+    <div class="row">
+        <div class="col-12 widget">
+            <div class="list-group-item">
+                <div class="float-left">
+                    <img src="https://image.flaticon.com/icons/png/512/2865/2865478.png" height="90" />
+                    <span class="h4 pl-3">Основне Освітлення</span>
+                </div>
+                <div class="float-right mr-2">
+                    <input type="checkbox" checked id="switch1" class="toggle" /><label for="switch1" class="toggle">Toggle</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 btn-bottom">
+        <div class="float-left">
+            <button class="btn btn-primary" onclick="back(this)">Back</button>
+        </div>
+        <div class="float-right">
+            <button class="btn btn-primary save" disabled="disabled">Save</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+</script>

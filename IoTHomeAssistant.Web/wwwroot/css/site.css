@@ -678,25 +678,6 @@ hr {
     line-height: 3em;
     font-size: 1.5em;
     font-weight: 500;
-    cursor: pointer;
-}
-
-.widget-wrapper #left-side ul li:hover {
-    color: #333333;
-}
-
-.widget-wrapper #left-side ul li:hover > .icon {
-    fill: #333;
-}
-
-.widget-wrapper #left-side ul li.active {
-    color: white;
-    font-weight: bold;
-}
-
-.widget-wrapper #left-side ul li.active:hover > .icon {
-    fill: #E74C3C;
-    font-weight: bold;
 }
 
 .widget-wrapper #border {
@@ -1148,3 +1129,63 @@ ol.bulb-palette li {
         -webkit-transform: scale(1.5);
         transform: scale(1.5);
     }
+
+.sizing-box {
+    height: 50px;
+    width: 80px;
+}
+
+.signal-bars {
+    display: inline-block;
+}
+
+    .signal-bars .bar {
+        width: 14%;
+        margin-left: 1%;
+        min-height: 20%;
+        display: inline-block;
+    }
+
+        .signal-bars .bar.first-bar {
+            height: 20%;
+        }
+
+        .signal-bars .bar.second-bar {
+            height: 40%;
+        }
+
+        .signal-bars .bar.third-bar {
+            height: 60%;
+        }
+
+        .signal-bars .bar.fourth-bar {
+            height: 80%;
+        }
+
+        .signal-bars .bar.fifth-bar {
+            height: 99%;
+        }
+
+.good .bar {
+    background-color: #16a085;
+    border: thin solid #12816b;
+}
+
+.bad .bar {
+    background-color: #e74c3c;
+    border: thin solid #a82315;
+}
+
+.ok .bar {
+    background-color: #f1c40f;
+    border: thin solid #d0a90c;
+}
+
+.four-bars .bar.fifth-bar,
+.three-bars .bar.fifth-bar,
+.three-bars .bar.fourth-bar,
+.one-bar .bar:not(.first-bar),
+.two-bars .bar:not(.first-bar):not(.second-bar) {
+    background-color: #fafafa;
+    border: thin solid #f3f3f3;
+}

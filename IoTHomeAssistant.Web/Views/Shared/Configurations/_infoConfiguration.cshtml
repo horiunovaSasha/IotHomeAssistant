@@ -1,0 +1,306 @@
+﻿<div class="info-configuration" name_attr="info-configuration">
+    <h3 class="mb-3">Select device and sensors</h3>
+    <hr />
+    <div class="loading">
+        <div class="spinner"></div>
+        <div class="preloader">
+            <div class="loading-text">LOADING...</div>
+        </div>
+    </div>
+    <div class="row devices">
+        <div class="col-6 required">
+            <select data-style="bg-white shadow device-list" class="w-100">
+            </select>
+        </div>
+        <div class="col-6 required">
+            <select multiple data-style="bg-white shadow sensors" class="w-100" style="display: none">
+            </select>
+        </div>
+    </div>
+    <h3 class="mb-3 pt-4 titles" style="display: none;">Titles</h3>
+    <div class="controls" style="display: none;"></div>
+    <br />
+    @await Html.PartialAsync("_IconsPopup")
+    <div class="col-12 btn-bottom" style="display: none;">
+        <div class="float-left">
+            <button class="btn btn-primary" onclick="back(this)">Back</button>
+        </div>
+        <div class="float-right">
+            <button class="btn btn-primary" onclick="showInfoPreview(this)">Next</button>
+        </div>
+    </div>
+    <div class="color-popup">
+        <h2>Edit value</h2>
+        <hr />
+        <h3>Format</h3>
+        <div class="d-flex mb-4">
+            <div class="input-block shadow mt-1 mb-2 w-25">
+                <label for="">Symbol before</label>
+                <input type="text" class="form-control">
+            </div>
+            <span class="h4 m-3" id="setting-title">68</span>
+            <div class="input-block shadow mt-1 mb-2 w-25">
+                <label for="">Symbol after</label>
+                <input type="text" class="form-control">
+            </div>
+            <select multiple data-style="bg-white shadow" class="selectpicker w-25 mt-1 ml-5">
+                <option value="1">Decimal 0.00</option>
+                <option value="2">Datetime dd-mm-yyyy</option>
+            </select>
+        </div>
+        <h3>Color</h3>
+        <div class="d-flex mt-2">
+            <svg id="donut-chart"></svg>
+            @await Html.PartialAsync("_ColorPicker")
+            <ul class="range" style="display: none">
+                <li class="header">RANGE:</li>
+                <li style="color: rgb(13, 71, 161);">MIN .. -05</li>
+                <li style="color: rgb(33, 150, 243);">-05 .. 0</li>
+                <li style="color: #62c5ef;"> 0 ..  15</li>
+                <li class="active" style="color: #ffa726;"> 15 .. 27</li>
+                <li style="color: #ef5350;"> 27 .. MAX</li>
+            </ul>
+        </div>
+        <div class="float-right">
+            <button class="m-4 btn btn-danger" onclick="$('.color-popup').removeClass('show-color')">Cancel</button>
+            <button class="m-4 btn btn-success" id="applyColor">Apply</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function infoConfigShow(target) {
+        if (pageIndex == prevPage.length) {
+            $.ajax({
+                url: "/api/Devices/Info",
+                success: function (result) {
+                    var page = $('.info-configuration');
+                    var deviceList = $('select[data-style*=device-list]', page);
+
+                    deviceList.html('').append($('<option>', {
+                        value: 0,
+                        text: 'Select device',
+                        disabled: true,
+                        selected: true
+                    }));
+
+                    $.each(result, function (i, item) {
+                        deviceList.append($('<option>', {
+                            value: item.id,
+                            text: item.title
+                        }));
+                    });
+
+                    deviceList.on('change', function (event) {
+                        var value = $(event.target).val();
+
+                        if (value) {
+                            var device = result.find(function (e) { return e.id == value; });
+                            if (device) {
+                                sensorList = $('select[data-style*=sensors]', page);
+
+                                if (sensorList) {
+                                    sensorList
+                                        .hide()
+                                        .html('')
+                                        .removeClass('selectpicker');
+
+                                    $.each(device.sensors, function (i, item) {
+                                        sensorList.append($('<option>', {
+                                            value: item.id,
+                                            text: item.title
+                                        }));
+                                    });
+
+                                    sensorList
+                                        .addClass('selectpicker')
+                                        .selectpicker()
+                                        .show();
+
+                                    sensorList.on('change', function (event) {
+                                        var values = $(event.target).val();
+                                        if (values && values.length > 0) {
+                                            $('.devices, .titles', page).show();
+
+
+                                            $('.controls .d-flex').each(function (index, el) {
+                                                var id = $(el).attr('sensor');
+                                                if (!values.includes(id)) {
+                                                    console.log($('.d-flex[sensor=' + id + ']'));
+
+                                                    $('.d-flex[sensor=' + id + '] input').attr('visible', false);
+
+                                                    $('.d-flex[sensor=' + id + ']')
+                                                        .removeClass('d-flex')
+                                                        .hide();
+                                                }
+                                            });
+
+
+                                            for (var i = 0; i < values.length; i++) {
+                                                var container = $('div[sensor=' + values[i] + ']');
+
+                                                if (container.length == 0) {
+                                                    var container = $('<div>')
+                                                        .addClass('d-flex')
+                                                        .attr('sensor', values[i]);
+
+                                                    var gear = $('<span>')
+                                                        .addClass('select-image-trg')
+                                                        .css('display', 'inline');
+
+                                                    gear.append(
+                                                        $('<img>')
+                                                            .attr('src', '/assets/images/smart house/018-settings.png')
+                                                            .addClass('mr-3')
+                                                            .css('width', '3em')
+                                                            .css('cursor', 'pointer')
+                                                            .css('height', '3em')
+                                                            .css('margin-top', '0.4em')
+                                                            .on('click', selectSensorIcon)
+                                                    );
+
+                                                    gear.append(
+                                                        $('<i>')
+                                                            .addClass('fa fa-pencil-square-o fa-sm')
+                                                            .attr('aria-hidden', true)
+                                                            .css('vertical-align', 'middle')
+                                                            .css('padding-top', '1em')
+                                                            .css('padding-right', '1em')
+                                                            .on('click', selectSensorIcon)
+                                                    );
+                                                    var text = $('option[value=' + values[i] + ']', event.target).text();
+                                                    container.append(gear);
+                                                    container.append(
+                                                        $('<div>').addClass('input-block shadow mt-1 mb-2 w-50 required')
+                                                            .append($('<label>').text('Title for ' + text))
+                                                            .append($('<input>')
+                                                                .addClass('form-control')
+                                                                .attr('type', 'text')
+                                                                .focus(onTextInputFocus)
+                                                                .blur(onTextInputBlur))
+                                                    );
+
+                                                    container.append(
+                                                        $('<span>').addClass('select-color-trg')
+                                                            .css('display', 'inline')
+                                                            .css('margin', 'auto 0.2em')
+                                                            .append($('<span>')
+                                                                .addClass('h2 mt-3 ml-4 device-topic-' + values[i])
+                                                                .text(0)
+                                                                .on('click', selectSensorColor))
+                                                            .append($('<i>')
+                                                                .addClass('fa fa-pencil-square-o fa-sm-control')
+                                                                .css('margin-left', '1em')
+                                                                .attr('aria-hidden', true)
+                                                                .on('click', selectSensorColor))
+                                                    );
+
+                                                    $('.controls', page).append(container);
+                                                } else {
+                                                    container.addClass('d-flex');
+                                                    $('input', container).attr('visible', true);;
+                                                    container.show();
+                                                }
+                                            }
+
+                                            $('.controls', page).show();
+                                        } else {
+                                            $('.devices .titles, .controls', page).hide();
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+
+                    deviceList.addClass('selectpicker');
+                    deviceList.selectpicker();
+
+                    $('.loading', page).hide();
+                    $('.devices', page).show();
+                    $('.btn-bottom', page).show();
+                }
+            });
+
+
+            prevPage.push('info-configuration');
+            nextPage.push('info-types');
+
+            widgetRequest.url = 'info'
+
+            widgetRequest.data = {
+                type: $(this).attr('type_attr')
+            };
+        }
+    }
+
+
+    function selectSensorIcon(el) {
+        var target = $(el.target);
+        var selectedImage = $("#selectedImage");
+        selectImageTarget = (target.siblings("img").first()).length > 0 ?
+            target.siblings("img").first() : target;
+
+        selectedImage.attr("src", target.attr('src'));
+        selectedImage.show();
+        $('.icons-popup').addClass('show-icons');
+
+    };
+
+    function selectSensorColor(el) {
+        var target = $(el.target);
+        selectColorTarget = (target.siblings("span").first()).length > 0 ?
+            target.siblings("span").first() : target;
+        $('.color-popup').addClass('show-color');
+    };
+
+
+    function showInfoPreview(target) {
+        if (next(target)) {
+            $('.info-types .row.required').html('');
+            $('.info-types h4').text($('.main input.form-control').val());
+
+            $('.controls .d-flex').each(function () {
+                var widget = $('<div>')
+                    .addClass('col-12 widget');
+
+                var id = $(this).attr('sensor');
+                var text = $('input', this).val();
+                var img = $('img', this).attr('src');
+                var color = $('.device-topic-' + id, this).css('color');
+
+                var leftSide = $('<div>').addClass('float-left');
+                var rightSide = $('<div>').addClass('float-right');
+
+                leftSide.append(
+                    $('<img>')
+                        .attr('src', img)
+                        .attr('height', 75)
+                );
+
+                leftSide.append(
+                    $('<span>')
+                        .addClass('h3 text-uppercase text-dark pl-3')
+                        .text(text)
+                );
+
+                rightSide.append(
+                    $('<div>')
+                        .addClass('float-right h2 font-weight-bold m-0 mt-3 device-topic-' + id)
+                        .css('color', color)
+                        .text(0)
+                );
+
+                widget.append(
+                    $('<div>').addClass('list-group-item')
+                        .append(leftSide)
+                        .append(rightSide)
+                );
+
+                $('.info-types .row.required').append(widget);
+            });
+        }
+    }
+
+</script>
