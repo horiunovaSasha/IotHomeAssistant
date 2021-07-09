@@ -7,5 +7,6 @@ namespace IoTHomeAssistant.Domain.Repositories
     public interface IDeviceRepository : IRepository<Device, int>
     {
         List<InfoDevice> GetInfoDevices();
+        Device GetWithTopics(int id);
     }
 }

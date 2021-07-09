@@ -4,28 +4,29 @@ using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MQTTnet;
-using MQTTnet.Client.Options;
-using MQTTnet.Extensions.ManagedClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace IoTHomeAssistant.Web.Services
 {
     public class MqttBackgroundService : IHostedService, IDisposable
     {
         private const string MQTT_CLIENT_ID = "IoTHomeAssistant";
-        private const int AUTO_RECONNECT_DELAY = 5;
-        private const int MQTT_SERVER_PORT = 1883;
+        private const string MQTT_BROKER_ADDRESS = "192.168.1.226";
 
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly MqttClient _client;
 
         public MqttBackgroundService(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
+            _client = new MqttClient(MQTT_BROKER_ADDRESS);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -40,29 +41,20 @@ namespace IoTHomeAssistant.Web.Services
                 deviceTopics = topicRepository.GetAllWithBrokerInfo();
             }
 
+            _client.Connect(MQTT_CLIENT_ID);
+
             foreach (var deviceTopic in deviceTopics.Where(x => x.TopicType == MqttTopicTypeEnum.Subscribe))
             {
-                var options = new ManagedMqttClientOptionsBuilder()
-                    .WithAutoReconnectDelay(TimeSpan.FromSeconds(AUTO_RECONNECT_DELAY))
-                    .WithClientOptions(
-                        new MqttClientOptionsBuilder()
-                        .WithClientId(MQTT_CLIENT_ID + deviceTopic.Id)
-                        .WithTcpServer(deviceTopic.MqttBroker.Address, MQTT_SERVER_PORT)
-                        .Build())
-                    .Build();
+                _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
+                {
+                    if (e.Topic == deviceTopic.Topic)
+                    {
+                        var message = Encoding.UTF8.GetString(e.Message);
+                        notificationHub.NotifyDevice(deviceTopic.Id, message).Wait();
+                    }
+                };
 
-                var subscriber = new MqttFactory().CreateManagedMqttClient();
-
-                subscriber.UseApplicationMessageReceivedHandler(message =>
-                    notificationHub.NotifyDevice(
-                        deviceTopic.Id,
-                        message.ApplicationMessage.ConvertPayloadToString()));
-
-                await subscriber.SubscribeAsync(new MqttTopicFilterBuilder()
-                    .WithTopic(deviceTopic.Topic)
-                    .Build());
-
-                await subscriber.StartAsync(options);
+                _client.Subscribe(new string[] { deviceTopic.Topic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
             }
 
             await Task.CompletedTask;
@@ -75,6 +67,7 @@ namespace IoTHomeAssistant.Web.Services
 
         public void Dispose()
         {
+            _client.Disconnect();
         }
     }
 }

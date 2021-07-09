@@ -10,6 +10,7 @@ namespace IoTHomeAssistant.Domain.Enums
         Co2Sensor = 6,
         DustSensor = 7,
         TemperatureSensor = 8,
-        RgbPanel = 9
+        RgbPanel = 9,
+        RgbBuld = 10
     }
 }

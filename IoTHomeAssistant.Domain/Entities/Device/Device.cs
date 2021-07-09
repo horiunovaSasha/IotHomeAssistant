@@ -7,6 +7,7 @@ namespace IoTHomeAssistant.Domain.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string IPAddress { get; set; }
         public DeviceTypeEnum Type { get; set; }
         
         public virtual Area Area { get; set; }        

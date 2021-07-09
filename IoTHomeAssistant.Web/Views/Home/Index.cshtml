@@ -16,9 +16,10 @@
         </div>
         @foreach (var item in widget.Items)
         {
-            <div class="list-group-item">
-                @if (item.Type == WidgetItemTypeEnum.Informer)
-                {
+
+            @if (item.Type == WidgetItemTypeEnum.Informer)
+            {
+                <div class="list-group-item">
                     <div class="float-left">
                         @await Html.PartialAsync("_DashboardIcon", item)
                         <span class="h4 pl-3">@item.Title</span>
@@ -32,27 +33,78 @@
                             <span></span>
                         </div>
                     </div>
-                }
-                @if (item.Type == WidgetItemTypeEnum.Switcher)
-                {
+                </div>
+            }
+            @if (item.Type == WidgetItemTypeEnum.Switcher)
+            {
+                <div class="list-group-item">
                     <div class="float-left">
-                        @*@await Html.PartialAsync("_DashboardIcon", item)*@
                         <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="90" />
                         <span class="h4 pl-3">@item.Title</span>
                     </div>
                     <div class="float-right mr-2">
-                        <input type="checkbox" checked id="switch@item.Id" class="toggle" /><label for="switch@item.Id" class="toggle">Toggle</label>
+                        <input type="checkbox" checked id="switch-@(item.Id)" class="toggle switch-@(item.Id)" data-id="@(item.Id)" /><label for="switch-@(item.Id)" class="toggle">Toggle</label>
                     </div>
-                }
-            </div>
+                </div>
+            }
+            @if (item.Type == WidgetItemTypeEnum.RgbBulb)
+            {
+                <div class="list-group-item">
+                    <h4 class="pl-2">@item.Title</h4>
+                </div>
+                <div class="list-group-item">
+                    <div class="float-left">
+                        <img src="https://image.flaticon.com/icons/png/512/2779/2779861.png" height="90" />
+                        <span class="m-auto">
+                            <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
+                            <span>
+                                <input type="range" class="form-range form-control-lg p-4 m-4" id="customRange1" min="0" max="100" />
+                            </span>
+                            <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
+                            <span class="text-secondary text-uppercase">brightness</span>
+                        </span>
+                    </div>
+                    <div class="float-right mr-2">
+                        <input type="checkbox" id="switch3" checked class="toggle" /><label for="switch3" class="toggle">Toggle</label>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <h5 class="pl-2">Colors and Scenes</h5>
+                </div>
+                <div class="list-group-item">
+                    <ol class="bulb-palette">
+                        <li style="background-color: white"></li>
+                        <li style="background-color: #FFEB3B"></li>
+                        <li style="background-color: #FF9800"></li>
+                        <li style="background-color: #FF5722"></li>
+                        <li style="background-color: #E91E63"></li>
+                        <li style="background-color: #9C27B0"></li>
+                        <li style="background-color: #673AB7"></li>
+                        <li style="background-color: #2196F3"></li>
+                        <li style="background-color: #03A9F4"></li>
+                        <li style="background-color: #00BCD4"></li>
+                        <li style="background-color: #009688"></li>
+                        <li style="background-color: #4CAF50"></li>
+                        <li style="background-color: #CDDC39"></li>
+                    </ol>
+                </div>
+                <div class="list-group-item p-4">
+                    <button type="button" class="m-2 ml-4 btn btn-secondary">None</button>
+                    <button type="button" class="m-2 btn btn-primary">Sleeping</button>
+                    <button type="button" class="m-2 btn btn-primary">Reading</button>
+                    <button type="button" class="m-2 mr-4 btn btn-primary">Working</button>
+                </div>
+            }
+
         }
-        @if (widget.Id > 1) { 
-        <br />
-        <div class="list-group-item">
-            <div class="w-100">
-                <a class="weatherwidget-io" href="https://forecast7.com/uk/48d2925d94/chernivtsi/" data-label_1="ЧЕРНІВЦІ" data-label_2="Погода" data-font="Roboto Slab" data-icons="Climacons Animated" data-theme="pure">ЧЕРНІВЦІ Погода</a>
+        @if (widget.Id > 1)
+        {
+            <br />
+            <div class="list-group-item">
+                <div class="w-100">
+                    <a class="weatherwidget-io" href="https://forecast7.com/uk/48d2925d94/chernivtsi/" data-label_1="ЧЕРНІВЦІ" data-label_2="Погода" data-font="Roboto Slab" data-icons="Climacons Animated" data-theme="pure">ЧЕРНІВЦІ Погода</a>
+                </div>
             </div>
-        </div>
         }
     </div>
     }
@@ -139,54 +191,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-6 col-xl-4 widget">
-        <div class="list-group-item">
-            <h4 class="pl-2">YeeLight</h4>
-        </div>
-        <div class="list-group-item">
-            <div class="float-left">
-                <img src="https://image.flaticon.com/icons/png/512/2779/2779861.png" height="90" />
-                <span class="m-auto">
-                    <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
-                    <span>
-                        <input type="range" class="form-range form-control-lg p-4 m-4" id="customRange1" min="0" max="100" />
-                    </span>
-                    <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
-                    <span class="text-secondary text-uppercase">brightness</span>
-                </span>
-            </div>
-            <div class="float-right mr-2">
-                <input type="checkbox" id="switch3" checked class="toggle" /><label for="switch3" class="toggle">Toggle</label>
-            </div>
-        </div>
-        <div class="list-group-item">
-            <h5 class="pl-2">Colors and Scenes</h5>
-        </div>
-        <div class="list-group-item">
-            <ol class="bulb-palette">
-                <li style="background-color: white"></li>
-                <li style="background-color: #FFEB3B"></li>
-                <li style="background-color: #FF9800"></li>
-                <li style="background-color: #FF5722"></li>
-                <li style="background-color: #E91E63"></li>
-                <li style="background-color: #9C27B0"></li>
-                <li style="background-color: #673AB7"></li>
-                <li style="background-color: #2196F3"></li>
-                <li style="background-color: #03A9F4"></li>
-                <li style="background-color: #00BCD4"></li>
-                <li style="background-color: #009688"></li>
-                <li style="background-color: #4CAF50"></li>
-                <li style="background-color: #CDDC39"></li>
-            </ol>
-        </div>
-        <div class="list-group-item p-4">
-            <button type="button" class="m-2 ml-4 btn btn-secondary">None</button>
-            <button type="button" class="m-2 btn btn-primary">Sleeping</button>
-            <button type="button" class="m-2 btn btn-primary">Reading</button>
-            <button type="button" class="m-2 mr-4 btn btn-primary">Working</button>
-        </div>
-    </div>
-
+    
     <div class="col-sm-12 col-md-6 col-xl-4 widget">
         <br />
         <br />
@@ -311,115 +316,125 @@
         <script type="text/javascript">
     @foreach(var item in Model.SelectMany(x => x.Items))
     {
+        if (item.Type == WidgetItemTypeEnum.Informer)
+        {
         <text>
-        setupDeviceNotification(@item.DeviceTopic.Id);
+            setupDeviceNotification(@item.DeviceTopic.Id);
         </text>
+        }
+
+        if (item.Type == WidgetItemTypeEnum.Switcher)
+        {
+        <text>
+            setupSwitchNotification(@item.DeviceTopic.Id);
+        </text>
+        }
     }
 
 
 
-        am4core.ready(function () {
+    am4core.ready(function () {
 
-            // Themes begin
-            am4core.useTheme(am4themes_animated);
-            // Themes end
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
 
-            var chart = am4core.create("chartdiv", am4charts.XYChart);
+        var chart = am4core.create("chartdiv", am4charts.XYChart);
 
-            var data = [];
+        var data = [];
 
-            chart.data = [{
-                "year": "2014",
+        chart.data = [{
+            "year": "2014",
                 "income": 23.5,
                 "expenses": 21.1,
                 "lineColor": chart.colors.next()
             }, {
-                "year": "2015",
+            "year": "2015",
                 "income": 26.2,
                 "expenses": 30.5
             }, {
-                "year": "2016",
+            "year": "2016",
                 "income": 30.1,
                 "expenses": 34.9
             }, {
-                "year": "2017",
+            "year": "2017",
                 "income": 20.5,
                 "expenses": 23.1
             }, {
-                "year": "2018",
+            "year": "2018",
                 "income": 30.6,
                 "expenses": 28.2,
                 "lineColor": chart.colors.next()
             }, {
-                "year": "2019",
+            "year": "2019",
                 "income": 34.1,
                 "expenses": 31.9
             }, {
-                "year": "2020",
+            "year": "2020",
                 "income": 34.1,
                 "expenses": 31.9
             }, {
-                "year": "2021",
+            "year": "2021",
                 "income": 34.1,
                 "expenses": 31.9,
                 "lineColor": chart.colors.next()
             }, {
-                "year": "2022",
+            "year": "2022",
                 "income": 34.1,
                 "expenses": 31.9
             }, {
-                "year": "2023",
+            "year": "2023",
                 "income": 34.1,
                 "expenses": 31.9
             }, {
-                "year": "2024",
+            "year": "2024",
                 "income": 34.1,
                 "expenses": 31.9
             }];
 
-            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-            categoryAxis.renderer.grid.template.location = 0;
-            categoryAxis.renderer.ticks.template.disabled = true;
-            categoryAxis.renderer.line.opacity = 0;
-            categoryAxis.renderer.grid.template.disabled = true;
-            categoryAxis.renderer.minGridDistance = 40;
-            categoryAxis.dataFields.category = "year";
-            categoryAxis.startLocation = 0.4;
-            categoryAxis.endLocation = 0.6;
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.ticks.template.disabled = true;
+        categoryAxis.renderer.line.opacity = 0;
+        categoryAxis.renderer.grid.template.disabled = true;
+        categoryAxis.renderer.minGridDistance = 40;
+        categoryAxis.dataFields.category = "year";
+        categoryAxis.startLocation = 0.4;
+        categoryAxis.endLocation = 0.6;
 
 
-            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-            valueAxis.tooltip.disabled = true;
-            valueAxis.renderer.line.opacity = 0;
-            valueAxis.renderer.ticks.template.disabled = true;
-            valueAxis.min = 0;
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.tooltip.disabled = true;
+        valueAxis.renderer.line.opacity = 0;
+        valueAxis.renderer.ticks.template.disabled = true;
+        valueAxis.min = 0;
 
-            var lineSeries = chart.series.push(new am4charts.LineSeries());
-            lineSeries.dataFields.categoryX = "year";
-            lineSeries.dataFields.valueY = "income";
-            lineSeries.tooltipText = "income: {valueY.value}";
-            lineSeries.fillOpacity = 0.5;
-            lineSeries.strokeWidth = 3;
-            lineSeries.propertyFields.stroke = "lineColor";
-            lineSeries.propertyFields.fill = "lineColor";
+        var lineSeries = chart.series.push(new am4charts.LineSeries());
+        lineSeries.dataFields.categoryX = "year";
+        lineSeries.dataFields.valueY = "income";
+        lineSeries.tooltipText = "income: {valueY.value}";
+        lineSeries.fillOpacity = 0.5;
+        lineSeries.strokeWidth = 3;
+        lineSeries.propertyFields.stroke = "lineColor";
+        lineSeries.propertyFields.fill = "lineColor";
 
-            var bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
-            bullet.circle.radius = 6;
-            bullet.circle.fill = am4core.color("#fff");
-            bullet.circle.strokeWidth = 3;
+        var bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
+        bullet.circle.radius = 6;
+        bullet.circle.fill = am4core.color("#fff");
+        bullet.circle.strokeWidth = 3;
 
-            chart.cursor = new am4charts.XYCursor();
-            chart.cursor.behavior = "panX";
-            chart.cursor.lineX.opacity = 0;
-            chart.cursor.lineY.opacity = 0;
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.behavior = "panX";
+        chart.cursor.lineX.opacity = 0;
+        chart.cursor.lineY.opacity = 0;
 
-            chart.scrollbarX = new am4core.Scrollbar();
-            chart.scrollbarX.parent = chart.bottomAxesContainer;
+        chart.scrollbarX = new am4core.Scrollbar();
+        chart.scrollbarX.parent = chart.bottomAxesContainer;
 
-        }); // end am4core.ready()
+    }); // end am4core.ready()
 
 
-        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
         </script>
     }
 

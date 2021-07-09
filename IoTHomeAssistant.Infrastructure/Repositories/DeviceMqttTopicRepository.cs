@@ -20,5 +20,12 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .Include(x => x.Device)
                 .ToList();
         }
+
+        public DeviceMqttTopic GetWitDevice(int id)
+        {
+            return _dbSet
+                .Include(x => x.Device)
+                .FirstOrDefault(x => x.Id == id);
+        }
     }
 }
