@@ -1,7 +1,9 @@
 ﻿using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Services;
+using IoTHomeAssistant.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Web.Api
 {
@@ -9,7 +11,7 @@ namespace IoTHomeAssistant.Web.Api
     [ApiController]
     public class DevicesController : ControllerBase
     {
-        private readonly IDeviceService _deviceService;
+        private readonly IDeviceService _deviceService;       
 
         public DevicesController(IDeviceService deviceService)
         {
@@ -21,6 +23,20 @@ namespace IoTHomeAssistant.Web.Api
         public List<InfoDevice> GetInfoDevices()
         {
             return _deviceService.GetInfoDevices();
+        }
+
+        [HttpPost]
+        [Route("Toggle")]
+        public void Toggle(ToggleRequest request)
+        {
+            _deviceService.Toggle(request.Id, request.Toggle);
+        }
+        
+        [HttpPost]
+        [Route("Light")]
+        public async Task Light(LightRequest request)
+        {
+            await _deviceService.YeelightControl(request.Id, request.Toggle, request.Brightness, request.Color);
         }
     }
 }

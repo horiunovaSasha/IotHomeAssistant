@@ -10,3 +10,5 @@ riderModule.iml
 *.json
 *.v2
 *.config
+/Data/app.db-shm
+/Data/app.db-wal

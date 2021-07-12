@@ -2,10 +2,7 @@
 
 function setupDeviceNotification(topicId) {
 
-    var connection = new signalR
-        .HubConnectionBuilder()
-        .withUrl("/DeviceHub?topicId=" + topicId)
-        .build();
+    var connection = getHubConnection(topicId);
 
     connection.on("ReceiveData", (payload) => {
         var element = $(".device-topic-" + topicId);
@@ -18,6 +15,29 @@ function setupDeviceNotification(topicId) {
         }
     });
 
+    startHubConnection(connection, topicId);
+}
+
+
+function setupSwitchNotification(topicId) {
+
+    var connection = getHubConnection(topicId);
+
+    connection.on("ReceiveData", (payload) => {
+        $("input.switch-" + topicId).prop('checked', payload == 'ON' || payload == 1 || payload == true);
+    });
+
+    startHubConnection(connection, topicId);
+}
+
+function getHubConnection(topicId) {
+    return new signalR
+        .HubConnectionBuilder()
+        .withUrl("/DeviceHub?topicId=" + topicId)
+        .build();
+}
+
+function startHubConnection(connection, topicId) {
     connection.start()
         .catch(function (err) {
             return console.error(err.toString());
@@ -25,7 +45,6 @@ function setupDeviceNotification(topicId) {
             connection.invoke("GetConnectionId", topicId);
         });
 }
-
 
 
 $(document).ready(function () {
@@ -45,5 +64,20 @@ $(document).ready(function () {
             $(document).find(".form-wrapper .section").first().addClass("is-active");
             $(document).find(".steps li").first().addClass("is-active");
         }
+    });
+
+    $("input[type=checkbox].toggle").click(function () {
+        var input = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/api/devices/toggle",
+            data: JSON.stringify({
+                id: input.attr('data-id'),
+                toggle: input.prop('checked')
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+        });
     });
 });

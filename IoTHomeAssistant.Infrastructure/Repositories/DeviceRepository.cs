@@ -3,6 +3,7 @@ using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,6 +36,13 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                         .ToList()
                 })
                 .ToList();
+        }
+
+        public Device GetWithTopics(int id)
+        {
+            return _dbSet
+               .Include(x => x.Topics)
+               .FirstOrDefault(x => x.Id == id);
         }
     }
 }
