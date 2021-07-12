@@ -1,7 +1,41 @@
 ﻿<div class="feed" name_attr="feed">
-    <h3>News Feed Configuration</h3>
+    <h3>News Feed Configuration </h3>
     <hr />
-    <h1><center>To be implemented soon...</center></h1>
+     <div class="required">
+            <div>
+                <select data-style="bg-white shadow device-list" class="w-100 selectpicker" style="margin:10px;" onchange="renderRss(true)" id="sourceSelector">
+                    <option value="1">Please select..</option>
+                    <option>BBC</option>
+                    <option>Fakty</option>
+                    <option>Korrespondent</option>
+                    <option value="custom">Enter custom URL</option>
+                </select>
+            </div>
+    
+        </div>
+    <div>
+        
+     <div style="margin: 10px 0px; display: none" class="customUrl">
+         <input type="text" id="inputRssUrl" placeholder="Enter custom URL" class="w-100 col-9 form-control shadow" style="display: inline">
+         <button type="button" class="btn btn-secondary col-2 float-right" onclick="renderRss()" id="customUrl">Apply</button>
+     </div>
+
+    </div>
+    <div class="w-100 mt-5">
+        <div class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <div class="preloader">
+                <div class="loading-text">LOADING...</div>
+            </div>
+        </div>
+    </div>
+    
+     <div class="col-12 widget list" style="display: none">
+         <div class="list-group-item">
+             <div id="rss-feeds"></div>
+         </div>
+     </div>
+
     <div class="col-12 btn-bottom">
         <div class="float-left">
             <button class="btn btn-primary" onclick="back(this)">Back</button>
@@ -12,5 +46,63 @@
     </div>
 </div>
 
+<script src="~/js/rss.global.min.js" asp-append-version="true"></script>
 <script type="text/javascript">
-</script>
+    function renderRss(isSelected){
+        let rssSource = "";
+        let selectedSource = $("#sourceSelector").val();
+        let inputRssUrl = $("#inputRssUrl").val();
+        $("#rss-feeds").html("");
+        let container = $(".list");
+        container.hide();
+        
+        debugger;
+        if (selectedSource === "custom"){
+            $(".customUrl").show();
+            if (inputRssUrl === "")
+                return 0;
+        }
+        else{
+            $(".customUrl").hide();
+        }
+        
+        $('.feed .loading').show();
+        
+        if (inputRssUrl !== "" && !isSelected){
+            rssSource = inputRssUrl;
+        }
+        else {
+            rssSource = getSelectedUrl(selectedSource);
+        }
+          
+        let rss = new RSS(
+          document.querySelector('#rss-feeds'),
+          rssSource,
+          {
+            layoutTemplate: "<ul class='newsList' >{entries}</ul>",
+            entryTemplate: "<li><div class='col-12'><b>{title}</b><br/>{shortBodyPlain}" +
+             " <a href='{url}'>більше</a></div><hr/></li>",
+            limit: 3
+          }
+        );
+        
+        rss.render();
+        container.show();
+        
+        setTimeout(function () {
+            $('.feed .loading').hide();
+            $('.feed .btn-bottom button.save').prop('disabled', $(".newsList").length === 0);
+        }, 1000);
+    }
+    
+    function getSelectedUrl(selectedSource){
+        switch (selectedSource){
+            case "BBC":
+                    return  "http://feeds.bbci.co.uk/news/world/rss.xml";
+            case "Fakty":
+                return  "https://fakty.ua/rss_feed/ukraine";
+            case "Korrespondent":
+                return  "http://k.img.com.ua/rss/ua/all_news2.0.xml";
+        }
+    }
+</script> 
