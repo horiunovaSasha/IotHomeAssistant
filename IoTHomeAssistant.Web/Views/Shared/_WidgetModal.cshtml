@@ -77,39 +77,17 @@
                             </div>
                             <div class="col-3">
                                 <label>
-                                    <img src="https://image.flaticon.com/icons/png/512/763/763812.png" height="64" type_attr="move" />
-                                </label>
-                                <br />
-                                movement sensor
-                            </div>
-                            <div class="col-3">
-                                <label>
-                                    <img src="https://image.flaticon.com/icons/png/512/1169/1169906.png" height="64" type_attr="open_close" />
-                                </label>
-                                <br />
-                                open\close sensor
-                            </div>
-                            @*<div class="col-3">
-                                <label>
-                                    <img src="https://image.flaticon.com/icons/png/512/809/809744.png" height="64" type_attr="smoke" />
-                                </label>
-                                <br />
-                                smoke & fire alarm sensor
-                            </div>
-                            <div class="col-3">
-                                <label>
-                                    <img src="https://image.flaticon.com/icons/png/512/2898/2898756.png" height="64" type_attr="water_leak" />
-                                </label>
-                                <br />
-                                water leak sensor
-                            </div>*@
-
-                            <div class="col-3">
-                                <label>
                                     <img src="https://image.flaticon.com/icons/png/512/911/911409.png" height="64" type_attr="climate" />
                                 </label>
                                 <br />
                                 AC
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1848/1848660.png" height="64" type_attr="cleaner" />
+                                </label>
+                                <br />
+                                cleaner
                             </div>
                             <div class="col-3">
                                 <label>
@@ -125,6 +103,36 @@
                                 <br />
                                 blinds
                             </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/763/763812.png" height="64" type_attr="move" />
+                                </label>
+                                <br />
+                                movement sensor
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1169/1169906.png" height="64" type_attr="open_close" />
+                                </label>
+                                <br />
+                                open\close sensor
+                            </div>
+                            @*<div class="col-3">
+            <label>
+                <img src="https://image.flaticon.com/icons/png/512/809/809744.png" height="64" type_attr="smoke" />
+            </label>
+            <br />
+            smoke & fire alarm sensor
+        </div>
+        <div class="col-3">
+            <label>
+                <img src="https://image.flaticon.com/icons/png/512/2898/2898756.png" height="64" type_attr="water_leak" />
+            </label>
+            <br />
+            water leak sensor
+        </div>*@
+
+
                             <div class="col-3">
                                 <label>
                                     <img src="https://img.icons8.com/officel/64/000000/command-line.png" type_attr="command" />
@@ -154,12 +162,12 @@
                                 weather forecast
                             </div>
                             @*<div class="col-3">
-                                <label>
-                                    <img src="https://image.flaticon.com/icons/png/512/1809/1809664.png" type_attr="weather" />
-                                </label>
-                                <br />
-                                weather station
-                            </div>*@
+            <label>
+                <img src="https://image.flaticon.com/icons/png/512/1809/1809664.png" type_attr="weather" />
+            </label>
+            <br />
+            weather station
+        </div>*@
                         </div>
                         <div class="row ">
                             <div class="col-12 btn-bottom">
@@ -183,6 +191,7 @@
                     @await Html.PartialAsync("Configurations/_heatingConfiguration")
                     @await Html.PartialAsync("Configurations/_blindsConfiguration")
                     @await Html.PartialAsync("Configurations/_feedConfiguration")
+                    @await Html.PartialAsync("Configurations/_cleanerConfiguration")
                     <div class="info-types" name_attr="info-types">
                         <h3 class="mb-3">Preview</h3>
                         <hr />
