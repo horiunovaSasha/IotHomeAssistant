@@ -13,6 +13,8 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
             builder.Property(x => x.DockerConfiguration).IsRequired();
             builder.Property(x => x.DeviceType).IsRequired();
+
+            builder.HasMany(x => x.Configurations);
         }
     }
 }

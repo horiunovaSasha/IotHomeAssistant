@@ -44,9 +44,11 @@ namespace IoTHomeAssistant.Web
             services.AddTransient<NotificationHub>();
             services.AddTransient<IDeviceMqttTopicRepository, DeviceMqttTopicRepository>();
             services.AddTransient<IWidgetRepository, WidgetRepository>();
+            services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();
             services.AddTransient<IWidgetService, WidgetService>();
             services.AddTransient<IDeviceService, DeviceService>();
+            services.AddTransient<IPluginService, PluginService>();
 
 
             services.AddControllers();

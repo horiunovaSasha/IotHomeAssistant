@@ -10,12 +10,11 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.PluginDeviceId).IsRequired();
-            builder.Property(x => x.Key).IsRequired();
-            builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
+            builder.Property(x => x.PluginConfigurationId).IsRequired();
             builder.Property(x => x.Value).IsRequired();
-            builder.Property(x => x.Description);
 
             builder.HasOne(x => x.PluginDevice);
+            builder.HasOne(x => x.PluginConfiguration);
         }
     }
 }
