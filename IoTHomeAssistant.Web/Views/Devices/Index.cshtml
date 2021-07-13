@@ -1,5 +1,9 @@
 ﻿@model List<IoTHomeAssistant.Domain.Entities.Device>
+@await Html.PartialAsync("_DeviceModal")
 <h2 class="font-weight-bold pb-3">Devices</h2>
+<div id="header-btn">
+    <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#deviceModal">+</a>
+</div>
 <div class="widget">
     <div class="list-group-item">
         <table class="table">
@@ -14,12 +18,12 @@
             <tbody>
                 @foreach (var device in Model)
                 {
-                <tr>
-                    <th scope="row">@device.Id</th>
-                    <td>@device.Type</td>
-                    <td>@device.Title</td>
-                    <td>@device.Vendor</td>
-                </tr>
+                    <tr>
+                        <th scope="row">@device.Id</th>
+                        <td>@device.Type</td>
+                        <td>@device.Title</td>
+                        <td>@device.Vendor</td>
+                    </tr>
                 }
             </tbody>
         </table>
