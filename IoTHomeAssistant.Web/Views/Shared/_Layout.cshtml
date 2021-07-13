@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string controllerName = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -59,29 +63,32 @@
             </button>
             <div class="collapse navbar-collapse" id="bottomCollapse">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link active" href="index.html">
+                    <li class="nav-item" style="padding-left: 200px;">
+                        <a class="nav-link @(controllerName == "Home" ? "active": "")" href="/">
                             <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#dashboard" /></svg> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="lights.html">
-                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#bulb-eco" /></svg> <span>Lights</span>
+                    <li class="nav-item" style="padding-left: 50px;">
+                        <a class="nav-link @(controllerName == "Devices" ? "active": "")" href="/devices" >
+                            <i class="fa fa-microchip" aria-hidden="true" style="font-size: 40px; margin-top: 10px; "></i>
+                            <br />Devices
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cameras.html">
-                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#camera" /></svg> <span>Cameras</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="padding-left: 50px;">
                         <a class="nav-link" href="climate.html">
-                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#thermometer" /></svg> <span>Climate</span>
+                            <i class="fa fa-tasks" style="font-size: 40px; margin-top: 10px;" aria-hidden="true"></i>
+                            <br />Tasks
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" style="padding-left: 50px;">
+                        <a class="nav-link" href="climate.html" style="padding-top: 10px">
+                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#appliances" /></svg> <span>Plugins</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" style="padding-left: 50px;">
                         <a class="nav-link" href="appliances.html">
-                            <svg class="icon-sprite"><use xlink:href="assets/images/icons-sprite.svg#appliances" /></svg> <span>Appliances</span>
+                            <i class="fa fa-cogs" style="font-size: 40px; margin-top: 10px;" aria-hidden="true"></i>
+                            <br />Settings
                         </a>
                     </li>
                 </ul>

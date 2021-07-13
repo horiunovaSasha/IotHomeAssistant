@@ -80,5 +80,10 @@ namespace IoTHomeAssistant.Domain.Services
                 }
             }
         }
+
+        public List<Entities.Device> GetAllDevices()
+        {
+           return _deviceRepository.Get().ToList();
+        }
     }
 }
