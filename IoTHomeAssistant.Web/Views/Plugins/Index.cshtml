@@ -1,8 +1,8 @@
-﻿@model List<IoTHomeAssistant.Domain.Entities.Device>
-@await Html.PartialAsync("_DeviceModal")
-<h2 class="font-weight-bold pb-3">Devices</h2>
+﻿@model List<IoTHomeAssistant.Domain.Entities.Plugin>
+@await Html.PartialAsync("_PluginModal")
+<h2 class="font-weight-bold pb-3">Plugins</h2>
 <div id="header-btn">
-    <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#deviceModal">+</a>
+    <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#pluginModal">+</a>
 </div>
 <div class="widget">
     <div class="list-group-item">
@@ -12,7 +12,6 @@
                     <th scope="col">ID</th>
                     <th scope="col">Type</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Vendor</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,9 +19,8 @@
                 {
                     <tr>
                         <th scope="row">@device.Id</th>
-                        <td>@device.Type</td>
+                        <td>@device.DeviceType</td>
                         <td>@device.Title</td>
-                        <td>@device.Vendor</td>
                     </tr>
                 }
             </tbody>

@@ -1,0 +1,294 @@
+﻿<script type="text/javascript">
+    function onTextInputFocus() {
+        $(this).parent('.input-block').addClass('focus');
+        $(this).parent().find('label').animate({
+            'top': '1em',
+            'fontSize': '1em'
+        }, 300);
+    }
+
+    function onTextInputBlur() {
+        if ($(this).val().length == 0) {
+            $(this).parent('.input-block').removeClass('focus');
+            $(this).parent().find('label').animate({
+                'top': '1.3em',
+                'fontSize': '1.2em'
+            }, 300);
+        }
+    }
+</script>
+
+
+
+<div class="modal fade" id="deviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-0">
+            <div class="widget-wrapper">
+                <div id="left-side">
+                    <ul>
+                        <li class="types-icon">
+                            <i class="fa fa-list-alt" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="types-text ml-3" style="font-size: 36px;">
+                            Types
+                        </li>
+                        <li class="conf-icon ml-4" style="display: none">
+                            <i class="fa fa-cogs" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="conf-text" style="font-size: 36px; display: none">
+                            Configuration
+                        </li>
+                        <li class="review-icon ml-2" style="display: none">
+                            <i class="fa fa-file-text" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="review-text mr-3" style="font-size: 36px; display: none">
+                            Review
+                        </li>
+                    </ul>
+                </div>
+                <div id="right-side">
+                    <div class="main active" name_attr="main">
+                        <h3>Choose device type</h3>
+                        <hr />
+                        <div class="row category-list required">
+                            <input type="hidden" name="category-item" />
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/4206/4206355.png" height="64" type_attr="toggle" />
+                                </label>
+                                <br />
+                                switch/toggle
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="64" type_attr="light" />
+                                </label>
+                                <br />
+                                light
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/911/911409.png" height="64" type_attr="climate" />
+                                </label>
+                                <br />
+                                AC
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1848/1848660.png" height="64" type_attr="cleaner" />
+                                </label>
+                                <br />
+                                cleaner
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/741/741236.png" height="64" type_attr="heating" />
+                                </label>
+                                <br />
+                                heating
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1606/1606312.png" type_attr="blinds" />
+                                </label>
+                                <br />
+                                blinds
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/763/763812.png" height="64" type_attr="move" />
+                                </label>
+                                <br />
+                                movement sensor
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1169/1169906.png" height="64" type_attr="open_close" />
+                                </label>
+                                <br />
+                                open\close sensor
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/809/809744.png" height="64" type_attr="smoke" />
+                                </label>
+                                <br />
+                                smoke & fire alarm sensor
+                            </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/2898/2898756.png" height="64" type_attr="water_leak" />
+                                </label>
+                                <br />
+                                water leak sensor
+                            </div>
+
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/1808/1808701.png" type_attr="weather" />
+                                </label>
+                                <br />
+                                weather station
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-12 btn-bottom">
+                                <div class="float-right">
+                                    <button class="btn btn-primary" onclick="next(this)">Next</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    @await Html.PartialAsync("Devices/_climateConfiguration")
+                    @await Html.PartialAsync("Devices/_lightConfiguration")
+                    @await Html.PartialAsync("Devices/_toggleConfiguration")
+                    @await Html.PartialAsync("Devices/_blindsConfiguration")
+                    @await Html.PartialAsync("Devices/_heatingConfiguration")
+                    @await Html.PartialAsync("Devices/_moveConfiguration")
+                    @await Html.PartialAsync("Devices/_waterLeakConfiguration")
+                    @await Html.PartialAsync("Devices/_smokeConfiguration")
+                    @await Html.PartialAsync("Devices/_openCloseConfiguration")
+                    @await Html.PartialAsync("Devices/_cleanerConfiguration")
+                    @await Html.PartialAsync("Devices/_weatherConfiguration")
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var nextPage = [];
+    var prevPage = [];
+    var pageIndex = 0;
+    var currentType = '';
+    var nextPageFunc = undefined;
+
+    function next(target) {
+        var from = $(target).closest('.active').attr('name_attr');
+        var requires = $("." + from + " .required:visible");
+        var emptyFields = 0;
+
+        requires.each(function () {
+            var input = $('input, select:visible', this);
+
+            if (input && (input.val() == "" || input.val() == null)) {
+                $(this).addClass("vibration");
+                emptyFields++;
+            }
+        });
+
+        setTimeout(function () {
+            $("." + from + " .required").removeClass("vibration");
+        }, 1500);
+
+        if (emptyFields == 0) {
+            $('#right-side .' + from).removeClass("active");
+            $('#right-side .' + nextPage[pageIndex]).addClass("active");
+            pageIndex++;
+
+            updateLeftIcon(pageIndex);
+
+            if (nextPageFunc != undefined) {
+                nextPageFunc();
+                nextPageFunc = undefined;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function back(target) {
+        var from = $(target).closest('.active').attr('name_attr');
+        $('#right-side .' + from).removeClass("active");
+        $('#right-side .' + prevPage[pageIndex - 1]).addClass("active");
+        pageIndex--;
+
+        updateLeftIcon(pageIndex);
+    }
+
+    function updateLeftIcon(pageIndex) {
+        $('.widget-wrapper ul > li').hide();
+
+        if (pageIndex == 0) {
+            $('.widget-wrapper ul > li.types-icon').show();
+            $('.widget-wrapper ul > li.types-text').show();
+        }
+
+        if (pageIndex == 1) {
+            $('.widget-wrapper ul > li.conf-icon').show();
+            $('.widget-wrapper ul > li.conf-text').show();
+        }
+
+        if (pageIndex == 2) {
+            $('.widget-wrapper ul > li.review-icon').show();
+            $('.widget-wrapper ul > li.review-text').show();
+        }
+    }
+
+    function clearForm(type) {
+        if (currentType != type) {
+            $('.category-list .col-3 label').parent().css('opacity', '1');
+            $('.info-types div.required>div').css('opacity', '1');
+
+            $('.category-list .col-3 input').val('');
+            $('.info-types div.required input').val('');
+
+            nextPage = [];
+            prevPage = [];
+            prevPage.push('main');
+            currentType = type;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.carousel').carousel();
+
+        $('.category-list.types img').on('click', function () {
+            $('.category-list.types label').parent().css('opacity', '0.3');
+            $(this).parent().parent().css('opacity', '1');
+            $('.category-list.types input').val("1");
+        })
+
+        $('.category-list .col-3 img').on('click', function () {
+            var type = $(this).attr('type_attr');
+            clearForm(type);
+
+            $('.category-list .col-3 label').parent().css('opacity', '0.3');
+            $(this).parent().parent().css('opacity', '1');
+            $('.category-list input[name=category-item]').val("1");
+            nextPageFunc = undefined;
+
+            switch (type) {
+                case 'info':
+                    nextPage.push('info-configuration');
+                    nextPageFunc = infoConfigShow;
+                    break;
+                default:
+                    nextPage.push(type);
+            }
+
+        });
+
+        $('.widget-wrapper').find('.form-control').each(function () {
+            var targetItem = $(this).parent();
+            if ($(this).val()) {
+                $(targetItem).find('label').css({
+                    'top': '10px',
+                    'fontSize': '18px'
+                });
+            }
+        });
+
+        $('.widget-wrapper').find('.form-control').focus(onTextInputFocus);
+        $('.widget-wrapper').find('.form-control').blur(onTextInputBlur);
+
+        $('.selectpicker').selectpicker();
+    });
+
+
+</script>

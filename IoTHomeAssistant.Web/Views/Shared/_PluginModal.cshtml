@@ -1,0 +1,102 @@
+﻿<script type="text/javascript">
+    function onTextInputFocus() {
+        $(this).parent('.input-block').addClass('focus');
+        $(this).parent().find('label').animate({
+            'top': '1em',
+            'fontSize': '1em'
+        }, 300);
+    }
+
+    function onTextInputBlur() {
+        if ($(this).val().length == 0) {
+            $(this).parent('.input-block').removeClass('focus');
+            $(this).parent().find('label').animate({
+                'top': '1.3em',
+                'fontSize': '1.2em'
+            }, 300);
+        }
+    }
+</script>
+
+
+
+<div class="modal fade" id="pluginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content p-0">
+            <div class="widget-wrapper">
+                <div id="left-side">
+                    <ul>
+                        <li class="conf-icon ml-4" >
+                            <i class="fa fa-cogs" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="conf-text" style="font-size: 36px;">
+                            Configuration
+                        </li>
+                    </ul>
+                </div>
+                <div id="right-side">
+                    <div class="main active" name_attr="main">
+                        <h3>Add new Plugin</h3>
+                        <hr />
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-block shadow mt-1 required">
+                                    <label for="">Title</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6 required">
+                                <select data-style="bg-white shadow device-list" class="w-100 selectpicker">
+                                    <option>Select Type</option>
+                                    <option>Mqtt Broker</option>
+                                </select>
+                            </div>
+                        </div>
+                        <h5 class="mt-1">Configurations:</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="input-block shadow mt-1 required">
+                                    <label for="">Title</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-block shadow mt-1 required">
+                                    <label for="">Key</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-block shadow mt-1 required">
+                                    <label for="">Description</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-1 pt-3 pl-2">
+                                <a href="#">remove</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="shadow mt-1 required">
+                                    <textarea class="form-control" placeholder="Docker Configuration"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.form-control').focus(onTextInputFocus);
+        $('.form-control').blur(onTextInputBlur);
+
+        $('.selectpicker').selectpicker();
+    });
+
+
+</script>

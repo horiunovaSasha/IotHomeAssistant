@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210713145855_AddPluginEntities")]
+    partial class AddPluginEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,31 +251,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.ToTable("Plugin");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginConfiguration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PluginId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PluginId");
-
-                    b.ToTable("PluginConfiguration");
-                });
-
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginDevice", b =>
                 {
                     b.Property<int>("Id")
@@ -304,19 +281,26 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PluginConfigurationId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("PluginDeviceId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PluginConfigurationId");
 
                     b.HasIndex("PluginDeviceId");
 
@@ -465,17 +449,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Navigation("MqttBroker");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginConfiguration", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Plugin", "Plugin")
-                        .WithMany("Configurations")
-                        .HasForeignKey("PluginId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Plugin");
-                });
-
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginDevice", b =>
                 {
                     b.HasOne("IoTHomeAssistant.Domain.Entities.Device", "Device")
@@ -497,19 +470,11 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginDeviceConfiguration", b =>
                 {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.PluginConfiguration", "PluginConfiguration")
-                        .WithMany()
-                        .HasForeignKey("PluginConfigurationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("IoTHomeAssistant.Domain.Entities.PluginDevice", "PluginDevice")
                         .WithMany("Configurations")
                         .HasForeignKey("PluginDeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("PluginConfiguration");
 
                     b.Navigation("PluginDevice");
                 });
@@ -577,11 +542,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Device", b =>
                 {
                     b.Navigation("Topics");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Plugin", b =>
-                {
-                    b.Navigation("Configurations");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginDevice", b =>

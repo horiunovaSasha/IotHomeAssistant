@@ -1189,3 +1189,42 @@ ol.bulb-palette li {
     background-color: #fafafa;
     border: thin solid #f3f3f3;
 }
+
+#header-btn {
+    margin: 20px 10px;
+    text-align: right;
+    margin-top: -70px;
+}
+
+.glb-btn { /* global button class */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 2px 2px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 45px;
+    border-radius: 25;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 25px;
+}
+
+
+/* twitter button class*/
+.add-btn {
+    background: #00ABE3;
+}
+
+    .add-btn:hover {
+        color: #00ABE3;
+        background: #fff;
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+        text-decoration: none;
+    }
