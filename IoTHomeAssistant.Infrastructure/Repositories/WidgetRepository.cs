@@ -20,6 +20,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .Include("Items.Icon")
                 .Include("Items.IconColor")
                 .Include("Items.DeviceTopic")
+                .Include("Items.DeviceTopic.Device")
                 .ToList();
         }
     }

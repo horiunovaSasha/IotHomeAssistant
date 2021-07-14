@@ -67,6 +67,7 @@ $(document).ready(function () {
     });
 
     $("input[type=checkbox].toggle").click(function () {
+        debugger;
         var input = $(this);
 
         $.ajax({
@@ -80,4 +81,24 @@ $(document).ready(function () {
             contentType: 'application/json',
         });
     });
+
+    $(".rgbSwitch").click(function () {
+        debugger;
+        var input = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/api/devices/light",
+            data: JSON.stringify({
+                id: input.attr('data-id'),
+                toggle: input.prop('checked'),
+                brightness : 100,
+                color: "#543765"
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+        });
+    });
+    
+    
 });
