@@ -42,6 +42,12 @@
           <e p="Mqtt" t="Include">
             <e p="MqttBroker.cs" t="Include" />
           </e>
+          <e p="Plugin" t="Include">
+            <e p="Plugin.cs" t="Include" />
+            <e p="PluginConfiguration.cs" t="Include" />
+            <e p="PluginDevice.cs" t="Include" />
+            <e p="PluginDeviceConfiguration.cs" t="Include" />
+          </e>
           <e p="Widget" t="Include">
             <e p="Widget.cs" t="Include" />
             <e p="WidgetItem.cs" t="Include" />
@@ -65,6 +71,7 @@
         <e p="Repositories" t="Include">
           <e p="IDeviceMqttTopicRepository.cs" t="Include" />
           <e p="IDeviceRepository.cs" t="Include" />
+          <e p="IPluginRepository.cs" t="Include" />
           <e p="IRepository.cs" t="Include" />
           <e p="IWidgetItemRepository.cs" t="Include" />
           <e p="IWidgetRepository.cs" t="Include" />
@@ -72,7 +79,9 @@
         <e p="Services" t="Include">
           <e p="DeviceService.cs" t="Include" />
           <e p="IDeviceService.cs" t="Include" />
+          <e p="IPluginService.cs" t="Include" />
           <e p="IWidgetService.cs" t="Include" />
+          <e p="PluginService.cs" t="Include" />
           <e p="WidgetService.cs" t="Include" />
         </e>
       </e>
@@ -96,6 +105,12 @@
           <e p="Mqtt" t="Include">
             <e p="MqttBrokerConfiguration.cs" t="Include" />
           </e>
+          <e p="Plugin" t="Include">
+            <e p="PluginConfiguration.cs" t="Include" />
+            <e p="PluginConfigurationConfiguration.cs" t="Include" />
+            <e p="PluginDeviceConfiguration.cs" t="Include" />
+            <e p="PluginDeviceConfigurationConfiguration.cs" t="Include" />
+          </e>
           <e p="Widget" t="Include">
             <e p="WidgetConfiguration.cs" t="Include" />
             <e p="WidgetItemColorRangeConfiguration.cs" t="Include" />
@@ -108,6 +123,14 @@
           <e p="20201130181943_InitialIoT.Designer.cs" t="Include" />
           <e p="20210709174619_AddDeviceIPAddress.cs" t="Include" />
           <e p="20210709174619_AddDeviceIPAddress.Designer.cs" t="Include" />
+          <e p="20210713145855_AddPluginEntities.cs" t="Include" />
+          <e p="20210713145855_AddPluginEntities.Designer.cs" t="Include" />
+          <e p="20210713173607_ChangePluginEntities.cs" t="Include" />
+          <e p="20210713173607_ChangePluginEntities.Designer.cs" t="Include" />
+          <e p="20210714140052_EditedWidgetItem.cs" t="Include" />
+          <e p="20210714140052_EditedWidgetItem.Designer.cs" t="Include" />
+          <e p="20210714140430_EditedWidgetItem1.cs" t="Include" />
+          <e p="20210714140430_EditedWidgetItem1.Designer.cs" t="Include" />
           <e p="IoTDbContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -120,6 +143,7 @@
         <e p="Repositories" t="Include">
           <e p="DeviceMqttTopicRepository.cs" t="Include" />
           <e p="DeviceRepository.cs" t="Include" />
+          <e p="PluginRepository.cs" t="Include" />
           <e p="Repository.cs" t="Include" />
           <e p="WidgetItemRepository.cs" t="Include" />
           <e p="WidgetRepository.cs" t="Include" />
@@ -145,6 +169,7 @@
         <e p="Controllers" t="Include">
           <e p="DevicesController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
+          <e p="PluginsController.cs" t="Include" />
         </e>
         <e p="Data" t="Include">
           <e p="ApplicationDbContext.cs" t="Include" />
@@ -195,12 +220,17 @@
             <e p="Privacy.cshtml" t="Include" />
             <e p="Weather.cshtml" t="Include" />
           </e>
+          <e p="Plugins" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
           <e p="Shared" t="Include">
             <e p="_ColorPicker.cshtml" t="Include" />
             <e p="_DashboardIcon.cshtml" t="Include" />
+            <e p="_DeviceModal.cshtml" t="Include" />
             <e p="_IconsPopup.cshtml" t="Include" />
             <e p="_Layout.cshtml" t="Include" />
             <e p="_LoginPartial.cshtml" t="Include" />
+            <e p="_PluginModal.cshtml" t="Include" />
             <e p="_ValidationScriptsPartial.cshtml" t="Include" />
             <e p="_WidgetModal.cshtml" t="Include" />
             <e p="Configurations" t="Include">
@@ -218,6 +248,19 @@
               <e p="_moveConfiguration.cshtml" t="Include" />
               <e p="_openCloseConfiguration.cshtml" t="Include" />
               <e p="_toggleConfiguration.cshtml" t="Include" />
+            </e>
+            <e p="Devices" t="Include">
+              <e p="_blindsConfiguration.cshtml" t="Include" />
+              <e p="_cleanerConfiguration.cshtml" t="Include" />
+              <e p="_climateConfiguration.cshtml" t="Include" />
+              <e p="_heatingConfiguration.cshtml" t="Include" />
+              <e p="_lightConfiguration.cshtml" t="Include" />
+              <e p="_moveConfiguration.cshtml" t="Include" />
+              <e p="_openCloseConfiguration.cshtml" t="Include" />
+              <e p="_smokeConfiguration.cshtml" t="Include" />
+              <e p="_toggleConfiguration.cshtml" t="Include" />
+              <e p="_waterLeakConfiguration.cshtml" t="Include" />
+              <e p="_weatherConfiguration.cshtml" t="Include" />
             </e>
             <e p="Error.cshtml" t="Include" />
           </e>

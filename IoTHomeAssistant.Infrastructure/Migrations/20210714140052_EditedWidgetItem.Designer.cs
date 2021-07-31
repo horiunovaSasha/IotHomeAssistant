@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210714140052_EditedWidgetItem")]
+    partial class EditedWidgetItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -378,8 +380,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeviceId");
-
                     b.HasIndex("DeviceTopicId");
 
                     b.HasIndex("IconColorId");
@@ -530,10 +530,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.WidgetItem", b =>
                 {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Device", "Device")
-                        .WithMany()
-                        .HasForeignKey("DeviceId");
-
                     b.HasOne("IoTHomeAssistant.Domain.Entities.DeviceMqttTopic", "DeviceTopic")
                         .WithMany()
                         .HasForeignKey("DeviceTopicId");
@@ -549,8 +545,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.HasOne("IoTHomeAssistant.Domain.Entities.Widget", "Widget")
                         .WithMany("Items")
                         .HasForeignKey("WidgetId");
-
-                    b.Navigation("Device");
 
                     b.Navigation("DeviceTopic");
 

@@ -1,24 +1,29 @@
 ﻿<Properties StartupConfiguration="{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="IoTHomeAssistant.Web/appsettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="IoTHomeAssistant.Web/Controllers/HomeController.cs">
     <Files>
       <File FileName="IoTHomeAssistant.Web/Program.cs" Line="12" Column="1" />
       <File FileName="IoTHomeAssistant.Web/Startup.cs" />
-      <File FileName="IoTHomeAssistant.Web/appsettings.json" Line="3" Column="52" />
+      <File FileName="IoTHomeAssistant.Web/appsettings.json" Line="3" Column="44" />
       <File FileName="IoTHomeAssistant.Web/Views/Shared/Configurations/_feedConfiguration.cshtml" />
-      <File FileName="IoTHomeAssistant.Web/Services/MqttBackgroundService.cs" Line="70" Column="5" />
-      <File FileName="IoTHomeAssistant.Infrastructure/Repositories/DeviceMqttTopicRepository.cs" />
+      <File FileName="IoTHomeAssistant.Web/Services/MqttBackgroundService.cs" Line="34" Column="1" />
+      <File FileName="IoTHomeAssistant.Infrastructure/Repositories/DeviceMqttTopicRepository.cs" Line="18" Column="1" />
       <File FileName="IoTHomeAssistant.Web/appsettings.Development.json" Line="3" Column="52" />
-      <File FileName="IoTHomeAssistant.Web/Controllers/HomeController.cs" Line="29" Column="1" />
+      <File FileName="IoTHomeAssistant.Web/Controllers/HomeController.cs" Line="17" Column="29" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="IoTHomeAssistant" expanded="True">
             <Node name="Solution Items" expanded="True" />
+            <Node name="IoTHomeAssistant.Infrastructure" expanded="True">
+              <Node name="Repositories" expanded="True" />
+            </Node>
             <Node name="IoTHomeAssistant.Web" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="HomeController.cs" selected="True" />
+              </Node>
               <Node name="Services" expanded="True" />
-              <Node name="appsettings.json" expanded="True" selected="True" />
+              <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -31,7 +36,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Services/MqttBackgroundService.cs" relfile="IoTHomeAssistant.Web/Services/MqttBackgroundService.cs" line="34" column="1" />
-      <Breakpoint file="/Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/Repositories/DeviceMqttTopicRepository.cs" relfile="IoTHomeAssistant.Infrastructure/Repositories/DeviceMqttTopicRepository.cs" line="21" column="1" />
       <Breakpoint file="/Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Controllers/HomeController.cs" relfile="IoTHomeAssistant.Web/Controllers/HomeController.cs" line="28" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

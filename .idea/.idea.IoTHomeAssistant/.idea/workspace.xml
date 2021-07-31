@@ -30,12 +30,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="057e60e4-ca93-4563-a09a-c19aba02ac39" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140052_EditedWidgetItem.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140052_EditedWidgetItem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140430_EditedWidgetItem1.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140430_EditedWidgetItem1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/IoTHomeAssistant/xs/UserPrefs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/IoTHomeAssistant/xs/UserPrefs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Data/app.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/Data/app.db-shm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/Data/app.db-wal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Repositories/WidgetRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Repositories/WidgetRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Web/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Web/appsettings.Development.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/js/site.js" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/js/site.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,22 +61,33 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Startup.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/72B9A152-58C1-42AC-910D-9A2F4B04B93B/8/DiagnosticListener.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/Repositories/WidgetRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53B92D81-C9E0-42BD-9EF0-E70966A02EED/10F/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Startup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/72B9A152-58C1-42AC-910D-9A2F4B04B93B/8/DiagnosticListener.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F758DD2F-9E4C-41A0-B7A1-63138D66F75D/A/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Shared/_WidgetModal.cshtml" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Shared/_Layout.cshtml" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Shared/Configurations/_forecastConfiguration.cshtml" />
@@ -77,13 +97,18 @@
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Repositories/DeviceMqttTopicRepository.cs" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/appsettings.json" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/appsettings.Development.json" />
-        <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/Startup.cs" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Repositories/WidgetItemRepository.cs" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Domain/Repositories/IWidgetItemRepository.cs" />
-        <option value="$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs" />
-        <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/js/site.js" />
         <option value="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Repositories/WidgetRepository.cs" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" />
+        <option value="$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53B92D81-C9E0-42BD-9EF0-E70966A02EED/10F/ActionMethodExecutor.cs" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/css/site.css" />
+        <option value="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/js/site.js" />
       </list>
     </option>
   </component>
@@ -201,140 +226,145 @@
       <screen x="0" y="25" width="1792" height="1009" />
     </state>
     <state x="659" y="238" key="#xdebugger.evaluate/0.25.1792.1009@0.25.1792.1009" timestamp="1626255352631" />
-    <state width="1146" height="670" key="DebuggerActiveHint" timestamp="1626256413347">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1082" height="527" key="DebuggerActiveHint" timestamp="1627660039411">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1146" height="670" key="DebuggerActiveHint/0.25.1792.1009@0.25.1792.1009" timestamp="1626256413347" />
-    <state width="1082" height="527" key="DebuggerActiveHint/0.25.1792.1010@0.25.1792.1010" timestamp="1626102588318" />
+    <state width="1082" height="527" key="DebuggerActiveHint/0.25.1792.1010@0.25.1792.1010" timestamp="1627660039411" />
+    <state width="1082" height="529" key="DebuggerActiveHint/0.25.1792.1013@0.25.1792.1013" timestamp="1627658298061" />
     <state x="180" y="112" width="1433" height="807" key="DiffContextDialog" timestamp="1626256136405">
       <screen x="0" y="25" width="1792" height="1009" />
     </state>
     <state x="180" y="112" width="1433" height="807" key="DiffContextDialog/0.25.1792.1009@0.25.1792.1009" timestamp="1626256136405" />
-    <state width="1728" height="363" key="GridCell.Tab.0.bottom" timestamp="1626256328729">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="272" key="GridCell.Tab.0.bottom" timestamp="1627661227637">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.0.bottom/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328729" />
-    <state width="1728" height="363" key="GridCell.Tab.0.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527552" />
-    <state width="1728" height="272" key="GridCell.Tab.0.bottom/0.25.1792.1013@0.25.1792.1013" timestamp="1625151098831" />
-    <state width="1728" height="363" key="GridCell.Tab.0.center" timestamp="1626256328728">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="272" key="GridCell.Tab.0.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1627661227637" />
+    <state width="1728" height="272" key="GridCell.Tab.0.bottom/0.25.1792.1013@0.25.1792.1013" timestamp="1627659012620" />
+    <state width="1728" height="272" key="GridCell.Tab.0.center" timestamp="1627661227637">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.0.center/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328728" />
-    <state width="1728" height="363" key="GridCell.Tab.0.center/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527552" />
-    <state width="1728" height="272" key="GridCell.Tab.0.center/0.25.1792.1013@0.25.1792.1013" timestamp="1625151098831" />
-    <state width="1728" height="363" key="GridCell.Tab.0.left" timestamp="1626256328728">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="272" key="GridCell.Tab.0.center/0.25.1792.1010@0.25.1792.1010" timestamp="1627661227637" />
+    <state width="1728" height="272" key="GridCell.Tab.0.center/0.25.1792.1013@0.25.1792.1013" timestamp="1627659012620" />
+    <state width="1728" height="272" key="GridCell.Tab.0.left" timestamp="1627661227636">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.0.left/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328728" />
-    <state width="1728" height="363" key="GridCell.Tab.0.left/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527551" />
-    <state width="1728" height="272" key="GridCell.Tab.0.left/0.25.1792.1013@0.25.1792.1013" timestamp="1625151098830" />
-    <state width="1728" height="363" key="GridCell.Tab.0.right" timestamp="1626256328729">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="272" key="GridCell.Tab.0.left/0.25.1792.1010@0.25.1792.1010" timestamp="1627661227636" />
+    <state width="1728" height="272" key="GridCell.Tab.0.left/0.25.1792.1013@0.25.1792.1013" timestamp="1627659012619" />
+    <state width="1728" height="272" key="GridCell.Tab.0.right" timestamp="1627661227637">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.0.right/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328729" />
-    <state width="1728" height="363" key="GridCell.Tab.0.right/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527552" />
-    <state width="1728" height="272" key="GridCell.Tab.0.right/0.25.1792.1013@0.25.1792.1013" timestamp="1625151098831" />
-    <state width="1728" height="363" key="GridCell.Tab.1.bottom" timestamp="1626256333376">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="272" key="GridCell.Tab.0.right/0.25.1792.1010@0.25.1792.1010" timestamp="1627661227637" />
+    <state width="1728" height="272" key="GridCell.Tab.0.right/0.25.1792.1013@0.25.1792.1013" timestamp="1627659012620" />
+    <state width="1728" height="226" key="GridCell.Tab.1.bottom" timestamp="1627660454760">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.1.bottom/0.25.1792.1009@0.25.1792.1009" timestamp="1626256333376" />
-    <state width="1728" height="363" key="GridCell.Tab.1.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1626102532380" />
+    <state width="1728" height="226" key="GridCell.Tab.1.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454760" />
     <state width="1728" height="363" key="GridCell.Tab.1.bottom/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658069" />
-    <state width="1728" height="363" key="GridCell.Tab.1.center" timestamp="1626256333376">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.1.center" timestamp="1627660454760">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.1.center/0.25.1792.1009@0.25.1792.1009" timestamp="1626256333376" />
-    <state width="1728" height="363" key="GridCell.Tab.1.center/0.25.1792.1010@0.25.1792.1010" timestamp="1626102532379" />
+    <state width="1728" height="226" key="GridCell.Tab.1.center/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454760" />
     <state width="1728" height="363" key="GridCell.Tab.1.center/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658069" />
-    <state width="1728" height="363" key="GridCell.Tab.1.left" timestamp="1626256333376">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.1.left" timestamp="1627660454759">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.1.left/0.25.1792.1009@0.25.1792.1009" timestamp="1626256333376" />
-    <state width="1728" height="363" key="GridCell.Tab.1.left/0.25.1792.1010@0.25.1792.1010" timestamp="1626102532379" />
+    <state width="1728" height="226" key="GridCell.Tab.1.left/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454759" />
     <state width="1728" height="363" key="GridCell.Tab.1.left/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658069" />
-    <state width="1728" height="363" key="GridCell.Tab.1.right" timestamp="1626256333376">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.1.right" timestamp="1627660454760">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.1.right/0.25.1792.1009@0.25.1792.1009" timestamp="1626256333376" />
-    <state width="1728" height="363" key="GridCell.Tab.1.right/0.25.1792.1010@0.25.1792.1010" timestamp="1626102532380" />
+    <state width="1728" height="226" key="GridCell.Tab.1.right/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454760" />
     <state width="1728" height="363" key="GridCell.Tab.1.right/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658069" />
-    <state width="1728" height="363" key="GridCell.Tab.2.bottom" timestamp="1626256328604">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.2.bottom" timestamp="1627660454761">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.2.bottom/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328604" />
-    <state width="1728" height="363" key="GridCell.Tab.2.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527382" />
+    <state width="1728" height="226" key="GridCell.Tab.2.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454761" />
     <state width="1728" height="363" key="GridCell.Tab.2.bottom/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658070" />
-    <state width="1728" height="363" key="GridCell.Tab.2.center" timestamp="1626256328604">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.2.center" timestamp="1627660454760">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.2.center/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328604" />
-    <state width="1728" height="363" key="GridCell.Tab.2.center/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527382" />
+    <state width="1728" height="226" key="GridCell.Tab.2.center/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454760" />
     <state width="1728" height="363" key="GridCell.Tab.2.center/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658070" />
-    <state width="1728" height="363" key="GridCell.Tab.2.left" timestamp="1626256328603">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.2.left" timestamp="1627660454760">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.2.left/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328603" />
-    <state width="1728" height="363" key="GridCell.Tab.2.left/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527382" />
+    <state width="1728" height="226" key="GridCell.Tab.2.left/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454760" />
     <state width="1728" height="363" key="GridCell.Tab.2.left/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658070" />
-    <state width="1728" height="363" key="GridCell.Tab.2.right" timestamp="1626256328604">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.2.right" timestamp="1627660454761">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.2.right/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328604" />
-    <state width="1728" height="363" key="GridCell.Tab.2.right/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527382" />
+    <state width="1728" height="226" key="GridCell.Tab.2.right/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454761" />
     <state width="1728" height="363" key="GridCell.Tab.2.right/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658070" />
-    <state width="1728" height="363" key="GridCell.Tab.3.bottom" timestamp="1626256328605">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.3.bottom" timestamp="1627660454762">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.3.bottom/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
-    <state width="1728" height="363" key="GridCell.Tab.3.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527384" />
+    <state width="1728" height="226" key="GridCell.Tab.3.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454762" />
     <state width="1728" height="363" key="GridCell.Tab.3.bottom/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658071" />
-    <state width="1728" height="363" key="GridCell.Tab.3.center" timestamp="1626256328604">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.3.center" timestamp="1627660454761">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.3.center/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328604" />
-    <state width="1728" height="363" key="GridCell.Tab.3.center/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527383" />
+    <state width="1728" height="226" key="GridCell.Tab.3.center/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454761" />
     <state width="1728" height="363" key="GridCell.Tab.3.center/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658071" />
-    <state width="1728" height="363" key="GridCell.Tab.3.left" timestamp="1626256328604">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.3.left" timestamp="1627660454761">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.3.left/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328604" />
-    <state width="1728" height="363" key="GridCell.Tab.3.left/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527383" />
+    <state width="1728" height="226" key="GridCell.Tab.3.left/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454761" />
     <state width="1728" height="363" key="GridCell.Tab.3.left/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658071" />
-    <state width="1728" height="363" key="GridCell.Tab.3.right" timestamp="1626256328605">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.3.right" timestamp="1627660454761">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.3.right/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
-    <state width="1728" height="363" key="GridCell.Tab.3.right/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527383" />
+    <state width="1728" height="226" key="GridCell.Tab.3.right/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454761" />
     <state width="1728" height="363" key="GridCell.Tab.3.right/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658071" />
-    <state width="1728" height="363" key="GridCell.Tab.4.bottom" timestamp="1626256328605">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.4.bottom" timestamp="1627660454762">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.4.bottom/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
-    <state width="1728" height="363" key="GridCell.Tab.4.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527385" />
+    <state width="1728" height="226" key="GridCell.Tab.4.bottom/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454762" />
     <state width="1728" height="363" key="GridCell.Tab.4.bottom/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658072" />
-    <state width="1728" height="363" key="GridCell.Tab.4.center" timestamp="1626256328605">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.4.center" timestamp="1627660454762">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.4.center/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
-    <state width="1728" height="363" key="GridCell.Tab.4.center/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527384" />
+    <state width="1728" height="226" key="GridCell.Tab.4.center/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454762" />
     <state width="1728" height="363" key="GridCell.Tab.4.center/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658072" />
-    <state width="1728" height="363" key="GridCell.Tab.4.left" timestamp="1626256328605">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.4.left" timestamp="1627660454762">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.4.left/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
-    <state width="1728" height="363" key="GridCell.Tab.4.left/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527384" />
+    <state width="1728" height="226" key="GridCell.Tab.4.left/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454762" />
     <state width="1728" height="363" key="GridCell.Tab.4.left/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658071" />
-    <state width="1728" height="363" key="GridCell.Tab.4.right" timestamp="1626256328605">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state width="1728" height="226" key="GridCell.Tab.4.right" timestamp="1627660454762">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state width="1728" height="363" key="GridCell.Tab.4.right/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
-    <state width="1728" height="363" key="GridCell.Tab.4.right/0.25.1792.1010@0.25.1792.1010" timestamp="1626102527385" />
+    <state width="1728" height="226" key="GridCell.Tab.4.right/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454762" />
     <state width="1728" height="363" key="GridCell.Tab.4.right/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658072" />
     <state x="668" y="244" key="RollbackChangesDialog" timestamp="1626255966151">
       <screen x="0" y="25" width="1792" height="1009" />
     </state>
     <state x="668" y="244" key="RollbackChangesDialog/0.25.1792.1009@0.25.1792.1009" timestamp="1626255966151" />
     <state x="668" y="244" key="RollbackChangesDialog/0.25.1792.1010@0.25.1792.1010" timestamp="1626094548000" />
+    <state x="111" y="125" width="1570" height="809" key="VCS.FileHistoryDialog" timestamp="1627658728117">
+      <screen x="0" y="25" width="1792" height="1010" />
+    </state>
+    <state x="111" y="125" width="1570" height="809" key="VCS.FileHistoryDialog/0.25.1792.1010@0.25.1792.1010" timestamp="1627658728117" />
     <state x="496" y="266" key="Vcs.Push.Dialog.v2" timestamp="1626085018844">
       <screen x="0" y="25" width="1792" height="1009" />
     </state>
@@ -348,11 +378,11 @@
     </state>
     <state x="697" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1792.1009@0.25.1792.1009" timestamp="1626170641255" />
     <state x="697" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1792.1010@0.25.1792.1010" timestamp="1626088480478" />
-    <state x="510" y="284" width="771" height="490" key="find.popup" timestamp="1626250870859">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state x="510" y="284" width="771" height="491" key="find.popup" timestamp="1627661099974">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state x="510" y="284" width="771" height="490" key="find.popup/0.25.1792.1009@0.25.1792.1009" timestamp="1626250870859" />
-    <state x="510" y="284" width="771" height="491" key="find.popup/0.25.1792.1010@0.25.1792.1010" timestamp="1625151187510" />
+    <state x="510" y="284" width="771" height="491" key="find.popup/0.25.1792.1010@0.25.1792.1010" timestamp="1627661099974" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1625906875134">
       <screen x="0" y="25" width="1792" height="1009" />
     </state>
@@ -396,20 +426,6 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml</url>
-          <line>67</line>
-          <properties documentPath="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" initialLine="67" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/IoTHomeAssistant.Web/Controllers/DevicesController.cs</url>
           <line>16</line>
           <properties documentPath="$PROJECT_DIR$/IoTHomeAssistant.Web/Controllers/DevicesController.cs" initialLine="16">
@@ -423,19 +439,6 @@
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/IoTHomeAssistant.Web/Controllers/HomeController.cs</url>
-          <line>25</line>
-          <properties documentPath="$PROJECT_DIR$/IoTHomeAssistant.Web/Controllers/HomeController.cs" initialLine="25">
-            <startOffsets>
-              <option value="733" />
-            </startOffsets>
-            <endOffsets>
-              <option value="734" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs</url>
           <line>63</line>
           <properties documentPath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs" initialLine="71">
@@ -447,6 +450,32 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs</url>
+          <line>34</line>
+          <properties documentPath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs" initialLine="34">
+            <startOffsets>
+              <option value="1176" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1177" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs</url>
+          <line>49</line>
+          <properties documentPath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Services/DeviceService.cs" initialLine="50">
+            <startOffsets>
+              <option value="1826" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1871" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

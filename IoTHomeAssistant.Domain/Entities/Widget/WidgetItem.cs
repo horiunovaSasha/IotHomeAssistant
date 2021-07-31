@@ -14,5 +14,6 @@ namespace IoTHomeAssistant.Domain.Entities
         public virtual Color IconColor { get; set; }
         public virtual DeviceMqttTopic DeviceTopic { get; set; }
         public virtual ICollection<WidgetItemColorRange> ColorRange { get; set; }
+        public virtual Device Device { get; set; }
     }
 }
