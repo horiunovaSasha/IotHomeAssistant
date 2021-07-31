@@ -1,4 +1,5 @@
-﻿using IoTHomeAssistant.Domain.Entities;
+﻿using IoTHomeAssistant.Domain.Dto.Pagging;
+using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
 using System.Collections.Generic;
 
@@ -16,6 +17,34 @@ namespace IoTHomeAssistant.Domain.Services
         public List<Plugin> GetPlugins()
         {
             return _pluginRepository.GetAllWithDependencies();
+        }
+
+        public void AddPlugin(Plugin plugin)
+        {
+            _pluginRepository.Add(plugin);
+            _pluginRepository.Commit();
+        }
+
+        public void UpdatePlugin(Plugin plugin)
+        {
+            _pluginRepository.Update(plugin);
+            _pluginRepository.Commit();
+        }
+
+        public void RemovePlugin(int id)
+        {
+            _pluginRepository.Delete(id);
+            _pluginRepository.Commit();
+        }
+
+        public Plugin GetPlugin(int id)
+        {
+            return _pluginRepository.Get(id);
+        }
+
+        public PageResponse<Plugin> GetPagginPlugins(PageRequest request)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

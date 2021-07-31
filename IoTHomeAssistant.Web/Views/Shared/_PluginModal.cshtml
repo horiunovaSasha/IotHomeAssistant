@@ -42,47 +42,73 @@
                             <div class="col-6">
                                 <div class="input-block shadow mt-1 required">
                                     <label for="">Title</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control plg-title">
                                 </div>
                             </div>
                             <div class="col-6 required">
-                                <select data-style="bg-white shadow device-list" class="w-100 selectpicker">
-                                    <option>Select Type</option>
-                                    <option>Mqtt Broker</option>
+                                <select data-style="bg-white shadow plg-type" class="w-100 selectpicker">
+                                    <option value="">Select Type</option>
+                                    @foreach (IoTHomeAssistant.Domain.Enums.DeviceTypeEnum type in Enum.GetValues(typeof(IoTHomeAssistant.Domain.Enums.DeviceTypeEnum)))
+                                    {
+                                    <option value="@((int)type)">@type</option>
+                                    }
                                 </select>
                             </div>
                         </div>
                         <h5 class="mt-1">Configurations:</h5>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="input-block shadow mt-1 required">
-                                    <label for="">Title</label>
-                                    <input type="text" class="form-control">
+                        <div class="plg-confs">
+                            <div class="row">
+                                <div class="col-4 required">
+                                    <div class="input-block shadow mt-1">
+                                        <label for="">Title</label>
+                                        <input type="text" class="form-control plg-conf-title">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="input-block shadow mt-1 required">
-                                    <label for="">Key</label>
-                                    <input type="text" class="form-control">
+                                <div class="col-3 required">
+                                    <div class="input-block shadow mt-1">
+                                        <label for="">Key</label>
+                                        <input type="text" class="form-control plg-conf-key">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-block shadow mt-1 required">
-                                    <label for="">Description</label>
-                                    <input type="text" class="form-control">
+                                <div class="col-4">
+                                    <div class="input-block shadow mt-1">
+                                        <label for="">Description</label>
+                                        <input type="text" class="form-control plg-conf-desc">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-1 pt-3 pl-2">
-                                <a href="#">remove</a>
+                                <div class="col-1 pt-3 pl-2 rm-plg-conf" style="display: none;">
+                                    <a href="#">
+                                        <i class="fa fa-trash" style="font-size: 1.5em;" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12 text-right pb-2" style="margin-top: -25px;margin-left: -1em;"><a href="#" id="plg-add-new">Add</a></div>
+                        </div>
+                        <h5 class="mt-1">Docker Configuration:</h5>
                         <div class="row">
                             <div class="col-12">
+                                <div class="input-block shadow mt-1 required">
+                                    <label for="">Docker Image Source</label>
+                                    <input type="text" class="form-control plg-docker-img">
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="shadow mt-1 required">
-                                    <textarea class="form-control" placeholder="Docker Configuration"></textarea>
+                                    <textarea class="form-control plg-docker-conf" placeholder="Docker Start Configuration"></textarea>
                                 </div>
                             </div>
                         </div>
+                        <div class="row ">
+                        <div class="col-12 btn-bottom">
+                            <div class="float-right">
+                                <button class="btn btn-secondary mr-4">Cancel</button>
+                                <button class="btn btn-primary" id="plg-save">&nbsp;Save&nbsp;</button>
+                            </div>
+                        </div>
+
+                    </div>
                     </div>
                 </div>
             </div>
@@ -92,6 +118,76 @@
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
+        $('#plg-add-new').on('click', function () {
+            var confBlock = $(".plg-confs .row:first-child").clone();
+            $('input', confBlock).val('');
+            $('.input-block label', confBlock).css({
+                'top': '1.3em',
+                'fontSize': '1.2em'
+            });
+
+            $('.form-control', confBlock).focus(onTextInputFocus);
+            $('.form-control', confBlock).blur(onTextInputBlur);
+            
+            $('.rm-plg-conf', confBlock).show();
+
+            $('.rm-plg-conf a', confBlock).on('click', function () {
+                if (confirm('Are you sure You want to delete the configuration?')) {
+                    $(this).closest('.row').remove();
+                }
+            });
+
+            confBlock.appendTo(".plg-confs");
+        });
+
+        $('#plg-save').on('click', function () {
+            $('#plg-save').prop('disabled', true);
+            var requires = $("#pluginModal .required:visible");
+            var emptyFields = 0;
+
+            requires.each(function () {
+                var input = $('input, select, textarea', this);
+
+                if (input && (input.val() == "" || input.val() == null)) {
+                    $(this).addClass("vibration");
+                    emptyFields++;
+                }
+            });
+
+            if (emptyFields == 0) {
+                var configurations = [];
+
+                $(".plg-confs .row").each(function () {
+                    configurations.push({
+                        title: $('.plg-conf-title', this).val(),
+                        key: $('.plg-conf-key', this).val(),
+                        description: $('.plg-conf-desc', this).val()
+                    });
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/plugins",
+                    data: JSON.stringify({
+                        title: $('.plg-title').val(),
+                        deviceType: Number.parseInt($('#pluginModal select').val()),
+                        dockerImageSource: $('.plg-docker-img').val(),
+                        dockerConfiguration: $('.plg-docker-conf').val(),
+                        configurations: configurations
+                    }),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                });
+            } else {
+                setTimeout(function () {
+                    $("#pluginModal .required").removeClass("vibration");
+                    $('#plg-save').prop('disabled', false);
+                }, 1500);
+            }
+
+        });
+        
+
         $('.form-control').focus(onTextInputFocus);
         $('.form-control').blur(onTextInputBlur);
 

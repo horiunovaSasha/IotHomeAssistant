@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210716113009_AddedPluginDockerSource")]
+    partial class AddedPluginDockerSource
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -356,9 +358,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("DeviceId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("DeviceTopicId")
                         .HasColumnType("INTEGER");
 
@@ -380,8 +379,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DeviceId");
 
                     b.HasIndex("DeviceTopicId");
 
@@ -533,10 +530,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.WidgetItem", b =>
                 {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Device", "Device")
-                        .WithMany()
-                        .HasForeignKey("DeviceId");
-
                     b.HasOne("IoTHomeAssistant.Domain.Entities.DeviceMqttTopic", "DeviceTopic")
                         .WithMany()
                         .HasForeignKey("DeviceTopicId");
@@ -552,8 +545,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.HasOne("IoTHomeAssistant.Domain.Entities.Widget", "Widget")
                         .WithMany("Items")
                         .HasForeignKey("WidgetId");
-
-                    b.Navigation("Device");
 
                     b.Navigation("DeviceTopic");
 
