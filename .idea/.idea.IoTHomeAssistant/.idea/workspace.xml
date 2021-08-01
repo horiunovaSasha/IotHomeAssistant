@@ -29,24 +29,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="057e60e4-ca93-4563-a09a-c19aba02ac39" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140052_EditedWidgetItem.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140052_EditedWidgetItem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140430_EditedWidgetItem1.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/20210714140430_EditedWidgetItem1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IoTHomeAssistant/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/IoTHomeAssistant/xs/UserPrefs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/IoTHomeAssistant/xs/UserPrefs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/Data/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/app.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/Data/app.db-shm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/app.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/Data/app.db-wal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Web/Views/Home/Index.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/js/site.js" beforeDir="false" afterPath="$PROJECT_DIR$/IoTHomeAssistant.Web/wwwroot/js/site.js" afterDir="false" />
-    </list>
+    <list default="true" id="057e60e4-ca93-4563-a09a-c19aba02ac39" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,26 +47,32 @@
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/Repositories/WidgetRepository.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/72B9A152-58C1-42AC-910D-9A2F4B04B93B/8/DiagnosticListener.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F758DD2F-9E4C-41A0-B7A1-63138D66F75D/A/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/IoTDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/Migrations/IoTDbContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Infrastructure/EntityConfigurations/Widget/WidgetItemConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/53B92D81-C9E0-42BD-9EF0-E70966A02EED/10F/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Web/Startup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Entities/Widget/WidgetItem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Users/okoshman/projects/IotHomeAssistant/IoTHomeAssistant.Domain/Services/DeviceService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/72B9A152-58C1-42AC-910D-9A2F4B04B93B/8/DiagnosticListener.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/F758DD2F-9E4C-41A0-B7A1-63138D66F75D/A/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -188,6 +177,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -356,11 +356,15 @@
     <state width="1728" height="363" key="GridCell.Tab.4.right/0.25.1792.1009@0.25.1792.1009" timestamp="1626256328605" />
     <state width="1728" height="226" key="GridCell.Tab.4.right/0.25.1792.1010@0.25.1792.1010" timestamp="1627660454762" />
     <state width="1728" height="363" key="GridCell.Tab.4.right/0.25.1792.1013@0.25.1792.1013" timestamp="1624973658072" />
-    <state x="668" y="244" key="RollbackChangesDialog" timestamp="1626255966151">
-      <screen x="0" y="25" width="1792" height="1009" />
+    <state x="534" y="295" key="MultipleFileMergeDialog" timestamp="1627754789964">
+      <screen x="0" y="25" width="1792" height="1010" />
+    </state>
+    <state x="534" y="295" key="MultipleFileMergeDialog/0.25.1792.1010@0.25.1792.1010" timestamp="1627754789964" />
+    <state x="668" y="244" key="RollbackChangesDialog" timestamp="1627754693934">
+      <screen x="0" y="25" width="1792" height="1010" />
     </state>
     <state x="668" y="244" key="RollbackChangesDialog/0.25.1792.1009@0.25.1792.1009" timestamp="1626255966151" />
-    <state x="668" y="244" key="RollbackChangesDialog/0.25.1792.1010@0.25.1792.1010" timestamp="1626094548000" />
+    <state x="668" y="244" key="RollbackChangesDialog/0.25.1792.1010@0.25.1792.1010" timestamp="1627754693934" />
     <state x="111" y="125" width="1570" height="809" key="VCS.FileHistoryDialog" timestamp="1627658728117">
       <screen x="0" y="25" width="1792" height="1010" />
     </state>
