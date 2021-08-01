@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\OleksandraKoshman\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\OleksandraKoshman\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_IoTHomeAssistant.1497586384.00" t="ExcludeRecursive" />
+    <e p="D:\IotHomeAssistant" t="IncludeFlat">
+      <e p="Data\app.db" t="Include" />
+      <e p="IoTHomeAssistant.Domain" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Dto" t="Include">
+          <e p="ColorRangeWidgetItem.cs" t="Include" />
+          <e p="EmptyResponse.cs" t="Include" />
+          <e p="GenericResponse.cs" t="Include" />
+          <e p="Pagging" t="Include">
+            <e p="PageRequest.cs" t="Include" />
+            <e p="PageResponse.cs" t="Include" />
+          </e>
+          <e p="Widget" t="Include">
+            <e p="Info" t="Include">
+              <e p="InfoDevice.cs" t="Include" />
+              <e p="InfoWidget.cs" t="Include" />
+              <e p="InfoWidgetItem.cs" t="Include" />
+              <e p="SensorInfo.cs" t="Include" />
+            </e>
+            <e p="WidgetItemFormat.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Entities" t="Include">
+          <e p="Appearance" t="Include">
+            <e p="Color.cs" t="Include" />
+            <e p="Icon.cs" t="Include" />
+          </e>
+          <e p="Area" t="Include">
+            <e p="Area.cs" t="Include" />
+          </e>
+          <e p="Command" t="Include">
+            <e p="Command.cs" t="Include" />
+          </e>
+          <e p="Device" t="Include">
+            <e p="Device.cs" t="Include" />
+            <e p="DeviceGroup.cs" t="Include" />
+            <e p="DeviceMqttTopic.cs" t="Include" />
+            <e p="DeviceVendor.cs" t="Include" />
+          </e>
+          <e p="IEntity.cs" t="Include" />
+          <e p="Mqtt" t="Include">
+            <e p="MqttBroker.cs" t="Include" />
+          </e>
+          <e p="Plugin" t="Include">
+            <e p="Plugin.cs" t="Include" />
+            <e p="PluginConfiguration.cs" t="Include" />
+            <e p="PluginDevice.cs" t="Include" />
+            <e p="PluginDeviceConfiguration.cs" t="Include" />
+          </e>
+          <e p="Widget" t="Include">
+            <e p="Widget.cs" t="Include" />
+            <e p="WidgetItem.cs" t="Include" />
+            <e p="WidgetItemColorRange.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Enums" t="Include">
+          <e p="CommandTypeEnum.cs" t="Include" />
+          <e p="DeviceTypeEnum.cs" t="Include" />
+          <e p="MqttTopicTypeEnum.cs" t="Include" />
+          <e p="WidgetItemTypeEnum.cs" t="Include" />
+        </e>
+        <e p="IoTHomeAssistant.Domain.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="IoTHomeAssistant.Domain.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="IDeviceMqttTopicRepository.cs" t="Include" />
+          <e p="IDeviceRepository.cs" t="Include" />
+          <e p="IPluginRepository.cs" t="Include" />
+          <e p="IRepository.cs" t="Include" />
+          <e p="IWidgetRepository.cs" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="DeviceService.cs" t="Include" />
+          <e p="IDeviceService.cs" t="Include" />
+          <e p="IPluginService.cs" t="Include" />
+          <e p="IWidgetService.cs" t="Include" />
+          <e p="PluginService.cs" t="Include" />
+          <e p="WidgetService.cs" t="Include" />
+        </e>
+      </e>
+      <e p="IoTHomeAssistant.Infrastructure" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="EntityConfigurations" t="Include">
+          <e p="Appearance" t="Include">
+            <e p="ColorConfiguration.cs" t="Include" />
+            <e p="IconConfiguration.cs" t="Include" />
+          </e>
+          <e p="Area" t="Include">
+            <e p="AreaConfiguration.cs" t="Include" />
+          </e>
+          <e p="Device" t="Include">
+            <e p="DeviceConfiguration.cs" t="Include" />
+            <e p="DeviceGroupConfiguration.cs" t="Include" />
+            <e p="DeviceMqttTopicConfiguration.cs" t="Include" />
+            <e p="DeviceVendorConfiguration.cs" t="Include" />
+          </e>
+          <e p="IoTDbContext.cs" t="Include" />
+          <e p="Mqtt" t="Include">
+            <e p="MqttBrokerConfiguration.cs" t="Include" />
+          </e>
+          <e p="Plugin" t="Include">
+            <e p="PluginConfiguration.cs" t="Include" />
+            <e p="PluginConfigurationConfiguration.cs" t="Include" />
+            <e p="PluginDeviceConfiguration.cs" t="Include" />
+            <e p="PluginDeviceConfigurationConfiguration.cs" t="Include" />
+          </e>
+          <e p="Widget" t="Include">
+            <e p="WidgetConfiguration.cs" t="Include" />
+            <e p="WidgetItemColorRangeConfiguration.cs" t="Include" />
+            <e p="WidgetItemConfiguration.cs" t="Include" />
+          </e>
+        </e>
+        <e p="IoTHomeAssistant.Infrastructure.csproj" t="IncludeRecursive" />
+        <e p="Migrations" t="Include">
+          <e p="20201130181943_InitialIoT.cs" t="Include" />
+          <e p="20201130181943_InitialIoT.Designer.cs" t="Include" />
+          <e p="20210709174619_AddDeviceIPAddress.cs" t="Include" />
+          <e p="20210709174619_AddDeviceIPAddress.Designer.cs" t="Include" />
+          <e p="20210713145855_AddPluginEntities.cs" t="Include" />
+          <e p="20210713145855_AddPluginEntities.Designer.cs" t="Include" />
+          <e p="20210713173607_ChangePluginEntities.cs" t="Include" />
+          <e p="20210713173607_ChangePluginEntities.Designer.cs" t="Include" />
+          <e p="20210716113009_AddedPluginDockerSource.cs" t="Include" />
+          <e p="20210716113009_AddedPluginDockerSource.Designer.cs" t="Include" />
+          <e p="IoTDbContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="IoTHomeAssistant.Infrastructure.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="DeviceMqttTopicRepository.cs" t="Include" />
+          <e p="DeviceRepository.cs" t="Include" />
+          <e p="PluginRepository.cs" t="Include" />
+          <e p="Repository.cs" t="Include" />
+          <e p="WidgetRepository.cs" t="Include" />
+        </e>
+      </e>
+      <e p="IoTHomeAssistant.sln" t="IncludeFlat" />
+      <e p="IoTHomeAssistant.Web" t="IncludeRecursive">
+        <e p="Api" t="Include">
+          <e p="DevicesController.cs" t="Include" />
+          <e p="PluginsController.cs" t="Include" />
+          <e p="WidgetController.cs" t="Include" />
+        </e>
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="Areas" t="Include">
+          <e p="Identity" t="Include">
+            <e p="Pages" t="Include">
+              <e p="_ViewStart.cshtml" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="DevicesController.cs" t="Include" />
+          <e p="HomeController.cs" t="Include" />
+          <e p="PluginsController.cs" t="Include" />
+          <e p="TasksController.cs" t="Include" />
+        </e>
+        <e p="Data" t="Include">
+          <e p="ApplicationDbContext.cs" t="Include" />
+          <e p="Migrations" t="Include">
+            <e p="00000000000000_CreateIdentitySchema.cs" t="Include" />
+            <e p="00000000000000_CreateIdentitySchema.Designer.cs" t="Include" />
+            <e p="ApplicationDbContextModelSnapshot.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Hubs" t="Include">
+          <e p="ConnectionHubManager.cs" t="Include" />
+          <e p="DeviceHub.cs" t="Include" />
+          <e p="NotificationHub.cs" t="Include" />
+        </e>
+        <e p="IoTHomeAssistant.Web.csproj" t="IncludeRecursive" />
+        <e p="libman.json" t="Include" />
+        <e p="Models" t="Include">
+          <e p="ErrorViewModel.cs" t="Include" />
+          <e p="LightRequest.cs" t="Include" />
+          <e p="ToggleRequest.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="IoTHomeAssistant.Web.AssemblyInfo.cs" t="Include" />
+              <e p="IoTHomeAssistant.Web.RazorAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="MqttBackgroundService.cs" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="Views" t="Include">
+          <e p="_ViewImports.cshtml" t="Include" />
+          <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Devices" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Home" t="Include">
+            <e p="Index.cshtml" t="Include" />
+            <e p="Privacy.cshtml" t="Include" />
+            <e p="Weather.cshtml" t="Include" />
+          </e>
+          <e p="Plugins" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Shared" t="Include">
+            <e p="_ColorPicker.cshtml" t="Include" />
+            <e p="_DashboardIcon.cshtml" t="Include" />
+            <e p="_DeviceModal.cshtml" t="Include" />
+            <e p="_IconsPopup.cshtml" t="Include" />
+            <e p="_Layout.cshtml" t="Include" />
+            <e p="_LoginPartial.cshtml" t="Include" />
+            <e p="_PluginModal.cshtml" t="Include" />
+            <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+            <e p="_WidgetModal.cshtml" t="Include" />
+            <e p="Configurations" t="Include">
+              <e p="_blindsConfiguration.cshtml" t="Include" />
+              <e p="_calendarConfiguration.cshtml" t="Include" />
+              <e p="_chartConfiguration.cshtml" t="Include" />
+              <e p="_cleanerConfiguration.cshtml" t="Include" />
+              <e p="_climateConfiguration.cshtml" t="Include" />
+              <e p="_commandConfiguration.cshtml" t="Include" />
+              <e p="_feedConfiguration.cshtml" t="Include" />
+              <e p="_forecastConfiguration.cshtml" t="Include" />
+              <e p="_heatingConfiguration.cshtml" t="Include" />
+              <e p="_infoConfiguration.cshtml" t="Include" />
+              <e p="_lightDimmerConfiguration.cshtml" t="Include" />
+              <e p="_moveConfiguration.cshtml" t="Include" />
+              <e p="_openCloseConfiguration.cshtml" t="Include" />
+              <e p="_toggleConfiguration.cshtml" t="Include" />
+            </e>
+            <e p="Devices" t="Include">
+              <e p="_blindsConfiguration.cshtml" t="Include" />
+              <e p="_cleanerConfiguration.cshtml" t="Include" />
+              <e p="_climateConfiguration.cshtml" t="Include" />
+              <e p="_heatingConfiguration.cshtml" t="Include" />
+              <e p="_lightConfiguration.cshtml" t="Include" />
+              <e p="_moveConfiguration.cshtml" t="Include" />
+              <e p="_openCloseConfiguration.cshtml" t="Include" />
+              <e p="_smokeConfiguration.cshtml" t="Include" />
+              <e p="_toggleConfiguration.cshtml" t="Include" />
+              <e p="_waterLeakConfiguration.cshtml" t="Include" />
+              <e p="_weatherConfiguration.cshtml" t="Include" />
+            </e>
+            <e p="Error.cshtml" t="Include" />
+          </e>
+          <e p="Tasks" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+        </e>
+        <e p="wwwroot" t="Include">
+          <e p="assets" t="Include">
+            <e p="images" t="Include">
+              <e p="1684375.svg" t="Include" />
+              <e p="218-edit.png" t="Include" />
+              <e p="279-edit.png" t="Include" />
+              <e p="icons-sprite.svg" t="Include" />
+              <e p="image.png" t="Include" />
+              <e p="list.png" t="Include" />
+              <e p="smart house" t="Include">
+                <e p="001-mobile phone.png" t="Include" />
+                <e p="002-humidity.png" t="Include" />
+                <e p="003-home control.png" t="Include" />
+                <e p="004-smart trash.png" t="Include" />
+                <e p="005-cctv.png" t="Include" />
+                <e p="006-smart watch.png" t="Include" />
+                <e p="007-fingerprint.png" t="Include" />
+                <e p="008-alarm.png" t="Include" />
+                <e p="009-voice assistant.png" t="Include" />
+                <e p="010-heater.png" t="Include" />
+                <e p="011-smart washing machine.png" t="Include" />
+                <e p="012-toilet.png" t="Include" />
+                <e p="013-kettle.png" t="Include" />
+                <e p="014-smarthome.png" t="Include" />
+                <e p="015-video doorbell.png" t="Include" />
+                <e p="016-smarthome.png" t="Include" />
+                <e p="017-water dispenser.png" t="Include" />
+                <e p="018-lamp.png" t="Include" />
+                <e p="018-settings.png" t="Include" />
+                <e p="019-heater.png" t="Include" />
+                <e p="020-knob.png" t="Include" />
+                <e p="021-smart refrigerator.png" t="Include" />
+                <e p="022-alarm.png" t="Include" />
+                <e p="023-voice assistant.png" t="Include" />
+                <e p="024-charger.png" t="Include" />
+                <e p="025-gps.png" t="Include" />
+                <e p="026-air conditioner.png" t="Include" />
+                <e p="027-smart tv.png" t="Include" />
+                <e p="028-dishwasher.png" t="Include" />
+                <e p="029-app.png" t="Include" />
+                <e p="030-key car.png" t="Include" />
+                <e p="031-microwave.png" t="Include" />
+                <e p="032-airpods.png" t="Include" />
+                <e p="033-coffee machine.png" t="Include" />
+                <e p="034-ebook.png" t="Include" />
+                <e p="035-socket.png" t="Include" />
+                <e p="036-smart scale.png" t="Include" />
+                <e p="037-air fryer.png" t="Include" />
+                <e p="038-smartphone.png" t="Include" />
+                <e p="039-garage.png" t="Include" />
+                <e p="040-remote control.png" t="Include" />
+                <e p="041-wifi.png" t="Include" />
+                <e p="042-gate.png" t="Include" />
+                <e p="043-robot vacuum cleaner.png" t="Include" />
+                <e p="044-cctv.png" t="Include" />
+                <e p="045-voice assistant.png" t="Include" />
+                <e p="046-stove.png" t="Include" />
+                <e p="047-smarthome.png" t="Include" />
+                <e p="048-home.png" t="Include" />
+                <e p="048-mouse.png" t="Include" />
+                <e p="049-wireless router.png" t="Include" />
+                <e p="050-thermostat.png" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="css" t="Include">
+            <e p="bootstrap_custom.css" t="Include" />
+            <e p="clockpicker.css" t="Include" />
+            <e p="iot_theme.css" t="Include" />
+            <e p="site.css" t="Include" />
+          </e>
+          <e p="favicon.ico" t="Include" />
+          <e p="fonts" t="Include">
+            <e p="glyphicons-halflings-regular.eot" t="Include" />
+            <e p="glyphicons-halflings-regular.svg" t="Include" />
+            <e p="glyphicons-halflings-regular.ttf" t="Include" />
+            <e p="glyphicons-halflings-regular.woff" t="Include" />
+            <e p="glyphicons-halflings-regular.woff2" t="Include" />
+          </e>
+          <e p="js" t="Include">
+            <e p="buildInfo.js" t="Include" />
+            <e p="clockpicker.js" t="Include" />
+            <e p="signalr" t="Include">
+              <e p="dist" t="Include">
+                <e p="browser" t="Include">
+                  <e p="signalr.js" t="Include" />
+                  <e p="signalr.min.js" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="site.js" t="Include" />
+            <e p="svg4everybody.min.js" t="Include" />
+          </e>
+          <e p="lib" t="Include">
+            <e p="bootstrap" t="Include">
+              <e p="dist" t="Include">
+                <e p="css" t="Include">
+                  <e p="bootstrap-grid.css" t="Include" />
+                  <e p="bootstrap-grid.css.map" t="Include" />
+                  <e p="bootstrap-grid.min.css" t="Include" />
+                  <e p="bootstrap-grid.min.css.map" t="Include" />
+                  <e p="bootstrap-reboot.css" t="Include" />
+                  <e p="bootstrap-reboot.css.map" t="Include" />
+                  <e p="bootstrap-reboot.min.css" t="Include" />
+                  <e p="bootstrap-reboot.min.css.map" t="Include" />
+                  <e p="bootstrap.css" t="Include" />
+                  <e p="bootstrap.css.map" t="Include" />
+                  <e p="bootstrap.min.css" t="Include" />
+                  <e p="bootstrap.min.css.map" t="Include" />
+                </e>
+                <e p="js" t="Include">
+                  <e p="bootstrap.bundle.js" t="Include" />
+                  <e p="bootstrap.bundle.js.map" t="Include" />
+                  <e p="bootstrap.bundle.min.js" t="Include" />
+                  <e p="bootstrap.bundle.min.js.map" t="Include" />
+                  <e p="bootstrap.js" t="Include" />
+                  <e p="bootstrap.js.map" t="Include" />
+                  <e p="bootstrap.min.js" t="Include" />
+                  <e p="bootstrap.min.js.map" t="Include" />
+                </e>
+              </e>
+              <e p="LICENSE" t="Include" />
+            </e>
+            <e p="datetimepicker" t="Include">
+              <e p="build" t="Include">
+                <e p="js" t="Include">
+                  <e p="bootstrap-datetimepicker.min.js" t="Include" />
+                </e>
+              </e>
+            </e>
+            <e p="jquery" t="Include">
+              <e p="dist" t="Include">
+                <e p="jquery.js" t="Include" />
+                <e p="jquery.min.js" t="Include" />
+                <e p="jquery.min.map" t="Include" />
+                <e p="jquery.slim.js" t="Include" />
+                <e p="jquery.slim.min.js" t="Include" />
+                <e p="jquery.slim.min.map" t="Include" />
+              </e>
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+            <e p="jquery-validation" t="Include">
+              <e p="dist" t="Include">
+                <e p="additional-methods.js" t="Include" />
+                <e p="additional-methods.min.js" t="Include" />
+                <e p="jquery.validate.js" t="Include" />
+                <e p="jquery.validate.min.js" t="Include" />
+              </e>
+              <e p="LICENSE.md" t="Include" />
+            </e>
+            <e p="jquery-validation-unobtrusive" t="Include">
+              <e p="jquery.validate.unobtrusive.js" t="Include" />
+              <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+              <e p="LICENSE.txt" t="Include" />
+            </e>
+            <e p="moment" t="Include">
+              <e p="dist" t="Include">
+                <e p="locale" t="Include">
+                  <e p="uk.js" t="Include" />
+                </e>
+                <e p="moment.js" t="Include" />
+              </e>
+              <e p="min" t="Include">
+                <e p="locales.js" t="Include" />
+                <e p="locales.min.js" t="Include" />
+                <e p="locales.min.js.map" t="Include" />
+                <e p="moment-with-locales.js" t="Include" />
+                <e p="moment-with-locales.min.js" t="Include" />
+                <e p="moment-with-locales.min.js.map" t="Include" />
+                <e p="moment.min.js" t="Include" />
+                <e p="moment.min.js.map" t="Include" />
+              </e>
+              <e p="moment.js" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Solution Items" t="Include" />
+    </e>
+  </component>
+</project>
