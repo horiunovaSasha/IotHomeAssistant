@@ -1,0 +1,303 @@
+﻿<link href="~/css/clockpicker.css" rel="stylesheet" />
+
+<div class="modal fade" id="jobTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 105em;">
+        <div class="modal-content p-0" style="width: 105em;">
+            <div class="widget-wrapper" style="width: 105em;">                
+                <div id="left-side">
+                    <ul>
+                        <li class="conf-icon ml-4">
+                            <i class="fa fa-cogs" aria-hidden="true" style="font-size: 120px;"></i>
+                        </li>
+                        <li class="conf-text" style="font-size: 36px;">
+                            Configuration
+                        </li>
+                    </ul>
+                </div>
+                <div id="right-side">
+                    <div class="main active">
+                        <h3>Add new Task</h3>
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-4">
+                                    <input type="text" class="form-control form-control-lg shadow" placeholder="Title">
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 widget plugin-when">
+                                <div class="list-group-item m-0 when-input" style="display: none">
+                                    <label for="when" class="p-4"><b>WHEN:</b></label>
+                                    <select data-id="when" class="w-100 mt-2 bg-white shadow form-control form-control-lg">
+                                        <option value="" selected disabled>Please Select</option>
+                                        <option value="1">Once</option>
+                                        <option value="2">Every Time</option>
+                                        <option value="3">Event Occurred</option>
+                                        <option value="4">Condition is Met</option>
+                                        <option value="5">Task Triggered</option>
+                                    </select>
+                                </div>
+                                <div class="group when-group" style="display: none">
+                                    <div class="list-group-item days" style="display: none">
+                                        <div class="row">
+                                            <div class="col-8 pl-4">
+                                                <select multiple class="w-100 mt-2 pl-2 bg-white shadow form-control">
+                                                    <option value="1">Monday</option>
+                                                    <option value="2">Tuesday</option>
+                                                    <option value="3">Wednesday</option>
+                                                    <option value="4">Thursday</option>
+                                                    <option value="5">Friday</option>
+                                                    <option value="6">Saturday</option>
+                                                    <option value="7">Sunday</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 pt-2 mb-4">
+                                                <div class="shadow required clockpicker ml-3">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text p-0 pl-1 pr-1 shadow">
+                                                            <i aria-hidden="true" class="fa fa-clock-o"></i>
+                                                        </div>
+                                                        <input type="text" placeholder="00:00" id="tst12" name="tst12" class="form-control form-control-lg shadow p-3">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item date" style="display: none">
+                                        <div class="row mb-4">
+                                            <div class="col-6 ml-4">
+                                                <div class="required mr-4">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text p-0 pl-1 pr-1 shadow">
+                                                            <i aria-hidden="true" class="fa fa-calendar"></i>
+                                                        </div>
+                                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control form-control-lg shadow datepicker">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="required clockpicker">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text p-0 pl-1 pr-1 shadow">
+                                                            <i aria-hidden="true" class="fa fa-clock-o"></i>
+                                                        </div>
+                                                        <input type="text" placeholder="00:00" class="form-control form-control-lg shadow p-3">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item events" style="display: none">
+                                        <div class="row">
+                                            <div class="col-12 pl-4 mb-4">
+                                                <select class="bg-white shadow form-control form-control-lg w-100">
+                                                    <option value="" selected disabled>Select Event</option>
+                                                    <option value="1">Event #1</option>
+                                                    <option value="2">Event #2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item conditions" style="display: none">
+                                        <div class="row">
+                                            <div class="col-3 pl-4 mb-4">
+                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                                    <option value="" selected disabled>Device</option>
+                                                    <option value="1">Device #1</option>
+                                                    <option value="2">Device #2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-3 pl-4 mb-4">
+                                                <select class="bg-white shadow form-control form-control-lg w-100">
+                                                    <option value="" selected disabled>Sensor</option>
+                                                    <option value="1">Sensor #1</option>
+                                                    <option value="2">Sensor #2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-3 pl-4 mb-4">
+                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                                    <option value="" selected disabled>Condition</option>
+                                                    <option value="1">==</option>
+                                                    <option value="2">!=</option>
+                                                    <option value="3"><</option>
+                                                    <option value="4">></option>
+                                                    <option value="5"><=</option>
+                                                    <option value="6">>=</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-3 pl-4 mb-4">
+                                                <input type="text" placeholder="Value" class="form-control form-control-lg shadow p-3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item tasks" style="display: none">
+                                        <div class="row">
+                                            <div class="col-12 pl-4 mb-4">
+                                                <select class="bg-white shadow w-100 mt-2 pl-2 form-control form-control-lg">
+                                                    <option value="" selected disabled>Select Task</option>
+                                                    <option value="1">Task #1</option>
+                                                    <option value="2">Task #2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item hr">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="list-group-item separator">
+                                    <div class="float-left"></div>
+                                    <div class="float-right" style="margin-top: -25px;">
+                                        <span><a href="#" id="add-when">ADD</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 widget plugin-then">
+                                <div class="list-group-item then-input">
+                                    <label for="then" class="p-4"><b>THEN:</b></label>
+                                    <select class="bg-white shadow form-control form-control-lg w-100 mt-2" data-id="then">
+                                        <option value="" selected disabled>Please Select</option>
+                                        <option value="1">Execute Command</option>
+                                        <option value="2">Trigger Task</option>
+                                        <option value="3">Wait</option>
+                                    </select>
+                                </div>
+                                <div class="group then-group">
+                                    <div class="list-group-item commands" style="display: none">
+                                        <div class="row">
+                                            <div class="col-4 pl-4 mb-4">
+                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                                    <option value="" selected disabled>Device</option>
+                                                    <option value="1">Device #1</option>
+                                                    <option value="2">Device #2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 pl-4 mb-4">
+                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                                    <option value="" selected disabled>Command</option>
+                                                    <option value="1">Open</option>
+                                                    <option value="2">Close</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 pl-4 mb-4">
+                                                <input type="text" placeholder="Value" class="form-control form-control-lg shadow p-3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item tasks_tgr" style="display: none">
+                                        <div class="row">
+                                            <div class="col-12 pl-4 mb-4">
+                                                <select class="bg-white shadow w-100 mt-2 pl-2 form-control form-control-lg">
+                                                    <option value="" selected disabled>Select Task</option>
+                                                    <option value="1">Task #1</option>
+                                                    <option value="2">Task #2</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item wait" style="display: none">
+                                        <div class="row">
+                                            <div class="col-12 pl-4 mb-4">
+                                                <input type="text" placeholder="Seconds" class="form-control form-control-lg shadow p-3">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item hr">
+                                        <hr />
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item separator">
+                                    <div class="float-left"></div>
+                                    <div class="float-right" style="margin-top: -25px;">
+                                        <span><a href="#" id="add-then">ADD</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 btn-bottom pt-2 pr-4" style="position: absolute; bottom: 2em; right: 1em">
+                                <div class="float-right">
+                                    <button class="btn btn-secondary mr-4">Cancel</button>
+                                    <button class="btn btn-primary" id="plg-save">&nbsp;Save&nbsp;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+        $('select[data-id=when]').on('change', onWhenChanged);
+        $('select[data-id=then]').on('change', onThenChanged);
+
+        $('#add-when').on('click', function () {
+            var whenInput = $('.when-input:first').clone();
+            var whenGroup = $('.when-group:first').clone();
+
+            $('select', whenInput)
+                .on('change', onWhenChanged);
+
+            $('.plugin-when .separator')
+                .before(whenInput)
+                .before(whenGroup);
+
+            whenInput.show();
+            whenGroup.show();
+
+            $('.datepicker', whenGroup).datepicker();
+            $('.clockpicker', whenGroup).clockpicker();
+        });
+
+        $('#add-when').click();
+
+        $('#add-then').on('click', function () {
+            var thenInput = $('.then-input:last').clone();
+            $('select', thenInput).val('')
+                .on('change', onThenChanged);
+
+            var thenGroup = $('.then-group:last').clone();
+            $('.list-group-item', thenGroup).hide();
+            $('.list-group-item.hr', thenGroup).show();
+            $('input', thenGroup).val('');
+
+            $('.plugin-then .separator')
+                .before(thenInput)
+                .before(thenGroup);
+        });
+
+        function onWhenChanged() {
+            var parent = $(this).closest('.list-group-item');
+
+            showHide('.date', this, 1, parent);
+            showHide('.days', this, 2, parent);
+            showHide('.events', this, 3, parent);
+            showHide('.conditions', this, 4, parent);
+            showHide('.tasks', this, 5, parent);            
+        }
+
+        function onThenChanged() {
+            var parent = $(this).closest('.list-group-item');
+
+            showHide('.commands', this, 1, parent);
+            showHide('.tasks_tgr', this, 2, parent);
+            showHide('.wait', this, 3, parent);
+        }
+
+        function showHide(className, element, value, parent) {
+            var item = $(className, parent.next('.group'));
+
+            if (element.value == value) {
+                item.css("display", "block");
+            } else {
+                item.hide();
+            }
+        }
+    });
+</script>

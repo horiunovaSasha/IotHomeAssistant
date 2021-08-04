@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using IoTHomeAssistant.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.Repositories;
@@ -46,9 +45,11 @@ namespace IoTHomeAssistant.Web
             services.AddTransient<IWidgetRepository, WidgetRepository>();
             services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();
+            services.AddTransient<IJobTaskRepository, JobTaskRepository>();
             services.AddTransient<IWidgetService, WidgetService>();
             services.AddTransient<IDeviceService, DeviceService>();
             services.AddTransient<IPluginService, PluginService>();
+            services.AddTransient<IJobTaskService, JobTaskService>();
 
 
             services.AddControllers();
