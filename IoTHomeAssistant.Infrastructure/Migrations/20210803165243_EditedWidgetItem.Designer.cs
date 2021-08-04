@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210803165243_EditedWidgetItem")]
+    partial class EditedWidgetItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,138 +192,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Icon");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Job", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ErrorMessage")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("FinishTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("JobTaskId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Succeed")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobTaskId");
-
-                    b.ToTable("Job");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTask", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("JobTask");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTaskCondition", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("JobTaskId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("JobTaskId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("Operation")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("SensorId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TriggeredEventId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TriggeredTaskId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<float?>("Value")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobTaskId");
-
-                    b.HasIndex("JobTaskId1");
-
-                    b.HasIndex("TriggeredTaskId");
-
-                    b.ToTable("JobTaskCondition");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTaskExecution", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CommandId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("DeviceId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("JobTaskId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("JobTaskId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TriggeredTaskId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("WaitSeconds")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobTaskId");
-
-                    b.HasIndex("JobTaskId1");
-
-                    b.HasIndex("TriggeredTaskId");
-
-                    b.ToTable("JobTaskExecution");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.MqttBroker", b =>
@@ -605,59 +475,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Navigation("MqttBroker");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Job", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "JobTask")
-                        .WithMany()
-                        .HasForeignKey("JobTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobTask");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTaskCondition", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", null)
-                        .WithMany("Conditions")
-                        .HasForeignKey("JobTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "JobTask")
-                        .WithMany()
-                        .HasForeignKey("JobTaskId1");
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "TriggeredTask")
-                        .WithMany()
-                        .HasForeignKey("TriggeredTaskId");
-
-                    b.Navigation("JobTask");
-
-                    b.Navigation("TriggeredTask");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTaskExecution", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", null)
-                        .WithMany("Executions")
-                        .HasForeignKey("JobTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "JobTask")
-                        .WithMany()
-                        .HasForeignKey("JobTaskId1");
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "TriggeredTask")
-                        .WithMany()
-                        .HasForeignKey("TriggeredTaskId");
-
-                    b.Navigation("JobTask");
-
-                    b.Navigation("TriggeredTask");
-                });
-
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.PluginConfiguration", b =>
                 {
                     b.HasOne("IoTHomeAssistant.Domain.Entities.Plugin", "Plugin")
@@ -776,13 +593,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Device", b =>
                 {
                     b.Navigation("Topics");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTask", b =>
-                {
-                    b.Navigation("Conditions");
-
-                    b.Navigation("Executions");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Plugin", b =>
