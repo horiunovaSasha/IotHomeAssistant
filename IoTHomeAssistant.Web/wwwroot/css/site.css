@@ -1116,10 +1116,9 @@ ol.bulb-palette {
 
 ol.bulb-palette li {
     display: initial;
-    width: 200px;
-    border-radius: 25px;
-    padding: 10px 21px;
-    margin: 5px;
+    border-radius: 50%;
+    padding: 4px 14px;
+    margin: 2px;
     border: 1px solid #b2b2b2;
     box-shadow: 1px 4px 10px -5px rgba(0, 0, 0, 0.3);
     cursor: pointer;

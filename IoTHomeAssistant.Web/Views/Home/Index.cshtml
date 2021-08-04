@@ -43,7 +43,7 @@
                         <span class="h4 pl-3">@item.Title</span>
                     </div>
                     <div class="float-right mr-2">
-                        <input type="checkbox" checked id="switch-@(item.Id)" class="toggle switch-@(item.Id)" data-id="@(item.Id)" /><label for="switch-@(item.Id)" class="toggle">Toggle</label>
+                        <input type="checkbox" checked id="switch-@(item.Id)" class=" lightSwitcher toggle switch-@(item.Id)" data-id="@(item.Id)" /><label for="switch-@(item.Id)" class="toggle">Toggle</label>
                     </div>
                 </div>
             }
@@ -58,41 +58,38 @@
                         <span class="m-auto">
                             <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
                             <span>
-                                <input type="range" class="form-range form-control-lg p-4 m-4" id="customRange1" min="0" max="100" />
+                                <input type="range" class="form-range form-control-lg p-4 m-4" id="rgbRange" onchange="changeRgbSettings()"  min="0" max="100" />
                             </span>
-                            <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
-                            <span class="text-secondary text-uppercase">brightness</span>
+                            @* <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" /> *@
+                            @* <span class="text-secondary text-uppercase">brightness</span> *@
                         </span>
                     </div>
                     <div class="float-right mr-2">
-                        <input type="checkbox" id="switch3" checked class="toggle" /><label for="switch3" class="toggle">Toggle</label>
+                        <input type="checkbox" checked id="switch-@(item.Id)" class="rgbSwitch toggle switch-@(item.Id) " data-id="@(item.Device?.Id)" /><label for="switch-@(item.Id)" class="toggle">Toggle</label>
                     </div>
                 </div>
-                <div class="list-group-item">
-                    <h5 class="pl-2">Colors and Scenes</h5>
-                </div>
-                <div class="list-group-item">
-                    <ol class="bulb-palette">
-                        <li style="background-color: white"></li>
-                        <li style="background-color: #FFEB3B"></li>
-                        <li style="background-color: #FF9800"></li>
-                        <li style="background-color: #FF5722"></li>
-                        <li style="background-color: #E91E63"></li>
-                        <li style="background-color: #9C27B0"></li>
-                        <li style="background-color: #673AB7"></li>
-                        <li style="background-color: #2196F3"></li>
-                        <li style="background-color: #03A9F4"></li>
-                        <li style="background-color: #00BCD4"></li>
-                        <li style="background-color: #009688"></li>
-                        <li style="background-color: #4CAF50"></li>
-                        <li style="background-color: #CDDC39"></li>
-                    </ol>
-                </div>
-                <div class="list-group-item p-4">
-                    <button type="button" class="m-2 ml-4 btn btn-secondary">None</button>
-                    <button type="button" class="m-2 btn btn-primary">Sleeping</button>
-                    <button type="button" class="m-2 btn btn-primary">Reading</button>
-                    <button type="button" class="m-2 mr-4 btn btn-primary">Working</button>
+                <div class="colorsAndScenes">
+                    <div class="list-group-item">
+                        <h5 class="pl-2">Colors and Scenes</h5>
+                    </div>
+                    <div class="list-group-item">
+                        <ol class="bulb-palette">
+                            <li class="rgbColor colorSelected workingColor" style="background-color: white"></li>
+                            <li class="rgbColor readingColor" style="background-color: #FFEB3B"></li>
+                            <li class="rgbColor" style="background-color: #FF9800"></li>
+                            <li class="rgbColor" style="background-color: #FF5722"></li>
+                            <li class="rgbColor" style="background-color: #E91E63"></li>
+                            <li class="rgbColor" style="background-color: #9C27B0"></li>
+                            <li class="rgbColor" style="background-color: #673AB7"></li>
+                            <li class="rgbColor" style="background-color: #2196F3"></li>
+                            <li class="rgbColor" style="background-color: #03A9F4"></li>
+                            <li class="rgbColor" style="background-color: #00BCD4"></li>
+                            <li class="rgbColor" style="background-color: #009688"></li>
+                            <li class="rgbColor" style="background-color: #4CAF50"></li>
+                            <li class="rgbColor" style="background-color: #CDDC39"></li>
+                        </ol>
+                    </div>
+                                  
                 </div>
             }
 
