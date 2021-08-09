@@ -2,8 +2,11 @@
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Infrastructure.Repositories
 {
@@ -24,10 +27,12 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 return new PageResponse<JobTask>()
                 {
                     Items = _dbSet
+                        .Include(x => x.Executions)
+                        .Include(x => x.Conditions)
                         .Skip(skipRows)
                         .Take(request.PageSize)
                         .ToList(),
-                    PageCount = count / request.PageSize,
+                    PageCount = (int)Math.Ceiling(count / (decimal)request.PageSize),
                     PageNumber = request.PageNumber
                 };
             }
@@ -38,6 +43,14 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 PageCount = 0,
                 PageNumber = 1
             };
+        }
+
+        public async Task<JobTask> GetJobTaskAsync(int id)
+        {
+            return await _dbSet
+                .Include(x => x.Conditions)
+                .Include(x => x.Executions)
+                .FirstOrDefaultAsync();
         }
     }
 }

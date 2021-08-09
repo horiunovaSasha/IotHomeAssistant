@@ -12,8 +12,8 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
 
-            builder.HasMany(x => x.Executions).WithOne().HasForeignKey(x => x.JobTaskId);
-            builder.HasMany(x => x.Conditions).WithOne().HasForeignKey(x => x.JobTaskId);
+            builder.HasMany(x => x.Executions);
+            builder.HasMany(x => x.Conditions);
         }
     }
 }

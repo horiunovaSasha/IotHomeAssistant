@@ -250,9 +250,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Property<int>("JobTaskId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("JobTaskId1")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("Operation")
                         .HasColumnType("INTEGER");
 
@@ -275,8 +272,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
                     b.HasIndex("JobTaskId");
 
-                    b.HasIndex("JobTaskId1");
-
                     b.HasIndex("TriggeredTaskId");
 
                     b.ToTable("JobTaskCondition");
@@ -297,8 +292,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Property<int>("JobTaskId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("JobTaskId1")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Order")
                         .HasColumnType("INTEGER");
@@ -318,8 +311,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("JobTaskId");
-
-                    b.HasIndex("JobTaskId1");
 
                     b.HasIndex("TriggeredTaskId");
 
@@ -621,10 +612,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "JobTask")
-                        .WithMany()
-                        .HasForeignKey("JobTaskId1");
-
                     b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "TriggeredTask")
                         .WithMany()
                         .HasForeignKey("TriggeredTaskId");
@@ -641,10 +628,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .HasForeignKey("JobTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "JobTask")
-                        .WithMany()
-                        .HasForeignKey("JobTaskId1");
 
                     b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "TriggeredTask")
                         .WithMany()

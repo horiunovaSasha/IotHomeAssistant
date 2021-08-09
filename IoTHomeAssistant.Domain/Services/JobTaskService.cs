@@ -1,6 +1,8 @@
 ﻿using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -13,30 +15,107 @@ namespace IoTHomeAssistant.Domain.Services
             _jobTaskRepository = pluginRepository;
         }
 
-        public void AddJobTask(JobTask jobTask)
+        public async Task AddJobTask(JobTask jobTask)
         {
-            _jobTaskRepository.Add(jobTask);
-            _jobTaskRepository.Commit();
+            int order = 1;
+
+            jobTask.Executions.ForEach(x => { 
+                x.Order = order; 
+                order++; 
+            });
+
+            await _jobTaskRepository.AddAsync(jobTask);
+            await _jobTaskRepository.CommitAsync();
         }
 
-        public void UpdateJobTask(JobTask jobTask)
+        public async Task UpdateJobTask(JobTask jobTask)
         {
-            _jobTaskRepository.Update(jobTask);
-            _jobTaskRepository.Commit();
+            var dbTask = await _jobTaskRepository.GetAsync(jobTask.Id);
+
+            if (dbTask != null)
+            {
+                int order = 1;
+                foreach(var item in jobTask.Conditions)
+                {
+                    var dbIds = dbTask.Conditions.Select(x => x.Id).ToList();
+                    var dbItem = dbTask.Conditions.FirstOrDefault(x => x.Id == item.Id);
+
+                    if (dbItem != null)
+                    {
+                        dbItem.DateTime = item.DateTime;
+                        dbItem.JobTaskId = item.JobTaskId;
+                        dbItem.Operation = item.Operation;
+                        dbItem.SensorId = item.SensorId;
+                        dbItem.TriggeredEventId = item.TriggeredEventId;
+                        dbItem.TriggeredTaskId = item.TriggeredTaskId;
+                        dbItem.Type = item.Type;
+                        dbItem.Value = item.Value;
+                    } else
+                    {
+                        dbTask.Conditions.Add(item);
+                    }
+
+                    foreach(var id in dbIds)
+                    {
+                        if (!jobTask.Conditions.Any(x => x.Id == id))
+                        {
+                            var rmItem = dbTask.Conditions.First(x => x.Id == id);
+                            jobTask.Conditions.Remove(rmItem);
+                        }
+                    }
+                }
+
+                foreach (var item in jobTask.Executions)
+                {
+                    var dbIds = dbTask.Executions.Select(x => x.Id).ToList();
+                    var dbItem = dbTask.Executions.FirstOrDefault(x => x.Id == item.Id);
+
+                    if (dbItem != null)
+                    {
+                        dbItem.CommandId = item.CommandId;
+                        dbItem.DeviceId = item.DeviceId;
+                        dbItem.WaitSeconds = item.WaitSeconds;
+                        dbItem.TriggeredTaskId = item.TriggeredTaskId;
+                        dbItem.Type = item.Type;
+                        dbItem.Value = item.Value;
+                    }
+                    else
+                    {
+                        dbTask.Executions.Add(item);
+                    }
+
+                    foreach (var id in dbIds)
+                    {
+                        if (!jobTask.Executions.Any(x => x.Id == id))
+                        {
+                            var rmItem = dbTask.Executions.First(x => x.Id == id);
+                            jobTask.Executions.Remove(rmItem);
+                        }
+                    }
+                }
+
+                jobTask.Executions.ForEach(x => {
+                    x.Order = order;
+                    order++;
+                });
+
+                await _jobTaskRepository.UpdateAsync(jobTask);
+                await _jobTaskRepository.CommitAsync();
+            }
         }
 
-        public void RemoveJobTask(int id)
+        public async Task RemoveJobTask(int id)
         {
-            _jobTaskRepository.Delete(id);
-            _jobTaskRepository.Commit();
+            await _jobTaskRepository.DeleteAsync(id);
+            await _jobTaskRepository.CommitAsync();
         }
 
-        public JobTask GetJobTask(int id)
+        public async Task<JobTask> GetJobTask(int id)
         {
-            return _jobTaskRepository.Get(id);
+            return await _jobTaskRepository.GetJobTaskAsync(id);
         }
 
-        public PageResponse<JobTask> GetPaggedList(PageRequest request)
+        public async Task<PageResponse<JobTask>> GetPaggedList(PageRequest request)
         {
             return _jobTaskRepository.GetPaggedList(request);
         }
