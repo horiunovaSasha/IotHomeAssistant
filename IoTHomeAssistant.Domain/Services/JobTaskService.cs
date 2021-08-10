@@ -30,7 +30,7 @@ namespace IoTHomeAssistant.Domain.Services
 
         public async Task UpdateJobTask(JobTask jobTask)
         {
-            var dbTask = await _jobTaskRepository.GetAsync(jobTask.Id);
+            var dbTask = await _jobTaskRepository.GetJobTaskAsync(jobTask.Id);
 
             if (dbTask != null)
             {
@@ -43,7 +43,6 @@ namespace IoTHomeAssistant.Domain.Services
                     if (dbItem != null)
                     {
                         dbItem.DateTime = item.DateTime;
-                        dbItem.JobTaskId = item.JobTaskId;
                         dbItem.Operation = item.Operation;
                         dbItem.SensorId = item.SensorId;
                         dbItem.TriggeredEventId = item.TriggeredEventId;
@@ -60,7 +59,7 @@ namespace IoTHomeAssistant.Domain.Services
                         if (!jobTask.Conditions.Any(x => x.Id == id))
                         {
                             var rmItem = dbTask.Conditions.First(x => x.Id == id);
-                            jobTask.Conditions.Remove(rmItem);
+                            dbTask.Conditions.Remove(rmItem);
                         }
                     }
                 }
@@ -89,17 +88,17 @@ namespace IoTHomeAssistant.Domain.Services
                         if (!jobTask.Executions.Any(x => x.Id == id))
                         {
                             var rmItem = dbTask.Executions.First(x => x.Id == id);
-                            jobTask.Executions.Remove(rmItem);
+                            dbTask.Executions.Remove(rmItem);
                         }
                     }
                 }
 
-                jobTask.Executions.ForEach(x => {
+                dbTask.Executions.ForEach(x => {
                     x.Order = order;
                     order++;
                 });
 
-                await _jobTaskRepository.UpdateAsync(jobTask);
+                await _jobTaskRepository.UpdateAsync(dbTask);
                 await _jobTaskRepository.CommitAsync();
             }
         }
@@ -117,7 +116,7 @@ namespace IoTHomeAssistant.Domain.Services
 
         public async Task<PageResponse<JobTask>> GetPaggedList(PageRequest request)
         {
-            return _jobTaskRepository.GetPaggedList(request);
+            return await _jobTaskRepository.GetPaggedList(request);
         }
     }
 }

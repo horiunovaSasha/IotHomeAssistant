@@ -43,7 +43,7 @@ namespace IoTHomeAssistant.Web.Api
         [HttpPut]
         public async Task Update(JobTask request)
         {
-            //await _jobTaskService.UpdateJobTask(request);
+            await _jobTaskService.UpdateJobTask(request);
         }
 
         [HttpDelete]

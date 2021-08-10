@@ -16,7 +16,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         {
         }
 
-        public PageResponse<JobTask> GetPaggedList(PageRequest request)
+        public async Task<PageResponse<JobTask>> GetPaggedList(PageRequest request)
         {
             var count = _dbSet.Count();
 
@@ -26,12 +26,12 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
 
                 return new PageResponse<JobTask>()
                 {
-                    Items = _dbSet
+                    Items = await _dbSet
                         .Include(x => x.Executions)
                         .Include(x => x.Conditions)
                         .Skip(skipRows)
                         .Take(request.PageSize)
-                        .ToList(),
+                        .ToListAsync(),
                     PageCount = (int)Math.Ceiling(count / (decimal)request.PageSize),
                     PageNumber = request.PageNumber
                 };
@@ -50,7 +50,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
             return await _dbSet
                 .Include(x => x.Conditions)
                 .Include(x => x.Executions)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
