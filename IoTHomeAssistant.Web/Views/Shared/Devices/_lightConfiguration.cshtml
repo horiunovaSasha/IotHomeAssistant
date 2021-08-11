@@ -7,11 +7,21 @@
     </div>
     <div class="row devices">
         <div class="col-12 required">
-            <select data-style="bg-white shadow device-list" class="w-100 selectpicker">
-                <option>Select Provider</option>
-                <option>Mqtt Broker</option>
-                <option>YeeLight Plugin</option>
+            <select name="pluginId" class="bg-white shadow device-list w-100 deviceType2 form-control form-control-lg">
+                <option value="" disabled selected>Select Plugin</option>
             </select>
+        </div>
+    </div>
+    <div class="plugin-configurations mt-4">
+        <div class="form-group">
+            <label>IP Address</label>
+            <input type="text" class="form-control" placeholder="Enter IP Address">
+            <small id="emailHelp" class="form-text text-muted">The IP address needs to connect to your device</small>
+        </div>
+        <div class="form-group">
+            <label>Device Key</label>
+            <input type="text" class="form-control" placeholder="Enter Device Key">
+            <small id="emailHelp" class="form-text text-muted">The device key can be retrived from your cloud account</small>
         </div>
     </div>
     <br />

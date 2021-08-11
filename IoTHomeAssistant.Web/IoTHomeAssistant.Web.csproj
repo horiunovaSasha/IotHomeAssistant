@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\lib\datetimepicker\build\js\bootstrap-datetimepicker.min.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
@@ -43,6 +42,10 @@
     <ItemGroup>
       <ProjectReference Include="..\IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj" />
       <ProjectReference Include="..\IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\datetimepicker\build\js\" />
     </ItemGroup>
 
 </Project>

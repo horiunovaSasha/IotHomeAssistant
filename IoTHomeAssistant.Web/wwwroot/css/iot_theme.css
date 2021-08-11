@@ -1260,3 +1260,7 @@ hr {
     position: absolute;
     top: 0;
     left: 0; }
+
+.table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}

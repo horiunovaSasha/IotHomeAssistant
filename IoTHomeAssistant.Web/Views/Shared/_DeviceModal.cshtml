@@ -122,6 +122,13 @@
                                 <br />
                                 water leak sensor
                             </div>
+                            <div class="col-3">
+                                <label>
+                                    <img src="https://image.flaticon.com/icons/png/512/5256/5256188.png" height="64" type_attr="temperature" />
+                                </label>
+                                <br />
+                                temperature sensor
+                            </div>
 
                             <div class="col-3">
                                 <label>
@@ -151,6 +158,7 @@
                     @await Html.PartialAsync("Devices/_smokeConfiguration")
                     @await Html.PartialAsync("Devices/_openCloseConfiguration")
                     @await Html.PartialAsync("Devices/_cleanerConfiguration")
+                    @await Html.PartialAsync("Devices/_temperatureConfiguration")
                     @await Html.PartialAsync("Devices/_weatherConfiguration")
 
                 </div>
@@ -245,7 +253,49 @@
         }
     }
 
+    function groupBy(xs, key) {
+        return xs.reduce(function (rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/plugins?pagenumber=1&pagesize=1000",
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                var items = groupBy(response.items, 'deviceType');
+
+                Object.values(items).forEach(val => {
+                    var type = val[0].deviceType;
+                    var dropdown = $('select.deviceType' + type);
+                    $('option', dropdown).not(':disabled').remove();
+
+                    $.each(val, function (i, item) {
+                        dropdown.append($('<option>', {
+                            value: item.id,
+                            text: item.title
+                        }));
+                    });
+                });
+            }
+        });
+
+        $('#deviceModal select[name=pluginId]').on('change', function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/plugins/" + $(this).val(),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        })
+
         $('.carousel').carousel();
 
         $('.category-list.types img').on('click', function () {
@@ -263,14 +313,7 @@
             $('.category-list input[name=category-item]').val("1");
             nextPageFunc = undefined;
 
-            switch (type) {
-                case 'info':
-                    nextPage.push('info-configuration');
-                    nextPageFunc = infoConfigShow;
-                    break;
-                default:
-                    nextPage.push(type);
-            }
+            nextPage.push(type);
 
         });
 
