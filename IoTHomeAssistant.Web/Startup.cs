@@ -10,6 +10,7 @@ using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.Repositories;
 using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Web.Hubs;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 
 namespace IoTHomeAssistant.Web
@@ -35,8 +36,12 @@ namespace IoTHomeAssistant.Web
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+            services.AddMvc(options =>
+            {
+               options.Filters.Add(new AuthorizeFilter());
+            });
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<ConnectionHubManager>();

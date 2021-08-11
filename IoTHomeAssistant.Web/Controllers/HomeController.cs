@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using IoTHomeAssistant.Web.Models;
 using IoTHomeAssistant.Domain.Services;
 using System.Net.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace IoTHomeAssistant.Web.Controllers
 {
@@ -15,11 +16,13 @@ namespace IoTHomeAssistant.Web.Controllers
     {
         private readonly IWidgetService _widgetService;
         private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, IWidgetService widgetService)
+        public HomeController(ILogger<HomeController> logger, IWidgetService widgetService, SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
             _widgetService = widgetService;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -51,6 +54,13 @@ namespace IoTHomeAssistant.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        }
+        
+        public async Task<IActionResult> Logout(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return RedirectPermanent("/identity/Account/Login/");
         }
     }
 }
