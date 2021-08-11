@@ -1,14 +1,15 @@
 ﻿using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Domain.Services
 {
     public interface IJobTaskService
     {
-        void AddJobTask(JobTask plugin);
-        void UpdateJobTask(JobTask plugin);
-        void RemoveJobTask(int id);
-        JobTask GetJobTask(int id);
-        PageResponse<JobTask> GetPaggedList(PageRequest request);
+        Task AddJobTask(JobTask plugin);
+        Task UpdateJobTask(JobTask plugin);
+        Task RemoveJobTask(int id);
+        Task<JobTask> GetJobTask(int id);
+        Task<PageResponse<JobTask>> GetPaggedList(PageRequest request);
     }
 }

@@ -15,21 +15,24 @@
                     </ul>
                 </div>
                 <div id="right-side">
-                    <div class="main active">
+                    
+                    <div class="main">
                         <h3>Add new Task</h3>
                         <hr />
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-4">
-                                    <input type="text" class="form-control form-control-lg shadow" placeholder="Title">
+                                <div class="mb-4 required">
+                                    <input type="hidden" value="0" name="task-id"/>
+                                    <input type="text" class="form-control form-control-lg shadow" name="title" placeholder="Title">
                                 </div>
                                 <hr />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6 widget plugin-when">
-                                <div class="list-group-item m-0 when-input" style="display: none">
+                                <div class="list-group-item m-0 when-input required" style="display: none">
                                     <label for="when" class="p-4"><b>WHEN:</b></label>
+                                    <input type="hidden" value="0" name="when-id" />
                                     <select data-id="when" class="w-100 mt-2 bg-white shadow form-control form-control-lg">
                                         <option value="" selected disabled>Please Select</option>
                                         <option value="1">Once</option>
@@ -38,11 +41,14 @@
                                         <option value="4">Condition is Met</option>
                                         <option value="5">Task Triggered</option>
                                     </select>
+                                    <a href="#" class="rm-section p-3" style="display: none;">
+                                        <i class="fa fa-trash" style="color: red; font-size: 1.5rem"></i>
+                                    </a>
                                 </div>
                                 <div class="group when-group" style="display: none">
                                     <div class="list-group-item days" style="display: none">
                                         <div class="row">
-                                            <div class="col-8 pl-4">
+                                            <div class="col-8 pl-4 required">
                                                 <select multiple class="w-100 mt-2 pl-2 bg-white shadow form-control">
                                                     <option value="1">Monday</option>
                                                     <option value="2">Tuesday</option>
@@ -69,11 +75,11 @@
                                         <div class="row mb-4">
                                             <div class="col-6 ml-4">
                                                 <div class="required mr-4">
-                                                    <div class="input-group-prepend">
+                                                    <div class="input-group-prepend required">
                                                         <div class="input-group-text p-0 pl-1 pr-1 shadow">
                                                             <i aria-hidden="true" class="fa fa-calendar"></i>
                                                         </div>
-                                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control form-control-lg shadow datepicker">
+                                                        <input type="text" name="date" placeholder="dd/mm/yyyy" class="form-control form-control-lg shadow datepicker">
                                                     </div>
                                                 </div>
                                             </div>
@@ -83,7 +89,7 @@
                                                         <div class="input-group-text p-0 pl-1 pr-1 shadow">
                                                             <i aria-hidden="true" class="fa fa-clock-o"></i>
                                                         </div>
-                                                        <input type="text" placeholder="00:00" class="form-control form-control-lg shadow p-3">
+                                                        <input type="text" name="time" placeholder="00:00" class="form-control form-control-lg shadow p-3">
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,8 +97,8 @@
                                     </div>
                                     <div class="list-group-item events" style="display: none">
                                         <div class="row">
-                                            <div class="col-12 pl-4 mb-4">
-                                                <select class="bg-white shadow form-control form-control-lg w-100">
+                                            <div class="col-12 pl-4 mb-4 required">
+                                                <select name="event" class="bg-white shadow form-control form-control-lg w-100">
                                                     <option value="" selected disabled>Select Event</option>
                                                     <option value="1">Event #1</option>
                                                     <option value="2">Event #2</option>
@@ -102,22 +108,15 @@
                                     </div>
                                     <div class="list-group-item conditions" style="display: none">
                                         <div class="row">
-                                            <div class="col-3 pl-4 mb-4">
-                                                <select class="bg-white shadow w-100 form-control form-control-lg">
-                                                    <option value="" selected disabled>Device</option>
-                                                    <option value="1">Device #1</option>
-                                                    <option value="2">Device #2</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-3 pl-4 mb-4">
-                                                <select class="bg-white shadow form-control form-control-lg w-100">
+                                            <div class="col-4 pl-4 mb-4 required">
+                                                <select name="sensor" class="bg-white shadow form-control form-control-lg w-100">
                                                     <option value="" selected disabled>Sensor</option>
                                                     <option value="1">Sensor #1</option>
                                                     <option value="2">Sensor #2</option>
                                                 </select>
                                             </div>
-                                            <div class="col-3 pl-4 mb-4">
-                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                            <div class="col-4 pl-4 mb-4 required">
+                                                <select name="operation" class="bg-white shadow w-100 form-control form-control-lg">
                                                     <option value="" selected disabled>Condition</option>
                                                     <option value="1">==</option>
                                                     <option value="2">!=</option>
@@ -127,18 +126,16 @@
                                                     <option value="6">>=</option>
                                                 </select>
                                             </div>
-                                            <div class="col-3 pl-4 mb-4">
-                                                <input type="text" placeholder="Value" class="form-control form-control-lg shadow p-3">
+                                            <div class="col-4 pl-4 mb-4 required">
+                                                <input type="text" name="value" placeholder="Value" class="form-control form-control-lg shadow p-3">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="list-group-item tasks" style="display: none">
                                         <div class="row">
-                                            <div class="col-12 pl-4 mb-4">
-                                                <select class="bg-white shadow w-100 mt-2 pl-2 form-control form-control-lg">
+                                            <div class="col-12 pl-4 mb-4 required">
+                                                <select class="bg-white shadow w-100 mt-2 pl-2 form-control form-control-lg" name="task">
                                                     <option value="" selected disabled>Select Task</option>
-                                                    <option value="1">Task #1</option>
-                                                    <option value="2">Task #2</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -154,8 +151,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 widget plugin-then">
-                                <div class="list-group-item then-input">
+                            <div class="col-6 widget plugin-then" >
+                                <div class="list-group-item then-input required" style="display: none">
+                                    <input type="hidden" value="0" name="then-id" />
                                     <label for="then" class="p-4"><b>THEN:</b></label>
                                     <select class="bg-white shadow form-control form-control-lg w-100 mt-2" data-id="then">
                                         <option value="" selected disabled>Please Select</option>
@@ -163,44 +161,45 @@
                                         <option value="2">Trigger Task</option>
                                         <option value="3">Wait</option>
                                     </select>
+                                    <a href="#" class="rm-section p-3" style="display: none;">
+                                        <i class="fa fa-trash" style="color: red; font-size: 1.5rem"></i>
+                                    </a>
                                 </div>
-                                <div class="group then-group">
+                                <div class="group then-group" style="display: none">
                                     <div class="list-group-item commands" style="display: none">
                                         <div class="row">
-                                            <div class="col-4 pl-4 mb-4">
-                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                            <div class="col-4 pl-4 mb-4 required">
+                                                <select name="device" class="bg-white shadow w-100 form-control form-control-lg">
                                                     <option value="" selected disabled>Device</option>
                                                     <option value="1">Device #1</option>
                                                     <option value="2">Device #2</option>
                                                 </select>
                                             </div>
-                                            <div class="col-4 pl-4 mb-4">
-                                                <select class="bg-white shadow w-100 form-control form-control-lg">
+                                            <div class="col-4 pl-4 mb-4 required">
+                                                <select name="command" class="bg-white shadow w-100 form-control form-control-lg">
                                                     <option value="" selected disabled>Command</option>
                                                     <option value="1">Open</option>
                                                     <option value="2">Close</option>
                                                 </select>
                                             </div>
-                                            <div class="col-4 pl-4 mb-4">
-                                                <input type="text" placeholder="Value" class="form-control form-control-lg shadow p-3">
+                                            <div class="col-4 pl-4 mb-4 required">
+                                                <input type="text" name="value" placeholder="Value" class="form-control form-control-lg shadow p-3">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="list-group-item tasks_tgr" style="display: none">
                                         <div class="row">
-                                            <div class="col-12 pl-4 mb-4">
-                                                <select class="bg-white shadow w-100 mt-2 pl-2 form-control form-control-lg">
+                                            <div class="col-12 pl-4 mb-4 required">
+                                                <select name="task" class="bg-white shadow w-100 mt-2 pl-2 form-control form-control-lg">
                                                     <option value="" selected disabled>Select Task</option>
-                                                    <option value="1">Task #1</option>
-                                                    <option value="2">Task #2</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="list-group-item wait" style="display: none">
                                         <div class="row">
-                                            <div class="col-12 pl-4 mb-4">
-                                                <input type="text" placeholder="Seconds" class="form-control form-control-lg shadow p-3">
+                                            <div class="col-12 pl-4 mb-4 required">
+                                                <input type="text" name="wait" placeholder="Seconds" class="form-control form-control-lg shadow p-3">
                                             </div>
                                         </div>
                                     </div>
@@ -220,8 +219,8 @@
                         <div class="row">
                             <div class="col-12 btn-bottom pt-2 pr-4" style="position: absolute; bottom: 2em; right: 1em">
                                 <div class="float-right">
-                                    <button class="btn btn-secondary mr-4">Cancel</button>
-                                    <button class="btn btn-primary" id="plg-save">&nbsp;Save&nbsp;</button>
+                                    <button class="btn btn-secondary mr-4" data-dismiss="modal" data-target="#jobTaskModal">Cancel</button>
+                                    <button class="btn btn-primary" id="task-save">&nbsp;Save&nbsp;</button>
                                 </div>
                             </div>
                         </div>
@@ -232,44 +231,233 @@
     </div>
 </div>
 <script type="text/javascript">
+    var jobTask = undefined;
+
     document.addEventListener('DOMContentLoaded', function () {
+        function beforeShowModal() {
+            $('#jobTaskModal .main').removeClass('active');
+            $('.when-input').not(':first').remove();
+            $('.when-group').not(':first').remove();
+            $('.then-input').not(':first').remove();
+            $('.then-group').not(':first').remove();
 
-        $('select[data-id=when]').on('change', onWhenChanged);
-        $('select[data-id=then]').on('change', onThenChanged);
+            if (jobTask != undefined) {
+                $('#jobTaskModal h3').text('Edit Task');
+                $('#jobTaskModal input[name=task-id]').val(jobTask.id);
+                $('#jobTaskModal input[name=title]').val(jobTask.title);
 
-        $('#add-when').on('click', function () {
+                jobTask.conditions.forEach(item => addWhen(item));
+                jobTask.executions.forEach(item => addThen(item));
+
+                if ($('.plugin-when .rm-section').length > 1) {
+                    $('.plugin-when .rm-section').show();
+                }
+
+                if ($('.plugin-then .rm-section').length > 1) {
+                    $('.plugin-then .rm-section').show();
+                }
+
+                jobTask = undefined;
+            } else {
+                $('#jobTaskModal h3').text('Add new Task');
+                $('#jobTaskModal input[name=task-id]').val('0');
+                $('#jobTaskModal input[name=title]').val('');
+                addWhen();
+                addThen();
+
+                $('.plugin-when .rm-section').hide();
+                $('.plugin-then .rm-section').hide();
+            }
+
+            $('#jobTaskModal .main').addClass('active');
+        }
+
+        $('#jobTaskModal').on('show.bs.modal', function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/jobtask?pagenumber=1&pagesize=1000",
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+                    var dropdowns = $('.when-group:first select[name=task], .then-group:first select[name=task]');
+                    $('option', dropdowns).not(':disabled').remove();
+
+                    $.each(response.items, function (i, item) {
+                        if (jobTask == undefined || jobTask.id != item.id) {
+                            dropdowns.append($('<option>', {
+                                value: item.id,
+                                text: item.title
+                            }));
+                        }
+                    });
+
+                    beforeShowModal();
+                }
+            });
+            
+        });
+
+        $('#add-when').on('click', () => addWhen());
+
+        function rmSection(section, className) {
+            $('.rm-section', section).on('click', function () {
+                if (confirm('Are you sure you want to delete this section?')) {
+                    var parent = (this).closest('.list-group-item');
+                    $(parent).next('.group').remove();
+                    parent.remove();
+
+                    if ($(className + ' .rm-section:visible').length == 1) {
+                        $(className + ' .rm-section:visible').hide();
+                    }
+                }
+            });
+        }
+
+        function addWhen(item) {
             var whenInput = $('.when-input:first').clone();
             var whenGroup = $('.when-group:first').clone();
 
-            $('select', whenInput)
-                .on('change', onWhenChanged);
+            rmSection(whenInput, '.plugin-when');            
+
+            $('select', whenInput).on('change', onWhenChanged);
 
             $('.plugin-when .separator')
                 .before(whenInput)
                 .before(whenGroup);
 
             whenInput.show();
-            whenGroup.show();
+            whenGroup.show();            
 
-            $('.datepicker', whenGroup).datepicker();
-            $('.clockpicker', whenGroup).clockpicker();
-        });
+            if (item != undefined) {                
+                $('input[name=when-id]', whenInput).val(item.id);
+                $('input[name=date]', whenGroup).val(item.dateTime.split('T')[0]);
+                $('input[name=time]', whenGroup).val(item.dateTime.split('T')[1].substr(0, 5));
+                $('select[name=event]', whenGroup).val(item.triggeredEventId);
+                $('select[name=sensor]', whenGroup).val(item.sensorId);
+                $('select[name=operation]', whenGroup).val(item.operation);
+                $('input[name=value]', whenGroup).val(item.value);
+                $('select[name=task]', whenGroup).val(item.triggeredTaskId);
 
-        $('#add-when').click();
+                $('select', whenInput).val(item.type).change();
+            }
 
-        $('#add-then').on('click', function () {
-            var thenInput = $('.then-input:last').clone();
-            $('select', thenInput).val('')
-                .on('change', onThenChanged);
+            if ($('.plugin-when .rm-section').length > 1) {
+                $('.plugin-when .rm-section').show();
+            }
+        }
 
-            var thenGroup = $('.then-group:last').clone();
-            $('.list-group-item', thenGroup).hide();
-            $('.list-group-item.hr', thenGroup).show();
+        $('#add-then').on('click', () => addThen());
+
+        function addThen(item) {
+            var thenInput = $('.then-input:first').clone();
+            var thenGroup = $('.then-group:first').clone();
+
+            rmSection(thenInput, '.plugin-then');           
+
+            $('select', thenInput).val('').on('change', onThenChanged);
             $('input', thenGroup).val('');
 
             $('.plugin-then .separator')
                 .before(thenInput)
                 .before(thenGroup);
+
+            if (item != undefined) {
+                $('input[name=then-id]', thenInput).val(item.id);
+                $('input[name=wait]', thenGroup).val(item.waitSeconds);
+                $('select[name=device]', thenGroup).val(item.deviceId);
+                $('select[name=command]', thenGroup).val(item.commandId);
+                $('input[name=value]', thenGroup).val(item.value);
+                $('select[name=task]', thenGroup).val(item.triggeredTaskId);
+
+                $('select', thenInput).val(item.type).change();
+            }
+
+            thenInput.show();
+            thenGroup.show();
+
+            if ($('.plugin-then .rm-section').length > 1) {
+                $('.plugin-then .rm-section').show();
+            }
+        }
+
+        $('#task-save').on('click', function () {
+            $('#task-save').prop('disabled', true);
+            var requires = $("#jobTaskModal .required:visible");
+            var emptyFields = 0;
+
+            requires.each(function () {
+                var input = $('input, select', this);
+
+                if (input && (input.val() == "" || input.val() == null)) {
+                    $(this).addClass("vibration");
+                    emptyFields++;
+                }
+            });
+
+            if (emptyFields == 0) {
+                $('#task-save').prop('disabled', false);
+
+                var task = {
+                    id: $('#jobTaskModal input[name=task-id]').val(),
+                    title: $('#jobTaskModal input[name=title]').val(),
+                    conditions: [],
+                    executions: []
+                };
+
+                $("#jobTaskModal .when-input:visible").each(function () {
+                    var inputs = $(this).closest('.list-group-item').next('.group');
+                    var date = $('input[name=date]:visible', inputs).val();
+                    var dateTime = undefined;
+
+                    if (date != undefined) {
+                        dateTime = date + ' ' + $('input[name=time]:visible', inputs).val();
+                    }
+
+                    task.conditions.push({
+                        id: $('input[name=when-id]', this).val(),
+                        type: $('select', this).val(),
+                        dateTime: dateTime,
+                        triggeredEventId: $('select[name=event]:visible', inputs).val(),
+                        sensorId: $('select[name=sensor]:visible', inputs).val(),
+                        operation: $('select[name=operation]:visible', inputs).val(),
+                        value: $('input[name=value]:visible', inputs).val(),
+                        triggeredTaskId: $('select[name=task]:visible', inputs).val()
+                    });
+                });
+
+                $("#jobTaskModal .then-input:visible").each(function () {
+                    var inputs = $(this).closest('.list-group-item').next('.then-group');
+
+                    task.executions.push({
+                        id: $('input[name=then-id]', this).val(),
+                        type: $('select', this).val(),
+                        waitSeconds: $('input[name=wait]:visible', inputs).val(),
+                        deviceId: $('select[name=device]:visible', inputs).val(),
+                        commandId: $('select[name=command]:visible', inputs).val(),
+                        value: $('input[name=value]:visible', inputs).val(),
+                        triggeredTaskId: $('select[name=task]:visible', inputs).val()
+                    });
+                });
+
+                $.ajax({
+                    type: task.id == 0 ? "POST" : "PUT",
+                    url: "/api/jobtask",
+                    data: JSON.stringify(task),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    statusCode: {
+                        200: function () {
+                            $("#jobTaskModal").modal('hide');
+                            loadData();
+                        }
+                    }
+                });
+            } else {
+                setTimeout(function () {
+                    $("#jobTaskModal .required").removeClass("vibration");
+                    $('#task-save').prop('disabled', false);
+                }, 1500);
+            }
         });
 
         function onWhenChanged() {
@@ -279,15 +467,18 @@
             showHide('.days', this, 2, parent);
             showHide('.events', this, 3, parent);
             showHide('.conditions', this, 4, parent);
-            showHide('.tasks', this, 5, parent);            
+            showHide('.tasks', this, 5, parent);
+
+            $('.clockpicker').clockpicker();
+            $('.datepicker').datepicker();
         }
 
         function onThenChanged() {
             var parent = $(this).closest('.list-group-item');
 
-            showHide('.commands', this, 1, parent);
-            showHide('.tasks_tgr', this, 2, parent);
-            showHide('.wait', this, 3, parent);
+            showHide('.commands', this, '1', parent);
+            showHide('.tasks_tgr', this, '2', parent);
+            showHide('.wait', this, '3', parent);
         }
 
         function showHide(className, element, value, parent) {

@@ -19,7 +19,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.TriggeredTaskId);
             builder.Property(x => x.Value);
 
-            builder.HasOne(x => x.JobTask);
+            builder.HasOne(x => x.JobTask).WithMany(x => x.Conditions).HasForeignKey(x => x.JobTaskId);
             builder.HasOne(x => x.TriggeredTask);
         }
     }

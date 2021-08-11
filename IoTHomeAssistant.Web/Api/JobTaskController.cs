@@ -2,6 +2,7 @@
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Web.Api
 {
@@ -17,9 +18,10 @@ namespace IoTHomeAssistant.Web.Api
         }
 
         [HttpGet]
-        public JobTask Get(int id)
+        [Route("{id}")]
+        public async Task<JobTask> Get(int id)
         {
-            return _jobTaskService.GetJobTask(id);
+            return await _jobTaskService.GetJobTask(id);
         }
 
         [HttpGet]
@@ -29,25 +31,26 @@ namespace IoTHomeAssistant.Web.Api
                 new PageRequest() { 
                     PageNumber = pageNumber, 
                     PageSize = pageSize 
-                });
+                }).Result;
         }
 
         [HttpPost]
-        public void Add(JobTask request)
+        public async Task Add(JobTask request)
         {
-            _jobTaskService.AddJobTask(request);
+            await _jobTaskService.AddJobTask(request);
         }
 
         [HttpPut]
-        public void Update(JobTask request)
+        public async Task Update(JobTask request)
         {
-            _jobTaskService.UpdateJobTask(request);
+            await _jobTaskService.UpdateJobTask(request);
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        [Route("{id}")]
+        public async Task Delete(int id)
         {
-            _jobTaskService.RemoveJobTask(id);
+            await _jobTaskService.RemoveJobTask(id);
         }
     }
 }

@@ -9,9 +9,6 @@
       <Content Remove="wwwroot\lib\jquery\dist\jquery.js" />
       <Content Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
       <Content Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
-      <Content Remove="wwwroot\lib\jquery\dist\jquery.slim.js" />
-      <Content Remove="wwwroot\lib\jquery\dist\jquery.slim.min.js" />
-      <Content Remove="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,17 +16,9 @@
       <None Include="wwwroot\lib\jquery\dist\jquery.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
-      <None Include="wwwroot\lib\jquery\dist\jquery.slim.js" />
-      <None Include="wwwroot\lib\jquery\dist\jquery.slim.min.js" />
-      <None Include="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
-      <None Include="wwwroot\lib\moment\dist\locale\uk.js" />
       <None Include="wwwroot\lib\moment\dist\moment.js" />
-      <None Include="wwwroot\lib\moment\min\locales.js" />
       <None Include="wwwroot\lib\moment\min\locales.min.js" />
       <None Include="wwwroot\lib\moment\min\locales.min.js.map" />
-      <None Include="wwwroot\lib\moment\min\moment-with-locales.js" />
-      <None Include="wwwroot\lib\moment\min\moment-with-locales.min.js" />
-      <None Include="wwwroot\lib\moment\min\moment-with-locales.min.js.map" />
       <None Include="wwwroot\lib\moment\min\moment.min.js" />
       <None Include="wwwroot\lib\moment\min\moment.min.js.map" />
       <None Include="wwwroot\lib\moment\moment.js" />
@@ -46,6 +35,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.0.5" />
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.0.5" />

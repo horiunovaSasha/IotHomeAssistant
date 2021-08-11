@@ -56,8 +56,7 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     TriggeredTaskId = table.Column<int>(type: "INTEGER", nullable: true),
                     SensorId = table.Column<int>(type: "INTEGER", nullable: true),
                     Operation = table.Column<int>(type: "INTEGER", nullable: true),
-                    Value = table.Column<float>(type: "REAL", nullable: true),
-                    JobTaskId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    Value = table.Column<float>(type: "REAL", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,12 +67,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         principalTable: "JobTask",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JobTaskCondition_JobTask_JobTaskId1",
-                        column: x => x.JobTaskId1,
-                        principalTable: "JobTask",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_JobTaskCondition_JobTask_TriggeredTaskId",
                         column: x => x.TriggeredTaskId,
@@ -95,8 +88,7 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     DeviceId = table.Column<int>(type: "INTEGER", nullable: true),
                     CommandId = table.Column<int>(type: "INTEGER", nullable: true),
                     Value = table.Column<string>(type: "TEXT", nullable: true),
-                    Order = table.Column<int>(type: "INTEGER", nullable: false),
-                    JobTaskId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    Order = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,12 +99,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         principalTable: "JobTask",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JobTaskExecution_JobTask_JobTaskId1",
-                        column: x => x.JobTaskId1,
-                        principalTable: "JobTask",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_JobTaskExecution_JobTask_TriggeredTaskId",
                         column: x => x.TriggeredTaskId,
@@ -131,10 +117,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                 table: "JobTaskCondition",
                 column: "JobTaskId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_JobTaskCondition_JobTaskId1",
-                table: "JobTaskCondition",
-                column: "JobTaskId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobTaskCondition_TriggeredTaskId",
@@ -145,11 +127,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                 name: "IX_JobTaskExecution_JobTaskId",
                 table: "JobTaskExecution",
                 column: "JobTaskId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobTaskExecution_JobTaskId1",
-                table: "JobTaskExecution",
-                column: "JobTaskId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobTaskExecution_TriggeredTaskId",

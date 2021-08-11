@@ -4,18 +4,195 @@
     <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#jobTaskModal">+</a>
 </div>
 <div class="widget">
-    <div class="list-group-item">
-        <table class="table">
+    <div class="list-group-item p-5 tbl-container">
+        <div class="loader_new">Loading...</div>
+        <table class="table" style="font-size: 1.3em; display: none;">
             <thead class="thead-dark">
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">ID</th>
-                    <th scope="col">Type</th>
                     <th scope="col">Title</th>
+                    <th scope="col">Conditions</th>
+                    <th scope="col">Executions</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                
+                <tr style="display: none">
+                    <td style="width: 2rem;" class="pl-5">
+                        <a href="#" class="edit-action" data-id=""><i class="fa fa-edit" style="font-size: 2rem"></i></a>
+                    </td>
+                    <td class="task-id"></td>
+                    <td class="task-title"></td>
+                    <td class="task-conditions"></td>
+                    <td class="task-executions"></td>
+                    <td style="width: 2rem;" class="pr-5">
+                        <a href="#" class="remove-action" data-id=""><i class="fa fa-trash" style="color: red; font-size: 2rem"></i></a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
+    <div class="list-group-item">
+        <nav style="margin: 0 auto; font-size: 1.3em;">
+            <ul class="pagination" style="display: none;">
+                <li class="page-item prev-disabled disabled">
+                    <span class="page-link">Prev</span>
+                </li>
+                <li class="page-item prev-link">
+                    <span class="page-link"><a href="">Prev</a></span>
+                </li>
+                <li class="page-item disabled p-2">
+                    Page <span class="page-number"></span> of <span class="page-count"></span>
+                </li>
+                <li class="page-item next-disabled disabled">
+                    <span class="page-link">Next</span>
+                </li>
+                <li class="page-item next-link">
+                    <span class="page-link"><a href="">Next</a></span>
+                </li>
+                <li class="page-item">
+                    <input type="text" class="form-control shadow ml-2 mr-2 page-input" style="width: 3em" />
+                </li>
+                <li class="page-item">
+                    <a class="page-link to-go" href="#">Go</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
+
+<script type="text/javascript">
+    var conditions = { 1: 'Once', 2: 'Every Time', 3: 'Event Occurred', 4: 'Condition Is Met', 5: 'Task Triggered' };
+    var executions = { 1: 'Command', 2: 'Trigger Task', 3: 'Wait' };
+    var currentPage = 1;
+    var pageCount = 1;
+
+    function loadData() {
+        $.ajax({
+            type: "GET",
+            url: "/api/jobtask?pagenumber=" + currentPage,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (response) {
+                currentPage = response.pageNumber;
+                pageCount = response.pageCount;
+
+                $('.table tbody tr').not(':first').remove();
+
+                if (response.pageCount > 1) {
+                    if (response.pageNumber == 1) {
+                        $('.pagination .prev-disabled').show();
+                        $('.pagination .prev-link').hide();
+                    } else {
+                        $('.pagination .prev-disabled').hide();
+                        $('.pagination .prev-link').show();
+                    }
+
+                    $('.pagination .page-number').text(response.pageNumber);
+                    $('.pagination .page-count').text(response.pageCount);
+
+                    if (response.pageNumber == response.pageCount) {
+                        $('.pagination .next-disabled').show();
+                        $('.pagination .next-link').hide();
+                    } else {
+                        $('.pagination .next-disabled').hide();
+                        $('.pagination .next-link').show();
+                    }
+
+                    $('.pagination').show();
+                }
+
+                response.items.forEach(item => {
+                    var row = $('.table tbody tr:first').clone();
+
+                    $('.edit-action', row).attr('data-id', item.id);
+                    $('.remove-action', row).attr('data-id', item.id);
+
+                    $('.task-id', row).text(item.id);
+                    $('.task-title', row).text(item.title);
+                    $('.task-conditions', row).text(
+                        item.conditions
+                            .map(condition => conditions[condition.type])
+                            .join(', ')
+                    );
+
+                    $('.task-executions', row).text(
+                        item.executions
+                            .map(exec => executions[exec.type])
+                            .join(', ')
+                    );
+
+                    $('.remove-action', row).on('click', function () {
+                        if (confirm('Are you sure you want to delete the item?')) {
+                            $.ajax({
+                                type: "DELETE",
+                                url: "/api/jobtask/" + $(this).attr('data-id'),
+                                success: function () {
+                                    loadData();
+                                }
+                            });
+                        }
+                    });
+
+                    $('.edit-action', row).on('click', function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/api/jobtask/" + $(this).attr('data-id'),
+                            success: function (response) {
+                                jobTask = response;
+
+                                $('#jobTaskModal').modal('show');
+                            }
+                        });
+                    });
+
+                    row.show();
+
+                    $('.table tbody').append(row);
+
+                    $('.tbl-container').addClass('p-0');
+                    $('.tbl-container').removeClass('p-5');
+                    $('.loader_new').hide();
+                    $('.table').show();
+                });
+            }
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.prev-link a').on('click', function () {
+            if (currentPage > 1) {
+                currentPage--;
+                loadData();
+            }
+
+            return false;
+        });
+
+        $('.next-link a').on('click', function () {
+            if (currentPage < pageCount) {
+                currentPage++;
+                loadData();
+            }
+
+            return false;
+        });
+
+        $('a.to-go').on('click', function () {
+            var page = $('.page-input').val();
+
+            if (page >= 1 && page <= pageCount) {
+                currentPage = page;
+                loadData();
+            }
+
+            $('.page-input').val('');
+
+            return false;
+        });        
+
+        loadData();
+    });
+</script>

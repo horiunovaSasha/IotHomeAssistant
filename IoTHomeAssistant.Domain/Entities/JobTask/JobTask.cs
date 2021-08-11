@@ -6,7 +6,7 @@ namespace IoTHomeAssistant.Domain.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public List<JobTaskCondition> Conditions { get; set; }
-        public List<JobTaskExecution> Executions { get; set; }
+        public virtual List<JobTaskCondition> Conditions { get; set; }
+        public virtual List<JobTaskExecution> Executions { get; set; }
     }
 }

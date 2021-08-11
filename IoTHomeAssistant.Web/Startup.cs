@@ -12,6 +12,7 @@ using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Web.Hubs;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace IoTHomeAssistant.Web
 {
@@ -57,7 +58,8 @@ namespace IoTHomeAssistant.Web
             services.AddTransient<IJobTaskService, JobTaskService>();
 
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddControllersWithViews();
             services.AddSignalR();
             services.AddSwaggerGen(c =>
@@ -101,6 +103,13 @@ namespace IoTHomeAssistant.Web
                 endpoints.MapRazorPages();
                 endpoints.MapHub<DeviceHub>("/devicehub");
             });
+        }
+
+        private static JsonSerializerSettings ConfigureNewtonsoftJson(JsonSerializerSettings settings)
+        {
+            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            settings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            return settings;
         }
     }
 }
