@@ -97,6 +97,7 @@ namespace IoTHomeAssistant.Domain.Services
                     x.Order = order;
                     order++;
                 });
+                dbTask.Title = jobTask.Title;
 
                 await _jobTaskRepository.UpdateAsync(dbTask);
                 await _jobTaskRepository.CommitAsync();
