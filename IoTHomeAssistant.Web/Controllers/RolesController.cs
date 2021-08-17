@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IoTHomeAssistant.Web.Models;
@@ -8,35 +9,92 @@ namespace IoTHomeAssistant.Web.Controllers
 {
       public class RolesController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-
-        private static string ADMIN_ROLE = "admin";
-        private static string USER_ROLE = "user";
-        
-        public RolesController(UserManager<IdentityUser> userManager)
+        RoleManager<IdentityRole> _roleManager;
+        UserManager<IdentityUser> _userManager;
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
         }
-        public IActionResult Index() => View(_userManager.Users.ToList());
-
+        public IActionResult Index() => View(_roleManager.Roles.ToList());
+ 
+        public IActionResult Create() => View();
         [HttpPost]
-        public async Task<IActionResult> Edit([FromBody] RolesRequest request)
+        public async Task<IActionResult> Create(string name)
         {
-            var user = await _userManager.FindByIdAsync(request.UserId);
-            if(user != null)
+            if (!string.IsNullOrEmpty(name))
             {
-                if (request.IsChecked)
+                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+                if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, ADMIN_ROLE);
-                    await _userManager.RemoveFromRoleAsync(user, USER_ROLE);
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(user, USER_ROLE);
-                    await _userManager.RemoveFromRoleAsync(user, ADMIN_ROLE);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-
-                return RedirectToAction("Index");
+            }
+            return View(name);
+        }
+         
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                IdentityResult result = await _roleManager.DeleteAsync(role);
+            }
+            return RedirectToAction("Index");
+        }
+ 
+        public IActionResult UserList() => View(_userManager.Users.ToList());
+ 
+        public async Task<IActionResult> Edit(string userId)
+        {
+            // получаем пользователя
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user!=null)
+            {
+                // получем список ролей пользователя
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+                ChangeRoleViewModel model = new ChangeRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View(model);
+            }
+ 
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string userId, List<string> roles)
+        {
+            // получаем пользователя
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user!=null)
+            {
+                // получем список ролей пользователя
+                var userRoles = await _userManager.GetRolesAsync(user);
+                // получаем все роли
+                var allRoles = _roleManager.Roles.ToList();
+                // получаем список ролей, которые были добавлены
+                var addedRoles = roles.Except(userRoles);
+                // получаем роли, которые были удалены
+                var removedRoles = userRoles.Except(roles);
+ 
+                await _userManager.AddToRolesAsync(user, addedRoles);
+ 
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+ 
+                return RedirectToAction("UserList");
             }
  
             return NotFound();

@@ -22,25 +22,26 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly RoleManager<IdentityRole> _roleManager;
-
-        private const string AdminRole = "admin";
-        private const string UserRole = "user";
+        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            RoleManager<IdentityRole> roleManager)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _roleManager = roleManager;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
+
+        public string ReturnUrl { get; set; }
+
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public class InputModel
         {
@@ -63,11 +64,14 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            ReturnUrl = returnUrl;
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
@@ -75,11 +79,8 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    await _signInManager.SignInAsync(user, isPersistent: false); 
 
-                    await CreateRoles();
-                    await _userManager.AddToRoleAsync(user, AdminRole);
-                   
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)
@@ -88,19 +89,8 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
                 }
             }
 
+            // If we got this far, something failed, redisplay form
             return Page();
-        }
-
-        private async Task CreateRoles()
-        {
-            if (!_roleManager.RoleExistsAsync(AdminRole).Result)
-            {
-                await _roleManager.CreateAsync(new IdentityRole(AdminRole));
-            }
-            if (!_roleManager.RoleExistsAsync(UserRole).Result)
-            {
-                await _roleManager.CreateAsync(new IdentityRole(UserRole));
-            }
         }
     }
 }

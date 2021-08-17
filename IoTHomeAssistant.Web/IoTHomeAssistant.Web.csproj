@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="wwwroot\lib\datetimepicker\build\js\bootstrap-datetimepicker.min.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
       <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
@@ -29,7 +28,6 @@
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.8" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
@@ -45,6 +43,10 @@
     <ItemGroup>
       <ProjectReference Include="..\IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj" />
       <ProjectReference Include="..\IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\datetimepicker\build\js\" />
     </ItemGroup>
 
 </Project>

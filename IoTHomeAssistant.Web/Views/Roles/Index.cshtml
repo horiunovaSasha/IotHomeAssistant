@@ -1,51 +1,20 @@
-@* @model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole> *@
-@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
  
-<h2 class="font-weight-bold pb-3">Users</h2>
-<div id="header-btn">
-    <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#pluginModal">+</a>
-</div>
-<div class="widget">
-    <div class="list-group-item">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">User name</th>
-                <th scope="col">Is admin</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var user in Model)
-            {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td> <input class="adminCheckbox" data-id="@user.Id" type="checkbox"></td>
-                </tr>
-            }
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script type="text/javascript">
- document.addEventListener('DOMContentLoaded', function () {
-        $(".adminCheckbox").on('click', function () {
-          debugger;
-          let userId= $(this).attr("data-id");
-          let isChecked= $(this).prop('checked')
-          $.ajax({
-            type: "POST",
-            url: "/roles/edit",
-            data: JSON.stringify({
-                userId : userId,
-                isChecked: isChecked
-            }),
-            dataType: 'json',
-            contentType: 'application/json',
-          });
-        })
-    })
-</script>
-
-
-
+<h2>Список ролей</h2>
+<table class="table">
+    @foreach (var role in Model)
+    {
+        <tr>
+            <td>@role.Name</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@role.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<a asp-action="Create">Добавить роль</a>
+<a asp-action="UserList">Список пользователей</a>
