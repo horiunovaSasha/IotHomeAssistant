@@ -38,9 +38,9 @@ namespace IoTHomeAssistant.Domain.Services
             _pluginRepository.Commit();
         }
 
-        public Plugin GetPlugin(int id)
+        public async Task<Plugin> GetPluginAsync(int id)
         {
-            return _pluginRepository.Get(id);
+            return await _pluginRepository.GetPluginAsync(id);
         }
 
         public async Task<PageResponse<Plugin>> GetPagginPlugins(PageRequest request)

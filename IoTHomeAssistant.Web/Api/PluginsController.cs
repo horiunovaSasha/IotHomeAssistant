@@ -19,9 +19,9 @@ namespace IoTHomeAssistant.Web.Api
 
         [HttpGet]
         [Route("{id}")]
-        public Plugin Get(int id)
+        public async Task<Plugin> Get(int id)
         {
-            return _pluginService.GetPlugin(id);
+            return await _pluginService.GetPluginAsync(id);
         }
 
         [HttpGet]

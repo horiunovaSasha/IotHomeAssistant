@@ -7,6 +7,7 @@ namespace IoTHomeAssistant.Domain.Repositories
 {
     public interface IPluginRepository : IRepository<Plugin, int>
     {
+        Task<Plugin> GetPluginAsync(int id);
         List<Plugin> GetAllWithDependencies();
         Task<PageResponse<Plugin>> GetPaggedList(PageRequest request);
     }

@@ -23,6 +23,13 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .ToList();
         }
 
+        public async Task<Plugin> GetPluginAsync(int id)
+        {
+            return await _dbSet
+                .Include(x => x.Configurations)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<PageResponse<Plugin>> GetPaggedList(PageRequest request)
         {
             var count = _dbSet.Count();

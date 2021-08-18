@@ -11,7 +11,7 @@ namespace IoTHomeAssistant.Domain.Services
         void AddPlugin(Plugin plugin);
         void UpdatePlugin(Plugin plugin);
         void RemovePlugin(int id);
-        Plugin GetPlugin(int id);
+        Task<Plugin> GetPluginAsync(int id);
         Task<PageResponse<Plugin>> GetPagginPlugins(PageRequest request);
     }
 }
