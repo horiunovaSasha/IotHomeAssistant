@@ -5,8 +5,8 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["YeeLightPlugin/YeeLightPlugin.csproj", "YeeLightPlugin/"]
-RUN dotnet restore "YeeLightPlugin/YeeLightPlugin.csproj"
+COPY ["YeeLightPlugin.csproj", "YeeLightPlugin/"]
+RUN dotnet restore "YeeLightPlugin.csproj"
 COPY . .
 WORKDIR "/src/YeeLightPlugin"
 RUN dotnet build "YeeLightPlugin.csproj" -c Release -o /app/build
@@ -18,4 +18,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "YeeLightPlugin.dll"]
-CMD ["MQTT_BROKER_ADDRESS=192.168.1.226"]
