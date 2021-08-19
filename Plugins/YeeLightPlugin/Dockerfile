@@ -5,10 +5,10 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["YeeLightPlugin.csproj", "YeeLightPlugin/"]
-RUN dotnet restore "YeeLightPlugin.csproj"
+COPY ["YeeLightPlugin.csproj", "."]
+RUN dotnet restore "./YeeLightPlugin.csproj"
 COPY . .
-WORKDIR "/src/YeeLightPlugin"
+WORKDIR "/src/."
 RUN dotnet build "YeeLightPlugin.csproj" -c Release -o /app/build
 
 FROM build AS publish
