@@ -1,9 +1,31 @@
-@* @model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole> *@
-@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+@model IEnumerable<IoTHomeAssistant.Web.Models.UserViewModel>
  
 <h2 class="font-weight-bold pb-3">Users</h2>
 <div id="header-btn">
-    <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#pluginModal">+</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Add user
+    </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal">
+        Access settings
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 10%">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold"  id="exampleModalLabel">Send invitation email</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body row">
+                <input id="invitationId" type="email" placeholder="Enter email address" class="col-10 input-field">
+                <button class="col-2 btn btn-primary" type="submit" id="invitationButton">Invite</button>
+            </div>
+        </div>
+      </div>
+    </div>
 </div>
 <div class="widget">
     <div class="list-group-item">
@@ -15,11 +37,11 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var user in Model)
+            @foreach (var item in Model)
             {
                 <tr>
-                    <td>@user.UserName</td>
-                    <td> <input class="adminCheckbox" data-id="@user.Id" type="checkbox"></td>
+                    <td>@item.User.UserName</td>
+                    <td> <input class="adminCheckbox" data-id="@item.User.Id" type="checkbox" checked = "@item.IsAdmin"></td>
                 </tr>
             }
             </tbody>
@@ -43,6 +65,20 @@
             dataType: 'json',
             contentType: 'application/json',
           });
+        })
+        
+        $("#invitationButton").on('click',function (){
+           let email = $("#invitationId").val();
+           debugger;
+           $.ajax({
+              type: "POST",
+              url: "/users/invite",
+              data: JSON.stringify({
+                  email : email
+              }),
+              dataType: 'json',
+              contentType: 'application/json',
+            });
         })
     })
 </script>
