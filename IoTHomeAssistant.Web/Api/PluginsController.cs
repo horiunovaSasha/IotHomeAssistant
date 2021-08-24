@@ -2,6 +2,7 @@
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Web.Api
 {
@@ -17,15 +18,16 @@ namespace IoTHomeAssistant.Web.Api
         }
 
         [HttpGet]
-        public Plugin Get(int id)
+        [Route("{id}")]
+        public async Task<Plugin> Get(int id)
         {
-            return _pluginService.GetPlugin(id);
+            return await _pluginService.GetPluginAsync(id);
         }
 
         [HttpGet]
-        public PageResponse<Plugin> Items(int pageNumber = 1, int pageSize = 10)
+        public async Task<PageResponse<Plugin>> Items(int pageNumber = 1, int pageSize = 10)
         {
-            return _pluginService.GetPagginPlugins(
+            return await _pluginService.GetPagginPlugins(
                 new PageRequest() { 
                     PageNumber = pageNumber, 
                     PageSize = pageSize 

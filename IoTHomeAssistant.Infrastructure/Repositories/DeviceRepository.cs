@@ -17,9 +17,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
 
         public List<InfoDevice> GetInfoDevices() {
             var infoDeviceTypes = new List<DeviceTypeEnum>() {
-                 DeviceTypeEnum.Co2Sensor,
                  DeviceTypeEnum.DoorWindowSensor,
-                 DeviceTypeEnum.DustSensor,
                  DeviceTypeEnum.MotionDetector,
                  DeviceTypeEnum.TemperatureSensor,
                  DeviceTypeEnum.WeatherStation

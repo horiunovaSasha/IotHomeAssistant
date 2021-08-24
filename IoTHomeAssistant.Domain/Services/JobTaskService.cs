@@ -35,7 +35,9 @@ namespace IoTHomeAssistant.Domain.Services
             if (dbTask != null)
             {
                 int order = 1;
-                foreach(var item in jobTask.Conditions)
+                dbTask.Title = jobTask.Title;
+
+                foreach (var item in jobTask.Conditions)
                 {
                     var dbIds = dbTask.Conditions.Select(x => x.Id).ToList();
                     var dbItem = dbTask.Conditions.FirstOrDefault(x => x.Id == item.Id);
@@ -97,7 +99,6 @@ namespace IoTHomeAssistant.Domain.Services
                     x.Order = order;
                     order++;
                 });
-                dbTask.Title = jobTask.Title;
 
                 await _jobTaskRepository.UpdateAsync(dbTask);
                 await _jobTaskRepository.CommitAsync();

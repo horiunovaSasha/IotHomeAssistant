@@ -1,6 +1,7 @@
 ﻿using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -10,7 +11,7 @@ namespace IoTHomeAssistant.Domain.Services
         void AddPlugin(Plugin plugin);
         void UpdatePlugin(Plugin plugin);
         void RemovePlugin(int id);
-        Plugin GetPlugin(int id);
-        PageResponse<Plugin> GetPagginPlugins(PageRequest request);
+        Task<Plugin> GetPluginAsync(int id);
+        Task<PageResponse<Plugin>> GetPagginPlugins(PageRequest request);
     }
 }

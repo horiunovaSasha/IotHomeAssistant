@@ -2,6 +2,7 @@
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -37,14 +38,14 @@ namespace IoTHomeAssistant.Domain.Services
             _pluginRepository.Commit();
         }
 
-        public Plugin GetPlugin(int id)
+        public async Task<Plugin> GetPluginAsync(int id)
         {
-            return _pluginRepository.Get(id);
+            return await _pluginRepository.GetPluginAsync(id);
         }
 
-        public PageResponse<Plugin> GetPagginPlugins(PageRequest request)
+        public async Task<PageResponse<Plugin>> GetPagginPlugins(PageRequest request)
         {
-            throw new System.NotImplementedException();
+            return await _pluginRepository.GetPaggedList(request);
         }
     }
 }
