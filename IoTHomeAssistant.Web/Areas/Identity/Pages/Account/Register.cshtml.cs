@@ -22,18 +22,21 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        private const string AdminRole = "admin";
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -78,6 +81,7 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    await AddToAdminRole(user);
                     _logger.LogInformation("User created a new account with password.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
@@ -91,6 +95,16 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private async Task AddToAdminRole(IdentityUser user)
+        {
+            if (! await _roleManager.RoleExistsAsync(AdminRole))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(AdminRole));
+            }
+
+            await _userManager.AddToRoleAsync(user, AdminRole);
         }
     }
 }

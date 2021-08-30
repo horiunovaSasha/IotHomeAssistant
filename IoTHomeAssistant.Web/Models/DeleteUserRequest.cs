@@ -1,8 +1,7 @@
 namespace IoTHomeAssistant.Web.Models
 {
-    public class RolesRequest
+    public class DeleteUserRequest
     {
         public string UserId { get; set; }
-        public bool IsChecked { get; set; }
     }
 }

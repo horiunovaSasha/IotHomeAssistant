@@ -11,7 +11,7 @@ namespace IoTHomeAssistant.Web.Services
         {
             var emailMessage = new MimeMessage();
  
-            emailMessage.From.Add(new MailboxAddress("IoT home assistant", "koshman.oleksandra@chnu.edu.ua"));
+            emailMessage.From.Add(new MailboxAddress("IoT home assistant", "home.assistant@gmail.com"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)

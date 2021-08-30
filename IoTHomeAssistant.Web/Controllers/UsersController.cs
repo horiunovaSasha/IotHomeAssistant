@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using IoTHomeAssistant.Web.Models;
 using IoTHomeAssistant.Web.Services;
@@ -22,10 +23,22 @@ namespace IoTHomeAssistant.Web.Controllers
             _userService = userService;
         }
         
+        public IActionResult Index() => View(_userService.GetUsersWithRoles());
+        
         [HttpPost]
         public async Task Invite([FromBody] InviteRequest request)
         {
             await _userService.Invite(request?.Email, Url);
+        }
+        
+        [HttpDelete]
+        public async Task Delete([FromBody] DeleteUserRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(request?.UserId);
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
         }
         
         [HttpGet]
