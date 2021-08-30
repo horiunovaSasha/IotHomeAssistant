@@ -11,7 +11,8 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
-            builder.Property(x => x.DockerConfiguration).IsRequired();
+            builder.Property(x => x.DockerImageId).IsRequired();
+            builder.Property(x => x.DockerImageSource).IsRequired();
             builder.Property(x => x.DeviceType).IsRequired();
 
             builder.HasMany(x => x.Configurations);

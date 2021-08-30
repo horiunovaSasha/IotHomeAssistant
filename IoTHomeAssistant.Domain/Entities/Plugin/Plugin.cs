@@ -8,8 +8,8 @@ namespace IoTHomeAssistant.Domain.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public DeviceTypeEnum DeviceType { get; set; }
+        public string DockerImageId { get; set; }
         public string DockerImageSource { get; set; }
-        public string DockerConfiguration { get; set; }
         
         public virtual List<PluginConfiguration> Configurations { get; set; }
     }

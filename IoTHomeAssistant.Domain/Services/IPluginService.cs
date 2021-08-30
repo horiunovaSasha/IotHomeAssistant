@@ -8,9 +8,9 @@ namespace IoTHomeAssistant.Domain.Services
     public interface IPluginService
     {
         List<Plugin> GetPlugins();
-        void AddPlugin(Plugin plugin);
-        void UpdatePlugin(Plugin plugin);
-        void RemovePlugin(int id);
+        Task AddPlugin(Plugin plugin);
+        Task UpdatePlugin(Plugin plugin);
+        Task RemovePlugin(int id);
         Task<Plugin> GetPluginAsync(int id);
         Task<PageResponse<Plugin>> GetPagginPlugins(PageRequest request);
     }

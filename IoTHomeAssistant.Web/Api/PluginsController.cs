@@ -35,21 +35,21 @@ namespace IoTHomeAssistant.Web.Api
         }
 
         [HttpPost]
-        public void Add(Plugin request)
+        public async Task Add(Plugin request)
         {
-            _pluginService.AddPlugin(request);
+            await _pluginService.AddPlugin(request);
         }
 
         [HttpPut]
-        public void Update(Plugin request)
+        public async Task Update(Plugin request)
         {
-            _pluginService.UpdatePlugin(request);
+            await _pluginService.UpdatePlugin(request);
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            _pluginService.RemovePlugin(id);
+            await _pluginService.RemovePlugin(id);
         }
     }
 }

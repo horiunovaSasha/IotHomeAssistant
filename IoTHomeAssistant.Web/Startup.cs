@@ -37,11 +37,11 @@ namespace IoTHomeAssistant.Web
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddMvc(options =>
-            {
-               options.Filters.Add(new AuthorizeFilter());
-            });
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //services.AddMvc(options =>
+            //{
+            //   options.Filters.Add(new AuthorizeFilter());
+            //});
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
