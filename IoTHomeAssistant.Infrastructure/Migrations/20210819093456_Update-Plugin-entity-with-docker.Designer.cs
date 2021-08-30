@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210819093456_Update-Plugin-entity-with-docker")]
+    partial class UpdatePluginentitywithdocker
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

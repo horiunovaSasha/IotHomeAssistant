@@ -94,11 +94,6 @@
                                     <input type="text" class="form-control plg-docker-img">
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="shadow mt-1 required">
-                                    <textarea class="form-control plg-docker-conf" placeholder="Docker Start Configuration"></textarea>
-                                </div>
-                            </div>
                         </div>
                         <div class="row ">
                         <div class="col-12 btn-bottom">
@@ -172,7 +167,6 @@
                         title: $('.plg-title').val(),
                         deviceType: Number.parseInt($('#pluginModal select').val()),
                         dockerImageSource: $('.plg-docker-img').val(),
-                        dockerConfiguration: $('.plg-docker-conf').val(),
                         configurations: configurations
                     }),
                     dataType: 'json',
