@@ -8,8 +8,8 @@ namespace IoTHomeAssistant.Domain.Services
     public interface IDeviceService
     {
         List<InfoDevice> GetInfoDevices();
-        void Toggle(int topicId, bool toggle);
-        Task YeelightControl(int deviceId, bool toggle, int brightness, string color);
+        void Toggle(int deviceId, bool toggle);
+        void LightControl(int deviceId, bool toggle, int brightness, string color);
         List<Device> GetAllDevices();
     }
 }

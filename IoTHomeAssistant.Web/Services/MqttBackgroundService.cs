@@ -1,9 +1,11 @@
 ﻿using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Enums;
+using IoTHomeAssistant.Domain.Options;
 using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Web.Hubs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +20,14 @@ namespace IoTHomeAssistant.Web.Services
     public class MqttBackgroundService : IHostedService, IDisposable
     {
         private const string MQTT_CLIENT_ID = "IoTHomeAssistant";
-        private const string MQTT_BROKER_ADDRESS = "192.168.1.226";
 
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly MqttClient _client;
 
-        public MqttBackgroundService(IServiceScopeFactory serviceScopeFactory)
+        public MqttBackgroundService(IServiceScopeFactory serviceScopeFactory, IOptions<MqttOption> options)
         {
             _serviceScopeFactory = serviceScopeFactory;
-            _client = new MqttClient(MQTT_BROKER_ADDRESS);
+            _client = new MqttClient(options.Value.MqttBrokerAddress);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

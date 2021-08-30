@@ -34,9 +34,9 @@ namespace IoTHomeAssistant.Web.Api
         
         [HttpPost]
         [Route("Light")]
-        public async Task Light(LightRequest request)
+        public void Light(LightRequest request)
         {
-            await _deviceService.YeelightControl(request.Id, request.Toggle, request.Brightness, request.Color);
+            _deviceService.LightControl(request.Id, request.Toggle, request.Brightness, request.Color);
         }
     }
 }
