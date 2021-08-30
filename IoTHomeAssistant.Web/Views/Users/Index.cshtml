@@ -1,0 +1,119 @@
+@model IEnumerable<UserViewModel>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#users">Users</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#roles">Roles</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#opinion">Plugins</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="users">
+        <h2 class="font-weight-bold pb-3">Users</h2>
+        <div id="header-btn">
+            <br/><br/>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invitationModal">
+                Add user
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="invitationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 10%">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Send invitation email</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row">
+                            <input id="invitationId" type="email" placeholder="Enter email address" class="col-10 input-field">
+                            <button class="col-2 btn btn-primary" type="submit" id="invitationButton">Invite</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col"> </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.User.Email</td>
+                  <td style="width: 2rem;" class="pr-5">
+                      <a href="#" class="deleteUser" data-id="@user.User.Id">
+                          @if (!user.IsAdmin)
+                          {
+                              <i class="fa fa-trash " @(user.IsAdmin ? "disabled" : "") style="color: red; font-size: 2rem"></i>
+                          }
+                      </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="tab-pane fade" id="roles">
+        <h2>Roles list</h2>
+        <div class="widget">
+            <div class="list-group-item">
+                <h2>Testing tabs</h2>
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="opinion">
+        <h2>Testing tabs 2</h2>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+ document.addEventListener('DOMContentLoaded', function () {
+        $("#invitationButton").on('click',function (){
+           let email = $("#invitationId").val();
+           $.ajax({
+              type: "POST",
+              url: "/users/invite",
+              data: JSON.stringify({
+                  email : email
+              }),
+              dataType: 'json',
+              contentType: 'application/json',
+            });
+           $("#invitationModal").modal('toggle')
+        })
+        
+        $(".deleteUser").on('click',function (){
+            debugger;
+            let userId = $(this).attr('data-id');
+            $.ajax({
+               type: "DELETE",
+               url: "/users/delete",
+               data: JSON.stringify({
+                   userId : userId
+               }),
+               dataType: 'json',
+               contentType: 'application/json',
+             });
+            debugger;
+            location.reload(true);
+        })
+        
+        
+        $('[data-toggle="tab"]').on('show.bs.tab', function (e) {
+          var activeTab = $(e.target); // активная вкладка
+          console.log(activeTab.text());
+        });
+    })
+</script>

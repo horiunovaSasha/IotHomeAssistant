@@ -58,7 +58,7 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
         {
             // foreach (var user in _userManager.Users)
             // {
-            //     await _userManager.DeleteAsync(user);
+            //     var tst =  _userManager.DeleteAsync(user).Result;
             // }
 
             var noUserExists = !_userManager.Users.Any();

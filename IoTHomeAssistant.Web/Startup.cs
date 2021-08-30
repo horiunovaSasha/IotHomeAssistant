@@ -10,7 +10,9 @@ using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.Repositories;
 using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Web.Hubs;
+using IoTHomeAssistant.Web.Services;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using IoTHomeAssistant.Domain.Options;
@@ -59,6 +61,9 @@ namespace IoTHomeAssistant.Web
             services.AddTransient<IDeviceService, DeviceService>();
             services.AddTransient<IPluginService, PluginService>();
             services.AddTransient<IJobTaskService, JobTaskService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
 
 
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
