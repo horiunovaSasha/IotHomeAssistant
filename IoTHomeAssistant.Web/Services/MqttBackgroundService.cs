@@ -33,30 +33,28 @@ namespace IoTHomeAssistant.Web.Services
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             NotificationHub notificationHub = null;
-            var deviceTopics = new List<DeviceMqttTopic>();
 
-            using (var scope = _serviceScopeFactory.CreateScope())
-            {
-                var topicRepository = scope.ServiceProvider.GetRequiredService<IDeviceMqttTopicRepository>();
-                notificationHub = scope.ServiceProvider.GetRequiredService<NotificationHub>();
-                deviceTopics = topicRepository.GetAllWithBrokerInfo();
-            }
+            //using (var scope = _serviceScopeFactory.CreateScope())
+            //{
+            //    var topicRepository = scope.ServiceProvider.GetRequiredService<IDeviceMqttTopicRepository>();
+            //    notificationHub = scope.ServiceProvider.GetRequiredService<NotificationHub>();
+            //}
 
-            _client.Connect(MQTT_CLIENT_ID);
+            //_client.Connect(MQTT_CLIENT_ID);
 
-            foreach (var deviceTopic in deviceTopics.Where(x => x.TopicType == MqttTopicTypeEnum.Subscribe))
-            {
-                _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
-                {
-                    if (e.Topic == deviceTopic.Topic)
-                    {
-                        var message = Encoding.UTF8.GetString(e.Message);
-                        notificationHub.NotifyDevice(deviceTopic.Id, message).Wait();
-                    }
-                };
+            //foreach (var deviceTopic in deviceTopics.Where(x => x.TopicType == MqttTopicTypeEnum.Subscribe))
+            //{
+            //    _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
+            //    {
+            //        if (e.Topic == deviceTopic.Topic)
+            //        {
+            //            var message = Encoding.UTF8.GetString(e.Message);
+            //            notificationHub.NotifyDevice(deviceTopic.Id, message).Wait();
+            //        }
+            //    };
 
-                _client.Subscribe(new string[] { deviceTopic.Topic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-            }
+            //    _client.Subscribe(new string[] { deviceTopic.Topic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            //}
 
             await Task.CompletedTask;
         }

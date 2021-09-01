@@ -24,9 +24,9 @@
                         @await Html.PartialAsync("_DashboardIcon", item)
                         <span class="h4 pl-3">@item.Title</span>
                     </div>
-                    <div class="float-right device-topic-@item.DeviceTopic.Id">
+                    @*<div class="float-right device-topic-@item.DeviceTopic.Id">
                         <div class="loader_new" style="left: 80%">Loading...</div>
-                    </div>
+                    </div>*@
                 </div>
             }
             @if (item.Type == WidgetItemTypeEnum.Switcher)
@@ -307,7 +307,7 @@
         <script type="text/javascript">
     @foreach(var item in Model.SelectMany(x => x.Items))
     {
-        if (item.Type == WidgetItemTypeEnum.Informer)
+        @*if (item.Type == WidgetItemTypeEnum.Informer)
         {
         <text>
             setupDeviceNotification(@item.DeviceTopic.Id);
@@ -319,7 +319,7 @@
         <text>
             setupSwitchNotification(@item.DeviceTopic.Id);
         </text>
-        }
+        }*@
     }
 
 

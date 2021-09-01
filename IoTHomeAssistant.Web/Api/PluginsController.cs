@@ -1,7 +1,9 @@
 ﻿using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
+using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Web.Api
@@ -32,6 +34,13 @@ namespace IoTHomeAssistant.Web.Api
                     PageNumber = pageNumber, 
                     PageSize = pageSize 
                 });
+        }
+
+        [HttpGet]
+        [Route("type/{type}")]
+        public async Task<List<Plugin>> GetByTypes(DeviceTypeEnum type)
+        {
+            return await _pluginService.GetPluginsByTypeAsync(type);
         }
 
         [HttpPost]

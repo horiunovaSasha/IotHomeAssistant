@@ -1,5 +1,6 @@
 ﻿using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
+using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,14 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 PageCount = 0,
                 PageNumber = 1
             };
+        }
+
+        public async Task<List<Plugin>> GetPluginsByTypeAsync(DeviceTypeEnum type)
+        {
+            return await _dbSet
+                .Where(x => x.DeviceType == type)
+                .Include(x => x.Configurations)
+                .ToListAsync();
         }
     }
 }

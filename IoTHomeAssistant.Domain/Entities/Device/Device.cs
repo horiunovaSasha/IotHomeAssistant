@@ -1,3 +1,5 @@
+using IoTHomeAssistant.Domain.Entities.Command;
+using IoTHomeAssistant.Domain.Entities.Event;
 using IoTHomeAssistant.Domain.Enums;
 using System.Collections.Generic;
 
@@ -7,12 +9,11 @@ namespace IoTHomeAssistant.Domain.Entities
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string IPAddress { get; set; }
         public DeviceTypeEnum Type { get; set; }
-        
-        public virtual Area Area { get; set; }        
-        public virtual DeviceVendor Vendor { get; set; }
+
+        public virtual PluginDevice PluginDevice { get; set; }
+        public virtual CommandCollection CommandCollection { get; set; }
+        public virtual EventCollection EventCollection { get; set; }
         public virtual ICollection<DeviceGroup> Groups { get; set; }
-        public virtual ICollection<DeviceMqttTopic> Topics { get; set; }
     }
 }

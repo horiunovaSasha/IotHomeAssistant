@@ -6,7 +6,7 @@ namespace IoTHomeAssistant.Domain.Enums
         Light = 2,
         AC = 3,
         Cleaner = 4,
-        Termostat = 5,
+        Thermostat = 5,
         Blinds = 6,
         MotionDetector = 7,
         DoorWindowSensor = 8,
