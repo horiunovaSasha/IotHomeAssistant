@@ -8,6 +8,7 @@ using LibGit2Sharp;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using IoTHomeAssistant.Domain.Enums;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -169,6 +170,11 @@ namespace IoTHomeAssistant.Domain.Services
             }
 
             return localPath;
+        }
+
+        public async Task<List<Plugin>> GetPluginsByTypeAsync(DeviceTypeEnum type)
+        {
+            return await _pluginRepository.GetPluginsByTypeAsync(type);
         }
     }
 }

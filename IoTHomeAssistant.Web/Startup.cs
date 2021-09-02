@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using IoTHomeAssistant.Domain.Options;
 
 namespace IoTHomeAssistant.Web
 {
@@ -47,9 +48,10 @@ namespace IoTHomeAssistant.Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<MqttOption>(Configuration.GetSection("MqttConfiguration"));
+
             services.AddTransient<ConnectionHubManager>();
             services.AddTransient<NotificationHub>();
-            services.AddTransient<IDeviceMqttTopicRepository, DeviceMqttTopicRepository>();
             services.AddTransient<IWidgetRepository, WidgetRepository>();
             services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();

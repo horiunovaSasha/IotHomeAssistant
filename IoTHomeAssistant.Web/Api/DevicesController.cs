@@ -1,4 +1,6 @@
 ﻿using IoTHomeAssistant.Domain.Dto;
+using IoTHomeAssistant.Domain.Dto.Pagging;
+using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +21,13 @@ namespace IoTHomeAssistant.Web.Api
         }
 
         [HttpGet]
+        [Route("{id}")]
+        public async Task<Device> Get(int id)
+        {
+            return await _deviceService.GetDeviceAsync(id);
+        }
+
+        [HttpGet]
         [Route("Info")]
         public List<InfoDevice> GetInfoDevices()
         {
@@ -34,9 +43,20 @@ namespace IoTHomeAssistant.Web.Api
         
         [HttpPost]
         [Route("Light")]
-        public async Task Light(LightRequest request)
+        public void Light(LightRequest request)
         {
-            await _deviceService.YeelightControl(request.Id, request.Toggle, request.Brightness, request.Color);
+            _deviceService.LightControl(request.Id, request.Toggle, request.Brightness, request.Color);
+        }
+
+        [HttpGet]
+        public async Task<PageResponse<DeviceDto>> Items(int pageNumber = 1, int pageSize = 10)
+        {
+            return await _deviceService.GetPaggedList(
+                new PageRequest()
+                {
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                });
         }
     }
 }

@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210830153706_ChangeDeviceEntity")]
+    partial class ChangeDeviceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,50 +70,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.ToTable("Color");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Command.Command", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CommandCollectionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommandCollectionId");
-
-                    b.ToTable("Command");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Command.CommandCollection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<byte>("DeviceType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PluginId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PluginId");
-
-                    b.ToTable("CommandCollection");
-                });
-
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Device", b =>
                 {
                     b.Property<int>("Id")
@@ -119,12 +77,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("AreaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CommandCollectionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("EventCollectionId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
@@ -138,10 +90,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AreaId");
-
-                    b.HasIndex("CommandCollectionId");
-
-                    b.HasIndex("EventCollectionId");
 
                     b.ToTable("Device");
                 });
@@ -167,48 +115,38 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.ToTable("DeviceGroup");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Event.Event", b =>
+            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.DeviceMqttTopic", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EventCollectionId")
+                    b.Property<int?>("DeviceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("MqttBrokerId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("EventCollectionId");
-
-                    b.ToTable("Event");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Event.EventCollection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<byte>("DeviceType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PluginId")
+                    b.Property<byte>("TopicType")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PluginId");
+                    b.HasIndex("DeviceId");
 
-                    b.ToTable("EventCollection");
+                    b.HasIndex("MqttBrokerId");
+
+                    b.ToTable("DeviceMqttTopic");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Icon", b =>
@@ -523,6 +461,9 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Property<int?>("DeviceId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("DeviceTopicId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("IconColorId")
                         .HasColumnType("INTEGER");
 
@@ -543,6 +484,8 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DeviceId");
+
+                    b.HasIndex("DeviceTopicId");
 
                     b.HasIndex("IconColorId");
 
@@ -595,39 +538,11 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Command.Command", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Command.CommandCollection", null)
-                        .WithMany("Commands")
-                        .HasForeignKey("CommandCollectionId");
-                });
-
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Command.CommandCollection", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Plugin", "Plugin")
-                        .WithMany()
-                        .HasForeignKey("PluginId");
-
-                    b.Navigation("Plugin");
-                });
-
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Device", b =>
                 {
                     b.HasOne("IoTHomeAssistant.Domain.Entities.Area", null)
                         .WithMany("Devices")
                         .HasForeignKey("AreaId");
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Command.CommandCollection", "CommandCollection")
-                        .WithMany()
-                        .HasForeignKey("CommandCollectionId");
-
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Event.EventCollection", "EventCollection")
-                        .WithMany()
-                        .HasForeignKey("EventCollectionId");
-
-                    b.Navigation("CommandCollection");
-
-                    b.Navigation("EventCollection");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.DeviceGroup", b =>
@@ -637,20 +552,19 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .HasForeignKey("AreaId");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Event.Event", b =>
+            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.DeviceMqttTopic", b =>
                 {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Event.EventCollection", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventCollectionId");
-                });
+                    b.HasOne("IoTHomeAssistant.Domain.Entities.Device", "Device")
+                        .WithMany("Topics")
+                        .HasForeignKey("DeviceId");
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Event.EventCollection", b =>
-                {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.Plugin", "Plugin")
+                    b.HasOne("IoTHomeAssistant.Domain.Entities.MqttBroker", "MqttBroker")
                         .WithMany()
-                        .HasForeignKey("PluginId");
+                        .HasForeignKey("MqttBrokerId");
 
-                    b.Navigation("Plugin");
+                    b.Navigation("Device");
+
+                    b.Navigation("MqttBroker");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Job", b =>
@@ -762,6 +676,10 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("DeviceId");
 
+                    b.HasOne("IoTHomeAssistant.Domain.Entities.DeviceMqttTopic", "DeviceTopic")
+                        .WithMany()
+                        .HasForeignKey("DeviceTopicId");
+
                     b.HasOne("IoTHomeAssistant.Domain.Entities.Color", "IconColor")
                         .WithMany()
                         .HasForeignKey("IconColorId");
@@ -775,6 +693,8 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .HasForeignKey("WidgetId");
 
                     b.Navigation("Device");
+
+                    b.Navigation("DeviceTopic");
 
                     b.Navigation("Icon");
 
@@ -807,19 +727,11 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Navigation("Widgets");
                 });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Command.CommandCollection", b =>
-                {
-                    b.Navigation("Commands");
-                });
-
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Device", b =>
                 {
                     b.Navigation("PluginDevice");
-                });
 
-            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Event.EventCollection", b =>
-                {
-                    b.Navigation("Events");
+                    b.Navigation("Topics");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTask", b =>

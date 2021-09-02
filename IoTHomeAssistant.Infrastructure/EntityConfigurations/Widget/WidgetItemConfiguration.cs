@@ -16,7 +16,6 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.HasOne(x => x.Widget);
             builder.HasOne(x => x.Icon);
             builder.HasOne(x => x.IconColor);
-            builder.HasOne(x => x.DeviceTopic);
             builder.HasOne(x => x.Device);
 
             builder.HasMany(x => x.ColorRange);

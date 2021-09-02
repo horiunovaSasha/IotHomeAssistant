@@ -1,6 +1,6 @@
-namespace IoTHomeAssistant.Domain.Entities.Command
+namespace IoTHomeAssistant.Domain.Entities.Event
 {
-    public class Command : IEntity<int>
+    public class Event : IEntity<int>
     {
         public int Id { get; set; }
         public string Title { get; set; }
