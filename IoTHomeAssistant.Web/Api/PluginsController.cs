@@ -3,6 +3,7 @@ using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using IoTHomeAssistant.Web.Models;
 
 namespace IoTHomeAssistant.Web.Api
 {
@@ -47,9 +48,9 @@ namespace IoTHomeAssistant.Web.Api
         }
 
         [HttpDelete]
-        public async Task Delete(int id)
+        public async Task Delete([FromBody]DeletePluginRequest request)
         {
-            await _pluginService.RemovePlugin(id);
+            await _pluginService.RemovePlugin(request.Id);
         }
     }
 }

@@ -35,7 +35,8 @@ namespace IoTHomeAssistant.Domain.Services
             {
                 await _pluginRepository.AddAsync(plugin);
                 await _pluginRepository.CommitAsync();
-            } else
+            }
+            else
             {
                 throw new Exception(dockerError);
             }
@@ -43,12 +44,13 @@ namespace IoTHomeAssistant.Domain.Services
 
         public async Task UpdatePlugin(Plugin plugin)
         {
-            var dbPlugin = _pluginRepository.Get(plugin.Id);
+            var dbPlugin = await _pluginRepository.GetPluginAsync(plugin.Id);
 
             if (dbPlugin != null)
             {
                 dbPlugin.Title = plugin.Title;
                 dbPlugin.DockerImageSource = plugin.DockerImageSource;
+                dbPlugin.DeviceType = plugin.DeviceType;
 
                 foreach (var item in plugin.Configurations)
                 {
@@ -68,7 +70,7 @@ namespace IoTHomeAssistant.Domain.Services
 
                     foreach (var id in dbIds)
                     {
-                        if (!dbPlugin.Configurations.Any(x => x.Id == id))
+                        if (!plugin.Configurations.Any(x => x.Id == id))
                         {
                             var rmItem = dbPlugin.Configurations.First(x => x.Id == id);
                             dbPlugin.Configurations.Remove(rmItem);

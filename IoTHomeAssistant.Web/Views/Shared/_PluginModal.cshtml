@@ -1,26 +1,4 @@
-﻿<script type="text/javascript">
-    function onTextInputFocus() {
-        $(this).parent('.input-block').addClass('focus');
-        $(this).parent().find('label').animate({
-            'top': '1em',
-            'fontSize': '1em'
-        }, 300);
-    }
-
-    function onTextInputBlur() {
-        if ($(this).val().length == 0) {
-            $(this).parent('.input-block').removeClass('focus');
-            $(this).parent().find('label').animate({
-                'top': '1.3em',
-                'fontSize': '1.2em'
-            }, 300);
-        }
-    }
-</script>
-
-
-
-<div class="modal fade" id="pluginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+﻿<div class="modal fade" id="pluginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content p-0">
             <div class="widget-wrapper">
@@ -41,8 +19,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="input-block shadow mt-1 required">
-                                    <label for="">Title</label>
-                                    <input type="text" class="form-control plg-title">
+                                    <input type="hidden" value="0" name="plugin-id"/>
+                                    <input placeholder="Title" name="title" type="text" class="form-control plg-title">
                                 </div>
                             </div>
                             <div class="col-6 required">
@@ -50,7 +28,7 @@
                                     <option value="">Select Type</option>
                                     @foreach (IoTHomeAssistant.Domain.Enums.DeviceTypeEnum type in Enum.GetValues(typeof(IoTHomeAssistant.Domain.Enums.DeviceTypeEnum)))
                                     {
-                                    <option value="@((int)type)">@type</option>
+                                         <option value="@((int)type)">@type</option>
                                     }
                                 </select>
                             </div>
@@ -58,22 +36,20 @@
                         <h5 class="mt-1">Configurations:</h5>
                         <div class="plg-confs">
                             <div class="row">
+                                <input type="hidden" value="0" class="plg-conf-id"/>
                                 <div class="col-4 required">
                                     <div class="input-block shadow mt-1">
-                                        <label for="">Title</label>
-                                        <input type="text" class="form-control plg-conf-title">
+                                        <input placeholder="Title" name="configurationTitle" type="text" class="form-control plg-conf-title">
                                     </div>
                                 </div>
                                 <div class="col-3 required">
                                     <div class="input-block shadow mt-1">
-                                        <label for="">Key</label>
-                                        <input type="text" class="form-control plg-conf-key">
+                                        <input placeholder="Key" name="key" type="text" class="form-control plg-conf-key">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="input-block shadow mt-1">
-                                        <label for="">Description</label>
-                                        <input type="text" class="form-control plg-conf-desc">
+                                        <input placeholder="Description" name="description" type="text" class="form-control plg-conf-desc">
                                     </div>
                                 </div>
                                 <div class="col-1 pt-3 pl-2 rm-plg-conf" style="display: none;">
@@ -90,15 +66,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-block shadow mt-1 required">
-                                    <label for="">Docker Image Source</label>
-                                    <input type="text" class="form-control plg-docker-img">
+                                    <input placeholder="Docker Image Source" name="dockerSource" type="text" class="form-control plg-docker-img">
                                 </div>
                             </div>
                         </div>
                         <div class="row ">
                         <div class="col-12 btn-bottom">
                             <div class="float-right">
-                                <button class="btn btn-secondary mr-4">Cancel</button>
+                                <button class="btn btn-secondary mr-4 " id="cancelButton">Cancel</button>
                                 <button class="btn btn-primary" id="plg-save">&nbsp;Save&nbsp;</button>
                             </div>
                         </div>
@@ -112,27 +87,62 @@
 </div>
 
 <script type="text/javascript">
+    var plugin = undefined;
     document.addEventListener('DOMContentLoaded', function () {
-        $('#plg-add-new').on('click', function () {
-            var confBlock = $(".plg-confs .row:first-child").clone();
-            $('input', confBlock).val('');
-            $('.input-block label', confBlock).css({
-                'top': '1.3em',
-                'fontSize': '1.2em'
-            });
+                function beforeShowModal() {
+                    debugger;
+                    $('#pluginModal .main').removeClass('active');
+                   
+                    if (plugin != undefined) {
+                        $('#pluginModal h3').text('Edit Task');
+                        $('#pluginModal input[name=plugin-id]').val(plugin.id);
+                        $('#pluginModal input[name=title]').val(plugin.title);
+                        $("#pluginModal select").val(plugin.deviceType).change();
+                       
+                        $(".plg-confs .row:not(:first-child)").remove();
 
-            $('.form-control', confBlock).focus(onTextInputFocus);
-            $('.form-control', confBlock).blur(onTextInputBlur);
-            
-            $('.rm-plg-conf', confBlock).show();
-
-            $('.rm-plg-conf a', confBlock).on('click', function () {
-                if (confirm('Are you sure You want to delete the configuration?')) {
-                    $(this).closest('.row').remove();
+                        var configurations = plugin.configurations;
+                        for(let i = 0; i < configurations.length; i++){
+                            if (i !== 0){
+                                 cloneConfigurationBlock();
+                            }
+                        }
+                         $(".plg-confs .row").each(function (index) {
+                             $('.plg-conf-id', this).val(configurations[index].id);
+                             $('.plg-conf-title', this).val(configurations[index].title);
+                             $('.plg-conf-key', this).val(configurations[index].key);
+                             $('.plg-conf-desc', this).val(configurations[index].description)
+                         })
+                       
+                        $('#pluginModal input[name=dockerSource]').val(plugin.dockerImageSource);
+        
+                        plugin = undefined;
+                    } else {
+                        $('#pluginModal h3').text('Add new Plugin');
+                        $('#pluginModal input[name=plugin-id]').val('0');
+                        $('#pluginModal input[name=title]').val('');
+                        $("#pluginModal select").val(0).change();
+                        $('#pluginModal input[name=dockerSource]').val('');
+                        $(".plg-confs .row:not(:first-child)").remove();
+                        $('.plg-conf-id').val(0);
+                        $('.plg-conf-title').val("");
+                        $('.plg-conf-key').val("");
+                        $('.plg-conf-desc').val("");
+                    }
+        
+                    $('#pluginModal .main').addClass('active');
                 }
-            });
-
-            confBlock.appendTo(".plg-confs");
+        
+                $('#pluginModal').on('show.bs.modal', function () {
+                   beforeShowModal();
+                });
+        
+        $("#cancelButton").on('click', function (){
+             $('#pluginModal').modal('toggle');
+        })
+                
+        $('#plg-add-new').on('click', function () {
+          cloneConfigurationBlock();
         });
 
         $('#plg-save').on('click', function () {
@@ -142,7 +152,6 @@
 
             requires.each(function () {
                 var input = $('input, select, textarea', this);
-
                 if (input && (input.val() == "" || input.val() == null)) {
                     $(this).addClass("vibration");
                     emptyFields++;
@@ -154,24 +163,30 @@
 
                 $(".plg-confs .row").each(function () {
                     configurations.push({
+                        id: $('.plg-conf-id', this).val() || 0,
                         title: $('.plg-conf-title', this).val(),
                         key: $('.plg-conf-key', this).val(),
                         description: $('.plg-conf-desc', this).val()
                     });
                 });
+                
+                var plugin = {
+                    id: $('#pluginModal input[name=plugin-id]').val(),
+                    title: $('.plg-title').val(),
+                    deviceType: Number.parseInt($('#pluginModal select').val()),
+                    dockerImageSource: $('.plg-docker-img').val(),
+                    configurations: configurations
+                }
 
                 $.ajax({
-                    type: "POST",
+                    type: plugin.id === "0"? "POST": "PUT",
                     url: "/api/plugins",
-                    data: JSON.stringify({
-                        title: $('.plg-title').val(),
-                        deviceType: Number.parseInt($('#pluginModal select').val()),
-                        dockerImageSource: $('.plg-docker-img').val(),
-                        configurations: configurations
-                    }),
+                    data: JSON.stringify(plugin),
                     dataType: 'json',
                     contentType: 'application/json',
                 });
+                $('#pluginModal').modal('toggle');
+                
             } else {
                 setTimeout(function () {
                     $("#pluginModal .required").removeClass("vibration");
@@ -181,12 +196,26 @@
 
         });
         
-
-        $('.form-control').focus(onTextInputFocus);
-        $('.form-control').blur(onTextInputBlur);
-
         $('.selectpicker').selectpicker();
     });
-
+    
+    function cloneConfigurationBlock(){
+         var confBlock = $(".plg-confs .row:first-child").clone();
+            $('input', confBlock).val('');
+            $('.input-block label', confBlock).css({
+                'top': '1.3em',
+                'fontSize': '1.2em'
+            });
+            
+            $('.rm-plg-conf', confBlock).show();
+            
+            $('.rm-plg-conf a', confBlock).on('click', function () {
+                if (confirm('Are you sure You want to delete the configuration?')) {
+                    $(this).closest('.row').remove();
+                }
+            });
+            
+            confBlock.appendTo(".plg-confs");
+    }
 
 </script>

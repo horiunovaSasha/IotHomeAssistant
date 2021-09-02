@@ -51,6 +51,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbSet.Attach(entity);
+            _dbContext.Update(entity);
 
             await Task.CompletedTask;
         }
