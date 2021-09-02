@@ -19,7 +19,6 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .Include(x => x.Items)
                 .Include("Items.Icon")
                 .Include("Items.IconColor")
-                .Include("Items.DeviceTopic")
                 .Include("Items.Device")
                 .ToList();
         }

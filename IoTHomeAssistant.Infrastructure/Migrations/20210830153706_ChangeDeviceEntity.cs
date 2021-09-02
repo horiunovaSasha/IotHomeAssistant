@@ -10,6 +10,10 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                 name: "FK_Device_DeviceVendor_VendorId",
                 table: "Device");
 
+            migrationBuilder.DropColumn(
+               name: "VendorId",
+               table: "Device");
+
             migrationBuilder.DropTable(
                 name: "DeviceVendor");
 
@@ -23,11 +27,7 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
             migrationBuilder.DropColumn(
                 name: "IPAddress",
-                table: "Device");
-
-            migrationBuilder.DropColumn(
-                name: "VendorId",
-                table: "Device");
+                table: "Device");           
 
             migrationBuilder.CreateIndex(
                 name: "IX_PluginDevice_DeviceId",

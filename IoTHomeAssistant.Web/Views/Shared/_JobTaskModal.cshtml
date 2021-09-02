@@ -3,7 +3,7 @@
 <div class="modal fade" id="jobTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 105em;">
         <div class="modal-content p-0" style="width: 105em;">
-            <div class="widget-wrapper" style="width: 105em;">                
+            <div class="widget-wrapper" style="width: 105em;">
                 <div id="left-side">
                     <ul>
                         <li class="conf-icon ml-4">
@@ -15,14 +15,14 @@
                     </ul>
                 </div>
                 <div id="right-side">
-                    
+
                     <div class="main">
                         <h3>Add new Task</h3>
                         <hr />
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-4 required">
-                                    <input type="hidden" value="0" name="task-id"/>
+                                    <input type="hidden" value="0" name="task-id" />
                                     <input type="text" class="form-control form-control-lg shadow" name="title" placeholder="Title">
                                 </div>
                                 <hr />
@@ -48,7 +48,7 @@
                                 <div class="group when-group" style="display: none">
                                     <div class="list-group-item days" style="display: none">
                                         <div class="row">
-                                            <div class="col-8 pl-4 required">
+                                            <div class="col-6 pl-4 required">
                                                 <select multiple class="w-100 mt-2 pl-2 bg-white shadow form-control">
                                                     <option value="1">Monday</option>
                                                     <option value="2">Tuesday</option>
@@ -59,13 +59,13 @@
                                                     <option value="7">Sunday</option>
                                                 </select>
                                             </div>
-                                            <div class="col-4 pt-2 mb-4">
-                                                <div class="shadow required clockpicker ml-3">
+                                            <div class="col-4 pt-2 mb-4 pl-0 pr-0">
+                                                <div class="shadow required">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text p-0 pl-1 pr-1 shadow">
                                                             <i aria-hidden="true" class="fa fa-clock-o"></i>
                                                         </div>
-                                                        <input type="text" placeholder="00:00" id="tst12" name="tst12" class="form-control form-control-lg shadow p-3">
+                                                        <input type="time" id="tst12" name="tst12" class="form-control form-control-lg shadow p-2">
                                                     </div>
                                                 </div>
                                             </div>
@@ -79,17 +79,17 @@
                                                         <div class="input-group-text p-0 pl-1 pr-1 shadow">
                                                             <i aria-hidden="true" class="fa fa-calendar"></i>
                                                         </div>
-                                                        <input type="text" name="date" placeholder="dd/mm/yyyy" class="form-control form-control-lg shadow datepicker">
+                                                        <input type="date" name="date" class="form-control form-control-lg shadow">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-4 pl-0 pr-0">
                                                 <div class="required clockpicker">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text p-0 pl-1 pr-1 shadow">
                                                             <i aria-hidden="true" class="fa fa-clock-o"></i>
                                                         </div>
-                                                        <input type="text" name="time" placeholder="00:00" class="form-control form-control-lg shadow p-3">
+                                                        <input type="time" name="time" class="form-control form-control-lg shadow p-2">
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 widget plugin-then" >
+                            <div class="col-6 widget plugin-then">
                                 <div class="list-group-item then-input required" style="display: none">
                                     <input type="hidden" value="0" name="then-id" />
                                     <label for="then" class="p-4"><b>THEN:</b></label>
@@ -294,7 +294,7 @@
                     beforeShowModal();
                 }
             });
-            
+
         });
 
         $('#add-when').on('click', () => addWhen());
@@ -317,7 +317,7 @@
             var whenInput = $('.when-input:first').clone();
             var whenGroup = $('.when-group:first').clone();
 
-            rmSection(whenInput, '.plugin-when');            
+            rmSection(whenInput, '.plugin-when');
 
             $('select', whenInput).on('change', onWhenChanged);
 
@@ -326,9 +326,9 @@
                 .before(whenGroup);
 
             whenInput.show();
-            whenGroup.show();            
+            whenGroup.show();
 
-            if (item != undefined) {                
+            if (item != undefined) {
                 $('input[name=when-id]', whenInput).val(item.id);
                 $('input[name=date]', whenGroup).val(item.dateTime.split('T')[0]);
                 $('input[name=time]', whenGroup).val(item.dateTime.split('T')[1].substr(0, 5));
@@ -352,7 +352,7 @@
             var thenInput = $('.then-input:first').clone();
             var thenGroup = $('.then-group:first').clone();
 
-            rmSection(thenInput, '.plugin-then');           
+            rmSection(thenInput, '.plugin-then');
 
             $('select', thenInput).val('').on('change', onThenChanged);
             $('input', thenGroup).val('');
@@ -468,9 +468,6 @@
             showHide('.events', this, 3, parent);
             showHide('.conditions', this, 4, parent);
             showHide('.tasks', this, 5, parent);
-
-            $('.clockpicker').clockpicker();
-            $('.datepicker').datepicker();
         }
 
         function onThenChanged() {
