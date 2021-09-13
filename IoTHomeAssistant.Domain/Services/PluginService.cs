@@ -63,6 +63,7 @@ namespace IoTHomeAssistant.Domain.Services
                         dbItem.Key = item.Key;
                         dbItem.Title = item.Title;
                         dbItem.Description = item.Description;
+                        dbItem.Type = item.Type;
                     }
                     else
                     {

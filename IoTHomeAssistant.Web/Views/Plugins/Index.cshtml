@@ -133,7 +133,6 @@
                             type: "GET",
                             url: "/api/plugins/" + $(this).attr('data-id'),
                             success: function (response) {
-                                debugger;
                                 plugin = response;
 
                                 $('#pluginModal').modal('show');
