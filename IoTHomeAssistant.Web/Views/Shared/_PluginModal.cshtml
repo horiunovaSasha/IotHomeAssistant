@@ -227,6 +227,14 @@
                 'fontSize': '1.2em'
             });
             
+             $(".typeSelect", confBlock).on('change', function (){
+                  debugger;
+                  console.log($(this));
+                 // let type =$(this).find("option:selected" ).text();
+                 // $(this).closest(".plg-confs .row").find(".plg-conf-key").val("").attr("type", type);
+                 alert("111");
+             })
+            
             $('.rm-plg-conf', confBlock).show();
             
             $('.rm-plg-conf a', confBlock).on('click', function () {

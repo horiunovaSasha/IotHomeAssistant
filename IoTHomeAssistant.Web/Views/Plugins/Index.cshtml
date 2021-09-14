@@ -1,5 +1,6 @@
 ﻿@model List<IoTHomeAssistant.Domain.Entities.Plugin>
 @await Html.PartialAsync("_PluginModal")
+
 <h2 class="font-weight-bold pb-3">Plugins</h2>
 <div id="header-btn">
     <a class="add-btn glb-btn" href="#" data-toggle="modal" data-target="#pluginModal">+</a>
@@ -18,17 +19,21 @@
             </tr>
             </thead>
             <tbody>
-                <tr style="display: none">
-                    <td style="width: 2rem;" class="pl-5">
-                        <a href="#" class="edit-action" data-id=""><i class="fa fa-edit" style="font-size: 2rem"></i></a>
-                    </td>
-                    <td class="plugin-id"></td>
-                    <td class="plugin-deviceType"></td>
-                    <td class="plugin-title"></td>
-                    <td style="width: 2rem;" class="pr-5">
-                        <a href="#" class="remove-action" data-id=""><i class="fa fa-trash" style="color: red; font-size: 2rem"></i></a>
-                    </td>
-                </tr>
+            <tr style="display: none">
+                <td style="width: 2rem;" class="pl-5">
+                    <a href="#" class="edit-action" data-id="">
+                        <i class="fa fa-edit" style="font-size: 2rem"></i>
+                    </a>
+                </td>
+                <td class="plugin-id"></td>
+                <td class="plugin-deviceType"></td>
+                <td class="plugin-title"></td>
+                <td style="width: 2rem;" class="pr-5">
+                    <a href="#" class="remove-action" data-id="">
+                        <i class="fa fa-trash" style="color: red; font-size: 2rem"></i>
+                    </a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -39,7 +44,9 @@
                     <span class="page-link">Prev</span>
                 </li>
                 <li class="page-item prev-link">
-                    <span class="page-link"><a href="">Prev</a></span>
+                    <span class="page-link">
+                        <a href="">Prev</a>
+                    </span>
                 </li>
                 <li class="page-item disabled p-2">
                     Page <span class="page-number"></span> of <span class="page-count"></span>
@@ -48,10 +55,12 @@
                     <span class="page-link">Next</span>
                 </li>
                 <li class="page-item next-link">
-                    <span class="page-link"><a href="">Next</a></span>
+                    <span class="page-link">
+                        <a href="">Next</a>
+                    </span>
                 </li>
                 <li class="page-item">
-                    <input type="text" class="form-control shadow ml-2 mr-2 page-input" style="width: 3em" />
+                    <input type="text" class="form-control shadow ml-2 mr-2 page-input" style="width: 3em"/>
                 </li>
                 <li class="page-item">
                     <a class="page-link to-go" href="#">Go</a>

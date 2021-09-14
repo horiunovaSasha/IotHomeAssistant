@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IoTHomeAssistant.Domain.Dto;
 
 namespace IoTHomeAssistant.Infrastructure.Repositories
 {
@@ -31,7 +32,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<PageResponse<Plugin>> GetPaggedList(PageRequest request)
+        public async Task<PageResponse<PluginDto>> GetPagedList(PageRequest request)
         {
             var count = _dbSet.Count();
 
@@ -39,20 +40,23 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
             {
                 int skipRows = (request.PageNumber - 1) * request.PageSize;
 
-                return new PageResponse<Plugin>()
+                return new PageResponse<PluginDto>()
                 {
-                    Items = await _dbSet
+                    Items = (await _dbSet
                         .Skip(skipRows)
                         .Take(request.PageSize)
-                        .ToListAsync(),
+                        .ToListAsync())
+                        .Select(x=> new PluginDto(x))
+                        .ToList()
+                    ,
                     PageCount = (int)Math.Ceiling(count / (decimal)request.PageSize),
                     PageNumber = request.PageNumber
                 };
             }
 
-            return new PageResponse<Plugin>()
+            return new PageResponse<PluginDto>()
             {
-                Items = new List<Plugin>(),
+                Items = new List<PluginDto>(),
                 PageCount = 0,
                 PageNumber = 1
             };
