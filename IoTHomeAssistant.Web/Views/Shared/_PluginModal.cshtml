@@ -43,8 +43,8 @@
                                     </div>
                                 </div>
                                 <div class="col-4  mt-1">
-                                    <select data-style="bg-white shadow " class="w-100 selectpicker typeSelect plg-conf-type">
-                                        <option value="">Select Type</option>
+                                    <select class="plg-conf-type w-100 shadow form-control form-control-lg">
+                                        <option  value="" selected="selected">Select Type</option>
                                         @foreach (IoTHomeAssistant.Domain.Enums.ConfigurationTypeEnum type in Enum.GetValues(typeof(IoTHomeAssistant.Domain.Enums.ConfigurationTypeEnum)))
                                         {
                                             <option value="@((int)type)">@type</option>
@@ -154,13 +154,7 @@
         $("#cancelButton").on('click', function (){
              $('#pluginModal').modal('toggle');
         })
-        
-        $(".typeSelect").on('change', function (){
-            debugger;
-            let type =$(this).find("option:selected" ).text();
-            $(this).closest(".plg-confs .row").find(".plg-conf-key").val("").attr("type", type);
-        })
-                
+                       
         $('#plg-add-new').on('click', function () {
           cloneConfigurationBlock();
         });
@@ -180,6 +174,7 @@
 
             if (emptyFields == 0) {
                 var configurations = [];
+                debugger;
 
                 $(".plg-confs .row").each(function () {
                     configurations.push({
@@ -187,7 +182,7 @@
                         title: $('.plg-conf-title', this).val(),
                         key: $('.plg-conf-key', this).val(),
                         description: $('.plg-conf-desc', this).val(),
-                        type : Number.parseInt($('.typeSelect', this).last().val()),
+                        type : Number.parseInt($('.plg-conf-type', this).last().val()),
                     });
                 });
                 var plugin = {
@@ -226,15 +221,7 @@
                 'top': '1.3em',
                 'fontSize': '1.2em'
             });
-            
-             $(".typeSelect", confBlock).on('change', function (){
-                  debugger;
-                  console.log($(this));
-                 // let type =$(this).find("option:selected" ).text();
-                 // $(this).closest(".plg-confs .row").find(".plg-conf-key").val("").attr("type", type);
-                 alert("111");
-             })
-            
+                    
             $('.rm-plg-conf', confBlock).show();
             
             $('.rm-plg-conf a', confBlock).on('click', function () {
