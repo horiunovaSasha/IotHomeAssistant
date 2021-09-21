@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Diagnostics;
 using IoTHomeAssistant.Domain.Enums;
+using IoTHomeAssistant.Domain.Dto;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -63,6 +64,7 @@ namespace IoTHomeAssistant.Domain.Services
                         dbItem.Key = item.Key;
                         dbItem.Title = item.Title;
                         dbItem.Description = item.Description;
+                        dbItem.Type = item.Type;
                     }
                     else
                     {
@@ -105,9 +107,9 @@ namespace IoTHomeAssistant.Domain.Services
             return await _pluginRepository.GetPluginAsync(id);
         }
 
-        public async Task<PageResponse<Plugin>> GetPagginPlugins(PageRequest request)
+        public async Task<PageResponse<PluginDto>> GetPagginPlugins(PageRequest request)
         {
-            return await _pluginRepository.GetPaggedList(request);
+            return await _pluginRepository.GetPagedList(request);
         }
 
         private string BuildDockerImage(string workingDir, string imageId)

@@ -4,7 +4,7 @@
             <div class="widget-wrapper">
                 <div id="left-side">
                     <ul>
-                        <li class="conf-icon ml-4" >
+                        <li class="conf-icon ml-4">
                             <i class="fa fa-cogs" aria-hidden="true" style="font-size: 120px;"></i>
                         </li>
                         <li class="conf-text" style="font-size: 36px;">
@@ -15,7 +15,7 @@
                 <div id="right-side">
                     <div class="main active" name_attr="main">
                         <h3>Add new Plugin</h3>
-                        <hr />
+                        <hr/>
                         <div class="row">
                             <div class="col-6">
                                 <div class="input-block shadow mt-1 required">
@@ -28,7 +28,7 @@
                                     <option value="">Select Type</option>
                                     @foreach (IoTHomeAssistant.Domain.Enums.DeviceTypeEnum type in Enum.GetValues(typeof(IoTHomeAssistant.Domain.Enums.DeviceTypeEnum)))
                                     {
-                                         <option value="@((int)type)">@type</option>
+                                        <option value="@((int)type)">@type</option>
                                     }
                                 </select>
                             </div>
@@ -42,25 +42,39 @@
                                         <input placeholder="Title" name="configurationTitle" type="text" class="form-control plg-conf-title">
                                     </div>
                                 </div>
+                                <div class="col-4  mt-1">
+                                    <select class="plg-conf-type w-100 shadow form-control form-control-lg">
+                                        <option  value="" selected="selected">Select Type</option>
+                                        @foreach (IoTHomeAssistant.Domain.Enums.ConfigurationTypeEnum type in Enum.GetValues(typeof(IoTHomeAssistant.Domain.Enums.ConfigurationTypeEnum)))
+                                        {
+                                            <option value="@((int)type)">@type</option>
+                                        }
+                                    </select>
+                                </div>
                                 <div class="col-3 required">
                                     <div class="input-block shadow mt-1">
-                                        <input placeholder="Key" name="key" type="text" class="form-control plg-conf-key">
+                                        <input autocomplete="new-password" placeholder="Key" name="key" type="text" class="form-control plg-conf-key">
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <div class="input-block shadow mt-1">
-                                        <input placeholder="Description" name="description" type="text" class="form-control plg-conf-desc">
-                                    </div>
-                                </div>
+
                                 <div class="col-1 pt-3 pl-2 rm-plg-conf" style="display: none;">
                                     <a href="#">
                                         <i class="fa fa-trash" style="font-size: 1.5em;" aria-hidden="true"></i>
                                     </a>
                                 </div>
+                                <div class="col-11">
+                                    <div class="input-block shadow mt-1">
+                                        <input placeholder="Description" name="description" type="text" class="form-control plg-conf-desc">
+                                    </div>
+                                </div>
+                                <hr/>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 text-right pb-2" style="margin-top: -25px;margin-left: -1em;"><a href="#" id="plg-add-new">Add</a></div>
+
+                            <div class="col-12 text-right pb-2" style="margin-top: 15px;margin-left: -1em;">
+                                <a href="#" id="plg-add-new">Add</a>
+                            </div>
                         </div>
                         <h5 class="mt-1">Docker Configuration:</h5>
                         <div class="row">
@@ -71,14 +85,14 @@
                             </div>
                         </div>
                         <div class="row ">
-                        <div class="col-12 btn-bottom">
-                            <div class="float-right">
-                                <button class="btn btn-secondary mr-4 " id="cancelButton">Cancel</button>
-                                <button class="btn btn-primary" id="plg-save">&nbsp;Save&nbsp;</button>
+                            <div class="col-12 btn-bottom">
+                                <div class="float-right">
+                                    <button class="btn btn-secondary mr-4 " id="cancelButton">Cancel</button>
+                                    <button class="btn btn-primary" id="plg-save">&nbsp;Save&nbsp;</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +104,6 @@
     var plugin = undefined;
     document.addEventListener('DOMContentLoaded', function () {
                 function beforeShowModal() {
-                    debugger;
                     $('#pluginModal .main').removeClass('active');
                    
                     if (plugin != undefined) {
@@ -110,8 +123,9 @@
                          $(".plg-confs .row").each(function (index) {
                              $('.plg-conf-id', this).val(configurations[index].id);
                              $('.plg-conf-title', this).val(configurations[index].title);
-                             $('.plg-conf-key', this).val(configurations[index].key);
                              $('.plg-conf-desc', this).val(configurations[index].description)
+                             $('.plg-conf-type', this).val(configurations[index].type).change()
+                             $('.plg-conf-key', this).val(configurations[index].key);
                          })
                        
                         $('#pluginModal input[name=dockerSource]').val(plugin.dockerImageSource);
@@ -140,7 +154,7 @@
         $("#cancelButton").on('click', function (){
              $('#pluginModal').modal('toggle');
         })
-                
+                       
         $('#plg-add-new').on('click', function () {
           cloneConfigurationBlock();
         });
@@ -160,16 +174,17 @@
 
             if (emptyFields == 0) {
                 var configurations = [];
+                debugger;
 
                 $(".plg-confs .row").each(function () {
                     configurations.push({
                         id: $('.plg-conf-id', this).val() || 0,
                         title: $('.plg-conf-title', this).val(),
                         key: $('.plg-conf-key', this).val(),
-                        description: $('.plg-conf-desc', this).val()
+                        description: $('.plg-conf-desc', this).val(),
+                        type : Number.parseInt($('.plg-conf-type', this).last().val()),
                     });
                 });
-                
                 var plugin = {
                     id: $('#pluginModal input[name=plugin-id]').val(),
                     title: $('.plg-title').val(),
@@ -206,7 +221,7 @@
                 'top': '1.3em',
                 'fontSize': '1.2em'
             });
-            
+                    
             $('.rm-plg-conf', confBlock).show();
             
             $('.rm-plg-conf a', confBlock).on('click', function () {
