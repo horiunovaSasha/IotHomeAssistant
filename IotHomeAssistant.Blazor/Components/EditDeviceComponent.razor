@@ -1,0 +1,65 @@
+﻿@using IoTHomeAssistant.Domain.Entities;
+<SfDialog Width="50%" IsModal="true" @bind-Visible="@_visible">
+    <DialogTemplates>
+        <Content>
+            <div class="widget-wrapper">
+                <div id="left-side">
+                    <ul>
+                        <li><span class="e-settings e-icons e-btn-icon e-icon-left" style="font-size: 7em"></span></li>
+                        <li><span style="font-size: 2em">Налаштування</span></li>
+                    </ul>
+                </div>
+                <div id="right-side" class="p-4">
+                    <EditForm Model="@Device" OnValidSubmit="@Save">
+                        <DataAnnotationsValidator />
+                        <h4>@(Device.Id == 0 ? "Додавання пристрою" : "Редагування пристрою")</h4>
+                        <hr />
+                        <div class="col-lg-12 control-section" style="min-height: 42em">
+                            <div class="content-wrapper">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                        <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@Device.Title"></SfTextBox>
+                                        <ValidationMessage For="@(() => Device.Title)" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                        <SfDropDownList Placeholder="Тип" @ref="_typeInput" TValue="string" TItem="string" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@Device.Type" DataSource="_types" Enabled="_typeEnabled">
+                                            <DropDownListEvents TItem="string" TValue="string" ValueChange="OnChangeType"></DropDownListEvents>
+                                        </SfDropDownList>
+                                        <ValidationMessage For="@(() => Device.Type)" />
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                        <SfDropDownList Placeholder="Плагін" @ref="_pluginInput" TValue="int" TItem="Plugin" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@Device.Plugin" DataSource="_plugins" Enabled="_pluginEnabled">
+                                            <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
+                                            <DropDownListEvents TValue="int" TItem="Plugin" ValueChange="OnChangePlugin"></DropDownListEvents>
+                                        </SfDropDownList>
+                                        <ValidationMessage For="@(() => Device.Plugin)" />
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Device.Configurations != null && Device.Configurations.Any())
+                            {
+                                <br />
+                                <h5>Конфігурація:</h5>
+                                <div class="row">
+                                    @foreach (var item in Device.Configurations)
+                                    {
+                                        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                            <SfTextBox Placeholder="@(item.Title)" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Value" Type="Enum.Parse<InputType>(item.Type)"></SfTextBox>
+                                            <ValidationMessage For="@(() => item.Value)" />
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="sfButton" style="display: flex; justify-content: right;">
+                            <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
+                            <SfButton type="submit" class="m-3" IsPrimary="true">Зберенти</SfButton>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </Content>
+    </DialogTemplates>
+</SfDialog>
