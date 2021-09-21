@@ -27,6 +27,25 @@ namespace IoTHomeAssistant.Web.Api
             return await _deviceService.GetDeviceAsync(id);
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task Delete(int id)
+        {
+            await _deviceService.RemoveDeviceAsync(id);
+        }
+
+        [HttpPost]
+        public async Task Add(Device request)
+        {
+            await _deviceService.AddDeviceAsync(request);
+        }
+
+        [HttpPut]
+        public async Task Update(Device request)
+        {
+            await _deviceService.UpdateDeviceAsync(request);
+        }
+
         [HttpGet]
         [Route("Info")]
         public List<InfoDevice> GetInfoDevices()

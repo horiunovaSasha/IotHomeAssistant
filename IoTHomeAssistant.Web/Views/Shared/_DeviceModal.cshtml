@@ -17,7 +17,7 @@
                         <h3>Device Configuration</h3>
                         <hr />
                         <div class="shadow required">
-                            <input type="text" class="form-control form-control-lg" placeholder="Title">
+                            <input type="text" class="form-control form-control-lg" id="title" placeholder="Title">
                         </div>
                         <div class="device-type-plugin">
                             <h5 class="mt-4">Device type and Plugin:</h5>
@@ -27,7 +27,7 @@
                                     <button style="border: 1px solid silver; padding: 0.8rem; font-size: 1.2rem;" class="btn dropdown-toggle shadow pl-3 pr-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Device Type
                                     </button>
-                                    <img id="device-type-img" src="" height="40" class="ml-3" type_attr="smoke" style="display: none" />
+                                    <img id="device-type-img" src="" height="40" class="ml-3" style="display: none" />
                                     <label id="device-type-lbl"></label>
 
                                     <ul class="dropdown-menu" id="device-type-id" aria-labelledby="dropdownMenuButton">
@@ -94,10 +94,10 @@
                             <h5 class="mt-4">Configurations:</h5>
                             <hr />
                             <div class="row" style="display: none;">
-                                <div class="col-6" >
+                                <div class="col-6 required" >
                                     <span class="small font-weight-bold plugin-title"></span>
-                                    <input type="hidden" class="plugin-id">
-                                    <input type="text" class="form-control form-control-lg shadow plugin-value" placeholder="">
+                                    <input type="hidden" class="plugin-configuration-id">
+                                    <input type="text" class="form-control form-control-lg shadow plugin-configuration-value" placeholder="">
                                     <span class="small plugin-desc"></span>
                                 </div>
                             </div>
@@ -105,7 +105,8 @@
                         <div class="row ">
                             <div class="col-12 btn-bottom">
                                 <div class="float-right">
-                                    <button class="btn btn-primary" onclick="next(this)">Next</button>
+                                    <button class="btn btn-secondary mr-4" id="cancelButton">Cancel</button>
+                                    <button class="btn btn-primary" id="device-save">&nbsp;Save&nbsp;</button>
                                 </div>
                             </div>
                         </div>
@@ -124,16 +125,18 @@
     document.addEventListener('DOMContentLoaded', function () {
         $('#deviceModal').on('show.bs.modal', function () {
             if (currentDevice != undefined) {
-                $('.configs').hide();
+                console.log(currentDevice);
                 $('.device-type-plugin').hide();
             } else {
-                $('.configs').show();
                 $('.device-type-plugin').show();
             }
         });
 
         $("#device-type-id li").click(function () {
-            $("#device-type-img").attr('src', $('img', this).attr('src')).show();
+            $("#device-type-img")
+                .attr('src', $('img', this).attr('src'))
+                .attr('type_attr', $('img', this).attr('type_attr'))
+                .show();
             $("#device-type-lbl").text($(this).text());
 
             $.ajax({
@@ -169,9 +172,9 @@
                 $.each(plugin.configurations, function (i, item) {
                     var row = $('.configs .row:first').clone();
 
-                    $('.plugin-id', row).val(item.id);
+                    $('.plugin-configuration-id', row).val(item.id);
                     $('.plugin-title', row).text(item.title);
-                    $('.plugin-value', row).attr('placeholder', item.title);
+                    $('.plugin-configuration-value', row).attr('placeholder', item.title);
                     $('.plugin-desc', row).text(item.description);
                     row.show();
 
@@ -181,6 +184,65 @@
             } else {
                 $('.configs').hide();
             }
+        });
+
+        $('#device-save').on('click', function () {
+            $('#device-save').prop('disabled', true);
+            var requires = $("#deviceModal .required:visible");
+            var emptyFields = 0;
+
+            requires.each(function () {
+                var input = $('input, select, textarea', this);
+                if (input && (input.val() == "" || input.val() == null)) {
+                    $(this).addClass("vibration");
+                    emptyFields++;
+                }                
+            });
+
+            var img = $('#device-type-img');
+            if (img.attr('src') == '') {
+                img.closest('.row').addClass("vibration");
+                emptyFields++;
+            }
+
+            if (emptyFields == 0) {
+                var pluginDevice = {
+                    pluginId: $('#plugin-dwn').val(),
+                    configurations: []
+                };
+
+                $(".configs .row:visible").each(function () {
+                    pluginDevice.configurations.push({
+                        pluginConfigurationId: $('.plugin-configuration-id', this).val() || 0,
+                        value: $('.plugin-configuration-value', this).val()
+                    });
+                });
+
+                var device = {
+                    id: $('#deviceModal input[name=device-id]').val(),
+                    title: $('#title').val(),
+                    type: $('#device-type-img').attr('type_attr'),
+                    pluginDevice: pluginDevice
+                }
+
+                $.ajax({
+                    type: device.id === "0" ? "POST" : "PUT",
+                    url: "/api/devices",
+                    data: JSON.stringify(device),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                });
+
+                $('#deviceModal').modal('toggle');
+
+            } else {
+                setTimeout(function () {
+                    $("#deviceModal .required").removeClass("vibration");
+                    $("#deviceModal #device-type-img").closest('.row').removeClass("vibration");
+                    $('#device-save').prop('disabled', false);
+                }, 1500);
+            }
+
         });
     });
 </script>

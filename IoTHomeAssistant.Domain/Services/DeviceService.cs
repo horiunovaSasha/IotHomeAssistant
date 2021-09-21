@@ -28,6 +28,11 @@ namespace IoTHomeAssistant.Domain.Services
             _mqttBrokerAddress = options.Value.MqttBrokerAddress;
         }
 
+        public Task AddDeviceAsync(Entities.Device device)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<Entities.Device> GetDeviceAsync(int id)
         {
             return await _deviceRepository.GetDeviceAsync(id);
@@ -57,6 +62,12 @@ namespace IoTHomeAssistant.Domain.Services
             }
         }
 
+        public async Task RemoveDeviceAsync(int id)
+        {
+            await _deviceRepository.DeleteAsync(id);
+            await _deviceRepository.CommitAsync();
+        }
+
         public void Toggle(int deviceId, bool toggle)
         {
             var device = _deviceRepository.Get(deviceId);
@@ -69,6 +80,11 @@ namespace IoTHomeAssistant.Domain.Services
 
                 client.Publish($"toggle-cmd-{deviceId}", Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
             }
+        }
+
+        public Task UpdateDeviceAsync(Entities.Device device)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
