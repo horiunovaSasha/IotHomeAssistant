@@ -1,9 +1,9 @@
 ﻿@using IoTHomeAssistant.Domain.Entities;
-<SfDialog Width="50%" IsModal="true" @bind-Visible="@_visible">
+<SfDialog IsModal="true" @bind-Visible="@_visible">
     <DialogTemplates>
         <Content>
             <div class="widget-wrapper">
-                <div id="left-side">
+                <div id="left-side" class="d-none d-xl-flex">
                     <ul>
                         <li><span class="e-settings e-icons e-btn-icon e-icon-left" style="font-size: 7em"></span></li>
                         <li><span style="font-size: 2em">Налаштування</span></li>
@@ -40,8 +40,7 @@
                             </div>
                             @if (Device.Configurations != null && Device.Configurations.Any())
                             {
-                                <br />
-                                <h5>Конфігурація:</h5>
+                                <h5 class="mt-2">Конфігурація:</h5>
                                 <div class="row">
                                     @foreach (var item in Device.Configurations)
                                     {

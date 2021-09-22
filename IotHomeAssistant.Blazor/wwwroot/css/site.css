@@ -57,14 +57,14 @@ a, .btn-link {
     -webkit-box-pack: left;
     justify-content: left;
     overflow: hidden;
-    min-height: 55em;
+    min-height: 55em;   
 }
 
 .widget-wrapper #left-side {
     background: linear-gradient(45deg, rgba(22, 167, 175, 0.6) 2%, rgba(23, 27, 158, 0.7) 75%) no-repeat;
     color: white;
     height: 100%;
-    width: 20%;
+     padding: 0 3em;
     display: -webkit-box;
     display: flex;
     -webkit-box-align: center;
@@ -75,7 +75,7 @@ a, .btn-link {
 }
 
 .widget-wrapper #right-side {
-    width: 80%;
+    width: 100%;
     overflow: hidden;
     min-height: 55em;
 }
@@ -94,4 +94,68 @@ a, .btn-link {
 
 .e-dialog .e-dlg-content {
     padding: 0 !important;
+}
+
+.e-float-text.e-label-top {
+    font-size: 14px !important;
+}
+
+.e-control {
+    font-size: 15px !important;
+}
+
+.e-control-container {
+    margin-bottom: 1em !important;
+}
+
+.validation-message {
+    margin-top: -1em;
+}
+
+@media (max-width: 575.98px) {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 5% !important;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 10% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 15% !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 10% !important;
+    }
+
+}
+@media (min-width: 1200px) and (max-width: 1699px)  {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 15% !important;
+    }
+}
+
+@media (min-width: 1700px) and (max-width: 1899px) {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 20% !important;
+}
+
+}@media (min-width: 1900px) {
+    .e-popup.e-popup-open.e-dialog {
+        width: 100% !important;
+        margin: 0 25% !important;
+    }
 }
