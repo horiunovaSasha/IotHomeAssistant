@@ -159,3 +159,29 @@ a, .btn-link {
         margin: 0 25% !important;
     }
 }
+
+body {
+    background: #f3f4f7 !important;
+}
+
+footer a.nav-link {
+    display: block;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+
+@media (min-width: 641px) {
+    footer a.nav-link {
+        display: block;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    footer a.nav-link {
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}
