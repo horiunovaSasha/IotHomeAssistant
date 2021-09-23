@@ -3,12 +3,16 @@
 <div class="page">
     <div class="main">
         <div class="top-row p-4">
-            <nav class="navbar mt-1">
+            <nav class="navbar">
                 <h3>
                     <a href="/" >IoT Home Assistant</a>
                 </h3>
                 <div class="collapse">
-                    <a href="/logout"><span class="oi oi-account-logout mr-3 mb-2"></span></a>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="/logout"><span class="oi oi-account-logout mr-3 mb-2"></span></NavLink>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </div>
@@ -21,7 +25,7 @@
                 <ul class="nav">
                     <li class="nav-item">
                         <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="display: block">
-                            <span class="oi oi-home"></span>
+                            <span class="oi oi-grid-three-up"></span>
                             <span class="text"><br />Dashboard</span>
                         </NavLink>
                     </li>

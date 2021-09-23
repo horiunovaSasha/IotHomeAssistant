@@ -1,4 +1,4 @@
-﻿using IoTHomeAssistant.Domain.Entities.Event;
+﻿using IoTHomeAssistant.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -119,41 +119,27 @@ a, .btn-link {
     }
 }
 
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (min-width: 576px) and (max-width: 991.98px) {
     .e-popup.e-popup-open.e-dialog {
         width: 100% !important;
         margin: 0 10% !important;
     }
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 992px) and (max-width: 1699px)  {
     .e-popup.e-popup-open.e-dialog {
         width: 100% !important;
         margin: 0 15% !important;
     }
 }
 
-@media (min-width: 992px) and (max-width: 1199.98px) {
-    .e-popup.e-popup-open.e-dialog {
-        width: 100% !important;
-        margin: 0 10% !important;
-    }
-
-}
-@media (min-width: 1200px) and (max-width: 1699px)  {
-    .e-popup.e-popup-open.e-dialog {
-        width: 100% !important;
-        margin: 0 15% !important;
-    }
-}
-
-@media (min-width: 1700px) and (max-width: 1920px) {
+@media (min-width: 1700px) and (max-width: 2199.98px) {
     .e-popup.e-popup-open.e-dialog {
         width: 100% !important;
         margin: 0 20% !important;
 }
 
-}@media (min-width: 1921px) {
+}@media (min-width: 2200px) {
     .e-popup.e-popup-open.e-dialog {
         width: 100% !important;
         margin: 0 25% !important;
@@ -183,5 +169,47 @@ footer a.nav-link {
     footer a.nav-link {
         padding-right: 2rem;
         padding-left: 2rem;
+    }
+}
+
+@media (max-width: 1299.98px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 3% !important;
+    }
+}
+
+@media (min-width: 1300px) and (max-width: 1499.98px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 5% !important;
+    }
+}
+
+@media (min-width: 1500px) and (max-width: 1920.98px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 10% !important;
+    }
+}
+
+@media (min-width: 1921px) and (max-width: 2149.98px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 15% !important;
+    }
+}
+
+@media (min-width: 2150px) and (max-width: 2399.98px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 20% !important;
+    }
+}
+
+@media (min-width: 2400px) and (max-width: 2999.98px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 25% !important;
+    }
+}
+
+@media (min-width: 3000px) {
+    #jobTaskEditModal.e-popup.e-popup-open.e-dialog {
+        margin: 0 30% !important;
     }
 }

@@ -1,0 +1,17 @@
+﻿.conditions hr:last-child {
+    display: none;
+}
+
+.add-condition, .delete-condition {
+    font-size: 1.5rem;
+}
+
+.add-condition .text {
+    font-size: 1rem;
+    position: relative;
+    top: -0.4rem;
+}
+
+.add-condition, .delete-condition:hover {
+    cursor: pointer;
+}

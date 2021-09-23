@@ -38,6 +38,11 @@ namespace IoTHomeAssistant.Domain.Services
             return await _deviceRepository.GetDeviceAsync(id);
         }
 
+        public async Task<List<Entities.Device>> GetDevicesAsync()
+        {
+            return await _deviceRepository.GetDevicesAsync();
+        }
+
         public List<InfoDevice> GetInfoDevices()
         {
             return _deviceRepository.GetInfoDevices();

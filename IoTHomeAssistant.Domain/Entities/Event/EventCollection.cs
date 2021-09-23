@@ -1,7 +1,7 @@
 ﻿using IoTHomeAssistant.Domain.Enums;
 using System.Collections.Generic;
 
-namespace IoTHomeAssistant.Domain.Entities.Event
+namespace IoTHomeAssistant.Domain.Entities
 {
     public class EventCollection : IEntity<int>
     {
