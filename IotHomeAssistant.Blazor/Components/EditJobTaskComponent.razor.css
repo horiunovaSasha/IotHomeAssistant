@@ -1,8 +1,4 @@
-﻿.conditions hr:last-child {
-    display: none;
-}
-
-.add-condition, .delete-condition {
+﻿.add-condition, .delete-condition {
     font-size: 1.5rem;
 }
 

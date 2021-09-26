@@ -11,7 +11,10 @@ namespace IotHomeAssistant.Blazor.Components
     public partial class EditJobTaskComponent
     {
         private bool _visible = false;
-        protected JobTask JobTask { get; set; } = new JobTask() { Conditions = new List<JobTaskCondition>()};
+        protected JobTask JobTask { get; set; } = new JobTask() { 
+            Conditions = new List<JobTaskCondition>(),
+            Executions = new List<JobTaskExecution>()
+        };
         protected List<JobTask> jobTasks;
 
         [Inject]
@@ -27,6 +30,10 @@ namespace IotHomeAssistant.Blazor.Components
                 Conditions = new List<JobTaskCondition>()
                 {
                     new JobTaskCondition()
+                },
+                Executions = new List<JobTaskExecution>()
+                {
+                    new JobTaskExecution()
                 }
             };
 
@@ -65,9 +72,22 @@ namespace IotHomeAssistant.Blazor.Components
             JobTask.Conditions.Remove(condition);
             return new EventCallback();
         }
+
+        private EventCallback RemoveExecution(JobTaskExecution execution)
+        {
+            JobTask.Executions.Remove(execution);
+            return new EventCallback();
+        }
+
         private EventCallback AddCondition()
         {
             JobTask.Conditions.Add(new JobTaskCondition());
+            return new EventCallback();
+        }
+        
+        private EventCallback AddExecution()
+        {
+            JobTask.Executions.Add(new JobTaskExecution());
             return new EventCallback();
         }
 
