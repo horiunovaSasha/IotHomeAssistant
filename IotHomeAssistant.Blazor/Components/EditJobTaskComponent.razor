@@ -1,0 +1,301 @@
+﻿@using IoTHomeAssistant.Domain.Entities;
+@using IoTHomeAssistant.Domain.Enums;
+@using IoTHomeAssistant.Domain.Dto.Pagging;
+@using Syncfusion.Blazor.Calendars;
+
+<SfDialog IsModal="true" @bind-Visible="@_visible" MinHeight="51.3em" ID="jobTaskEditModal">
+    <DialogTemplates>
+        <Content>
+            <div class="widget-wrapper">
+                <div id="left-side" class="d-none d-xl-flex">
+                    <ul>
+                        <li><span class="e-settings e-icons e-btn-icon e-icon-left" style="font-size: 7em"></span></li>
+                        <li><span style="font-size: 2em">Налаштування</span></li>
+                    </ul>
+                </div>
+                <div id="right-side" class="p-4">
+                    <EditForm Model="@JobTask" OnValidSubmit="@Save">
+                        <DataAnnotationsValidator />
+                        <h4>@(JobTask.Id == 0 ? "Створення задачі" : "Редагування задачі")</h4>
+                        <hr />
+                        <div class="col-lg-12 control-section" style="min-height: 42em">
+                            <div class="content-wrapper">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                        <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@JobTask.Title"></SfTextBox>
+                                        <ValidationMessage For="@(() => JobTask.Title)" />
+                                    </div>
+                                </div>
+                                <h5>Умови:</h5>
+                                <div class="row">
+                                    <div class="col-lg-12 conditions">
+                                        @foreach (var item in JobTask.Conditions.ToList())
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4">
+                                                    <SfDropDownList TValue="ConditionTypeEnum" TItem="ConditionType" Placeholder="Умова" DataSource="@conditionTypes" @bind-Value="@item.Type">
+                                                        <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                    </SfDropDownList>
+                                                </div>
+                                                @if (item.Type == ConditionTypeEnum.EventOccurred)
+                                                {
+                                                    <div class="col-lg-8 col-md-7">
+                                                        <SfDropDownList TValue="int" TItem="DeviceEvent" Placeholder="Подія" DataSource="@deviceEvents">
+                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                }
+                                                @if (item.Type == ConditionTypeEnum.TaskTriggered)
+                                                {
+                                                    <div class="col-lg-8 col-md-7">
+                                                        <SfDropDownList TValue="int" TItem="JobTask" Placeholder="Автоматизація" DataSource="@jobTasks">
+                                                            <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                }
+                                                @if (item.Type == ConditionTypeEnum.EveryTime)
+                                                {
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <SfDropDownList TValue="string" TItem="Day" Placeholder="День тижня" DataSource="@days">
+                                                            <DropDownListFieldSettings Value="ID" Text="Text"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-3">
+                                                        <SfDatePicker TValue="DateTime" @bind-Value="@item.DateTime"></SfDatePicker>
+                                                    </div>
+                                                }
+                                                @if (item.Type == ConditionTypeEnum.Once)
+                                                {
+                                                    <div class="col-lg-3 col-md-4">
+                                                        <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" Placeholder="Операція" DataSource="@operations">
+                                                            <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4">
+                                                        <SfDatePicker TValue="DateTime" @bind-Value="@item.DateTime"></SfDatePicker>
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-4">
+                                                        <SfTimePicker TValue="DateTime" Step=60 Format="HH:mm" @bind-Value="@item.DateTime">
+                                                        </SfTimePicker>
+                                                    </div>
+                                                }
+                                                @if (item.Type == ConditionTypeEnum.ConditionIsMet)
+                                                {
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <SfDropDownList TValue="int" TItem="DeviceEvent" Placeholder="Подія" DataSource="@deviceEvents">
+                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-4">
+                                                        <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" Placeholder="Операція" DataSource="@operations">
+                                                            <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-4">
+                                                        <SfTextBox Placeholder="Значення"></SfTextBox>
+                                                    </div>
+
+                                                }
+                                                <div class="@(item.Type == ConditionTypeEnum.Nothing ? "col-lg-9" : "col-lg-1") @(item.Type == ConditionTypeEnum.Once || item.Type == ConditionTypeEnum.ConditionIsMet ? "col-md-8" : "col-md-1") ">
+                                                    @if (JobTask.Conditions.Count > 1)
+                                                    {
+                                                        <div class="d-flex justify-content-end">
+                                                            <a @onclick="() => RemoveCondition(item)" class="delete-condition">
+                                                                <span class="e-delete e-icons e-btn-icon e-icon-left"></span>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <hr class="d-none d-sm-block d-md-block d-lg-none mt-1" />
+                                        }
+
+                                        <div class="d-flex justify-content-end">
+                                            <a @onclick="() => AddCondition()" class="add-condition">
+                                                <span class="e-circle-add e-icons e-btn-icon e-icon-left"></span>
+                                                <span class="text">Додати</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5>Виконання:</h5>
+                                <div class="row">
+                                    <div class="col-lg-12 executions">
+                                        @foreach (var item in JobTask.Executions.ToList())
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4">
+                                                    <SfDropDownList TValue="JobExecTypeEnum" TItem="ExecutionType" Placeholder="Виконання" DataSource="@executionTypes" @bind-Value="@item.Type">
+                                                        <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                    </SfDropDownList>
+                                                </div>
+                                                @if (item.Type == JobExecTypeEnum.TriggerTask)
+                                                {
+                                                    <div class="col-lg-8 col-md-7">
+                                                        <SfDropDownList TValue="int" TItem="JobTask" Placeholder="Задача" DataSource="@jobTasks">
+                                                            <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                }
+                                                @if (item.Type == JobExecTypeEnum.Command)
+                                                {
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <SfDropDownList TValue="int" TItem="DeviceEvent" Placeholder="Подія" DataSource="@deviceEvents">
+                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-3">
+                                                        <SfTextBox Placeholder="Значення" FloatLabelType="@FloatLabelType.Never" @bind-Value="@item.Value"></SfTextBox>
+                                                    </div>
+                                                }
+                                                @if (item.Type == JobExecTypeEnum.Wait)
+                                                {
+                                                    <div class="col-lg-4 col-md-3 ">
+                                                        <SfNumericTextBox Placeholder="Секунди" FloatLabelType="@FloatLabelType.Never" @bind-Value="@item.WaitSeconds"></SfNumericTextBox>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 pt-1">
+                                                        @if (item.WaitSeconds != 11 && item.WaitSeconds % 10 == 1)
+                                                        {
+                                                            <span>Секунду</span>
+                                                        }
+                                                        else @if (item.WaitSeconds < 5 || (item.WaitSeconds > 20 && item.WaitSeconds % 10 < 5 && item.WaitSeconds % 10 > 0))
+                                                 {
+                                                    <span>Секунди</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Секунд</span>
+                                                }
+                                                    </div>
+                                                }
+                                                <div class="@(item.Type == JobExecTypeEnum.Nothing ? "col-lg-9" : "col-lg-1") col-md-1">
+                                                    @if (JobTask.Conditions.Count > 1)
+                                                    {
+                                                        <div class="d-flex justify-content-end">
+                                                            <a @onclick="() => RemoveExecution(item)" class="delete-condition">
+                                                                <span class="e-delete e-icons e-btn-icon e-icon-left"></span>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <hr class="d-none d-sm-block d-md-none mt-1" />
+                                        }
+                                        <div class="d-flex justify-content-end">
+                                            <a @onclick="() => AddExecution()" class="add-condition">
+                                                <span class="e-circle-add e-icons e-btn-icon e-icon-left"></span>
+                                                <span class="text">Додати</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="sfButton" style="display: flex; justify-content: right;">
+                            <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
+                            <SfButton type="submit" class="m-3" IsPrimary="true">Зберенти</SfButton>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </Content>
+    </DialogTemplates>
+</SfDialog>
+
+@code {
+
+    List<Day> days = new List<Day> {
+        new Day() { ID= "1", Text= "Понеділок" },
+        new Day() { ID= "2", Text= "Вівторок" },
+        new Day() { ID= "3", Text= "Середа" },
+        new Day() { ID= "4", Text= "Четвер" },
+        new Day() { ID= "5", Text= "П'ятниця" },
+        new Day() { ID= "6", Text= "Субота" },
+        new Day() { ID= "7", Text= "Неділя" }
+    };
+
+    List<DeviceEvent> deviceEvents = new List<DeviceEvent>() {
+            new DeviceEvent()
+            {
+                DeviceName = "Датчик відкривання вікна на кухні",
+                EventId = 1,
+                EventTitle = "Відкрито"
+            },
+            new DeviceEvent()
+            {
+                DeviceName = "Датчик протікання води",
+                EventId = 3,
+                EventTitle = "Стався витік води"
+            },
+            new DeviceEvent()
+            {
+                DeviceName = "Датчик протікання води",
+                EventId = 4,
+                EventTitle = "Витік води ліквідовано"
+            },
+            new DeviceEvent()
+            {
+                DeviceName = "Датчик відкривання вікна на кухні",
+                EventId = 2,
+                EventTitle = "Закрито"
+            }
+        };
+
+    List<Operation> operations = new List<Operation>()
+    {
+        new Operation() { Value = ConditionOperationEnum.Equal, Text = "=="},
+        new Operation() { Value = ConditionOperationEnum.NotEqual, Text = "!="},
+        new Operation() { Value = ConditionOperationEnum.Less, Text = ">"},
+        new Operation() { Value = ConditionOperationEnum.More, Text = "<"},
+        new Operation() { Value = ConditionOperationEnum.LessOrEqual, Text = "<="},
+        new Operation() { Value = ConditionOperationEnum.MoreOrEqual, Text = ">="},
+    };
+
+    List<ConditionType> conditionTypes = new List<ConditionType>()
+    {
+        new ConditionType() { Value = ConditionTypeEnum.Once,            Text="Дата і час"},
+        new ConditionType() { Value = ConditionTypeEnum.EveryTime,       Text="Повторювати"},
+        new ConditionType() { Value = ConditionTypeEnum.EventOccurred,   Text="Настане подія"},
+        new ConditionType() { Value = ConditionTypeEnum.ConditionIsMet,  Text="Виконається умова"},
+        new ConditionType() { Value = ConditionTypeEnum.TaskTriggered,   Text="Стартує задача"}
+    };
+
+    List<ExecutionType> executionTypes = new List<ExecutionType>()
+    {
+        new ExecutionType() { Value = JobExecTypeEnum.Command,   Text="Виконати команду"},
+        new ExecutionType() { Value = JobExecTypeEnum.TriggerTask,  Text="Запустити задачу"},
+        new ExecutionType() { Value = JobExecTypeEnum.Wait,   Text="Почекати"}
+    };
+
+    public class ConditionType
+    {
+        public ConditionTypeEnum Value { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class ExecutionType
+    {
+        public JobExecTypeEnum Value { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class Day
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class DeviceEvent
+    {
+        public string DeviceName { get; set; }
+        public int EventId { get; set; }
+        public string EventTitle { get; set; }
+    }
+
+    public class Operation
+    {
+        public ConditionOperationEnum Value { get; set; }
+        public string Text { get; set; }
+    }
+}

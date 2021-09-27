@@ -44,6 +44,14 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .ToList();
         }
 
+        public async Task<List<Device>> GetDevicesAsync()
+        {
+            return await _dbSet
+                .Include(x => x.EventCollection.Events)
+                .Include(x => x.CommandCollection.Commands)
+                .ToListAsync();
+        }
+
         public async Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request)
         {
             var count = _dbSet.Count();

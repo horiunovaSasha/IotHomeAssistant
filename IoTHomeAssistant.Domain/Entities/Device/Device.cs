@@ -1,5 +1,4 @@
 using IoTHomeAssistant.Domain.Entities.Command;
-using IoTHomeAssistant.Domain.Entities.Event;
 using IoTHomeAssistant.Domain.Enums;
 using System.Collections.Generic;
 

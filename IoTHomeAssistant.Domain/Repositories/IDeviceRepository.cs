@@ -11,6 +11,7 @@ namespace IoTHomeAssistant.Domain.Repositories
         Task<Device> GetDeviceAsync(int id);
         List<InfoDevice> GetInfoDevices();
         Device GetWithTopics(int id);
+        Task<List<Device>> GetDevicesAsync();
         Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request);
     }
 }
