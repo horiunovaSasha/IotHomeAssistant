@@ -1,2 +1,92 @@
 ﻿@page "/Plugins"
-<h3>Plugins</h3>
+@using IoTHomeAssistant.Domain.Services;
+@using IoTHomeAssistant.Domain.Dto;
+@using IoTHomeAssistant.Domain.Dto.Pagging;
+
+
+@inject IPluginService pluginService;
+
+<SfGrid DataSource="@plugins" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
+    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="PluginDto"></GridEvents>
+    <GridPageSettings PageSize="10"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field=@nameof(PluginDto.Id) HeaderText="ID" TextAlign="TextAlign.Right" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(PluginDto.Title) HeaderText="Назва" Width="200"></GridColumn>
+        <GridColumn Field=@nameof(PluginDto.DeviceType) HeaderText="Тип" Width="200"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+<SfDialog Width="500px" IsModal="true" @bind-Visible="@noItemsModalVisible">
+    <DialogTemplates>
+        <Content>
+            <div class="p-4">
+                Жодного елементу не вибрано, виберіть елемент зі списку, щоб мати можливість здійснювати операції над ним.
+            </div>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="OK" IsPrimary="true" OnClick="@CloseDialog" />
+    </DialogButtons>
+</SfDialog>
+
+<EditPluginComponent @ref="editModal"></EditPluginComponent>
+
+@code{
+    SfGrid<PluginDto> grid;
+    EditPluginComponent editModal;
+    public List<PluginDto> plugins { get; set; }
+
+    bool noItemsModalVisible = false;
+
+    private List<ItemModel> Toolbaritems;
+
+    protected override void OnInitialized()
+    {
+        plugins = pluginService.GetPagginPlugins(
+            new PageRequest()
+            {
+                PageNumber = 1,
+                PageSize = 10000
+            })
+            .Result.Items;
+
+        Toolbaritems = new List<ItemModel>() {
+            new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
+            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
+            new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
+        };
+    }
+
+    public async Task ToolbarClickHandler(ClickEventArgs args)
+    {
+        var selectedItem = grid.SelectedRecords.FirstOrDefault();
+        if (args.Item.Id == "1")
+        {
+            editModal.AddPlugin();
+        }
+
+        if (args.Item.Id == "2")
+        {
+            if (selectedItem == null)
+            {
+                noItemsModalVisible = true;
+            } else
+            {
+                await editModal.EditPluginAsync(selectedItem.Id);
+            }
+        }
+
+        if (args.Item.Id == "3")
+        {
+            if (selectedItem == null)
+            {
+                noItemsModalVisible = true;
+            }
+        }
+    }
+
+    private void CloseDialog()
+    {
+        noItemsModalVisible = false;
+    }
+}
