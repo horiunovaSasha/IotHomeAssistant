@@ -1,0 +1,42 @@
+﻿@using IotHomeAssistant.Blazor.Components.Widget;
+@using IoTHomeAssistant.Domain.Enums;
+
+<SfDialog IsModal="true" @bind-Visible="@_visible" MinHeight="51.3em">
+    <DialogTemplates>
+        <Content>
+            <div class="widget-wrapper">
+                <div id="left-side" class="d-none d-xl-flex">
+                    <ul>
+                        <li><span class="e-settings e-icons e-btn-icon e-icon-left" style="font-size: 7em"></span></li>
+                        <li><span style="font-size: 2em">Налаштування</span></li>
+                    </ul>
+                </div>
+                <div id="right-side" class="p-4">
+                    <EditForm Model="@widget" OnValidSubmit="@Save">
+                        <DataAnnotationsValidator />
+                        <h4>@(widget.Id == 0 ? "Створення віджета" : "Редагування віджета")</h4>
+                        <hr />
+                        <div class="col-lg-12 control-section" style="min-height: 42em">
+                            @if (widget.Type == WidgetItemTypeEnum.Nothing)
+                            {
+                                <WidgetTypeComponent @ref="@widgetTypeComponent" Widget="widget"></WidgetTypeComponent>
+                            }
+
+                            @if (_canGoNext)
+                            {
+                                <EditInfoComponent WidgetItemType="widget.Type"></EditInfoComponent>
+                                <EditSwitchComponent WidgetItemType="widget.Type"></EditSwitchComponent>
+                                <EditLightComponent WidgetItemType="widget.Type"></EditLightComponent>
+                            }
+                        </div>
+                        <div class="sfButton" style="display: flex; justify-content: right;">
+                            <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
+                            <SfButton type="button" class="m-3" IsPrimary="true" OnClick="Next">Далі</SfButton>
+                            @*<SfButton type="submit" class="m-3" IsPrimary="true">Далі</SfButton>*@
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </Content>
+    </DialogTemplates>
+</SfDialog>

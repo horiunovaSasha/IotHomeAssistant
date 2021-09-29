@@ -1,0 +1,20 @@
+﻿<div class="content-wrapper">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@Widget.Title"></SfTextBox>
+            <ValidationMessage For="@(() => Widget.Title)" />
+        </div>
+    </div>
+    <h5>Тип:</h5>
+    <div class="widget-types @CssClass row">
+        <div class="col-lg-12 nav">
+            @foreach (WidgetType item in widgetTypes)
+            {
+                <a class="nav-link col-xs-6 col-md-4 col-lg-3 @(item.Value == Widget.Type ? CssClass : string.Empty)" @onclick="() => OnSelectType(item.Value)">
+                    <label><img src="@(item.ImageUrl)" height="64" /></label><br />  
+                    @item.Title
+                </a>
+            }
+        </div>
+    </div>
+</div>

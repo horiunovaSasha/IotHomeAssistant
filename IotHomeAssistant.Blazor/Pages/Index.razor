@@ -1,6 +1,42 @@
-﻿@page "/"
-<h3>Index</h3>
+﻿@using IotHomeAssistant.Blazor.Components.Widget
+
+@page "/"
+
+<EditWidgetComponent @ref="widgetModal"></EditWidgetComponent>
+<div class="d-flex justify-content-end">
+    <SfButton type="button" IsPrimary="true" class="m-3" OnClick="() => widgetModal.AddWidget()">Додати віджет</SfButton>
+</div>
+
+<h2>Вітальня</h2>
+<div class="row">
+    <div class="col-md-12 col-lg-4 col-xl-3">
+        <LightComponent></LightComponent>
+    </div>
+    <div class="col-md-12 col-lg-4 col-xl-3">
+        <ClimateComponent></ClimateComponent>
+    </div>
+    <div class="col-md-12 col-lg-4 col-xl-3">
+        <SwitchComponent IsChecked="false" Title="Світло в коридорі" ImageUrl="https://image.flaticon.com/icons/png/512/427/427735.png"></SwitchComponent>
+        <SwitchComponent IsChecked="true" Title="Розетка на кухні біля котла" ImageUrl="https://image.flaticon.com/icons/png/512/2865/2865478.png"></SwitchComponent>
+        <SwitchComponent IsChecked="false" Title="Торшер у вітальній" ImageUrl="https://image.flaticon.com/icons/png/512/2922/2922352.png"></SwitchComponent>
+    </div>
+</div>
+<h2>
+    Кухня
+</h2>
+<div class="row">
+    <div class="col-md-12 col-lg-6 col-xl-4">
+        <ThermostatComponent></ThermostatComponent>
+    </div>
+    <div class="col-md-12 col-lg-6 col-xl-4">
+        <CleanerComponent></CleanerComponent>
+    </div>
+    <div class="col-md-12 col-lg-6 col-xl-4">
+        <BlindsComponent></BlindsComponent>
+    </div>
+</div>
 
 @code {
+    EditWidgetComponent widgetModal;
 
 }

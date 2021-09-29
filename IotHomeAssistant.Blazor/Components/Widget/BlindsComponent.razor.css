@@ -1,0 +1,152 @@
+﻿
+.illustration-pro {
+    display: grid;
+    grid-template-rows: 24px auto;
+    justify-items: start;
+    position: relative;
+}
+
+    .illustration-pro .code {
+        /*width: 388px;
+        height: 280px;*/
+        border-radius: 10px;
+    }
+
+    .illustration-pro .light {
+        position: absolute;
+        z-index: 8;
+        right: 67px;
+        top: 24px;
+    }
+
+
+
+    .illustration-pro .blinds {
+        display: grid;
+        justify-items: center;
+        position: relative;
+        height: 207px;
+        overflow: hidden;
+    }
+
+    .illustration-pro .blinds-top {
+        z-index: 10;
+        width: 200px;
+        height: 14px;
+        background: #4C4F5A;
+        border-radius: 5px;
+        position: relative;
+    }
+
+        .illustration-pro .blinds-top::before {
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 14px;
+            top: 0;
+            left: 0;
+            border-radius: 100%;
+            background: #202125;
+        }
+
+    .illustration-pro .blinds-rows {
+        z-index: 9;
+        position: relative;
+        margin: 6px 0 0;
+        padding: 0;
+        height: 320px;
+    }
+
+        .illustration-pro .blinds-rows::before, .illustration-pro .blinds-rows::after {
+            opacity: 0;
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 2px;
+            height: 160px;
+            background: #36383F;
+            top: -5px;
+        }
+
+        .illustration-pro .blinds-rows::before {
+            left: 50px;
+        }
+
+        .illustration-pro .blinds-rows::after {
+            right: 50px;
+        }
+
+    .illustration-pro .blinds-row {
+        transition: 0.3s ease transform;
+        width: 200px;
+        height: 9px;
+        background: #36383F;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+        .illustration-pro .blinds-row:last-child {
+            position: relative;
+            opacity: 1;
+        }
+
+            .illustration-pro .blinds-row:last-child::before {
+                content: "";
+                position: absolute;
+                top: 18px;
+                left: 50%;
+                margin-left: -10px;
+                width: 14px;
+                height: 14px;
+                border-radius: 100%;
+                border: 3px solid #4C4F5A;
+            }
+
+            .illustration-pro .blinds-row:last-child::after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                margin-left: -1px;
+                width: 2px;
+                height: 10px;
+                background: #4C4F5A;
+            }
+
+    .illustration-pro.public .blinds-rows {
+        transform: translateY(-160px);
+        transition: 12s ease transform;
+    }
+
+        .illustration-pro.public .blinds-rows::before, .illustration-pro.public .blinds-rows::after {
+            opacity: 0;
+            transition: 1s ease opacity;
+        }
+
+    .illustration-pro.public .blinds-row {
+        opacity: 0;
+        transition: 12s ease opacity;
+    }
+
+        .illustration-pro.public .blinds-row:last-child {
+            opacity: 1;
+        }
+
+    .illustration-pro.private .blinds-rows {
+        transform: translateY(0);
+        transition: 12s ease transform;
+    }
+
+        .illustration-pro.private .blinds-rows::before, .illustration-pro.private .blinds-rows::after {
+            opacity: 1;
+        }
+
+    .illustration-pro.private .blinds-row {
+        opacity: 1;
+        transition: 1s ease transform;
+    }
+
+    .illustration-pro.private .code svg {
+        opacity: 0.2;
+        transition: 1s ease opacity;
+    }

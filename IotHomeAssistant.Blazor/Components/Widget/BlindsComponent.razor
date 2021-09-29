@@ -1,0 +1,60 @@
+﻿<div class="card-wrapper">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <div class="w-100">
+                <div class="row">
+                    <div class="col-12">
+                        <span class="h3">Автоматичні штори у вітальній</span>
+                    </div>
+                    <div class="col-12 d-none">
+                        <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" OnLabel="OPEN" OffLabel="CLOSE"></SfSwitch>
+                        <SfSwitch CssClass="e-large mr-4" @bind-Checked="isPaused" OnLabel="ON" OffLabel="OFF"></SfSwitch>
+                    </div>
+                    <div class="col-12 mt-4 d-flex justify-content-between">
+                        <span class="text-center pl-4">
+                            <img src="https://cdn-icons-png.flaticon.com/512/892/892687.png" width="35" /><br />
+                            Відкрити
+                        </span>
+                        <span class="text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2611/2611514.png" width="35" /><br />
+                            Пауза
+                        </span>
+                        <span class="text-center pr-4">
+                            <img src="https://cdn-icons-png.flaticon.com/512/892/892629.png" width="35" /><br />
+                            Закрити
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="illustration-pro pr-2 pr-sm-2 pl-sm-1 pr-lg-4 pl-lg-2 @(isChecked ? "public" : "private")  @(isPaused ? "paused" : "")">
+                <div class="light">
+                </div>
+                <div class="blinds">
+                    <div class="blinds-top"></div>
+                    <ul class="blinds-rows @(isPaused ? "paused" : "")">
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                        <li class="blinds-row"></li>
+                    </ul>
+                </div>
+                <div class="code">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4917/4917395.png" class="ml-4" width="149" />
+                </div>                
+            </div>            
+        </div>
+    </div>
+</div>
+
+
+@code {
+    bool isChecked = false;
+    bool isPaused = false;
+}

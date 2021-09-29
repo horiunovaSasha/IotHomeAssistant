@@ -1,0 +1,25 @@
+﻿<div class="card-wrapper">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-between">
+            <label class="h3">Котел Baxi на кухні</label>
+            <img src="https://cdn-icons-png.flaticon.com/512/599/599502.png" width="40" class="mr-2 mb-2" />
+        </div>
+        <div class="col-12 d-flex justify-content-between">
+            <img src="https://image.flaticon.com/icons/png/512/741/741236.png" height="96" />
+            <div>
+                <button type="button" class="e-control e-btn e-lib mr-2 mb-2">-</button>
+                <span class="h2">65º</span>
+                <button type="button" class="e-control e-btn e-lib ml-2 mb-2">+</button>
+            </div>
+        </div>
+        <div class="col-12" style="padding-right: 2.6em; margin-top: -2.5em;">
+            <div class="float-right">
+                <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    bool isChecked = true;
+}
