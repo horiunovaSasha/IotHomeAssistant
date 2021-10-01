@@ -43,10 +43,10 @@ namespace IotHomeAssistant.Blazor.Components.Widget
                 new WidgetType() { Value = WidgetItemTypeEnum.Cleaner, Title = "Пилосос", ImageUrl = "https://image.flaticon.com/icons/png/512/1848/1848660.png" },
                 new WidgetType() { Value = WidgetItemTypeEnum.Heating, Title = "Опалення", ImageUrl = "https://image.flaticon.com/icons/png/512/741/741236.png" },
                 new WidgetType() { Value = WidgetItemTypeEnum.Blinds, Title = "Жалюзі", ImageUrl = "https://image.flaticon.com/icons/png/512/1606/1606312.png" },
-                new WidgetType() { Value = WidgetItemTypeEnum.OpenCloseSensor, Title = "Датчик відкривання", ImageUrl = "https://image.flaticon.com/icons/png/512/1169/1169906.png" },
+                //new WidgetType() { Value = WidgetItemTypeEnum.OpenCloseSensor, Title = "Датчик відкривання", ImageUrl = "https://image.flaticon.com/icons/png/512/1169/1169906.png" },
                 new WidgetType() { Value = WidgetItemTypeEnum.CustomScript, Title = "Задача", ImageUrl = "https://img.icons8.com/officel/64/000000/command-line.png" },
-                new WidgetType() { Value = WidgetItemTypeEnum.Chart, Title = "Графік", ImageUrl = "https://image.flaticon.com/icons/png/512/3616/3616866.png" },
-                new WidgetType() { Value = WidgetItemTypeEnum.NewsFeed, Title = "Новини", ImageUrl = "https://image.flaticon.com/icons/png/512/237/237014.png" },
+                //new WidgetType() { Value = WidgetItemTypeEnum.Chart, Title = "Графік", ImageUrl = "https://image.flaticon.com/icons/png/512/3616/3616866.png" },
+                //new WidgetType() { Value = WidgetItemTypeEnum.NewsFeed, Title = "Новини", ImageUrl = "https://image.flaticon.com/icons/png/512/237/237014.png" },
                 new WidgetType() { Value = WidgetItemTypeEnum.WeatherForecast, Title = "Прогноз погоди", ImageUrl = "https://img.icons8.com/fluent/64/000000/weather.png" }
             };
         }
