@@ -5,3 +5,7 @@
 .widget-types.selected a.selected {
     opacity: 1;
 }
+
+.widget-types .nav-link {
+    padding: 1.5rem 1rem !important;
+}

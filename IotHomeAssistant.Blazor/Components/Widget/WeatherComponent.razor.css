@@ -1,0 +1,32 @@
+﻿.card-wrapper {
+    padding-top: 1.7em;
+}
+
+.main-icon {
+    font-size: 65px;
+}
+
+.main-temp {
+    font-size: 5.5em;
+    line-height: 0.7;
+}
+
+.desc {
+    text-align: center;
+}
+
+.celcius {
+   font-size: 1.5rem;
+}
+
+.day-weather-inner-box {
+    display: inline-flex;
+}
+
+.forecast-icon {
+    font-size: 15px;
+}
+
+.border-right {
+    border-right: 1px solid black !important;
+}

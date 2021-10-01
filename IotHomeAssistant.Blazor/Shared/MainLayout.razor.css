@@ -1,16 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 .page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    min-height: 100vh;
 }
 
 .main {
-    flex: 1;
+    padding-bottom: 115px;
 }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+footer {
+    height: 115px;
+    margin-top: -115px;
 }
+
 
 .top-row {
     background-color: #f7f7f7;
@@ -36,17 +41,6 @@
 
 
 @media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
-
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-    }
-
     .top-row {
         position: sticky;
         top: 0;
@@ -66,7 +60,6 @@
 }
 
 footer {
-    max-height: 100vh;
     overflow-y: auto;
     background: linear-gradient(135deg, #dd7952 0%, #b92922 70%);
     background-color: rgba(0, 0, 0, 0);
@@ -94,6 +87,7 @@ footer .nav-item.active .nav-link, footer .nav-item a.nav-link:hover {
 
 .nav-item {
     font-size: 0.9rem;
+    padding: 0.1rem;
     padding-bottom: 0.5rem;
 }
 
@@ -124,6 +118,7 @@ footer .nav-item.active .nav-link, footer .nav-item a.nav-link:hover {
     display: flex;
     justify-content: center;
     font-size: 0.6rem;
+    margin-top: -1em;   
 }
 
 .flaticon a, div.flaticon {
@@ -139,7 +134,7 @@ footer .e-icons, footer .oi {
 }
 
 a.nav-link span.text {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
 .nav-item {
@@ -183,7 +178,7 @@ a.nav-link span.text {
     }
 
     .flaticon {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 }
 
@@ -197,10 +192,10 @@ a.nav-link span.text {
 @media (min-width: 1450px) {
 
     .flaticon {
-        display: inline-block;
-        position: absolute;
+        display: flex;
+        justify-content: end;
+        margin-top: -2em;
+        margin-right: 2em;
         font-size: 0.9rem;
-        top: 3em;
-        right: 2em;
     }
 }
