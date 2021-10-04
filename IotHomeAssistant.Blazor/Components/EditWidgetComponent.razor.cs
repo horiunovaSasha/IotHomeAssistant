@@ -1,4 +1,5 @@
 ﻿using IotHomeAssistant.Blazor.Components.Widget;
+using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Entities;
 
 namespace IotHomeAssistant.Blazor.Components
@@ -8,15 +9,12 @@ namespace IotHomeAssistant.Blazor.Components
         private bool _visible = false;
         private bool _canGoNext = false;
 
-        protected WidgetItem widget = new WidgetItem();
+        protected WidgetItemDto widget = new WidgetItemDto();
         protected WidgetTypeComponent widgetTypeComponent;
 
         public void AddWidget()
         {
-            widget = new WidgetItem()
-            {
-                Device = new Device()
-            };
+            widget = new WidgetItemDto();
 
             _visible = true;
             StateHasChanged();

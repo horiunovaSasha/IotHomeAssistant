@@ -39,26 +39,34 @@ namespace IoTHomeAssistant.Domain.Services
             return await _deviceRepository.GetDeviceAsync(id);
         }
 
-        public async Task<List<Entities.Device>> GetDevicesAsync(DeviceTypeEnum? deviceType)
+        public async Task<List<Entities.Device>> GetDevicesAsync(DeviceTypeEnum? deviceType = null)
         {
             return await _deviceRepository.GetDevicesAsync(deviceType);
         }
 
-        public async Task<List<DeviceEventDto>> GetDeviceEventsAsync(DeviceTypeEnum? deviceType, bool? hasValue)
+        public async Task<List<DeviceEventDto>> GetDeviceEventsAsync(bool? hasValue)
         {
             var deviceEvents = new List<DeviceEventDto>();
-            var devices = (await GetDevicesAsync(deviceType))
+            var devices = (await GetDevicesAsync())
                 .Where(x => 
-                    x.EventCollection != null &&
-                    x.EventCollection.Events != null &&
-                    x.EventCollection.Events.Any(e => !hasValue.HasValue || e.HasValue == hasValue.Value));
+                    x.DeviceEvents != null &&
+                    x.DeviceEvents.EventCollection != null &&
+                    x.DeviceEvents.EventCollection.Events != null &&
+                    x.DeviceEvents.EventCollection.Events.Any(e => !hasValue.HasValue || e.HasValue == hasValue.Value));
 
             foreach (var device in devices)
             {
+                var deviceId = device.Id;
                 var deviceName = device.Title;
-                foreach (var eventItem in device.EventCollection.Events.Where(e => !hasValue.HasValue || e.HasValue == hasValue.Value))
+
+                foreach (var eventItem in device.DeviceEvents.EventCollection.Events.Where(e => !hasValue.HasValue || e.HasValue == hasValue.Value))
                 {
-                    deviceEvents.Add(new DeviceEventDto() { DeviceName = deviceName, EventId = eventItem.Id, EventTitle = eventItem.Title });
+                    deviceEvents.Add(new DeviceEventDto() {
+                        DeviceId = deviceId,
+                        DeviceName = deviceName, 
+                        EventId = eventItem.Id, 
+                        EventTitle = eventItem.Title 
+                    });
                 }
             }
 

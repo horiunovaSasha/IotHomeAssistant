@@ -224,8 +224,9 @@ footer a.nav-link {
     cursor: pointer !important;
 }
 
-.widget-types .nav a.nav-link:hover {
+.widget-types .nav a.nav-link:hover, .icons a.nav-link:hover {
     background-color: rgba(8, 42, 143, 0.1) !important;
+    cursor: pointer;
 }
 
 .e-large {

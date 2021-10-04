@@ -8,6 +8,9 @@
       <PackageReference Include="Ductus.FluentDocker" Version="2.10.7" />
       <PackageReference Include="LibGit2Sharp" Version="0.26.2" />
       <PackageReference Include="M2MqttDotnetCore" Version="1.1.0" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.10" />
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
       <PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
     </ItemGroup>
 

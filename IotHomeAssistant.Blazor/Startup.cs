@@ -1,26 +1,22 @@
 using IotHomeAssistant.Blazor.Areas.Identity;
 using IotHomeAssistant.Blazor.Data;
+using IoTHomeAssistant.Domain.Options;
 using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using IoTHomeAssistant.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace IotHomeAssistant.Blazor
 {
@@ -47,16 +43,26 @@ namespace IotHomeAssistant.Blazor
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            services.Configure<MqttOption>(Configuration.GetSection("MqttConfiguration"));
+
             services.AddDbContext<IoTDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("IoTDefaultConnection")));
 
+            services.AddTransient<IIconRepository, IconRepository>();
             services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();
             services.AddTransient<IJobTaskRepository, JobTaskRepository>();
             services.AddTransient<IDeviceService, DeviceService>();
             services.AddTransient<IPluginService, PluginService>();
             services.AddTransient<IJobTaskService, JobTaskService>();
+            services.AddTransient<IEventPublisher, EventPublisher>();
+
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
 
 
             services.AddSyncfusionBlazor();
@@ -66,6 +72,7 @@ namespace IotHomeAssistant.Blazor
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
            SyncfusionLicenseProvider.RegisterLicense("NTAyNjk0QDMxMzkyZTMyMmUzMGlRNW1Pb3VXWWVUdW10VlVDYU5MazVyT2FPV0FmMVRRSTAvcU4xZHo5UXc9");
+           app.UseResponseCompression();
 
             if (env.IsDevelopment())
             {
@@ -91,6 +98,7 @@ namespace IotHomeAssistant.Blazor
             {
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
+                endpoints.MapHub<EventPublisher>("/event-publisher");
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

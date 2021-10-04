@@ -48,7 +48,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         {
             return await _dbSet
                 .Where(x => !deviceType.HasValue || x.Type == deviceType.Value)
-                .Include(x => x.EventCollection.Events)
+                .Include(x => x.DeviceEvents.EventCollection.Events)
                 .Include(x => x.CommandCollection.Commands)
                 .ToListAsync();
         }

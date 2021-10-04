@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IoTHomeAssistant.Infrastructure.EntityConfigurations.Device;
+using Microsoft.EntityFrameworkCore;
 
 namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
 {
@@ -34,6 +35,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.ApplyConfiguration(new EventCollectionConfiguration());
             builder.ApplyConfiguration(new CommandConfiguration());
             builder.ApplyConfiguration(new CommandCollectionConfiguration());
+            builder.ApplyConfiguration(new DeviceEventCollectionConfiguration());
         }
     }
 }

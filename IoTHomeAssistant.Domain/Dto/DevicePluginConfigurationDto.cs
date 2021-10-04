@@ -9,7 +9,7 @@ namespace IoTHomeAssistant.Domain.Dto
         public string Description { get; set; }
         public string Type { get; set; }
 
-        [Required(ErrorMessage = "Це поле обовязкове для заповнення!")]
+        [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
         public string Value { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using IotHomeAssistant.Blazor.Components.Widget
-
+@using IoTHomeAssistant.Domain.Dto;
 @page "/"
 
 <EditWidgetComponent @ref="widgetModal"></EditWidgetComponent>
@@ -37,7 +37,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 col-lg-6 col-xl-4">
-        <InfoComponent></InfoComponent>
+        <InfoComponent WidgetItem="infoWidgetItem"></InfoComponent>
         <TaskComponent></TaskComponent>
     </div>
     <div class="col-md-12 col-lg-6 col-xl-4">
@@ -50,4 +50,5 @@
 @code {
     EditWidgetComponent widgetModal;
 
+    WidgetItemDto infoWidgetItem = new WidgetItemDto() { Title = "Температура у спальній" };
 }

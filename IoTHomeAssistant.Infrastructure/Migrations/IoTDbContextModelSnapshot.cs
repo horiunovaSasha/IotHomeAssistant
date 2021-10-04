@@ -109,9 +109,6 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                     b.Property<int?>("CommandCollectionId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EventCollectionId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -126,9 +123,29 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
                     b.HasIndex("CommandCollectionId");
 
+                    b.ToTable("Device");
+                });
+
+            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.DeviceEventCollection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EventCollectionId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceId")
+                        .IsUnique();
+
                     b.HasIndex("EventCollectionId");
 
-                    b.ToTable("Device");
+                    b.ToTable("DeviceEventCollection");
                 });
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Event", b =>
@@ -523,11 +540,24 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("CommandCollectionId");
 
+                    b.Navigation("CommandCollection");
+                });
+
+            modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.DeviceEventCollection", b =>
+                {
+                    b.HasOne("IoTHomeAssistant.Domain.Entities.Device", "Device")
+                        .WithOne("DeviceEvents")
+                        .HasForeignKey("IoTHomeAssistant.Domain.Entities.DeviceEventCollection", "DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("IoTHomeAssistant.Domain.Entities.EventCollection", "EventCollection")
                         .WithMany()
-                        .HasForeignKey("EventCollectionId");
+                        .HasForeignKey("EventCollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("CommandCollection");
+                    b.Navigation("Device");
 
                     b.Navigation("EventCollection");
                 });
@@ -677,6 +707,8 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.Device", b =>
                 {
+                    b.Navigation("DeviceEvents");
+
                     b.Navigation("PluginDevice");
                 });
 

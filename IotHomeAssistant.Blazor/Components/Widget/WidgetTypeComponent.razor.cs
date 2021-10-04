@@ -1,4 +1,4 @@
-﻿using IoTHomeAssistant.Domain.Entities;
+﻿using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Enums;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace IotHomeAssistant.Blazor.Components.Widget
     public partial class WidgetTypeComponent
     {
         [Parameter]
-        public WidgetItem Widget { get; set; }
+        public WidgetItemDto Widget { get; set; }
         protected List<WidgetType> widgetTypes { get; set; }
         protected string CssClass { get; set; } = string.Empty;
 

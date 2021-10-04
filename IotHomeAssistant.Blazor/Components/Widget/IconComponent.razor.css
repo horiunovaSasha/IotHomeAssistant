@@ -1,0 +1,19 @@
+﻿.icons {
+    position: absolute;
+    z-index: 9;
+    background-color: white;
+    overflow-y: auto;
+    max-height: 50em;
+}
+
+.icons.selected a {
+    opacity: 0.3;
+}
+
+.icons.selected a.selected {
+    opacity: 1;
+}
+
+.icons .nav-link {
+    padding: 1.755rem !important;
+}

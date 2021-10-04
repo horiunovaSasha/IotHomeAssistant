@@ -18,6 +18,6 @@ namespace IoTHomeAssistant.Domain.Services
         void LightControl(int deviceId, bool toggle, int brightness, string color);
         Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request);
         Task<List<Device>> GetDevicesAsync(DeviceTypeEnum? deviceType);
-        Task<List<DeviceEventDto>> GetDeviceEventsAsync(DeviceTypeEnum? deviceType, bool? hasValue);
+        Task<List<DeviceEventDto>> GetDeviceEventsAsync(bool? hasValue);
     }
 }
