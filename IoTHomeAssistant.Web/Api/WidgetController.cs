@@ -14,12 +14,5 @@ namespace IoTHomeAssistant.Web.Api
         {
             _widgetService = widgetService;
         }
-
-        [HttpPost]
-        [Route("Info")]
-        public EmptyResponse SaveInfoWidget([FromBody]InfoWidget widget)
-        {
-            return _widgetService.SaveInfoWidget(widget);
-        }
     }
 }

@@ -1,27 +1,22 @@
-﻿using IoTHomeAssistant.Domain.Dto;
-using IoTHomeAssistant.Domain.Entities;
+﻿using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Domain.Services
 {
     public class WidgetService : IWidgetService
     {
-        private readonly IWidgetRepository _widgetRepository;
+        private readonly IWidgetItemRepository _widgetRepository;
 
-        public WidgetService(IWidgetRepository widgetRepository)
+        public WidgetService(IWidgetItemRepository widgetRepository)
         {
             _widgetRepository = widgetRepository;
         }
 
-        public List<Widget> GetAllWidgets()
+        public async Task<List<WidgetItem>> GetAllWidgetsAsync()
         {
-            return _widgetRepository.GetFullWidgets();
-        }
-
-        public EmptyResponse SaveInfoWidget(InfoWidget widget)
-        {
-            throw new System.NotImplementedException();
+            return await _widgetRepository.GetAllWidgetsAsync();
         }
     }
 }

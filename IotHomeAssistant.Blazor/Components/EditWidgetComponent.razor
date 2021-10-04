@@ -1,5 +1,4 @@
-﻿@using IotHomeAssistant.Blazor.Components.Widget;
-@using IoTHomeAssistant.Domain.Enums;
+﻿@using IoTHomeAssistant.Domain.Enums;
 
 <SfDialog IsModal="true" @bind-Visible="@_visible" MinHeight="51.3em">
     <DialogTemplates>
@@ -24,7 +23,7 @@
 
                             @if (_canGoNext)
                             {
-                                <EditInfoComponent WidgetItemType="widget.Type"></EditInfoComponent>
+                                <EditInfoItemComponent WidgetItem="widget"></EditInfoItemComponent>
                                 <EditSwitchComponent WidgetItemType="widget.Type"></EditSwitchComponent>
                                 <EditLightComponent WidgetItemType="widget.Type"></EditLightComponent>
                             }

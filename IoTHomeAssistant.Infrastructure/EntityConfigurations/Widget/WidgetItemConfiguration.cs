@@ -12,13 +12,12 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Type).IsRequired();
+            builder.Property(x => x.Order).IsRequired();
 
-            builder.HasOne(x => x.Widget);
+            builder.HasOne(x => x.Area);
             builder.HasOne(x => x.Icon);
-            builder.HasOne(x => x.IconColor);
             builder.HasOne(x => x.Device);
 
-            builder.HasMany(x => x.ColorRange);
         }
     }
 }

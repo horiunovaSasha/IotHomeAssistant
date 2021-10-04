@@ -1,6 +1,5 @@
 using IoTHomeAssistant.Domain.Entities.Command;
 using IoTHomeAssistant.Domain.Enums;
-using System.Collections.Generic;
 
 namespace IoTHomeAssistant.Domain.Entities
 {
@@ -13,6 +12,5 @@ namespace IoTHomeAssistant.Domain.Entities
         public virtual PluginDevice PluginDevice { get; set; }
         public virtual CommandCollection CommandCollection { get; set; }
         public virtual EventCollection EventCollection { get; set; }
-        public virtual ICollection<DeviceGroup> Groups { get; set; }
     }
 }

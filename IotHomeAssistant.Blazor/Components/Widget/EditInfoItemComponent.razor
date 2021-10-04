@@ -1,0 +1,23 @@
+﻿@using IoTHomeAssistant.Domain.Enums;
+@using IoTHomeAssistant.Domain.Dto;
+
+@if (WidgetItem.Type == WidgetItemTypeEnum.Informer)
+{
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.Title"></SfTextBox>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Пристрій" FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="WidgetItem.Device.Id">
+                    <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                </SfDropDownList>
+            </div>
+        </div>
+        @*@if (WidgetItem.De  > 0 && type > 0 && !string.IsNullOrEmpty(title))
+            {
+                <h5>Демонстрація:</h5>
+                <SwitchComponent IsChecked="@isChecked" Title="@title" ImageUrl="@(widgetTypes.First(x => x.Value == type).ImageUrl)"></SwitchComponent>
+            }*@
+    </div>
+}

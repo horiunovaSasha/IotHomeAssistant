@@ -1,5 +1,4 @@
 ﻿using IoTHomeAssistant.Domain.Enums;
-using System.Collections.Generic;
 
 namespace IoTHomeAssistant.Domain.Entities
 {
@@ -8,11 +7,10 @@ namespace IoTHomeAssistant.Domain.Entities
         public int Id { get; set; }
         public WidgetItemTypeEnum Type { get; set; }
         public string Title { get; set; }
+        public byte Order { get; set; }
 
-        public virtual Widget Widget { get; set; }
         public virtual Icon Icon { get; set; }
-        public virtual Color IconColor { get; set; }
-        public virtual ICollection<WidgetItemColorRange> ColorRange { get; set; }
         public virtual Device Device { get; set; }
+        public virtual Area Area { get; set; }
     }
 }

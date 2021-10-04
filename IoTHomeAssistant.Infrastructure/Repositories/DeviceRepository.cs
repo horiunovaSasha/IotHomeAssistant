@@ -44,9 +44,10 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .ToList();
         }
 
-        public async Task<List<Device>> GetDevicesAsync()
+        public async Task<List<Device>> GetDevicesAsync(DeviceTypeEnum? deviceType)
         {
             return await _dbSet
+                .Where(x => !deviceType.HasValue || x.Type == deviceType.Value)
                 .Include(x => x.EventCollection.Events)
                 .Include(x => x.CommandCollection.Commands)
                 .ToListAsync();

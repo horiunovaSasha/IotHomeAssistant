@@ -21,11 +21,8 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.ApplyConfiguration(new IconConfiguration());
             builder.ApplyConfiguration(new AreaConfiguration());
             builder.ApplyConfiguration(new DeviceConfiguration());
-            builder.ApplyConfiguration(new DeviceGroupConfiguration());
             builder.ApplyConfiguration(new MqttBrokerConfiguration());
-            builder.ApplyConfiguration(new WidgetConfiguration());
             builder.ApplyConfiguration(new WidgetItemConfiguration());
-            builder.ApplyConfiguration(new WidgetItemColorRangeConfiguration());
             builder.ApplyConfiguration(new PluginConfiguration());
             builder.ApplyConfiguration(new PluginDeviceConfiguration());
             builder.ApplyConfiguration(new PluginDeviceConfigurationConfiguration());

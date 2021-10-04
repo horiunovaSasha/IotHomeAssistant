@@ -16,7 +16,6 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.HasOne(x => x.PluginDevice);
             builder.HasOne(x => x.EventCollection);
             builder.HasOne(x => x.CommandCollection);
-            builder.HasMany(x => x.Groups);
         }
     }
 }

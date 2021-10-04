@@ -1,6 +1,7 @@
 ﻿using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
+using IoTHomeAssistant.Domain.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace IoTHomeAssistant.Domain.Services
         void Toggle(int deviceId, bool toggle);
         void LightControl(int deviceId, bool toggle, int brightness, string color);
         Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request);
-        Task<List<Device>> GetDevicesAsync();
+        Task<List<Device>> GetDevicesAsync(DeviceTypeEnum? deviceType);
+        Task<List<DeviceEventDto>> GetDeviceEventsAsync(DeviceTypeEnum? deviceType, bool? hasValue);
     }
 }

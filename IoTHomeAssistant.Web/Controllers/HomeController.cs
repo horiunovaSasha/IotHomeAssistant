@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,8 +24,8 @@ namespace IoTHomeAssistant.Web.Controllers
 
         public IActionResult Index()
         {
-            var widgets = _widgetService.GetAllWidgets();
-            return View(widgets);
+            //var widgets = _widgetService.GetAllWidgets();
+            return View();
         }
 
         public async Task<IActionResult> Weather(string place_id, string city)

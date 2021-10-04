@@ -1,50 +1,50 @@
-﻿@using IoTHomeAssistant.Domain.Enums
+﻿@*@using IoTHomeAssistant.Domain.Enums
 @model List<IoTHomeAssistant.Domain.Entities.Widget>
 @{ ViewData["Title"] = "Home Page"; }
 
-@await Html.PartialAsync("_WidgetModal", Model)
+@await Html.PartialAsync("_WidgetModal", Model)*@
 
-@foreach (var area in Model.GroupBy(x => x.Area))
+<!--foreach (var area in Model.GroupBy(x => x.Area))
 {
-<h2 class="font-weight-bold pb-3">@area.Key.Title</h2>
+<h2 class="font-weight-bold pb-3">area.Key.Title</h2>
 <div class="row">
-    @foreach (var widget in area.OrderBy(x => x.Order))
+    foreach (var widget in area.OrderBy(x => x.Order))
     {
     <div class="col-sm-12 col-md-6 col-xl-4 widget">
         <div class="list-group-item">
-            <h4 class="pl-2">@widget.Title</h4>
+            <h4 class="pl-2">widget.Title</h4>
         </div>
-        @foreach (var item in widget.Items)
+        foreach (var item in widget.Items)
         {
 
-            @if (item.Type == WidgetItemTypeEnum.Informer)
+            if (item.Type == WidgetItemTypeEnum.Informer)
             {
                 <div class="list-group-item">
                     <div class="float-left">
-                        @await Html.PartialAsync("_DashboardIcon", item)
-                        <span class="h4 pl-3">@item.Title</span>
-                    </div>
+                        await Html.PartialAsync("_DashboardIcon", item)
+                        <span class="h4 pl-3">item.Title</span>
+                    </div>-->
                     @*<div class="float-right device-topic-@item.DeviceTopic.Id">
                         <div class="loader_new" style="left: 80%">Loading...</div>
                     </div>*@
-                </div>
+                <!--</div>
             }
-            @if (item.Type == WidgetItemTypeEnum.Switcher)
+            if (item.Type == WidgetItemTypeEnum.Switcher)
             {
                 <div class="list-group-item">
                     <div class="float-left">
                         <img src="https://image.flaticon.com/icons/png/512/427/427735.png" height="90" />
-                        <span class="h4 pl-3">@item.Title</span>
+                        <span class="h4 pl-3">item.Title</span>
                     </div>
                     <div class="float-right mr-2">
-                        <input type="checkbox" checked id="switch-@(item.Id)" class=" lightSwitcher toggle switch-@(item.Id)" data-id="@(item.Id)" /><label for="switch-@(item.Id)" class="toggle">Toggle</label>
+                        <input type="checkbox" checked id="switch-(item.Id)" class=" lightSwitcher toggle switch-(item.Id)" data-id="(item.Id)" /><label for="switch-(item.Id)" class="toggle">Toggle</label>
                     </div>
                 </div>
             }
-            @if (item.Type == WidgetItemTypeEnum.Bulb)
+            if (item.Type == WidgetItemTypeEnum.Bulb)
             {
                 <div class="list-group-item">
-                    <h4 class="pl-2">@item.Title</h4>
+                    <h4 class="pl-2">item.Title</h4>
                 </div>
                 <div class="list-group-item">
                     <div class="float-left">
@@ -53,13 +53,13 @@
                             <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
                             <span>
                                 <input type="range" class="form-range form-control-lg p-0 m-4" id="rgbRange" onmouseup ="changeRgbSettings()"  min="5" max="100" />
-                            </span>
+                            </span>-->
                             @* <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" /> *@
                             @* <span class="text-secondary text-uppercase">brightness</span> *@
-                        </span>
+                        <!--</span>
                     </div>
                     <div class="float-right mr-2">
-                        <input type="checkbox" checked id="switch-@(item.Id)" class="rgbSwitch toggle switch-@(item.Id) " data-id="@(item.Device?.Id)" /><label for="switch-@(item.Id)" class="toggle">Toggle</label>
+                        <input type="checkbox" checked id="switch-(item.Id)" class="rgbSwitch toggle switch-(item.Id) " data-id="(item.Device?.Id)" /><label for="switch-(item.Id)" class="toggle">Toggle</label>
                     </div>
                 </div>
                 <div class="colorsAndScenes">
@@ -88,7 +88,7 @@
             }
 
         }
-        @if (widget.Id > 1)
+        if (widget.Id > 1)
         {
             <br />
             <div class="list-group-item">
@@ -98,10 +98,10 @@
             </div>
         }
     </div>
-    }
+    }-->
 
 
-    <div class="col-sm-12 col-md-6 col-xl-4 widget">
+    @*<div class="col-sm-12 col-md-6 col-xl-4 widget">
         <div class="list-group-item">
             <h4 class="pl-2">Test Chart</h4>
         </div>
@@ -109,7 +109,7 @@
             <div id="chartdiv" style="height: 300px"></div>
         </div>                
     </div>
-</div>   
+</div>*@   
 
 <br />
 <h2 class="font-weight-bold pb-3">Static Room</h2>
@@ -305,9 +305,10 @@
 
     @section Scripts {
         <script type="text/javascript">
+            @*
     @foreach(var item in Model.SelectMany(x => x.Items))
     {
-        @*if (item.Type == WidgetItemTypeEnum.Informer)
+        if (item.Type == WidgetItemTypeEnum.Informer)
         {
         <text>
             setupDeviceNotification(@item.DeviceTopic.Id);
@@ -319,9 +320,9 @@
         <text>
             setupSwitchNotification(@item.DeviceTopic.Id);
         </text>
-        }*@
+        }
     }
-
+*@
 
 
     am4core.ready(function () {

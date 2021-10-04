@@ -1,5 +1,6 @@
 ﻿using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Dto.Pagging;
+using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Options;
 using IoTHomeAssistant.Domain.Repositories;
 using Microsoft.Extensions.Options;
@@ -38,9 +39,30 @@ namespace IoTHomeAssistant.Domain.Services
             return await _deviceRepository.GetDeviceAsync(id);
         }
 
-        public async Task<List<Entities.Device>> GetDevicesAsync()
+        public async Task<List<Entities.Device>> GetDevicesAsync(DeviceTypeEnum? deviceType)
         {
-            return await _deviceRepository.GetDevicesAsync();
+            return await _deviceRepository.GetDevicesAsync(deviceType);
+        }
+
+        public async Task<List<DeviceEventDto>> GetDeviceEventsAsync(DeviceTypeEnum? deviceType, bool? hasValue)
+        {
+            var deviceEvents = new List<DeviceEventDto>();
+            var devices = (await GetDevicesAsync(deviceType))
+                .Where(x => 
+                    x.EventCollection != null &&
+                    x.EventCollection.Events != null &&
+                    x.EventCollection.Events.Any(e => !hasValue.HasValue || e.HasValue == hasValue.Value));
+
+            foreach (var device in devices)
+            {
+                var deviceName = device.Title;
+                foreach (var eventItem in device.EventCollection.Events.Where(e => !hasValue.HasValue || e.HasValue == hasValue.Value))
+                {
+                    deviceEvents.Add(new DeviceEventDto() { DeviceName = deviceName, EventId = eventItem.Id, EventTitle = eventItem.Title });
+                }
+            }
+
+            return deviceEvents;
         }
 
         public List<InfoDevice> GetInfoDevices()

@@ -52,7 +52,7 @@ namespace IoTHomeAssistant.Web
 
             services.AddTransient<ConnectionHubManager>();
             services.AddTransient<NotificationHub>();
-            services.AddTransient<IWidgetRepository, WidgetRepository>();
+            services.AddTransient<IWidgetItemRepository, WidgetItemRepository>();
             services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();
             services.AddTransient<IJobTaskRepository, JobTaskRepository>();
