@@ -30,7 +30,13 @@ namespace IotHomeAssistant.Blazor.Components
 
         public void AddPlugin()
         {
-            Plugin = new PluginEditDto();
+            Plugin = new PluginEditDto()
+            {
+                Configurations = new List<DevicePluginConfigurationDto>()
+                {
+                    new DevicePluginConfigurationDto(){Id =0}
+                }
+            };
             _typeEnabled = true;
             _pluginEnabled = false;
 
@@ -106,14 +112,13 @@ namespace IotHomeAssistant.Blazor.Components
 
         private void Clone()
         {
-            Plugin.Configurations.Add(new DevicePluginConfigurationDto()
-            {
-                Id = 0,
-                Description = string.Empty,
-                Title = string.Empty,
-                Type = string.Empty,
-                Value = string.Empty
-            });
+            Plugin.Configurations.Add(new DevicePluginConfigurationDto());
+        }
+        
+        private EventCallback RemoveConfiguration(DevicePluginConfigurationDto configurationDto)
+        {
+            Plugin.Configurations.Remove(configurationDto);
+            return new EventCallback();
         }
     }
 }

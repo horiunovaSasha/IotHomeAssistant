@@ -39,7 +39,7 @@
                                     <h5 class="mt-2">Конфігурація:</h5>
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-lg-1 col-md-1">
-                                    <SfButton CssClass="e-plus e-icons e-btn-icon e-icon-left e-round mt-2" IsPrimary="true" OnClick="Clone"></SfButton>
+                                    <SfButton CssClass="e-plus e-icons e-btn-icon e-icon-left e-round mt-2" OnClick="Clone"></SfButton>
                                 </div>
                             </div>
 
@@ -47,7 +47,7 @@
                             {
                                 <hr/>
                                 <div class="row">
-                                    @foreach (var item in Plugin.Configurations)
+                                    @foreach (var item in Plugin.Configurations.ToList())
                                     {
                                         <hr/>
                                         <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
@@ -70,8 +70,7 @@
                                             <ValidationMessage For="@(() => item.Description)"/>
                                         </div>
                                         <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1 mt-2">
-                                            @* <SfButton CssClass="e-close e-icons e-btn-icon e-icon-left e-round e-danger mt-2" IsPrimary="true" OnClick="Clone"></SfButton> *@
-                                             <SfButton class="e-delete e-icons e-btn-icon e-icon-left mt-3 e-outline" style="height: 50%" OnClick="Clone"></SfButton>
+                                             <SfButton class="e-delete e-icons e-btn-icon e-icon-left mt-3 e-outline" style="height: 50%" @onclick="() => RemoveConfiguration(item)"></SfButton>
                                         </div>
                                         <hr/>
                                     }
@@ -86,8 +85,6 @@
                                 </div>
 
                             </div>
-                            <SfButton type="button" class="w-100">Clone</SfButton>
-
                         </div>
                         <div class="sfButton" style="display: flex; justify-content: right;">
                             <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
