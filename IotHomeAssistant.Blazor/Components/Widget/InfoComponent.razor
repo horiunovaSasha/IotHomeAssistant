@@ -1,11 +1,27 @@
-﻿<div class="card-wrapper">
+﻿@using Syncfusion.Blazor.SplitButtons;
+
+<div class="card-wrapper">
     <div class="row">
         <div class="col-12 d-flex justify-content-between">
             <img src="@( WidgetItem.Icon != null ? WidgetItem.Icon.Value : "https://cdn-icons-png.flaticon.com/512/2611/2611445.png")" width="65" />
             <div class="w-100">
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
-                        <span class="h5 w-100">@WidgetItem.Title</span>
+                        <span>
+                            <span class="h5 w-100">@WidgetItem.Title</span>
+                            @if (!IsPreview)
+                            {
+                                <span class="ctx-menu">
+                                    <SfDropDownButton Content="">
+                                        <DropDownButtonEvents ItemSelected="MenuItemSelected"></DropDownButtonEvents>
+                                        <DropDownMenuItems>
+                                            <DropDownMenuItem Text="Редагувати" Id="edit" IconCss="e-icons e-edit"></DropDownMenuItem>
+                                            <DropDownMenuItem Text="Видалити" Id="remove" IconCss="e-icons e-delete"></DropDownMenuItem>
+                                        </DropDownMenuItems>
+                                    </SfDropDownButton>
+                                </span>
+                            }
+                        </span>
                         <span class="h3">@(value)@(WidgetItem.SymbolAfter)</span>
                     </div>
                 </div>

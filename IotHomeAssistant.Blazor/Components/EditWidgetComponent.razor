@@ -11,7 +11,7 @@
                     </ul>
                 </div>
                 <div id="right-side" class="p-4">
-                    <EditForm Model="@widget" OnValidSubmit="@Save">
+                    <EditForm Model="@widget" OnValidSubmit="@SaveAsync" Context="CurrentEditContext" @ref="editForm">
                         <DataAnnotationsValidator />
                         <h4>@(widget.Id == 0 ? "Створення віджета" : "Редагування віджета")</h4>
                         <hr />
@@ -28,10 +28,9 @@
                                 <EditLightComponent WidgetItemType="widget.Type"></EditLightComponent>
                             }
                         </div>
-                        <div class="sfButton" style="display: flex; justify-content: right;">
+                        <div class="sfButton d-flex justify-content-end">
                             <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
-                            <SfButton type="button" class="m-3" IsPrimary="true" OnClick="Next">Далі</SfButton>
-                            @*<SfButton type="submit" class="m-3" IsPrimary="true">Далі</SfButton>*@
+                            <SfButton type="button" class="m-3" IsPrimary="true" OnClick="async () => await NextAsync(CurrentEditContext)">@(widget.Type == WidgetItemTypeEnum.Nothing ? "Далі" : "Зберегти")</SfButton>
                         </div>
                     </EditForm>
                 </div>

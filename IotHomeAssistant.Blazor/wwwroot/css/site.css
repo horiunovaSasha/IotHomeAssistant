@@ -255,3 +255,24 @@ footer a.nav-link {
 .paused {
     animation-play-state: paused;
 }
+
+.card-wrapper .ctx-menu {
+    position: absolute;
+    top: -33px;
+    right: -17px;
+}
+
+.card-wrapper .ctx-menu .e-btn {
+    opacity: 0.2;
+}
+
+.card-wrapper .ctx-menu .e-btn:hover {
+    opacity: 1;
+}
+
+.card-wrapper .ctx-menu .e-btn:hover, .card-wrapper .ctx-menu .e-btn, .card-wrapper .ctx-menu .e-css.e-btn:hover, .card-wrapper .ctx-menu .e-css.e-btn {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    outline: none !important;
+
+}

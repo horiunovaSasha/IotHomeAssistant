@@ -53,9 +53,15 @@ namespace IotHomeAssistant.Blazor
             services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();
             services.AddTransient<IJobTaskRepository, JobTaskRepository>();
+            services.AddTransient<IAreaRepository, AreaRepository>();
+            services.AddTransient<IWidgetItemRepository, WidgetItemRepository>();
+
             services.AddTransient<IDeviceService, DeviceService>();
             services.AddTransient<IPluginService, PluginService>();
-            services.AddTransient<IJobTaskService, JobTaskService>();
+            services.AddTransient<IJobTaskService, JobTaskService>();            
+            services.AddTransient<IAreaService, AreaService>();
+            services.AddTransient<IWidgetService, WidgetService>();
+
             services.AddTransient<IEventPublisher, EventPublisher>();
 
             services.AddResponseCompression(opts =>

@@ -21,6 +21,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         public async Task<Device> GetDeviceAsync(int id)
         {
             return await _dbSet
+                .AsNoTracking()
                 .Include(x => x.PluginDevice.Plugin)
                 .Include("PluginDevice.Configurations.PluginConfiguration")
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -47,6 +48,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         public async Task<List<Device>> GetDevicesAsync(DeviceTypeEnum? deviceType)
         {
             return await _dbSet
+                .AsNoTracking()
                 .Where(x => !deviceType.HasValue || x.Type == deviceType.Value)
                 .Include(x => x.DeviceEvents.EventCollection.Events)
                 .Include(x => x.CommandCollection.Commands)

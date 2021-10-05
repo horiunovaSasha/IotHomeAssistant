@@ -1,13 +1,39 @@
 ﻿@using IotHomeAssistant.Blazor.Components.Widget
+@using IoTHomeAssistant.Domain.Entities;
 @using IoTHomeAssistant.Domain.Dto;
+@using Syncfusion.Blazor.SplitButtons;
 @page "/"
 
-<EditWidgetComponent @ref="widgetModal"></EditWidgetComponent>
+<EditWidgetComponent @ref="widgetModal" OnSave="RefreshAreas"></EditWidgetComponent>
+<EditAreaComponent @ref="areaModal" OnSave="RefreshAreas"></EditAreaComponent>
 <div class="d-flex justify-content-end">
-    <SfButton type="button" IsPrimary="true" class="m-3" OnClick="() => widgetModal.AddWidget()">Додати віджет</SfButton>
+    <SfButton type="button" IsPrimary="true" class="m-3" OnClick="() => areaModal.AddArea()">Додати область</SfButton>
 </div>
 
-<h2>Вітальня</h2>
+@foreach (Area area in areas)
+{
+    <h2 class="d-flex">
+        <span class="mr-2">@(area.Title)</span>
+        <SfDropDownButton Content="">
+            <DropDownMenuItems>
+                <DropDownMenuItem Text="Редагувати" IconCss="e-icons e-edit"></DropDownMenuItem>
+                <DropDownMenuItem Text="Додати віджет" IconCss="e-icons e-plus" @onclick="() => widgetModal.AddWidget(area.Id)"></DropDownMenuItem>
+                <DropDownMenuItem Separator=true></DropDownMenuItem>
+                <DropDownMenuItem Text="Видалити" IconCss="e-icons e-delete"></DropDownMenuItem>
+            </DropDownMenuItems>
+        </SfDropDownButton>
+    </h2>
+    <div class="row">
+        @foreach (WidgetItem widget in area.Widgets)
+        {
+            <div class="col-md-12 col-lg-6 col-xl-4">
+                <InfoComponent WidgetItem="new WidgetItemDto(widget)" EditPopup="@widgetModal"></InfoComponent>
+            </div>
+        }
+    </div>
+}
+
+<h2>Static examples</h2>
 <div class="row">
     <div class="col-md-12 col-lg-6 col-xl-4">
         <LightComponent></LightComponent>
@@ -20,11 +46,6 @@
         <SwitchComponent IsChecked="true" Title="Розетка на кухні біля котла" ImageUrl="https://image.flaticon.com/icons/png/512/2865/2865478.png"></SwitchComponent>
         <SwitchComponent IsChecked="false" Title="Торшер у вітальній" ImageUrl="https://image.flaticon.com/icons/png/512/2922/2922352.png"></SwitchComponent>
     </div>
-</div>
-<h2>
-    Кухня
-</h2>
-<div class="row">
     <div class="col-md-12 col-lg-6 col-xl-4">
         <ThermostatComponent></ThermostatComponent>
     </div>
@@ -34,8 +55,6 @@
     <div class="col-md-12 col-lg-6 col-xl-4">
         <BlindsComponent></BlindsComponent>
     </div>
-</div>
-<div class="row">
     <div class="col-md-12 col-lg-6 col-xl-4">
         <InfoComponent WidgetItem="infoWidgetItem"></InfoComponent>
         <TaskComponent></TaskComponent>
@@ -48,7 +67,5 @@
 </div>
 
 @code {
-    EditWidgetComponent widgetModal;
 
-    WidgetItemDto infoWidgetItem = new WidgetItemDto() { Title = "Температура у спальній" };
 }

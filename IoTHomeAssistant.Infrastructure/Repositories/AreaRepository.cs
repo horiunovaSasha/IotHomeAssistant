@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Infrastructure.Repositories
 {
-    public class IconRepository : Repository<Icon, int>, IIconRepository
+    public class AreaRepository : Repository<Area, int>, IAreaRepository
     {
-        public IconRepository(IoTDbContext dbContext) : base(dbContext)
+        public AreaRepository(IoTDbContext dbContext) : base(dbContext)
         {
         }
 
-        public async Task<List<Icon>> GetAllAsync() {
+        public async Task<List<Area>> GetAreasAsync()
+        {
             return await _dbSet
+                .Include(x => x.Widgets)
+                .ThenInclude(x => x.Icon)
                 .ToListAsync();
         }
     }

@@ -11,10 +11,10 @@ namespace IoTHomeAssistant.Domain.Dto
         [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Виберіть пристрій зі списку!")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
         public int DeviceId { get; set; }
-        
-        [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
+
+        [Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
         public int EventId { get; set; }
 
         public Icon Icon { get; set; }
@@ -24,5 +24,29 @@ namespace IoTHomeAssistant.Domain.Dto
         public WidgetItemTypeEnum Type { get; set; }
 
         public string SymbolAfter { get; set; }
+
+        public WidgetItemDto()
+        {
+        }
+
+        public WidgetItemDto(WidgetItem widgetItem)
+        {
+            Id = widgetItem.Id;
+            Title = widgetItem.Title;            
+            Icon = widgetItem.Icon;
+            AreaId = widgetItem.Area.Id;
+            Type = widgetItem.Type;
+            SymbolAfter = widgetItem.SymbolAfter;
+
+            if (widgetItem.DeviceId.HasValue)
+            {
+                DeviceId = widgetItem.DeviceId.Value;
+            }
+
+            if (widgetItem.EventId.HasValue)
+            {
+                EventId = widgetItem.EventId.Value;
+            }
+        }
     }
 }

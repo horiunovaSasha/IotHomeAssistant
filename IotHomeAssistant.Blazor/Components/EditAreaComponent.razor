@@ -1,0 +1,18 @@
+﻿<SfDialog IsModal="true" @bind-Visible="@_visible" ID="area-popup">
+    <DialogTemplates>
+        <Header> @(area.Id == 0 ? "Створення області" : "Редагування області")</Header>
+        <Content>
+            <EditForm Model="@area" OnValidSubmit="@SaveAsync">
+                <DataAnnotationsValidator />
+                <div class="p-4">
+                    <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="area.Title"></SfTextBox>
+                    <ValidationMessage For="@(() => area.Title)" />
+                </div>
+                <div class="sfButton d-flex justify-content-end">
+                    <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
+                    <SfButton type="submit" class="m-3" IsPrimary="true">Зберегти</SfButton>
+                </div>
+            </EditForm>
+        </Content>
+    </DialogTemplates>
+</SfDialog>

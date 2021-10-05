@@ -1,5 +1,7 @@
-﻿using IoTHomeAssistant.Domain.Entities;
+﻿using IoTHomeAssistant.Domain.Dto;
+using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,9 +16,48 @@ namespace IoTHomeAssistant.Domain.Services
             _widgetRepository = widgetRepository;
         }
 
-        public async Task<List<WidgetItem>> GetAllWidgetsAsync()
+        public async Task SaveAsync(WidgetItemDto widgetItem)
         {
-            return await _widgetRepository.GetAllWidgetsAsync();
+            var widget = new WidgetItem()
+            {
+                Id = widgetItem.Id,
+                Title = widgetItem.Title,
+                Type = widgetItem.Type,
+                SymbolAfter = widgetItem.SymbolAfter,
+                AreaId = widgetItem.AreaId
+            };
+
+            if (widgetItem.Icon != null)
+            {
+                widget.IconId = widgetItem.Icon.Id;
+            }
+
+            if (widgetItem.DeviceId > 0)
+            {
+                widget.DeviceId = widgetItem.DeviceId;
+            }
+
+            if (widgetItem.EventId > 0)
+            {
+                widget.EventId = widgetItem.EventId;
+            }
+
+            try
+            {
+                if (widget.Id == 0)
+                {
+                    await _widgetRepository.AddAsync(widget);
+                }
+                else
+                {
+                    await _widgetRepository.UpdateAsync(widget);
+                }
+
+                await _widgetRepository.CommitAsync();
+            } catch(Exception ex)
+            {
+
+            }
         }
     }
 }

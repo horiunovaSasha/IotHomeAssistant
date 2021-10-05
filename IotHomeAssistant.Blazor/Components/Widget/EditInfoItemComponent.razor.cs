@@ -48,5 +48,10 @@ namespace IotHomeAssistant.Blazor.Components.Widget
                 await previewComponent.SubscribeOnEvent();
             }
         }
+
+        private void Save()
+        {
+
+        }
     }
 }

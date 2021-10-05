@@ -3,32 +3,34 @@
 
 @if (WidgetItem.Type == WidgetItemTypeEnum.Informer)
 {
-    <div class="content-wrapper">
-        <IconComponent @ref="iconComponent" OnSelectIcon="OnSelectIcon"></IconComponent>
-        <div class="row">
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
-                <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.Title"></SfTextBox>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
-                <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Пристрій" FloatLabelType="@FloatLabelType.Auto"
-                                DataSource="@deviceEvents" @bind-Value="WidgetItem.EventId">
-                    <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
-                    <DropDownListEvents TValue="int" TItem="DeviceEventDto" ValueChange="OnSelectEvent"></DropDownListEvents>
-                </SfDropDownList>
-            </div>
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6 pt-3">
-                <img src="@( WidgetItem.Icon != null ? WidgetItem.Icon.Value : "https://cdn-icons-png.flaticon.com/512/2611/2611445.png")" width="50" />
-                <SfButton type="button" class="m-3" OnClick="SelectIcon">Вибрати Іконку</SfButton>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
-                <SfTextBox Placeholder="Символ після значення" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.SymbolAfter"></SfTextBox>
-            </div>
+<div class="content-wrapper">
+    <IconComponent @ref="iconComponent" OnSelectIcon="OnSelectIcon"></IconComponent>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.Title"></SfTextBox>
+            <ValidationMessage For="@(() => WidgetItem.Title)" />
         </div>
-        <div class="@(WidgetItem.EventId > 0 && !string.IsNullOrEmpty(WidgetItem.Title) ? "d-block" : "d-none")">
-            <h5 class="mt-3">Демонстрація:</h5>
-            <div class="pl-5 pr-5 pt-3">
-                <InfoComponent WidgetItem="WidgetItem" IsPreview="true" @ref="previewComponent"></InfoComponent>
-            </div>
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Пристрій" FloatLabelType="@FloatLabelType.Auto"
+                            DataSource="@deviceEvents" @bind-Value="WidgetItem.EventId">
+                <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                <DropDownListEvents TValue="int" TItem="DeviceEventDto" ValueChange="OnSelectEvent"></DropDownListEvents>
+            </SfDropDownList>
+            <ValidationMessage For="@(() => WidgetItem.EventId)" />
+        </div>
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6 pt-3">
+            <img src="@( WidgetItem.Icon != null ? WidgetItem.Icon.Value : "https://cdn-icons-png.flaticon.com/512/2611/2611445.png")" width="50" />
+            <SfButton type="button" class="m-3" OnClick="SelectIcon">Вибрати Іконку</SfButton>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+            <SfTextBox Placeholder="Символ після значення" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.SymbolAfter"></SfTextBox>
         </div>
     </div>
+    <div class="@(WidgetItem.EventId > 0 && !string.IsNullOrEmpty(WidgetItem.Title) ? "d-block" : "d-none")">
+        <h5 class="mt-3">Демонстрація:</h5>
+        <div class="pl-5 pr-5 pt-3">
+            <InfoComponent WidgetItem="WidgetItem" IsPreview="true" @ref="previewComponent"></InfoComponent>
+        </div>
+    </div>
+</div>
 }
