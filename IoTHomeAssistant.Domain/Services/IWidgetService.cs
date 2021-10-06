@@ -6,5 +6,6 @@ namespace IoTHomeAssistant.Domain.Services
     public interface IWidgetService
     {
         Task SaveAsync(WidgetItemDto widgetItem);
+        Task RemoveAsync(int id);
     }
 }

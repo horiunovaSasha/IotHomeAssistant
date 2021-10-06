@@ -8,5 +8,6 @@ namespace IoTHomeAssistant.Domain.Services
     {
         Task<List<Area>> GetAreasAsync();
         Task SaveAsync(Area area);
+        Task RemoveAsync(int id);
     }
 }

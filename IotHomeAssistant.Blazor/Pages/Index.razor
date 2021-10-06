@@ -6,6 +6,19 @@
 
 <EditWidgetComponent @ref="widgetModal" OnSave="RefreshAreas"></EditWidgetComponent>
 <EditAreaComponent @ref="areaModal" OnSave="RefreshAreas"></EditAreaComponent>
+
+<DeleteConfirmComponent 
+    @ref="deleteAreaConfirm" 
+    Title="Ви дійсно бажаєте вилучити дану області з усіма її віджетами?"
+    OnConfirm="DeleteAreaAsync">
+</DeleteConfirmComponent>
+
+<DeleteConfirmComponent 
+    @ref="deleteWidgetConfirm" 
+    Title="Ви дійсно бажаєте вилучити даний віджет?"
+    OnConfirm="DeleteWidgetAsync">
+</DeleteConfirmComponent>
+
 <div class="d-flex justify-content-end">
     <SfButton type="button" IsPrimary="true" class="m-3" OnClick="() => areaModal.AddArea()">Додати область</SfButton>
 </div>
@@ -18,7 +31,7 @@
             <DropDownButtonEvents ItemSelected="(args) => MenuItemSelected(args, area)"></DropDownButtonEvents>
             <DropDownMenuItems>
                 <DropDownMenuItem Text="Редагувати" Id="edit" IconCss="e-icons e-edit"></DropDownMenuItem>
-                <DropDownMenuItem Text="Додати віджет" Id="add" IconCss="e-icons e-plus" @onclick="() => widgetModal.AddWidget(area.Id)"></DropDownMenuItem>
+                <DropDownMenuItem Text="Додати віджет" Id="add" IconCss="e-icons e-plus"></DropDownMenuItem>
                 <DropDownMenuItem Separator=true></DropDownMenuItem>
                 <DropDownMenuItem Text="Видалити" Id="remove" IconCss="e-icons e-delete"></DropDownMenuItem>
             </DropDownMenuItems>
@@ -28,13 +41,17 @@
         @foreach (WidgetItem widget in area.Widgets)
         {
             <div class="col-md-12 col-lg-6 col-xl-4">
-                <InfoComponent WidgetItem="new WidgetItemDto(widget)" OnEditWidget="() => widgetModal.UpdateWidget(new WidgetItemDto(widget))"></InfoComponent>
+                <InfoComponent 
+                    WidgetItem="new WidgetItemDto(widget)" 
+                    OnEditWidget="() => widgetModal.UpdateWidget(new WidgetItemDto(widget))"
+                    OnDeleteWidget="() => OnDeleteWidget(widget.Id)">
+                </InfoComponent>
             </div>
         }
     </div>
 }
 
-<h2>Static examples</h2>
+@*<h2>Static examples</h2>
 <div class="row">
     <div class="col-md-12 col-lg-6 col-xl-4">
         <LightComponent></LightComponent>
@@ -65,7 +82,7 @@
     </div>
     <div class="col-md-12 col-lg-6 col-xl-4">
     </div>
-</div>
+</div>*@
 
 @code {
 

@@ -280,3 +280,7 @@ footer a.nav-link {
 img.select-icon {
     cursor: pointer;
 }
+
+#delete-confirmation {
+    width: 50rem !important;
+}

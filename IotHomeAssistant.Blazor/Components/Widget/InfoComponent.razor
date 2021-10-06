@@ -9,7 +9,10 @@
                             <span class="h5 w-100">@WidgetItem.Title</span>
                             @if (!IsPreview)
                             {
-                                <ItemContextMenuComponent OnEdit="() => OnEditWidget.InvokeAsync()"></ItemContextMenuComponent>
+                                <ItemContextMenuComponent 
+                                    OnEdit="() => OnEditWidget.InvokeAsync()" 
+                                    OnDelete="() => OnDeleteWidget.InvokeAsync()">
+                                </ItemContextMenuComponent>
                             }
                         </span>
                         <span class="h3">@(value)@(WidgetItem.SymbolAfter)</span>

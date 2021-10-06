@@ -16,6 +16,12 @@ namespace IoTHomeAssistant.Domain.Services
             _widgetRepository = widgetRepository;
         }
 
+        public async Task RemoveAsync(int id)
+        {
+            await _widgetRepository.DeleteAsync(id);
+            await _widgetRepository.CommitAsync();
+        }
+
         public async Task SaveAsync(WidgetItemDto widgetItem)
         {
             var widget = new WidgetItem()

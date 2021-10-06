@@ -1,0 +1,15 @@
+﻿@using Syncfusion.Blazor.Popups
+
+<SfDialog Visible="@_isVisible" IsModal="true" ID="delete-confirmation">
+    <DialogTemplates>
+        <Content>
+            <div class="h3 p-5">@Title</div>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton OnClick="() => _isVisible = false" Content="Скасувати">
+        </DialogButton>
+        <DialogButton OnClick="ConfirmClickAsync" IsPrimary="true" Content="OK">
+        </DialogButton>
+    </DialogButtons>
+</SfDialog>

@@ -20,6 +20,9 @@ namespace IotHomeAssistant.Blazor.Components.Widget
 
         [Parameter]
         public EventCallback OnEditWidget { get; set; }
+        
+        [Parameter]
+        public EventCallback OnDeleteWidget { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
