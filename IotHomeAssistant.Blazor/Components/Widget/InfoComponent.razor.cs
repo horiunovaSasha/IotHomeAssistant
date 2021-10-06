@@ -1,7 +1,6 @@
 ﻿using IoTHomeAssistant.Domain.Dto;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using Syncfusion.Blazor.SplitButtons;
 using System.Threading.Tasks;
 
 namespace IotHomeAssistant.Blazor.Components.Widget
@@ -17,10 +16,10 @@ namespace IotHomeAssistant.Blazor.Components.Widget
         public WidgetItemDto WidgetItem { get; set; } = new WidgetItemDto();
 
         [Parameter]
-        public EditWidgetComponent EditPopup { get; set; }
+        public bool IsPreview { get; set; }
 
         [Parameter]
-        public bool IsPreview { get; set; }
+        public EventCallback OnEditWidget { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -43,14 +42,6 @@ namespace IotHomeAssistant.Blazor.Components.Widget
             });
 
             await hubConnection.StartAsync();
-        }
-
-        private void MenuItemSelected(MenuEventArgs args)
-        {
-            if (args.Item.Id == "edit")
-            {
-                EditPopup.UpdateWidget(WidgetItem);
-            }
         }
     }
 }

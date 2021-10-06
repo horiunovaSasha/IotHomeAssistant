@@ -276,3 +276,7 @@ footer a.nav-link {
     outline: none !important;
 
 }
+
+img.select-icon {
+    cursor: pointer;
+}

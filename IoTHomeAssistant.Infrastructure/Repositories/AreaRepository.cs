@@ -16,6 +16,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         public async Task<List<Area>> GetAreasAsync()
         {
             return await _dbSet
+                .AsNoTracking()
                 .Include(x => x.Widgets)
                 .ThenInclude(x => x.Icon)
                 .ToListAsync();

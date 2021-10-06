@@ -26,6 +26,17 @@ namespace IotHomeAssistant.Blazor.Components
             StateHasChanged();
         }
 
+        public void UpdatewArea(Area areaItem)
+        {
+            area = new AreaDto() { 
+                Id = areaItem.Id,
+                Title = areaItem.Title
+            };
+            _visible = true;
+
+            StateHasChanged();
+        }
+
         private async Task SaveAsync()
         {
             await AreaService.SaveAsync(new Area()

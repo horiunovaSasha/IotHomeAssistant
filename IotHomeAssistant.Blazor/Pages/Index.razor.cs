@@ -3,6 +3,7 @@ using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Components;
+using Syncfusion.Blazor.SplitButtons;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -29,6 +30,19 @@ namespace IotHomeAssistant.Blazor.Pages
         private async Task RefreshAreas()
         {
             areas = await AreaService.GetAreasAsync();
+        }
+
+        private void MenuItemSelected(MenuEventArgs args, Area area)
+        {
+            if (args.Item.Id == "edit")
+            {
+                areaModal.UpdatewArea(area);
+            }
+
+            if (args.Item.Id == "add")
+            {
+                widgetModal.AddWidget(area.Id);
+            }
         }
     }
 }

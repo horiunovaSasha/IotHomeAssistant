@@ -15,19 +15,20 @@
     <h2 class="d-flex">
         <span class="mr-2">@(area.Title)</span>
         <SfDropDownButton Content="">
+            <DropDownButtonEvents ItemSelected="(args) => MenuItemSelected(args, area)"></DropDownButtonEvents>
             <DropDownMenuItems>
-                <DropDownMenuItem Text="Редагувати" IconCss="e-icons e-edit"></DropDownMenuItem>
-                <DropDownMenuItem Text="Додати віджет" IconCss="e-icons e-plus" @onclick="() => widgetModal.AddWidget(area.Id)"></DropDownMenuItem>
+                <DropDownMenuItem Text="Редагувати" Id="edit" IconCss="e-icons e-edit"></DropDownMenuItem>
+                <DropDownMenuItem Text="Додати віджет" Id="add" IconCss="e-icons e-plus" @onclick="() => widgetModal.AddWidget(area.Id)"></DropDownMenuItem>
                 <DropDownMenuItem Separator=true></DropDownMenuItem>
-                <DropDownMenuItem Text="Видалити" IconCss="e-icons e-delete"></DropDownMenuItem>
+                <DropDownMenuItem Text="Видалити" Id="remove" IconCss="e-icons e-delete"></DropDownMenuItem>
             </DropDownMenuItems>
         </SfDropDownButton>
     </h2>
-    <div class="row">
+    <div class="row mt-2 mb-4">
         @foreach (WidgetItem widget in area.Widgets)
         {
             <div class="col-md-12 col-lg-6 col-xl-4">
-                <InfoComponent WidgetItem="new WidgetItemDto(widget)" EditPopup="@widgetModal"></InfoComponent>
+                <InfoComponent WidgetItem="new WidgetItemDto(widget)" OnEditWidget="() => widgetModal.UpdateWidget(new WidgetItemDto(widget))"></InfoComponent>
             </div>
         }
     </div>
