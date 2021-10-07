@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IoTHomeAssistant.Infrastructure.Repositories
 {
-    public abstract class Repository<TEntity, TType> : IRepository<TEntity, TType> 
-        where TEntity : class, IEntity<TType> 
+    public abstract class Repository<TEntity, TType> : IRepository<TEntity, TType>
+        where TEntity : class, IEntity<TType>
         where TType : struct, IEquatable<TType>
     {
         protected readonly IoTDbContext _dbContext;
@@ -22,35 +22,36 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
         }
-        
+
         public TEntity Get(TType id) => _dbSet.FirstOrDefault(x => id.Equals(x.Id));
         public IEnumerable<TEntity> Get() => _dbSet.AsEnumerable();
         public IAsyncEnumerable<TEntity> GetAsync() => _dbSet.AsAsyncEnumerable();
-        
+
         public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
             => _dbSet.Where(predicate).AsEnumerable();
-        
+
         public async Task<TEntity> GetAsync(TType id)
             => await _dbSet.FirstOrDefaultAsync(x => id.Equals(x.Id));
 
         public IAsyncEnumerable<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
             => _dbSet.Where(predicate).AsAsyncEnumerable();
-        
+
         public void Add(TEntity entity) => _dbSet.Add(entity);
-        public async Task AddAsync(TEntity entity) => await _dbSet.AddAsync(entity);
+        public async Task AddAsync(TEntity entity) {
+            await _dbSet.AddAsync(entity);
+        }
         
-        public void Update(TEntity entity) => UpdateAsync(entity).RunSynchronously();
+        public void Update(TEntity entity) => UpdateAsync(entity).Wait();
         
-        public void Delete(TType id) => DeleteAsync(id).RunSynchronously();
-        public void Delete(TEntity entity) => DeleteAsync(entity).RunSynchronously();
+        public void Delete(TType id) => DeleteAsync(id).Wait();
+        public void Delete(TEntity entity) => DeleteAsync(entity).Wait();
         
         public void Commit() => _dbContext.SaveChanges();
         public async Task CommitAsync() => await _dbContext.SaveChangesAsync();
         
         public async Task UpdateAsync(TEntity entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbSet.Attach(entity);
+            DetachLocal(entity.Id);
             _dbContext.Update(entity);
 
             await Task.CompletedTask;
@@ -76,6 +77,18 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
             }
 
             await Task.CompletedTask;
+        }
+
+        void DetachLocal(TType entryId)
+        {
+            var local = _dbContext.Set<TEntity>()
+                .Local
+                .FirstOrDefault(entry => entry.Id.Equals(entryId));
+
+            if (local != null)
+            {
+                _dbContext.Entry(local).State = EntityState.Detached;
+            }
         }
     }
 }

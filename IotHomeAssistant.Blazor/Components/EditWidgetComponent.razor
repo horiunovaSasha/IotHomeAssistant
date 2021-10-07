@@ -23,8 +23,8 @@
 
                             @if (_canGoNext)
                             {
-                                <EditInfoItemComponent WidgetItem="widget"></EditInfoItemComponent>
-                                <EditSwitchComponent WidgetItemType="widget.Type"></EditSwitchComponent>
+                                <EditInfoItemComponent WidgetItem="widget" EditContext="CurrentEditContext" EditForm="editForm" />
+                                <EditSwitchItemComponent WidgetItem="widget" EditContext="CurrentEditContext" EditForm="editForm" />
                                 <EditLightComponent WidgetItemType="widget.Type"></EditLightComponent>
                             }
                         </div>

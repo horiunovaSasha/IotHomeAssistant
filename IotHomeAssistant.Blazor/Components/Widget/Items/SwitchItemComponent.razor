@@ -1,21 +1,22 @@
 ﻿@using IoTHomeAssistant.Domain.Enums;
 
-@if (WidgetItem.Type == WidgetItemTypeEnum.Informer)
+@if (WidgetItem.Type == WidgetItemTypeEnum.Switcher)
 {
     <div class="card-wrapper">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <img src="@( WidgetItem.Icon != null ? WidgetItem.Icon.Value : "https://cdn-icons-png.flaticon.com/512/2611/2611445.png")" width="65" />
+                <img src="@(WidgetItem.Icon.Value)" height="65" />
                 <div class="w-100">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-between">
+                            <span class="h5 w-100">@WidgetItem.Title</span>
                             <span>
-                                <span class="h5 w-100">@WidgetItem.Title</span>
+                                <SfSwitch CssClass="e-large" @bind-Checked="_isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
                                 <ItemContextMenuComponent IsPreview="IsPreview"
-                                    OnEdit="() => OnEditWidget.InvokeAsync()"
-                                    OnDelete="() => OnDeleteWidget.InvokeAsync()" />
+                                                          OnEdit="() => OnEditWidget.InvokeAsync()"
+                                                          OnDelete="() => OnDeleteWidget.InvokeAsync()">
+                                </ItemContextMenuComponent>
                             </span>
-                            <span class="h3">@(value)@(WidgetItem.SymbolAfter)</span>
                         </div>
                     </div>
                 </div>

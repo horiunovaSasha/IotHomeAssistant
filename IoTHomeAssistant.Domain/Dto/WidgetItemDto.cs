@@ -14,8 +14,11 @@ namespace IoTHomeAssistant.Domain.Dto
         [Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
         public int DeviceId { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
+        //[Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
         public int EventId { get; set; }
+
+        //[Range(1, int.MaxValue, ErrorMessage = "Виберіть тип!")]
+        public int IconId { get; set; }
 
         public Icon Icon { get; set; }
 

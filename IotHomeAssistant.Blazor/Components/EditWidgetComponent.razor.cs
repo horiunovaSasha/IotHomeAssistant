@@ -60,6 +60,20 @@ namespace IotHomeAssistant.Blazor.Components
         {
             if (_canGoNext) 
             {
+                editForm.ClearValidationMessages();
+                var messageStore = new ValidationMessageStore(editContext);
+
+                if (widget.Type == WidgetItemTypeEnum.Informer && widget.EventId == 0) {
+                    messageStore.Add(editContext.Field("EventId"), "Виберіть подію пристрою зі списку!");
+                    editContext.NotifyValidationStateChanged();
+                }
+
+                if (widget.Type == WidgetItemTypeEnum.Switcher && widget.IconId == 0)
+                {
+                    messageStore.Add(editContext.Field("IconId"), "Виберіть тип перемикача!");                        
+                    editContext.NotifyValidationStateChanged();
+                }
+
                 if (!editContext.Validate())
                     editContext.NotifyValidationStateChanged();
                 else

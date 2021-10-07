@@ -1,0 +1,41 @@
+﻿@using IoTHomeAssistant.Domain.Dto;
+@using IoTHomeAssistant.Domain.Enums;
+@using IoTHomeAssistant.Domain.Entities;
+
+@if (WidgetItem.Type == WidgetItemTypeEnum.Switcher)
+{
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.Title"></SfTextBox>
+                <ValidationMessage For="@(() => WidgetItem.Title)" />
+            </div>
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                <SfDropDownList TValue="int" TItem="Device" Placeholder="Пристрій" DataSource="@devices" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.DeviceId">
+                    <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
+                </SfDropDownList>
+                <ValidationMessage For="@(() => WidgetItem.DeviceId)" />
+            </div>
+        </div>
+        <h5>Тип:</h5>
+        <div class="widget-types @CssClass row">
+            <div class="col-lg-12 nav">               
+                @foreach (Icon item in icons)
+                {
+                    <a class="nav-link col-xs-6 col-md-4 col-lg-4 @(WidgetItem.Icon != null && WidgetItem.Icon.Id == item.Id ? CssClass : string.Empty)" @onclick="() => OnSelectType(item)">
+                        <label><img src="@(item.Value)" height="64" /></label><br />
+                        @item.Title
+                    </a>
+                }
+            </div>
+            <div class="col-12 pt-3 text-center">
+                <ValidationMessage For="@(() => WidgetItem.IconId)" />
+            </div>
+        </div>
+        @if (WidgetItem.DeviceId > 0 && WidgetItem.Icon != null && !string.IsNullOrEmpty(WidgetItem.Title))
+        {
+            <h5>Демонстрація:</h5>
+            <SwitchItemComponent WidgetItem="WidgetItem" IsPreview="true"></SwitchItemComponent>
+        }
+    </div>
+}

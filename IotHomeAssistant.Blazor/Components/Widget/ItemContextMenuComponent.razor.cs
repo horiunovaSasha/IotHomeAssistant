@@ -11,6 +11,9 @@ namespace IotHomeAssistant.Blazor.Components.Widget
         [Parameter]
         public EventCallback OnDelete{ get; set; }
 
+        [Parameter]
+        public bool IsPreview { get; set; }
+
         private void MenuItemSelected(MenuEventArgs args)
         {
             if (args.Item.Id == "edit")

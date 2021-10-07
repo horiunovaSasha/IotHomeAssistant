@@ -7,7 +7,6 @@ namespace IoTHomeAssistant.Domain.Entities
         public int Id { get; set; }
         public string Title { get; set; }
 
-        public virtual ICollection<Device> Devices { get; set; }
         public virtual ICollection<WidgetItem> Widgets { get; set; }
     }
 }

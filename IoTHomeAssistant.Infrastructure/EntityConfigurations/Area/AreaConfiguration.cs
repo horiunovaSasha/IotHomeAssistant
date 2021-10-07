@@ -12,7 +12,6 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
 
-            builder.HasMany(x => x.Devices);
             builder.HasMany(x => x.Widgets);
         }
     }

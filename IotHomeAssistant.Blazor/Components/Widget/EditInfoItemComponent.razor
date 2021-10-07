@@ -11,7 +11,7 @@
             <ValidationMessage For="@(() => WidgetItem.Title)" />
         </div>
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
-            <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Пристрій" FloatLabelType="@FloatLabelType.Auto"
+            <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Подія пристрою" FloatLabelType="@FloatLabelType.Auto"
                             DataSource="@deviceEvents" @bind-Value="WidgetItem.EventId">
                 <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
                 <DropDownListEvents TValue="int" TItem="DeviceEventDto" ValueChange="OnSelectEvent"></DropDownListEvents>

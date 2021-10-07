@@ -17,7 +17,6 @@ namespace IotHomeAssistant.Blazor.Pages
         protected DeleteConfirmComponent deleteWidgetConfirm;
 
         protected List<Area> areas = new List<Area>();
-        protected WidgetItemDto infoWidgetItem = new WidgetItemDto() { Title = "Температура у спальній" };
 
         private int _areaIdToRemove;
         private int _widgetIdToRemove;

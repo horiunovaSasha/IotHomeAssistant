@@ -1,7 +1,9 @@
-﻿using IoTHomeAssistant.Domain.Dto;
+﻿using IotHomeAssistant.Blazor.Extensions;
+using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Syncfusion.Blazor.DropDowns;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,12 @@ namespace IotHomeAssistant.Blazor.Components.Widget
 
         [Parameter]
         public WidgetItemDto WidgetItem { get; set; }
+
+        [Parameter]
+        public EditForm EditForm { get; set; }
+
+        [Parameter]
+        public EditContext EditContext { get; set; }
 
         [Inject]
         public IDeviceService DeviceService { get; set; }        
@@ -44,6 +52,10 @@ namespace IotHomeAssistant.Blazor.Components.Widget
         {
             if (args.Value > 0)
             {
+                EditForm.ClearValidationMessages();
+                EditContext.Validate();
+                EditContext.NotifyValidationStateChanged();
+
                 WidgetItem.DeviceId = deviceEvents.First(x => x.EventId == args.Value).DeviceId;
                 await previewComponent.SubscribeOnEvent();
             }
