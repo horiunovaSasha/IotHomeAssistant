@@ -1,0 +1,48 @@
+﻿@using IoTHomeAssistant.Domain.Enums;
+@using IotHomeAssistant.Blazor.Data; 
+@using Syncfusion.Blazor.Maps
+
+@if (WidgetItem.Type == WidgetItemTypeEnum.WeatherForecast)
+{
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <SfTextBox Placeholder="Місто" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.Title"></SfTextBox>
+            <ValidationMessage For="@(() => WidgetItem.Title)" />
+        </div>
+    </div>
+    <div class="map">
+        <SfMaps Height="16em">
+            <MapsEvents OnDoubleClick="@OnMapClickEvent"></MapsEvents>
+            <MapsCenterPosition Latitude="@geoInfo.Latitude" Longitude="@geoInfo.Longitude"></MapsCenterPosition>
+            <MapsZoomSettings Enable="true" ZoomFactor="13">
+                <MapsZoomToolbarSettings>
+                    <MapsZoomToolbarButton ToolbarItems="new List<Syncfusion.Blazor.Maps.ToolbarItem>() {
+                        Syncfusion.Blazor.Maps.ToolbarItem.Zoom,
+                        Syncfusion.Blazor.Maps.ToolbarItem.ZoomIn,
+                        Syncfusion.Blazor.Maps.ToolbarItem.ZoomOut,
+                        Syncfusion.Blazor.Maps.ToolbarItem.Pan,
+                        Syncfusion.Blazor.Maps.ToolbarItem.Reset }"></MapsZoomToolbarButton>
+                </MapsZoomToolbarSettings>
+            </MapsZoomSettings>
+            <MapsLayers>
+                <MapsLayer UrlTemplate="http://mt1.google.com/vt/lyrs=m@129&hl=en&x=tileX&y=tileY&z=level" TValue="string">
+                    <MapsMarkerSettings>
+                        <MapsMarker Visible="geoInfo.Longitude > 0 && geoInfo.Latitude > 0" DataSource="new List<GeoInfo>() { geoInfo }" Height="25" Width="25" Fill="red" DashArray="1" Opacity="0.9"
+                                    Shape="Syncfusion.Blazor.Maps.MarkerType.Balloon" TValue="GeoInfo">
+                        </MapsMarker>
+                    </MapsMarkerSettings>
+                </MapsLayer>
+            </MapsLayers>
+        </SfMaps>
+        <small class="pl-2">*Подвійний клік миші, або довге затиснення на планшеті чи телефоні дозволяє змінити позицію маркеру</small>
+    </div>
+    @if (geoInfo.Longitude > 0 && geoInfo.Longitude > 0 && !string.IsNullOrEmpty(WidgetItem.Title))
+    {
+    <h5 class="mt-3">Демонстрація:</h5>
+    <div class="row justify-content-center pt-3">
+        <WeatherComponent WidgetItem="WidgetItem" IsPreview="true"></WeatherComponent>
+    </div>
+    }
+</div>
+}

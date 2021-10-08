@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="3.0.0-preview1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.10" />
@@ -16,11 +15,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-    <PackageReference Include="MimeKit" Version="3.0.0-preview1" />
-    <PackageReference Include="Syncfusion.Blazor.Cards" Version="19.2.0.62" />
-    <PackageReference Include="Syncfusion.Blazor.Grid" Version="19.2.0.62" />
-    <PackageReference Include="Syncfusion.Blazor.QueryBuilder" Version="19.2.0.62" />
+    <PackageReference Include="Syncfusion.Blazor.Cards" Version="19.3.0.44" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="19.3.0.44" />
+    <PackageReference Include="Syncfusion.Blazor.Maps" Version="19.3.0.44" />
+    <PackageReference Include="Syncfusion.Blazor.QueryBuilder" Version="19.3.0.44" />
   </ItemGroup>
 
   <ItemGroup>

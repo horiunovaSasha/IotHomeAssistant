@@ -11,14 +11,11 @@ namespace IoTHomeAssistant.Domain.Dto
         [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
         public string Title { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
         public int DeviceId { get; set; }
 
-        //[Range(1, int.MaxValue, ErrorMessage = "Виберіть пристрій зі списку!")]
         public int EventId { get; set; }
 
-        //[Range(1, int.MaxValue, ErrorMessage = "Виберіть тип!")]
-        public int IconId { get; set; }
+        public int IconId { get; set; }        
 
         public Icon Icon { get; set; }
 
@@ -27,6 +24,10 @@ namespace IoTHomeAssistant.Domain.Dto
         public WidgetItemTypeEnum Type { get; set; }
 
         public string SymbolAfter { get; set; }
+
+        public int JobTaskId { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
 
         public WidgetItemDto()
         {
@@ -49,6 +50,21 @@ namespace IoTHomeAssistant.Domain.Dto
             if (widgetItem.EventId.HasValue)
             {
                 EventId = widgetItem.EventId.Value;
+            }
+
+            if (widgetItem.JobTaskId.HasValue)
+            {
+                JobTaskId = widgetItem.JobTaskId.Value;
+            }
+
+            if (widgetItem.Latitude.HasValue)
+            {
+                Latitude = widgetItem.Latitude.Value;
+            }
+
+            if (widgetItem.Longitude.HasValue)
+            {
+                Longitude = widgetItem.Longitude.Value;
             }
         }
     }

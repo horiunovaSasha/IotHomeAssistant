@@ -1,0 +1,29 @@
+﻿@using IoTHomeAssistant.Domain.Entities;
+
+@if (GetDeviceTypeEnum().HasValue)
+{
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.Title"></SfTextBox>
+            <ValidationMessage For="@(() => WidgetItem.Title)" />
+        </div>
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <SfDropDownList TValue="int" TItem="Device" Placeholder="Пристрій" DataSource="@devices" FloatLabelType="@FloatLabelType.Auto" @bind-Value="WidgetItem.DeviceId">
+                <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
+                <DropDownListEvents TValue="int" TItem="Device" ValueChange="OnSelectEvent"></DropDownListEvents>
+            </SfDropDownList>
+            <ValidationMessage For="@(() => WidgetItem.DeviceId)" />
+        </div>
+    </div>
+    @if (WidgetItem.DeviceId > 0 && !string.IsNullOrEmpty(WidgetItem.Title))
+    {
+        <h5>Демонстрація:</h5>
+        <LightComponent WidgetItem="WidgetItem" IsPreview="true"></LightComponent>
+        <ClimateComponent WidgetItem="WidgetItem" IsPreview="true"></ClimateComponent>
+        <CleanerComponent WidgetItem="WidgetItem" IsPreview="true"></CleanerComponent>
+        <ThermostatComponent WidgetItem="WidgetItem" IsPreview="true"></ThermostatComponent>
+        <BlindsComponent WidgetItem="WidgetItem" IsPreview="true"></BlindsComponent>
+    }
+</div>
+}

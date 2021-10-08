@@ -1,7 +1,13 @@
-﻿<div class="card-wrapper">
-    <div class="row">
+﻿@using IoTHomeAssistant.Domain.Enums;
+@using IotHomeAssistant.Blazor.Data;
+@inherits BaseItemComponent
+
+@if (WidgetItem.Type == WidgetItemTypeEnum.WeatherForecast)
+{
+<div class="card-wrapper">
+    <div class="row">        
         <div class="col-12 col-md-4 col-sm-3">
-            <h5>Кіцмань</h5>
+            <h5>@WidgetItem.Title</h5>
             <h6>П'ятниця, 1 Жовтня</h6>
             <h5>19:06</h5>
         </div>
@@ -21,6 +27,9 @@
             <h6>Вологість: 37%</h6>
             <h6>Вітер: 5.85m/s</h6>
             <h6>B:16° H:6°</h6>
+            <ItemContextMenuComponent IsPreview="IsPreview"
+                OnEdit="() => OnEditWidget.InvokeAsync()"
+                OnDelete="() => OnDeleteWidget.InvokeAsync()" />
         </div>
 
         <div class="col-lg-3 col-md-6 border-right text-center">
@@ -44,6 +53,5 @@
         </div>
     </div>
 </div>
-@code {
     //https://api.openweathermap.org/data/2.5/onecall?lat=48.2915&lon=25.9403&exclude=current,minutely,hourly,alerts&lang=ua&units=metric&appid=9c25b6c6b12f8ad20a25e9dd63d0f80f
-} 
+}

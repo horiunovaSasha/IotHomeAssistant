@@ -58,10 +58,18 @@ namespace IotHomeAssistant.Blazor.Components
 
         private async Task NextAsync(EditContext editContext)
         {
-            if (_canGoNext) 
+            if (_canGoNext)
             {
                 editForm.ClearValidationMessages();
                 var messageStore = new ValidationMessageStore(editContext);
+
+                if (widget.Type != WidgetItemTypeEnum.CustomScript && 
+                    widget.Type != WidgetItemTypeEnum.WeatherForecast && 
+                    widget.DeviceId == 0)
+                {
+                    messageStore.Add(editContext.Field("DeviceId"), "Виберіть пристрій зі списку!");
+                    editContext.NotifyValidationStateChanged();
+                }
 
                 if (widget.Type == WidgetItemTypeEnum.Informer && widget.EventId == 0) {
                     messageStore.Add(editContext.Field("EventId"), "Виберіть подію пристрою зі списку!");
@@ -71,6 +79,12 @@ namespace IotHomeAssistant.Blazor.Components
                 if (widget.Type == WidgetItemTypeEnum.Switcher && widget.IconId == 0)
                 {
                     messageStore.Add(editContext.Field("IconId"), "Виберіть тип перемикача!");                        
+                    editContext.NotifyValidationStateChanged();
+                }
+
+                if (widget.Type == WidgetItemTypeEnum.CustomScript && widget.JobTaskId == 0)
+                {
+                    messageStore.Add(editContext.Field("JobTaskId"), "Виберіть задачу зі списку!");
                     editContext.NotifyValidationStateChanged();
                 }
 

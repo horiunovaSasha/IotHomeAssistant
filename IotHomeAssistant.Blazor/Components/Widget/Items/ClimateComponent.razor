@@ -1,0 +1,59 @@
+﻿@using IoTHomeAssistant.Domain.Enums;
+@using IotHomeAssistant.Blazor.Data;
+@inherits BaseItemComponent
+
+@if (WidgetItem.Type == WidgetItemTypeEnum.AC)
+{
+    <div class="card-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <label class="h4">@WidgetItem.Title</label>
+                <ItemContextMenuComponent IsPreview="IsPreview" OnEdit="() => OnEditWidget.InvokeAsync()" OnDelete="() => OnDeleteWidget.InvokeAsync()" />
+            </div>
+            <div class="col-12">
+                <img src="https://image.flaticon.com/icons/png/512/911/911409.png" height="96">
+                <div class="float-right" style="width: 175px">
+                    <button type="button" class="e-control e-btn e-lib mr-2 mb-2">-</button>
+                    <span class="h2">22º</span>
+                    <button type="button" class="e-control e-btn e-lib ml-2 mb-2">+</button>
+                </div>
+            </div>
+            <div class="col-12" style="padding-right: 2.6em; margin-top: -2.5em;">
+                <div class="float-right">
+                    <ItemContextMenuComponent IsPreview="IsPreview"
+                        OnEdit="() => OnEditWidget.InvokeAsync()"
+                        OnDelete="() => OnDeleteWidget.InvokeAsync()" />
+                    <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center pr-5">
+                <img src="https://cdn-icons-png.flaticon.com/512/1179/1179825.png" width="35" height="35" />
+                <input type="range" class="form-range ml-2 mr-2" min="1" max="4" step="1" />Min
+            </div>
+            <div class="col-12 mt-4 d-flex justify-content-between pr-sm-1 pl-sm-1 pr-4 pl-4">
+                <span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3338/3338663.png" width="35" /><br />
+                    Auto
+                </span>
+                <span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/642/642000.png" width="35" /><br />
+                    Cool
+                </span>
+                <span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/824/824686.png" width="35" /><br />
+                    &nbsp;Dry
+                </span>
+                <span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/979/979619.png" width="35" /><br />
+                    &nbsp;Fan
+                </span>
+                <span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3380/3380402.png" width="35" /><br />
+                    Heat
+                </span>
+            </div>
+        </div>
+    </div>
+}

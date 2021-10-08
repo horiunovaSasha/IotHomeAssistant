@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Syncfusion.Blazor.DropDowns;
 
 namespace IotHomeAssistant.Blazor.Components.Widget.Edit
 {
@@ -48,8 +49,32 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Edit
             WidgetItem.IconId = icon.Id;
 
             EditForm.ClearValidationMessages();
+
+            if (WidgetItem.DeviceId == 0)
+            {
+                var messageStore = new ValidationMessageStore(EditContext);
+                messageStore.Add(EditContext.Field("DeviceId"), "Виберіть пристрій зі списку!");
+            }
+
             EditContext.Validate();
             EditContext.NotifyValidationStateChanged();
+        }
+
+        private async Task OnSelectEvent(ChangeEventArgs<int, Device> args)
+        {
+            if (args.Value > 0)
+            {
+                EditForm.ClearValidationMessages();
+
+                if (WidgetItem.IconId == 0)
+                {
+                    var messageStore = new ValidationMessageStore(EditContext);
+                    messageStore.Add(EditContext.Field("IconId"), "Виберіть тип перемикача!");
+                }
+
+                EditContext.Validate();
+                EditContext.NotifyValidationStateChanged();
+            }
         }
     }
 }
