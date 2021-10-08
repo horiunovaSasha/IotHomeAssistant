@@ -284,3 +284,7 @@ img.select-icon {
 #delete-confirmation {
     width: 50rem !important;
 }
+
+#area-popup {
+    width: 30rem !important;
+}

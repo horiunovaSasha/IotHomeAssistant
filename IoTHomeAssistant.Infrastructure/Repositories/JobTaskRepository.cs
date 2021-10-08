@@ -52,5 +52,10 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 .Include(x => x.Executions)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<List<JobTask>> GetJobTasksAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
     }
 }

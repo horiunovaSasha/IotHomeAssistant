@@ -1,19 +1,18 @@
 ﻿using IotHomeAssistant.Blazor.Extensions;
 using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Entities;
-using IoTHomeAssistant.Domain.Services;
+using IoTHomeAssistant.Domain.Repositories;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Syncfusion.Blazor.DropDowns;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace IotHomeAssistant.Blazor.Components.Widget
+namespace IotHomeAssistant.Blazor.Components.Widget.Edit
 {
-    public partial class EditInfoItemComponent : ComponentBase
+    public partial class EditTaskItemComponent : ComponentBase
     {
-        protected List<DeviceEventDto> deviceEvents;
+        protected List<JobTask> tasks;
 
         [Parameter]
         public WidgetItemDto WidgetItem { get; set; }
@@ -25,14 +24,13 @@ namespace IotHomeAssistant.Blazor.Components.Widget
         public EditContext EditContext { get; set; }
 
         [Inject]
-        public IDeviceService DeviceService { get; set; }        
+        public IJobTaskRepository JobTaskRepository { get; set; }
 
         protected IconComponent iconComponent;
-        protected InfoComponent previewComponent;
 
         protected override async Task OnInitializedAsync()
         {
-            deviceEvents = await DeviceService.GetDeviceEventsAsync(true);
+            tasks = await JobTaskRepository.GetJobTasksAsync();
         }
 
         private void SelectIcon()
@@ -48,22 +46,14 @@ namespace IotHomeAssistant.Blazor.Components.Widget
             StateHasChanged();
         }
 
-        private async Task OnSelectEvent(ChangeEventArgs<int, DeviceEventDto> args)
+        private async Task OnSelectEvent(ChangeEventArgs<int, JobTask> args)
         {
             if (args.Value > 0)
             {
                 EditForm.ClearValidationMessages();
                 EditContext.Validate();
                 EditContext.NotifyValidationStateChanged();
-
-                WidgetItem.DeviceId = deviceEvents.First(x => x.EventId == args.Value).DeviceId;
-                await previewComponent.SubscribeOnEvent();
             }
-        }
-
-        private void Save()
-        {
-
         }
     }
 }

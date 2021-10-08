@@ -14,6 +14,9 @@ namespace IoTHomeAssistant.Domain.Entities
         public int? DeviceId { get; set; }
         public int? EventId { get; set; }
         public int? IconId { get; set; }
+        public int? JobTaskId { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
 
         public virtual Icon Icon { get; set; }
         public virtual Device Device { get; set; }

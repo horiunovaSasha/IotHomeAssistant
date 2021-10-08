@@ -19,6 +19,9 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.IconId);
             builder.Property(x => x.AreaId);
             builder.Property(x => x.EventId);
+            builder.Property(x => x.JobTaskId);
+            builder.Property(x => x.Latitude);
+            builder.Property(x => x.Longitude);
 
             builder.HasOne(x => x.Area);
             builder.HasOne(x => x.Icon);

@@ -2,22 +2,20 @@
 @using IotHomeAssistant.Blazor.Data;
 @inherits BaseItemComponent
 
-@if (WidgetItem.Type == WidgetItemTypeEnum.Switcher)
+@if (WidgetItem.Type == WidgetItemTypeEnum.CustomScript)
 {
     <div class="card-wrapper">
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
-                <img src="@(WidgetItem.Icon.Value)" height="65" />
+                <img src="@( WidgetItem.Icon != null ? WidgetItem.Icon.Value : "https://cdn-icons-png.flaticon.com/512/3079/3079162.png")" width="65" />                
                 <div class="w-100">
                     <div class="row">
                         <div class="col-12 d-flex justify-content-between">
                             <span class="h5 w-100">@WidgetItem.Title</span>
-                            <span>
-                                <SfSwitch CssClass="e-large" @bind-Checked="_isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
-                                <ItemContextMenuComponent IsPreview="IsPreview"
-                                    OnEdit="() => OnEditWidget.InvokeAsync()"
-                                    OnDelete="() => OnDeleteWidget.InvokeAsync()" />
-                            </span>
+                            <img src="https://cdn-icons-png.flaticon.com/512/179/179401.png" height="50" />
+                            <ItemContextMenuComponent IsPreview="IsPreview"
+                                OnEdit="() => OnEditWidget.InvokeAsync()"
+                                OnDelete="() => OnDeleteWidget.InvokeAsync()" />
                         </div>
                     </div>
                 </div>

@@ -77,7 +77,7 @@ namespace IotHomeAssistant.Blazor
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           SyncfusionLicenseProvider.RegisterLicense("NTAyNjk0QDMxMzkyZTMyMmUzMGlRNW1Pb3VXWWVUdW10VlVDYU5MazVyT2FPV0FmMVRRSTAvcU4xZHo5UXc9");
+           SyncfusionLicenseProvider.RegisterLicense("NTE1MDAwQDMxMzkyZTMzMmUzMEcxa2xzOVZjN3I3OHNqVWR1K3BROGlSR3JtNlkwMlpMS2tweWdPbDhPeXM9");
            app.UseResponseCompression();
 
             if (env.IsDevelopment())

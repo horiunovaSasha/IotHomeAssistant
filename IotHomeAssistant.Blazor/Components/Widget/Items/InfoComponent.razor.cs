@@ -1,28 +1,15 @@
-﻿using IoTHomeAssistant.Domain.Dto;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 
-namespace IotHomeAssistant.Blazor.Components.Widget
+namespace IotHomeAssistant.Blazor.Components.Widget.Items
 {
-    public partial class InfoComponent : ComponentBase
+    public partial class InfoComponent
     {
         protected string value;
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; }              
-
-        [Parameter]
-        public WidgetItemDto WidgetItem { get; set; } = new WidgetItemDto();
-
-        [Parameter]
-        public bool IsPreview { get; set; }
-
-        [Parameter]
-        public EventCallback OnEditWidget { get; set; }
-        
-        [Parameter]
-        public EventCallback OnDeleteWidget { get; set; }
+        public NavigationManager NavigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

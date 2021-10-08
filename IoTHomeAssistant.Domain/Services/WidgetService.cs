@@ -48,6 +48,21 @@ namespace IoTHomeAssistant.Domain.Services
                 widget.EventId = widgetItem.EventId;
             }
 
+            if (widgetItem.JobTaskId > 0)
+            {
+                widget.JobTaskId = widgetItem.JobTaskId;
+            }
+
+            if (widgetItem.Latitude > 0)
+            {
+                widget.Latitude = widgetItem.Latitude;
+            }
+
+            if (widgetItem.Longitude > 0)
+            {
+                widget.Longitude = widgetItem.Longitude;
+            }
+
             try
             {
                 if (widget.Id == 0)
