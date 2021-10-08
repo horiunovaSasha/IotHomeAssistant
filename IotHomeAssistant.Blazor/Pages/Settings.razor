@@ -1,2 +1,85 @@
 ﻿@page "/Settings"
-<h3>Settings</h3>
+@using IoTHomeAssistant.Blazor.Services;
+@using IoTHomeAssistant.Web.Models;
+
+
+@inject IUserService userService;
+
+<SfGrid DataSource="@users" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
+    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="UserViewModel"></GridEvents>
+    <GridPageSettings PageSize="10"></GridPageSettings>
+    <GridColumns>
+        @*<GridColumn Field=@nameof(UserViewModel.User.Id) HeaderText="ID" TextAlign="TextAlign.Right" Width="20"></GridColumn>*@
+        <GridColumn Field=@nameof(UserViewModel.User) HeaderText="Email" Width="200"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+<SfDialog Width="500px" IsModal="true" @bind-Visible="@noItemsModalVisible">
+    <DialogTemplates>
+        <Content>
+            <div class="p-4">
+                Жодного елементу не вибрано, виберіть елемент зі списку, щоб мати можливість здійснювати операції над ним.
+            </div>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="OK" IsPrimary="true" OnClick="@CloseDialog" />
+    </DialogButtons>
+</SfDialog>
+
+@*<EditPluginComponent @ref="editModal"></EditPluginComponent>*@
+
+@code{
+    SfGrid<UserViewModel> grid;
+    //   EditPluginComponent editModal;
+    public List<UserViewModel> users { get; set; } = new List<UserViewModel>();
+
+    bool noItemsModalVisible = false;
+
+    private List<ItemModel> Toolbaritems;
+
+    protected override void OnInitialized()
+    {
+        users = userService.GetUsersWithRoles().ToList();
+
+        Toolbaritems = new List<ItemModel>() {
+            new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
+            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
+            new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
+        };
+    }
+
+    public async Task ToolbarClickHandler(ClickEventArgs args)
+    {
+        var selectedItem = grid.SelectedRecords.FirstOrDefault();
+        if (args.Item.Id == "1")
+        {
+            //editModal.AddPlugin();
+        }
+
+        if (args.Item.Id == "2")
+        {
+            if (selectedItem == null)
+            {
+                noItemsModalVisible = true;
+            }
+            else
+            {
+                // await editModal.EditPluginAsync(selectedItem.User.Id);
+            }
+        }
+
+        if (args.Item.Id == "3")
+        {
+            if (selectedItem == null)
+            {
+                noItemsModalVisible = true;
+            }
+        }
+    }
+
+    private void CloseDialog()
+    {
+        noItemsModalVisible = false;
+    }
+}

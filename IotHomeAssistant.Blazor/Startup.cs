@@ -5,10 +5,12 @@ using IoTHomeAssistant.Domain.Repositories;
 using IoTHomeAssistant.Domain.Services;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using IoTHomeAssistant.Infrastructure.Repositories;
+using IoTHomeAssistant.Blazor.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Syncfusion.Blazor;
 using Syncfusion.Licensing;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace IotHomeAssistant.Blazor
 {
@@ -36,8 +39,9 @@ namespace IotHomeAssistant.Blazor
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                 .AddRoles<IdentityRole>()
+                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
@@ -63,11 +67,20 @@ namespace IotHomeAssistant.Blazor
             services.AddTransient<IWidgetService, WidgetService>();
 
             services.AddTransient<IEventPublisher, EventPublisher>();
+            
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
+            });
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter());
             });
 
 
