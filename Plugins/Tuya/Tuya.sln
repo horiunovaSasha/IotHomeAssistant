@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuya", "Tuya\Tuya.csproj", "{23848892-5045-4FC3-A05F-8C4ADE6ADB11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuya.Blinds", "Tuya.Blinds\Tuya.Blinds.csproj", "{B48D5F33-AC49-4A18-94F5-FD5DF511F2B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuya.Thermostat", "Tuya.Thermostat\Tuya.Thermostat.csproj", "{4034477C-9E89-4748-9135-183E2AEA3333}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23848892-5045-4FC3-A05F-8C4ADE6ADB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23848892-5045-4FC3-A05F-8C4ADE6ADB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23848892-5045-4FC3-A05F-8C4ADE6ADB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23848892-5045-4FC3-A05F-8C4ADE6ADB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B48D5F33-AC49-4A18-94F5-FD5DF511F2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48D5F33-AC49-4A18-94F5-FD5DF511F2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48D5F33-AC49-4A18-94F5-FD5DF511F2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48D5F33-AC49-4A18-94F5-FD5DF511F2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4034477C-9E89-4748-9135-183E2AEA3333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4034477C-9E89-4748-9135-183E2AEA3333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4034477C-9E89-4748-9135-183E2AEA3333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4034477C-9E89-4748-9135-183E2AEA3333}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD805B77-EA63-4888-9465-777BA0EC76C9}
+	EndGlobalSection
+EndGlobal
