@@ -42,11 +42,11 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="Введіть правильний Email") ]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Пароль обов'язковий")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -92,7 +92,7 @@ namespace IoTHomeAssistant.Web.Areas.Identity.Pages.Account
               
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Хибна спроба входу. ");
                     return Page();
                 }
             }

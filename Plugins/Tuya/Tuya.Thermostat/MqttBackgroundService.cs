@@ -1,17 +1,20 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tuya.Request;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace YeeLightPlugin
+namespace Tuya.Thermostat
 {
     public class MqttBackgroundService : IHostedService, IDisposable
     {
-        private const string MQTT_CLIENT_ID = "YeeLightPlugin";
+        private const string MQTT_CLIENT_ID = "Tuya.Thermostat";
 
         private readonly MqttClient _client;
 
@@ -22,7 +25,7 @@ namespace YeeLightPlugin
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _client.Connect(MQTT_CLIENT_ID + VariableExtension.IP_ADDR);
+            _client.Connect(MQTT_CLIENT_ID + VariableExtension.DEVICE_ID);
 
             _client.MqttMsgPublishReceived += async (object sender, MqttMsgPublishEventArgs e) =>
             {
@@ -61,7 +64,16 @@ namespace YeeLightPlugin
                 var message = Encoding.UTF8.GetString(msg);
                 var command = JsonConvert.DeserializeObject<Command>(message);
 
-                await YeeLightDevice.Exec(command);
+                var tuya = new TuyaClient(VariableExtension.CLIENT_KEY, VariableExtension.CLIENT_SECRET);
+                await tuya.Authorize();
+
+                await tuya.SendCommands(
+                    VariableExtension.DEVICE_ID,
+                    new Commands(
+                    new List<Request.Command>() {
+                        new Request.Command("switch", command.Toggle),
+                        new Request.Command("temp_set", command.Temperature *2)
+                    }));
             }
             catch (Exception ex)
             {
@@ -73,10 +85,16 @@ namespace YeeLightPlugin
         {
             try
             {
-                var deviceInfo = await YeeLightDevice.GetStatus();
-                var status = new {
-                    Available = deviceInfo != null,
-                    Info = deviceInfo
+                var tuya = new TuyaClient(VariableExtension.CLIENT_KEY, VariableExtension.CLIENT_SECRET);
+                await tuya.Authorize();
+
+                var devStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
+
+                var status = new Status()
+                {
+                    Toggle = bool.Parse(devStatus.First(x => x.Key == "switch").Value),
+                    CurrentTemperature = int.Parse(devStatus.First(x => x.Key == "upper_temp").Value) / 2,
+                    TargetTemperature = int.Parse(devStatus.First(x => x.Key == "temp_set").Value) / 2
                 };
 
                 var json = JsonConvert.SerializeObject(status);
