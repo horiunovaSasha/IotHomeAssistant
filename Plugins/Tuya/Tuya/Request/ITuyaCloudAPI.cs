@@ -52,6 +52,6 @@ namespace Tuya.Request
             [Header("t")] long timestamp,
             [Header("access_token")] string accessToken,
             [AliasAs("device_id")] string deviceId,
-            [Body(BodySerializationMethod.Default)] string commands);
+            [Body(BodySerializationMethod.Serialized)] Commands commands);
     }
 }

@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Tuya
 {
@@ -195,7 +194,7 @@ namespace Tuya
                 throw new UnauthorizedException("Unauthorized");
             }
 
-            var jsonCommands = JsonConvert.SerializeObject(commands);
+            var jsonCommands = Newtonsoft.Json.JsonConvert.SerializeObject(commands);
 
             RequestSignature sig = GenerateRequestSignature(
                 credentials.AccessToken,
@@ -208,7 +207,7 @@ namespace Tuya
                 sig.Timestamp,
                 credentials.AccessToken,
                 deviceId,
-                jsonCommands)
+                commands)
                 .ConfigureAwait(false);
 
             if (!response.IsSuccess)
@@ -233,7 +232,7 @@ namespace Tuya
         {
             long timestamp = GetTimestamp();
             string contentHash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
-            
+
             if (!string.IsNullOrEmpty(body))
             {
                 contentHash = Encrypt(body);
@@ -273,6 +272,11 @@ namespace Tuya
                 }
                 return builder.ToString().ToUpper();
             }
+        }
+
+        private byte[] StringEncode(string text)
+        {
+            return Encoding.ASCII.GetBytes(text);
         }
 
         private long GetTimestamp()
