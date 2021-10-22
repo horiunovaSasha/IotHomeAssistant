@@ -68,9 +68,9 @@
                 var code = await UserManager.GeneratePasswordResetTokenAsync(dbUser);
                 // var callbackUrl = Url.Action("ResetPassword", "Users", new { userId = dbUser.Id, code = code }, _actionContextAccessor.ActionContext.HttpContext.Request.Scheme);
 
-                var uri = NavigationManager.ToAbsoluteUri("Identity/Account/Login");
+                var uri = NavigationManager.ToAbsoluteUri("Identity/Account/SetPassword");
 
-                var callbackUrl = AddQueryParm(uri, "code", code);
+                var callbackUrl = AddQueryParm(uri, code, dbUser.Id);
 
                 await _emailService.SendEmailAsync(dbUser.Email, "Welcome to Iot home assistant", callbackUrl);
 
@@ -78,11 +78,12 @@
         }
     }
 
-    string AddQueryParm(Uri uri, string parmName, string parmValue)
+    string AddQueryParm(Uri uri, string code, string userId)
     {
         var uriBuilder = new UriBuilder(uri);
         var q = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
-        q[parmName] = parmValue;
+        q["code"] = code;
+        q["userId"] = userId;
         uriBuilder.Query = q.ToString();
         var newUrl = uriBuilder.ToString();
         return newUrl;
