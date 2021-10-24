@@ -80,32 +80,33 @@ namespace IotHomeAssistant.Blazor.Components
             StateHasChanged();
         }
 
-        private async Task OnChangePlugin()
-        {
-            if (_pluginInput.Value > 0)
-            {
-                var plugin = _plugins.FirstOrDefault(x => x.Id == _pluginInput.Value);
-                if (plugin != null && plugin.Configurations != null)
-                {
-                    Plugin.Configurations.Clear();
-
-                    foreach(var item in plugin.Configurations)
-                    {
-                        Plugin.Configurations.Add(new DevicePluginConfigurationDto()
-                        {
-                            Id = item.Id,
-                            Title = item.Title,
-                            Description = item.Description,
-                            Type = item.Type.ToString()
-                        });
-                    }
-                    
-                }
-            }
-        }
-
         private void Save()
         {
+            var plugin = new Plugin()
+            {
+                Id = Plugin.Id,
+                Title = Plugin.Title,
+                DeviceType = Enum.Parse<DeviceTypeEnum>(Plugin.Type),
+                DockerImageSource = Plugin.DockerConfiguration,
+                Configurations = Plugin.Configurations
+                .Select(x => new PluginConfiguration() { 
+                    Id = x.Id,
+                    Title = x.Title,
+                    Key = x.Value,
+                    Type = Enum.Parse<ConfigurationTypeEnum>(x.Type),
+                    PluginId = Plugin.Id
+                })
+                .ToList()
+            };
+
+            if (Plugin.Id == 0)
+            {
+                _pluginService.AddPlugin(plugin);
+            } else
+            {
+                _pluginService.UpdatePlugin(plugin);
+            }
+
             StateHasChanged();
             Hide();
         }

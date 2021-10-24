@@ -39,7 +39,9 @@
                                     <h5 class="mt-2">Конфігурація:</h5>
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-lg-1 col-md-1">
-                                    <SfButton CssClass="e-plus e-icons e-btn-icon e-icon-left e-round mt-2" OnClick="Clone"></SfButton>
+                                    <a @onclick="Clone" class="add-condition">
+                                        <span class="e-plus e-icons e-btn-icon e-icon-left e-round mt-2"></span>
+                                    </a>
                                 </div>
                             </div>
 
@@ -54,7 +56,7 @@
                                             <SfTextBox Placeholder="Назва" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Title"></SfTextBox>
                                             <ValidationMessage For="@(() => item.Title)"/>
                                         </div>
-                                        <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
+                                        <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
 
                                             <SfDropDownList Placeholder="Тип" TValue="string" TItem="string" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Type" DataSource="_configurationTypes">
                                                 <DropDownListEvents TItem="string" TValue="string"></DropDownListEvents>
@@ -62,12 +64,8 @@
                                             <ValidationMessage For="@(() => item.Type)"/>
                                         </div>
                                         <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
-                                            <SfTextBox Placeholder="Значення" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Value"></SfTextBox>
+                                            <SfTextBox Placeholder="Ключ" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Value"></SfTextBox>
                                             <ValidationMessage For="@(() => item.Value)"/>
-                                        </div>
-                                        <div class="col-xs-11 col-sm-11 col-lg-11 col-md-11">
-                                            <SfTextBox Placeholder="Опис" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Description"></SfTextBox>
-                                            <ValidationMessage For="@(() => item.Description)"/>
                                         </div>
                                         <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1 mt-2">
                                              <SfButton class="e-delete e-icons e-btn-icon e-icon-left mt-3 e-outline" style="height: 50%" @onclick="() => RemoveConfiguration(item)"></SfButton>

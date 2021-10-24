@@ -65,6 +65,7 @@ namespace IotHomeAssistant.Blazor
             services.AddTransient<IJobTaskService, JobTaskService>();            
             services.AddTransient<IAreaService, AreaService>();
             services.AddTransient<IWidgetService, WidgetService>();
+            services.AddTransient<ICommandService, CommandService>();
 
             services.AddTransient<IEventPublisher, EventPublisher>();
             

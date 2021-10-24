@@ -115,6 +115,10 @@ namespace IoTHomeAssistant.Domain.Services
         private string BuildDockerImage(string workingDir, string imageId)
         {
             var dockerfile = Path.Combine(workingDir, "Dockerfile");
+            var paths = dockerfile.Split("/").ToList();
+            paths.Remove(paths.Last());
+            workingDir = string.Join("/", paths);
+
             var process = new Process()
             {
                 StartInfo = new ProcessStartInfo()
@@ -149,7 +153,7 @@ namespace IoTHomeAssistant.Domain.Services
         }
 
         private string BuilDockerImageId(Plugin plugin)
-        {
+         {
             return $"{plugin.DeviceType}-{plugin.Title}-{DateTime.Now.Ticks}"
                 .Trim()
                 .Replace(" ", string.Empty)

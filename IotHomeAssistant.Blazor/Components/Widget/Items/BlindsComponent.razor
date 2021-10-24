@@ -12,27 +12,29 @@
                         <div class="col-12">
                             <span class="h3">@WidgetItem.Title</span>                            
                         </div>
-                        <div class="col-12 d-none">
-                            <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" OnLabel="OPEN" OffLabel="CLOSE"></SfSwitch>
-                            <SfSwitch CssClass="e-large mr-4" @bind-Checked="isPaused" OnLabel="ON" OffLabel="OFF"></SfSwitch>
-                        </div>
                         <div class="col-12 mt-4 d-flex justify-content-between">
-                            <span class="text-center pl-4">
-                                <img src="https://cdn-icons-png.flaticon.com/512/892/892687.png" width="35" /><br />
-                                Відкрити
+                            <span class="text-center pl-4 nav-item">
+                                <a class="nav-link" href="#" @onclick="Open">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/892/892687.png" width="35" /><br />
+                                    Відкрити
+                                </a>
                             </span>
-                            <span class="text-center">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2611/2611514.png" width="35" /><br />
-                                Пауза
+                            <span class="text-center nav-item">
+                                <a class="nav-link" href="#" @onclick="Stop">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/2611/2611514.png" width="35" /><br />
+                                    Пауза
+                                </a>
                             </span>
-                            <span class="text-center pr-4">
-                                <img src="https://cdn-icons-png.flaticon.com/512/892/892629.png" width="35" /><br />
-                                Закрити
+                            <span class="text-center pr-4 nav-item">
+                                <a class="nav-link" href="#" @onclick="Close">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/892/892629.png" width="35" /><br />
+                                    Закрити
+                                </a>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div class="illustration-pro pr-2 pr-sm-2 pl-sm-1 pr-lg-4 pl-lg-2 @(isChecked ? "public" : "private")  @(isPaused ? "paused" : "")">
+                <div class="illustration-pro pr-2 pr-sm-2 pl-sm-1 pr-lg-4 pl-lg-2">
                     <ItemContextMenuComponent IsPreview="IsPreview"
                         OnEdit="() => OnEditWidget.InvokeAsync()"
                         OnDelete="() => OnDeleteWidget.InvokeAsync()" />
@@ -40,7 +42,7 @@
                     </div>
                     <div class="blinds">
                         <div class="blinds-top"></div>
-                        <ul class="blinds-rows @(isPaused ? "paused" : "")">
+                        <ul class="blinds-rows" style="top: @(top)px">
                             <li class="blinds-row"></li>
                             <li class="blinds-row"></li>
                             <li class="blinds-row"></li>
