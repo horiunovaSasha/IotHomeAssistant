@@ -1,16 +1,20 @@
 ﻿@page "/Settings"
 @using IoTHomeAssistant.Blazor.Services;
 @using IoTHomeAssistant.Web.Models;
+@using Microsoft.AspNetCore.Routing
 
 
 @inject IUserService userService;
+@inject IEmailService _emailService;
+@using Microsoft.AspNetCore.Identity
+
 
 <SfGrid DataSource="@users" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="UserViewModel"></GridEvents>
     <GridPageSettings PageSize="10"></GridPageSettings>
     <GridColumns>
         @*<GridColumn Field=@nameof(UserViewModel.User.Id) HeaderText="ID" TextAlign="TextAlign.Right" Width="20"></GridColumn>*@
-        <GridColumn Field=@nameof(UserViewModel.User) HeaderText="Email" Width="200"></GridColumn>
+        <GridColumn Field=@nameof(UserViewModel.UserName) HeaderText="Email" Width="200"></GridColumn>
     </GridColumns>
 </SfGrid>
 
@@ -27,11 +31,11 @@
     </DialogButtons>
 </SfDialog>
 
-@*<EditPluginComponent @ref="editModal"></EditPluginComponent>*@
+<EditUserComponent @ref="editModal"></EditUserComponent>
 
 @code{
-    SfGrid<UserViewModel> grid;
-    //   EditPluginComponent editModal;
+        SfGrid<UserViewModel> grid;
+        EditUserComponent editModal;
     public List<UserViewModel> users { get; set; } = new List<UserViewModel>();
 
     bool noItemsModalVisible = false;
@@ -44,7 +48,6 @@
 
         Toolbaritems = new List<ItemModel>() {
             new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
-            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
             new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
         };
     }
@@ -54,7 +57,7 @@
         var selectedItem = grid.SelectedRecords.FirstOrDefault();
         if (args.Item.Id == "1")
         {
-            //editModal.AddPlugin();
+            editModal.AddPlugin();
         }
 
         if (args.Item.Id == "2")
@@ -65,7 +68,7 @@
             }
             else
             {
-                // await editModal.EditPluginAsync(selectedItem.User.Id);
+                //await editModal.EditPluginAsync(selectedItem.User);
             }
         }
 
@@ -82,4 +85,6 @@
     {
         noItemsModalVisible = false;
     }
+
+
 }

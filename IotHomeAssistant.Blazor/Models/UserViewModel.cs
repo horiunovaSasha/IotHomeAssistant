@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace IoTHomeAssistant.Web.Models
 {
     public class UserViewModel
     {
-        public string User { get; set; }
-        public bool IsAdmin { get; set; }
+        public string Id { get; set; }
+        public string UserName { get; set; }
+       
     }
 }

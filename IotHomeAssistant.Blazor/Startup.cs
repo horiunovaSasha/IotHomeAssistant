@@ -72,6 +72,7 @@ namespace IotHomeAssistant.Blazor
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
+            services.AddTransient<UserManager<IdentityUser>>();
 
             services.AddResponseCompression(opts =>
             {

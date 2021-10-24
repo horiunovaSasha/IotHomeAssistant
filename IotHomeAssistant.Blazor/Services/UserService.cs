@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,19 +26,12 @@ namespace IoTHomeAssistant.Blazor.Services
         
         public List<UserViewModel> GetUsersWithRoles()
         {
-            var result = new List<UserViewModel>();
-
-            foreach (var identityUser in _userManager.Users)
-            {
-               // var isAdmin = _userManager.GetRolesAsync(identityUser).Result?.FirstOrDefault() == AdminRole;
-                result.Add(new UserViewModel()
+            return _userManager.Users
+                .Select(x => new UserViewModel()
                 {
-                    IsAdmin = false,
-                    User = identityUser.Email
-                });
-            }
-
-            return result;
+                    Id = x.Id,
+                    UserName = x.Email 
+                }).ToList();
         }
 
         public async Task Invite(string email, IUrlHelper url)
@@ -46,9 +40,16 @@ namespace IoTHomeAssistant.Blazor.Services
             {
                 var existingUser =  _userManager.FindByEmailAsync(email).Result;
                 if (existingUser != null)
+                {
                     await _userManager.DeleteAsync(existingUser);
+                }
                 
-                var user = new IdentityUser() {UserName = email, Email =  email};
+                var user = new IdentityUser() 
+                {
+                    UserName = email, 
+                    Email =  email
+                };
+
                 var identityResult = await _userManager.CreateAsync(user);
                 if (identityResult.Succeeded)
                 {

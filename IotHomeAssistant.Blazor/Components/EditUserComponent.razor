@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Routing
+@using IoTHomeAssistant.Blazor.Services;
+
+@inject UserManager<IdentityUser> UserManager
+@inject IEmailService _emailService;
+@inject NavigationManager NavigationManager
+
+@currentUser?.Email
+
+
+<SfDialog IsModal="true" @bind-Visible="@_visible" MinHeight="51.3em">
+    <DialogTemplates>
+        <Content>
+            <EditForm Model="@User" OnValidSubmit="@Invite">
+                <DataAnnotationsValidator />
+                <div class="col-12">
+                    <div class="row p-3">
+                        <SfTextBox Placeholder="Електронна пошта нового користувача" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@User.Email"></SfTextBox>
+                        <ValidationMessage For="@(() => User.Email)" />
+                    </div>
+                </div>
+                <div class="sfButton" style="display: flex; justify-content: right;">
+                    <SfButton type="button" class="m-3" OnClick="Hide">Скасувати</SfButton>
+                    <SfButton type="submit" class="m-3" IsPrimary="true">Запросити</SfButton>
+                </div>
+            </EditForm>
+        </Content>
+    </DialogTemplates>
+</SfDialog>
+
+@code{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    IdentityUser currentUser;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var authState = await authenticationStateTask;
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            currentUser = await UserManager.GetUserAsync(authState.User); // exception was here
+        }
+    }
+
+
+    private async Task Invite()
+    {
+        if (!string.IsNullOrWhiteSpace(User.Email))
+        {
+            var existingUser = await UserManager.FindByEmailAsync(User.Email);
+            if (existingUser != null)
+            {
+                await UserManager.DeleteAsync(existingUser);
+            }
+
+            var user = new IdentityUser()
+            {
+                UserName = User.Email,
+                Email = User.Email
+            };
+
+            var identityResult = await UserManager.CreateAsync(user);
+            if (identityResult.Succeeded)
+            {
+                var dbUser = await UserManager.FindByEmailAsync(user.Email);
+                var code = await UserManager.GeneratePasswordResetTokenAsync(dbUser);
+                // var callbackUrl = Url.Action("ResetPassword", "Users", new { userId = dbUser.Id, code = code }, _actionContextAccessor.ActionContext.HttpContext.Request.Scheme);
+
+                var uri = NavigationManager.ToAbsoluteUri("Identity/Account/SetPassword");
+
+                var callbackUrl = AddQueryParm(uri, code, dbUser.Id);
+
+                await _emailService.SendEmailAsync(dbUser.Email, "Welcome to Iot home assistant", callbackUrl);
+
+            }
+        }
+    }
+
+    string AddQueryParm(Uri uri, string code, string userId)
+    {
+        var uriBuilder = new UriBuilder(uri);
+        var q = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
+        q["code"] = code;
+        q["userId"] = userId;
+        uriBuilder.Query = q.ToString();
+        var newUrl = uriBuilder.ToString();
+        return newUrl;
+    }
+}
