@@ -15,6 +15,7 @@ namespace Tuya.Blinds
         private const string MQTT_CLIENT_ID = "Tuya.Blinds";
 
         private readonly MqttClient _client;
+        private bool _continue = false;
 
         public MqttBackgroundService()
         {
@@ -60,14 +61,19 @@ namespace Tuya.Blinds
             try
             {
                 var message = Encoding.UTF8.GetString(msg);
-                var command = JsonConvert.DeserializeObject<Command>(message);
+                var payload = JsonConvert.DeserializeObject<CommandPayload>(message);
 
                 var tuya = new TuyaClient(VariableExtension.CLIENT_KEY, VariableExtension.CLIENT_SECRET);
                 await tuya.Authorize();
 
                 await tuya.SendCommands(
                     VariableExtension.DEVICE_ID,
-                    new Tuya.Request.Commands("control", command.Type.ToString().ToLower()));
+                    new Tuya.Request.Commands("control", payload.Command));
+
+                _continue = payload.Command != "stop";
+                await Task.Delay(1500);
+
+                await SendStatus(true);
             }
             catch (Exception ex)
             {
@@ -75,47 +81,29 @@ namespace Tuya.Blinds
             }
         }
 
-        private async Task SendStatus()
+        private async Task SendStatus(bool untilStop = false)
         {
             try
             {
                 var tuya = new TuyaClient(VariableExtension.CLIENT_KEY, VariableExtension.CLIENT_SECRET);
                 await tuya.Authorize();
 
-                var initialStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
-                _ = Task.Delay(500);
-                var currentStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
+                var deviceStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
 
-                var initialPercent = int.Parse(initialStatus.FirstOrDefault(x => x.Key == "percent_control").Value);
-                var currentPercent = int.Parse(currentStatus.FirstOrDefault(x => x.Key == "percent_control").Value);
-                var status = new Status()
-                {
-                    Percent = currentPercent
-                };
+                var percent = deviceStatus.FirstOrDefault(x => x.Key == "percent_control").Value;
+                _client.Publish(VariableExtension.STATUS_TOPIC + "-echo", Encoding.UTF8.GetBytes(percent));
 
-                if (currentPercent == 100)
+                while (_continue && untilStop && (percent != "0" && percent != "100"))
                 {
-                    status.Stage = Stage.Closed;
+                    deviceStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
+
+                    percent = deviceStatus.FirstOrDefault(x => x.Key == "percent_control").Value;
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(percent));
+
+                    await Task.Delay(100);
                 }
 
-                if (currentPercent == 0)
-                {
-                    status.Stage = Stage.Opened;
-                }
-
-                if (currentPercent > initialPercent)
-                {
-                    status.Stage = Stage.Closing;
-                }
-
-                if (currentPercent < initialPercent)
-                {
-                    status.Stage = Stage.Opening;
-                }
-
-                var json = JsonConvert.SerializeObject(status);
-
-                _client.Publish(VariableExtension.STATUS_TOPIC + "-echo", Encoding.UTF8.GetBytes(json));
+                _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(percent));
             }
             catch (Exception ex)
             {
