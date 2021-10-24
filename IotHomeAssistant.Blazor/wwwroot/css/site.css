@@ -57,11 +57,13 @@ a, .btn-link {
     -webkit-box-pack: left;
     justify-content: left;
     overflow: hidden;
-    min-height: 55em;   
+    min-height: 55em;
+    background: linear-gradient(45deg, rgba(22, 167, 175, 0.6) 2%, rgba(23, 27, 158, 0.7) 75%) no-repeat;
+    background-size: 19em;
 }
 
 .widget-wrapper #left-side {
-    background: linear-gradient(45deg, rgba(22, 167, 175, 0.6) 2%, rgba(23, 27, 158, 0.7) 75%) no-repeat;
+    /*background: linear-gradient(45deg, rgba(22, 167, 175, 0.6) 2%, rgba(23, 27, 158, 0.7) 75%) no-repeat;*/
     color: white;
     height: 100%;
      padding: 0 3em;
@@ -117,6 +119,16 @@ a, .btn-link {
         width: 100% !important;
         margin: 0 5% !important;
     }
+
+    .widget-wrapper {
+        background-size: 0px;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .widget-wrapper {
+        background-size: 0px;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 991.98px) {
@@ -137,9 +149,11 @@ a, .btn-link {
     .e-popup.e-popup-open.e-dialog {
         width: 100% !important;
         margin: 0 20% !important;
+    }
+    
 }
 
-}@media (min-width: 2200px) {
+@media (min-width: 2200px) {
     .e-popup.e-popup-open.e-dialog {
         width: 100% !important;
         margin: 0 25% !important;

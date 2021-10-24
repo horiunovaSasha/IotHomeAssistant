@@ -31,17 +31,10 @@ namespace IoTHomeAssistant.Domain.Services
         {
             plugin.DockerImageId = BuilDockerImageId(plugin);
             var localPath = GitCloneAndReturnPath(plugin);
-            var dockerError = BuildDockerImage(localPath, plugin.DockerImageId);
 
-            if (string.IsNullOrEmpty(dockerError))
-            {
-                await _pluginRepository.AddAsync(plugin);
-                await _pluginRepository.CommitAsync();
-            }
-            else
-            {
-                throw new Exception(dockerError);
-            }
+            Task.Run(() => BuildDockerImage(localPath, plugin.DockerImageId));
+            await _pluginRepository.AddAsync(plugin);
+            await _pluginRepository.CommitAsync();
         }
 
         public async Task UpdatePlugin(Plugin plugin)
@@ -82,17 +75,11 @@ namespace IoTHomeAssistant.Domain.Services
                 }
 
                 var localPath = GitCloneAndReturnPath(dbPlugin);
-                var dockerError = BuildDockerImage(localPath, dbPlugin.DockerImageId);
 
-                if (string.IsNullOrEmpty(dockerError))
-                {
-                    await _pluginRepository.UpdateAsync(dbPlugin);
-                    await _pluginRepository.CommitAsync();
-                }
-                else
-                {
-                    throw new Exception(dockerError);
-                }
+                Task.Run(() => UpdateDockerImage(localPath, dbPlugin.DockerImageId));
+             
+                await _pluginRepository.UpdateAsync(dbPlugin);
+                await _pluginRepository.CommitAsync();
             }
         }
 
@@ -112,19 +99,63 @@ namespace IoTHomeAssistant.Domain.Services
             return await _pluginRepository.GetPagedList(request);
         }
 
-        private string BuildDockerImage(string workingDir, string imageId)
+        private void BuildDockerImage(string workingDir, string imageId)
         {
             var dockerfile = Path.Combine(workingDir, "Dockerfile");
-            var paths = dockerfile.Split("/").ToList();
-            paths.Remove(paths.Last());
-            workingDir = string.Join("/", paths);
+            workingDir = Path.GetDirectoryName(workingDir);
 
+            var cmd = Cmd("docker", $"build -f \"{dockerfile}\" -t {imageId} \"{workingDir}\"");
+
+            if (cmd.ExitCode != 0)
+            {
+                var error = cmd.StandardError.ReadToEnd();
+                //if (!string.IsNullOrEmpty(error))
+                //{
+                //    return error;
+                //}
+
+                //return process.StandardOutput.ReadToEnd();
+            }
+
+            while(!workingDir.EndsWith(imageId))
+            {
+                workingDir = Path.GetDirectoryName(workingDir);
+            }
+
+            DeleteDirectory(workingDir);
+
+            //return string.Empty;
+        }
+
+        private void UpdateDockerImage(string workingDir, string imageId)
+        {
+            var cmd = Cmd("docker", $"ps -aqf \"ancestor={imageId}\"");
+
+            if (cmd.ExitCode == 0)
+            {
+                var containerId = cmd.StandardOutput.ReadToEnd();
+                Cmd("docker", $"rm -f {containerId}");
+            }
+
+            cmd = Cmd("docker", $"images -q {imageId}");
+
+            if (cmd.ExitCode == 0)
+            {
+                var imgId = cmd.StandardOutput.ReadToEnd();
+                Cmd("docker", $"rmi -f {imgId}");
+            }
+
+            BuildDockerImage(workingDir, imageId);
+        }
+
+        private Process Cmd(string filename, string command)
+        {
             var process = new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    FileName = "docker",
-                    Arguments = $"build -f \"{dockerfile}\" -t {imageId} \"{workingDir}\"",
+                    FileName = filename,
+                    Arguments = command,
                     UseShellExecute = false,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
@@ -136,20 +167,7 @@ namespace IoTHomeAssistant.Domain.Services
             process.Start();
             process.WaitForExit();
 
-            if (process.ExitCode != 0)
-            {
-                var error = process.StandardError.ReadToEnd();
-                if (!string.IsNullOrEmpty(error))
-                {
-                    return error;
-                }
-
-                return process.StandardOutput.ReadToEnd();
-            }
-
-            Directory.Delete(workingDir, true);
-
-            return string.Empty;
+            return process;
         }
 
         private string BuilDockerImageId(Plugin plugin)
@@ -164,6 +182,10 @@ namespace IoTHomeAssistant.Domain.Services
         {
             var remotePaths = plugin.DockerImageSource.Split("@");
             var localPath = Path.Combine(Path.GetTempPath(), plugin.DockerImageId);
+            
+            if (Directory.Exists(localPath)) {
+                DeleteDirectory(localPath);
+            }
 
             Repository.Clone(remotePaths.First(), localPath);
 
@@ -181,6 +203,25 @@ namespace IoTHomeAssistant.Domain.Services
         public async Task<List<Plugin>> GetPluginsByTypeAsync(DeviceTypeEnum type)
         {
             return await _pluginRepository.GetPluginsByTypeAsync(type);
+        }
+
+        public static void DeleteDirectory(string target_dir)
+        {
+            string[] files = Directory.GetFiles(target_dir);
+            string[] dirs = Directory.GetDirectories(target_dir);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteDirectory(dir);
+            }
+
+            Directory.Delete(target_dir, false);
         }
     }
 }

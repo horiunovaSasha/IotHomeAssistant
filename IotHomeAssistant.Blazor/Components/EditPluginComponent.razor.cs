@@ -51,6 +51,7 @@ namespace IotHomeAssistant.Blazor.Components
                 Id = plugin.Id,
                 Title = plugin.Title,
                 Type = plugin.DeviceType.ToString(),
+                DockerConfiguration = plugin.DockerImageSource,
                 Configurations = plugin.Configurations?
                         .Select(x => new DevicePluginConfigurationDto()
                         {
