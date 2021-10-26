@@ -11,7 +11,6 @@ namespace Xiaomi.Humidity
         static public string MQTT_USR { get; private set; }
         static public string MQTT_PWD { get; private set; }
         static public string DEVICE_ID { get; private set; }
-        static public string HUB_ID { get; private set; }
 
         static VariableExtension()
         {
@@ -46,11 +45,6 @@ namespace Xiaomi.Humidity
                 {
                     DEVICE_ID = arg.Value?.ToString();
                 }
-
-                if (arg.Key.ToString() == "HUB_ID")
-                {
-                    HUB_ID = arg.Value?.ToString();
-                }
             }
 
             if (string.IsNullOrEmpty(MQTT_ADDR))
@@ -71,11 +65,6 @@ namespace Xiaomi.Humidity
             if (string.IsNullOrEmpty(DEVICE_ID))
             {
                 throw new ArgumentException("DEVICE_ID Environment variable is required!");
-            }
-
-            if (string.IsNullOrEmpty(HUB_ID))
-            {
-                throw new ArgumentException("HUB_ID Environment variable is required!");
             }
         }
     }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Hosting;
-using MiHomeLib;
-using MiHomeLib.Devices;
 using System;
 using System.Text;
 using System.Threading;
@@ -13,46 +11,35 @@ namespace Xiaomi.Humidity
     public class MqttBackgroundService : IHostedService, IDisposable
     {
         private const string MQTT_CLIENT_ID = "Xiaomi.Humidity";
+        private const string XIAOMI_GET_HUMIDITY = "xiaomi_get_humidity";
+        private const string XIAOMI_HUMIDITY_CHANGED = "xiaomi_humidity_changed";
 
         private readonly MqttClient _client;
-        private readonly MiHome _miHome;
-        private ThSensor _thSensor;
 
         public MqttBackgroundService()
         {
             _client = new MqttClient(VariableExtension.MQTT_ADDR);
-            _miHome = new MiHome(VariableExtension.HUB_ID);
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _client.Connect(MQTT_CLIENT_ID + VariableExtension.DEVICE_ID);
 
-            _client.MqttMsgPublishReceived += async (object sender, MqttMsgPublishEventArgs e) =>
+            _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
             {
                 if (e.Topic == VariableExtension.STATUS_TOPIC)
                 {
-                    await SendStatus();
+                    _client.Publish(XIAOMI_GET_HUMIDITY, Encoding.UTF8.GetBytes(VariableExtension.DEVICE_ID));
+                }
+                
+                if (e.Topic == $"{XIAOMI_HUMIDITY_CHANGED}_{VariableExtension.DEVICE_ID}")
+                {
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, e.Message);
                 }
             };
 
             _client.Subscribe(new string[] { VariableExtension.STATUS_TOPIC }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-
-            _miHome.OnThSensor += (_, thSensor) =>
-            {
-                if (thSensor.Sid == VariableExtension.DEVICE_ID)
-                {
-                    if (_thSensor == null)
-                    {
-                        _thSensor = thSensor;
-                    }
-
-                    thSensor.OnHumidityChange += (_, e) =>
-                    {
-                        _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(e.Humidity.ToString()));
-                    };
-                }
-            };
+            _client.Subscribe(new string[] { $"{XIAOMI_HUMIDITY_CHANGED}_{VariableExtension.DEVICE_ID}" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
 
             return Task.CompletedTask;
         }
@@ -66,15 +53,6 @@ namespace Xiaomi.Humidity
         public void Dispose()
         {
             _client.Disconnect();
-        }
-
-        private async Task SendStatus(bool untilStop = false)
-        {
-            if (_thSensor != null)
-            {
-                _client.Publish(VariableExtension.SEND_STATUS_TOPIC,
-                    Encoding.UTF8.GetBytes(_thSensor.Humidity.ToString()));
-            }
         }
     }
 }

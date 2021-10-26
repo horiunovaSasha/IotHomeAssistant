@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 
-namespace Xiaomi.Temperature
+namespace Xiaomi.DoorWindow
 {
     static class VariableExtension
     {
         static public string STATUS_TOPIC { get; private set; }
-        static public string SEND_STATUS_TOPIC { get; private set; }
+        static public string ON_OPENED_TOPIC { get; private set; }
+        static public string ON_CLOSED_TOPIC { get; private set; }
         static public string MQTT_ADDR { get; private set; }
         static public string MQTT_USR { get; private set; }
         static public string MQTT_PWD { get; private set; }
@@ -21,9 +22,14 @@ namespace Xiaomi.Temperature
                     STATUS_TOPIC = arg.Value?.ToString();
                 }
 
-                if (arg.Key.ToString() == "SEND_STATUS_TOPIC")
+                if (arg.Key.ToString() == "ON_OPENED_TOPIC")
                 {
-                    SEND_STATUS_TOPIC = arg.Value?.ToString();
+                    ON_OPENED_TOPIC = arg.Value?.ToString();
+                }
+
+                if (arg.Key.ToString() == "ON_CLOSED_TOPIC")
+                {
+                    ON_CLOSED_TOPIC = arg.Value?.ToString();
                 }
 
                 if (arg.Key.ToString() == "MQTT_ADDR")
@@ -45,7 +51,7 @@ namespace Xiaomi.Temperature
                 {
                     DEVICE_ID = arg.Value?.ToString();
                 }
-                
+
             }
 
             if (string.IsNullOrEmpty(MQTT_ADDR))
@@ -58,9 +64,14 @@ namespace Xiaomi.Temperature
                 throw new ArgumentException("STATUS_TOPIC Environment variable is required!");
             }
 
-            if (string.IsNullOrEmpty(SEND_STATUS_TOPIC))
+            if (string.IsNullOrEmpty(ON_OPENED_TOPIC))
             {
-                throw new ArgumentException("SEND_STATUS_TOPIC Environment variable is required!");
+                throw new ArgumentException("ON_OPENED_TOPIC Environment variable is required!");
+            }
+
+            if (string.IsNullOrEmpty(ON_CLOSED_TOPIC))
+            {
+                throw new ArgumentException("ON_CLOSED_TOPIC Environment variable is required!");
             }
 
             if (string.IsNullOrEmpty(DEVICE_ID))

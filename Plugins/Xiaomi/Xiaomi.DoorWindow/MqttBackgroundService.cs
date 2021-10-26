@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace Xiaomi.Temperature
+namespace Xiaomi.DoorWindow
 {
     public class MqttBackgroundService : IHostedService, IDisposable
     {
-        private const string MQTT_CLIENT_ID = "Xiaomi.Temperature";
-        private const string XIAOMI_GET_TEMPERATURE = "xiaomi_get_temperature";
-        private const string XIAOMI_TEMPERATURE_CHANGED = "xiaomi_temperature_changed";
+        private const string MQTT_CLIENT_ID = "Xiaomi.DoorWindow";
+        private const string XIAOMI_GET_DOORWINDOW = "xiaomi_get_doorwindow";
+        private const string XIAOMI_DOORWINDOW_CLOSED = "xiaomi_doorwindow_closed";
+        private const string XIAOMI_DOORWINDOW_OPENED = "xiaomi_doorwindow_opened";
 
         private readonly MqttClient _client;
 
@@ -29,17 +30,22 @@ namespace Xiaomi.Temperature
             {
                 if (e.Topic == VariableExtension.STATUS_TOPIC)
                 {
-                    _client.Publish(XIAOMI_GET_TEMPERATURE, Encoding.UTF8.GetBytes(VariableExtension.DEVICE_ID));
+                    _client.Publish(XIAOMI_GET_DOORWINDOW, Encoding.UTF8.GetBytes(VariableExtension.DEVICE_ID));
                 }
 
-                if (e.Topic == $"{XIAOMI_TEMPERATURE_CHANGED}_{VariableExtension.DEVICE_ID}")
+                if (e.Topic == $"{XIAOMI_DOORWINDOW_CLOSED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, e.Message);
+                    _client.Publish(VariableExtension.ON_CLOSED_TOPIC, e.Message);
+                }
+                if (e.Topic == $"{XIAOMI_DOORWINDOW_OPENED}_{VariableExtension.DEVICE_ID}")
+                {
+                    _client.Publish(VariableExtension.ON_OPENED_TOPIC, e.Message);
                 }
             };
 
             _client.Subscribe(new string[] { VariableExtension.STATUS_TOPIC }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-            _client.Subscribe(new string[] { $"{XIAOMI_TEMPERATURE_CHANGED}_{VariableExtension.DEVICE_ID}" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            _client.Subscribe(new string[] { $"{XIAOMI_DOORWINDOW_CLOSED}_{VariableExtension.DEVICE_ID}" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            _client.Subscribe(new string[] { $"{XIAOMI_DOORWINDOW_OPENED}_{VariableExtension.DEVICE_ID}" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
 
             return Task.CompletedTask;
         }

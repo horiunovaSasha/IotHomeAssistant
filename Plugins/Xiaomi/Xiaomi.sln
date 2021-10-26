@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.Temperature", "Xiaom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.Humidity", "Xiaomi.Humidity\Xiaomi.Humidity.csproj", "{744D0402-A187-4AF6-974A-ECB2CB07C8B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.Hub", "Xiaomi.Hub\Xiaomi.Hub.csproj", "{964B3876-CAF4-4B46-806F-B3764375BAC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.Motion", "Xiaomi.Motion\Xiaomi.Motion.csproj", "{1F1A4CB7-D311-4656-9F67-120A9AA8645A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.DoorWindow", "Xiaomi.DoorWindow\Xiaomi.DoorWindow.csproj", "{80D5A6C7-0A1D-40EF-84B1-ADC2CE0D3A65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.WaterLeak", "Xiaomi.WaterLeak\Xiaomi.WaterLeak.csproj", "{825B97A0-AF44-4D49-B46E-3231F3C66339}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xiaomi.Yeelight", "Xiaomi.Yeelight\Xiaomi.Yeelight.csproj", "{848E4EBA-AC70-4832-9E43-8F6D5B996C8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +31,26 @@ Global
 		{744D0402-A187-4AF6-974A-ECB2CB07C8B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{744D0402-A187-4AF6-974A-ECB2CB07C8B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{744D0402-A187-4AF6-974A-ECB2CB07C8B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964B3876-CAF4-4B46-806F-B3764375BAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964B3876-CAF4-4B46-806F-B3764375BAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964B3876-CAF4-4B46-806F-B3764375BAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{964B3876-CAF4-4B46-806F-B3764375BAC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F1A4CB7-D311-4656-9F67-120A9AA8645A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F1A4CB7-D311-4656-9F67-120A9AA8645A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F1A4CB7-D311-4656-9F67-120A9AA8645A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F1A4CB7-D311-4656-9F67-120A9AA8645A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D5A6C7-0A1D-40EF-84B1-ADC2CE0D3A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D5A6C7-0A1D-40EF-84B1-ADC2CE0D3A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D5A6C7-0A1D-40EF-84B1-ADC2CE0D3A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D5A6C7-0A1D-40EF-84B1-ADC2CE0D3A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825B97A0-AF44-4D49-B46E-3231F3C66339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825B97A0-AF44-4D49-B46E-3231F3C66339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825B97A0-AF44-4D49-B46E-3231F3C66339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825B97A0-AF44-4D49-B46E-3231F3C66339}.Release|Any CPU.Build.0 = Release|Any CPU
+		{848E4EBA-AC70-4832-9E43-8F6D5B996C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848E4EBA-AC70-4832-9E43-8F6D5B996C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848E4EBA-AC70-4832-9E43-8F6D5B996C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848E4EBA-AC70-4832-9E43-8F6D5B996C8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
