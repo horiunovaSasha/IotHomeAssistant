@@ -34,7 +34,7 @@
     </DialogButtons>
 </SfDialog>
 
-<EditPluginComponent @ref="editModal"></EditPluginComponent>
+<EditPluginComponent @ref="editModal" OnSave="InitPlugins"></EditPluginComponent>
 
 @code{
     SfGrid<PluginDto> grid;

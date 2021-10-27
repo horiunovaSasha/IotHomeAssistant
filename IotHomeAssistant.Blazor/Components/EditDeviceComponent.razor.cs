@@ -47,12 +47,14 @@ namespace IotHomeAssistant.Blazor.Components
                 Title = device.Title,
                 Type = device.Type.ToString(),
                 Plugin = device.PluginDevice?.PluginId ?? 0,
+                DockerImageId = device.PluginDevice?.Plugin?.DockerImageId ?? string.Empty,
                 Configurations = device.PluginDevice?.Configurations
                         .Select(x => new DevicePluginConfigurationDto()
                         {
                             Id = x.PluginConfigurationId,
                             Title = x.PluginConfiguration?.Title,
                             Description = x.PluginConfiguration?.Description,
+                            Key = x.PluginConfiguration?.Key,
                             Value = x.Value,
                             Type = "Text"
                         })
@@ -97,12 +99,14 @@ namespace IotHomeAssistant.Blazor.Components
                 if (plugin != null && plugin.Configurations != null)
                 {
                     Device.Configurations.Clear();
+                    Device.DockerImageId = plugin.DockerImageId;
 
                     foreach(var item in plugin.Configurations)
                     {
                         Device.Configurations.Add(new DevicePluginConfigurationDto()
                         {
                             Id = item.Id,
+                            Key = item.Key,
                             Title = item.Title,
                             Description = item.Description,
                             Type = item.Type.ToString()
@@ -115,6 +119,8 @@ namespace IotHomeAssistant.Blazor.Components
 
         private void Save()
         {
+            _deviceService.SaveDeviceAsync(Device);
+
             StateHasChanged();
             Hide();
         }

@@ -16,6 +16,7 @@ namespace IoTHomeAssistant.Domain.Dto
         
         [Range(1, int.MaxValue, ErrorMessage = "Виберіть плагін!")]
         public int Plugin { get; set; }
+        public string DockerImageId { get; set; }
 
         public List<DevicePluginConfigurationDto> Configurations { get; set; }
 

@@ -24,6 +24,9 @@ namespace IotHomeAssistant.Blazor.Components
         private string[] _configurationTypes = Enum.GetNames(typeof(ConfigurationTypeEnum));
         private List<Plugin> _plugins = new List<Plugin>();
 
+        [Parameter]
+        public EventCallback OnSave { get; set; }
+
         [Inject]
         protected IPluginService _pluginService { get; set; }
         protected PluginEditDto Plugin { get; set; } = new PluginEditDto();
@@ -107,6 +110,8 @@ namespace IotHomeAssistant.Blazor.Components
             {
                 _pluginService.UpdatePlugin(plugin);
             }
+
+            OnSave.InvokeAsync();
 
             StateHasChanged();
             Hide();

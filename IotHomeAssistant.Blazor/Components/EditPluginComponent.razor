@@ -39,10 +39,13 @@
                                     <h5 class="mt-2">Конфігурація:</h5>
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-lg-1 col-md-1">
+                                    @if (Plugin.Id == 0)
+                                    {
                                     <a @onclick="() => Clone()" class="add-condition">
                                         <span class="e-circle-add e-icons e-btn-icon e-icon-left"></span>
                                         <span class="text">Додати</span>
                                     </a>
+                                    }
                                 </div>
                             </div>
 
@@ -69,7 +72,7 @@
                                             <ValidationMessage For="@(() => item.Value)"/>
                                         </div>
                                         <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1 pt-4">
-                                            @if (Plugin.Configurations.Count > 1)
+                                            @if (Plugin.Id == 0 && Plugin.Configurations.Count > 1)
                                             {
                                             <a @onclick="() => RemoveConfiguration(item)" class="delete-condition">
                                                 <span class="e-delete e-icons e-btn-icon e-icon-left"></span>

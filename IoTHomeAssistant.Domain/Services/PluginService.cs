@@ -30,9 +30,11 @@ namespace IoTHomeAssistant.Domain.Services
         public async Task AddPlugin(Plugin plugin)
         {
             plugin.DockerImageId = BuilDockerImageId(plugin);
-            var localPath = GitCloneAndReturnPath(plugin);
 
-            Task.Run(() => BuildDockerImage(localPath, plugin.DockerImageId));
+            Task.Run(() => {
+                var localPath = GitCloneAndReturnPath(plugin);
+                BuildDockerImage(localPath, plugin.DockerImageId);
+            });
             await _pluginRepository.AddAsync(plugin);
             await _pluginRepository.CommitAsync();
         }
@@ -74,9 +76,10 @@ namespace IoTHomeAssistant.Domain.Services
                     }
                 }
 
-                var localPath = GitCloneAndReturnPath(dbPlugin);
-
-                Task.Run(() => UpdateDockerImage(localPath, dbPlugin.DockerImageId));
+                Task.Run(() => {
+                    var localPath = GitCloneAndReturnPath(dbPlugin);
+                    UpdateDockerImage(localPath, dbPlugin.DockerImageId);
+                });
              
                 await _pluginRepository.UpdateAsync(dbPlugin);
                 await _pluginRepository.CommitAsync();

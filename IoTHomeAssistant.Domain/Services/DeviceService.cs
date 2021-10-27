@@ -4,34 +4,57 @@ using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Options;
 using IoTHomeAssistant.Domain.Repositories;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using uPLibrary.Networking.M2Mqtt;
-using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace IoTHomeAssistant.Domain.Services
 {
     public class DeviceService : IDeviceService
     {
-        private const string MQTT_CLIENT_ID = "IoTHomeAssistant";
-
         private readonly IDeviceRepository _deviceRepository;
         private readonly string _mqttBrokerAddress;
 
         public DeviceService(
-            IDeviceRepository deviceRepository, 
+            IDeviceRepository deviceRepository,
             IOptions<MqttOption> options)
         {
             _deviceRepository = deviceRepository;
             _mqttBrokerAddress = options.Value.MqttBrokerAddress;
         }
 
-        public Task AddDeviceAsync(Entities.Device device)
+        public async Task SaveDeviceAsync(DeviceEditDto deviceDto)
         {
-            throw new System.NotImplementedException();
+            var device = new Entities.Device()
+            {
+                Id = deviceDto.Id,
+                Title = deviceDto.Title,
+                Type = Enum.Parse<DeviceTypeEnum>(deviceDto.Type),
+                PluginDevice = new Entities.PluginDevice()
+                {
+                    PluginId = deviceDto.Plugin,
+                    DeviceId = deviceDto.Id,
+                    Configurations = deviceDto.Configurations.Select(x =>
+                        new Entities.PluginDeviceConfiguration()
+                        {
+                            PluginConfigurationId = x.Id,
+                            Value = x.Value
+                        }
+                    ).ToList()
+                }
+            };
+
+            if (deviceDto.Id == 0)
+            {
+                await _deviceRepository.AddAsync(device);
+                await _deviceRepository.CommitAsync();
+
+                deviceDto.Id = device.Id;
+
+                StartDockerImage(deviceDto);
+            }
         }
 
         public async Task<Entities.Device> GetDeviceAsync(int id)
@@ -48,7 +71,7 @@ namespace IoTHomeAssistant.Domain.Services
         {
             var deviceEvents = new List<DeviceEventDto>();
             var devices = (await GetDevicesAsync())
-                .Where(x => 
+                .Where(x =>
                     x.DeviceEvents != null &&
                     x.DeviceEvents.EventCollection != null &&
                     x.DeviceEvents.EventCollection.Events != null &&
@@ -61,11 +84,12 @@ namespace IoTHomeAssistant.Domain.Services
 
                 foreach (var eventItem in device.DeviceEvents.EventCollection.Events.Where(e => !hasValue.HasValue || e.HasValue == hasValue.Value))
                 {
-                    deviceEvents.Add(new DeviceEventDto() {
+                    deviceEvents.Add(new DeviceEventDto()
+                    {
                         DeviceId = deviceId,
-                        DeviceName = deviceName, 
-                        EventId = eventItem.Id, 
-                        EventTitle = eventItem.Title 
+                        DeviceName = deviceName,
+                        EventId = eventItem.Id,
+                        EventTitle = eventItem.Title
                     });
                 }
             }
@@ -73,28 +97,9 @@ namespace IoTHomeAssistant.Domain.Services
             return deviceEvents;
         }
 
-        public List<InfoDevice> GetInfoDevices()
-        {
-            return _deviceRepository.GetInfoDevices();
-        }
-
         public async Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request)
         {
             return await _deviceRepository.GetPaggedList(request);
-        }
-
-        public void LightControl(int deviceId, bool toggle, int brightness, string color)
-        {
-            var device = _deviceRepository.Get(deviceId);
-            if (device != null)
-            {
-                var client = new MqttClient(_mqttBrokerAddress);
-                client.Connect(MQTT_CLIENT_ID + deviceId);
-
-                var payload = JsonSerializer.Serialize(new {toggle, brightness, color});
-
-                client.Publish($"light-cmd-{deviceId}", Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
-            }
         }
 
         public async Task RemoveDeviceAsync(int id)
@@ -103,23 +108,49 @@ namespace IoTHomeAssistant.Domain.Services
             await _deviceRepository.CommitAsync();
         }
 
-        public void Toggle(int deviceId, bool toggle)
+        private Task StartDockerImage(DeviceEditDto device)
         {
-            var device = _deviceRepository.Get(deviceId);
-            if (device != null)
+            var envParams = new List<string>()
             {
-                var client = new MqttClient(_mqttBrokerAddress);
-                client.Connect(MQTT_CLIENT_ID + deviceId);
+                $"--env MQTT_ADDR={_mqttBrokerAddress}",
+                $"--env CMD_TOPIC=CMD_{device.Type}_{device.Id}",
+                $"--env STATUS_TOPIC=GET_STATUS_{device.Type}_{device.Id}",
+                $"--env SEND_STATUS_TOPIC=RECEIVE_EVENTS_{device.Type}_{device.Id}"
+            };
 
-                var payload = JsonSerializer.Serialize(new { toggle });
-
-                client.Publish($"toggle-cmd-{deviceId}", Encoding.UTF8.GetBytes(payload), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            foreach(var conf in device.Configurations)
+            {
+                envParams.Add($"--env {conf.Key}=\"{conf.Value}\"");
             }
+
+            return Task.Run(() => {
+                Cmd("docker", $"run {string.Join(" ", envParams)} --name {device.DockerImageId}_{device.Id} {device.DockerImageId}");
+            });
         }
 
-        public Task UpdateDeviceAsync(Entities.Device device)
+        private Process Cmd(string filename, string command)
         {
-            throw new System.NotImplementedException();
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = filename,
+                    Arguments = command,
+                    UseShellExecute = false,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            process.WaitForExit();
+
+            var error = process.StandardError.ReadToEnd();
+            var output = process.StandardOutput.ReadToEnd();
+
+            return process;
         }
     }
 }
