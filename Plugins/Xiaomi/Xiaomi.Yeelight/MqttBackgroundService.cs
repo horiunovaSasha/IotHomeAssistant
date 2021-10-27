@@ -125,16 +125,32 @@ namespace Xiaomi.Yeelight
 
                 if (await light.Connect())
                 {
-                    var status = new
-                    {
-                        Toggle = await light.GetProp(PROPERTIES.power),
-                        Color = await light.GetProp(PROPERTIES.rgb),
-                        Brightness = await light.GetProp(PROPERTIES.bright)
-                    };
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, 
+                        Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                            new { 
+                                Event = "power_changed", 
+                                Value= (await light.GetProp(PROPERTIES.power)).ToString() == "on"
+                            }
+                        )));
 
-                    var message = JsonConvert.SerializeObject(status);
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC,
+                        Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                            new
+                            {
+                                Event = "brightness_changed",
+                                Value = await light.GetProp(PROPERTIES.bright)
+                            }
+                        )));
 
-                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(message));
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC,
+                        Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                            new
+                            {
+                                Event = "color_changed",
+                                Value =  GetHtmlColor(await light.GetProp(PROPERTIES.rgb))
+                            }
+                        )));
+
                     light.Disconnect();
                 }
             }
@@ -142,6 +158,14 @@ namespace Xiaomi.Yeelight
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private string GetHtmlColor(object rgb)
+        {
+            var color = ColorTranslator.FromOle(int.Parse(rgb.ToString()));
+            var html = ColorTranslator.ToHtml(color);
+
+            return $"#{html.Substring(5, 2)}{html.Substring(3, 2)}{html.Substring(1, 2)}";
         }
     }
 }
