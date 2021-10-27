@@ -111,7 +111,7 @@ namespace Tuya.Thermostat
 
         private async Task SendStatus()
         {
-            try
+            //try
             {
                 var tuya = new TuyaClient(VariableExtension.CLIENT_KEY, VariableExtension.CLIENT_SECRET);
                 await tuya.Authorize();
@@ -141,10 +141,10 @@ namespace Tuya.Thermostat
                     })
                 ));
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
     }
 }
