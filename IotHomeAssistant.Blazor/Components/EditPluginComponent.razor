@@ -39,8 +39,9 @@
                                     <h5 class="mt-2">Конфігурація:</h5>
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-lg-1 col-md-1">
-                                    <a @onclick="Clone" class="add-condition">
-                                        <span class="e-plus e-icons e-btn-icon e-icon-left e-round mt-2"></span>
+                                    <a @onclick="() => Clone()" class="add-condition">
+                                        <span class="e-circle-add e-icons e-btn-icon e-icon-left"></span>
+                                        <span class="text">Додати</span>
                                     </a>
                                 </div>
                             </div>
@@ -67,8 +68,13 @@
                                             <SfTextBox Placeholder="Ключ" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.Value"></SfTextBox>
                                             <ValidationMessage For="@(() => item.Value)"/>
                                         </div>
-                                        <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1 mt-2">
-                                             <SfButton class="e-delete e-icons e-btn-icon e-icon-left mt-3 e-outline" style="height: 50%" @onclick="() => RemoveConfiguration(item)"></SfButton>
+                                        <div class="col-xs-1 col-sm-1 col-lg-1 col-md-1 pt-4">
+                                            @if (Plugin.Configurations.Count > 1)
+                                            {
+                                            <a @onclick="() => RemoveConfiguration(item)" class="delete-condition">
+                                                <span class="e-delete e-icons e-btn-icon e-icon-left"></span>
+                                            </a>
+                                            }
                                         </div>
                                         <hr/>
                                     }

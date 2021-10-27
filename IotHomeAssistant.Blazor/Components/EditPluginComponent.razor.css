@@ -1,0 +1,22 @@
+﻿.add-condition, .delete-condition {
+    font-size: 1.5rem;
+}
+
+    .add-condition .text {
+        font-size: 1rem;
+        position: relative;
+        margin-left: 0.5rem;
+    }
+
+    .add-condition, .delete-condition:hover {
+        cursor: pointer;
+    }
+
+.add-condition {
+    display: flex;
+    margin-top: 0.5rem;
+}
+
+.add-condition .e-circle-add {
+    margin-left: -1.5rem;
+}

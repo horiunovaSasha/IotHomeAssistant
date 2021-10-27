@@ -6,6 +6,11 @@
 
 @inject IPluginService pluginService;
 
+<DeleteConfirmComponent @ref="deleteConfirmation"
+    Title="Ви дійсно бажаєте вилучити дане розширення з усіма його пристроями і віджетами?"
+    OnConfirm="DeleteAsync">
+</DeleteConfirmComponent>
+
 <SfGrid DataSource="@plugins" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="PluginDto"></GridEvents>
     <GridPageSettings PageSize="10"></GridPageSettings>
@@ -34,6 +39,8 @@
 @code{
     SfGrid<PluginDto> grid;
     EditPluginComponent editModal;
+    DeleteConfirmComponent deleteConfirmation;
+
     public List<PluginDto> plugins { get; set; }
 
     bool noItemsModalVisible = false;
@@ -42,6 +49,16 @@
 
     protected override void OnInitialized()
     {
+        InitPlugins();
+
+        Toolbaritems = new List<ItemModel>() {
+            new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
+            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
+            new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
+        };
+    }
+
+    void InitPlugins() {
         plugins = pluginService.GetPagginPlugins(
             new PageRequest()
             {
@@ -49,12 +66,6 @@
                 PageSize = 10000
             })
             .Result.Items;
-
-        Toolbaritems = new List<ItemModel>() {
-            new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
-            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
-            new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
-        };
     }
 
     public async Task ToolbarClickHandler(ClickEventArgs args)
@@ -81,8 +92,19 @@
             if (selectedItem == null)
             {
                 noItemsModalVisible = true;
+            } else
+            {
+                deleteConfirmation.Show();
             }
         }
+    }
+
+    private async Task DeleteAsync()
+    {
+        var selectedItem = grid.SelectedRecords.FirstOrDefault();
+        await pluginService.RemovePlugin(selectedItem.Id);
+
+        InitPlugins();
     }
 
     private void CloseDialog()

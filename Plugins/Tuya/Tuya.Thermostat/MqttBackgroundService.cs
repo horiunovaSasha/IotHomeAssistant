@@ -62,18 +62,46 @@ namespace Tuya.Thermostat
             try
             {
                 var message = Encoding.UTF8.GetString(msg);
-                var command = JsonConvert.DeserializeObject<Command>(message);
+                var payload = JsonConvert.DeserializeObject<CommandPayload>(message);
 
                 var tuya = new TuyaClient(VariableExtension.CLIENT_KEY, VariableExtension.CLIENT_SECRET);
                 await tuya.Authorize();
 
-                await tuya.SendCommands(
-                    VariableExtension.DEVICE_ID,
-                    new Commands(
-                    new List<Request.Command>() {
-                        new Request.Command("switch", command.Toggle),
-                        new Request.Command("temp_set", command.Temperature *2)
-                    }));
+                if (payload.Command == "set_power")
+                {
+                    await tuya.SendCommands(
+                        VariableExtension.DEVICE_ID,
+                        new Commands(
+                        new List<Command>() {
+                            new Command("switch", payload.Value)
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                       new
+                       {
+                           Event = "power_changed",
+                           Value = payload.Value
+                       })
+                   ));
+                }
+
+                if (payload.Command == "set_temperature")
+                {
+                    await tuya.SendCommands(
+                        VariableExtension.DEVICE_ID,
+                        new Commands(
+                        new List<Command>() {
+                            new Command("temp_set", int.Parse(payload.Value) *2)
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                       new
+                       {
+                           Event = "power_changed",
+                           Value = int.Parse(payload.Value) * 2
+                       })
+                   ));
+                }
             }
             catch (Exception ex)
             {
@@ -90,16 +118,28 @@ namespace Tuya.Thermostat
 
                 var devStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
 
-                var status = new Status()
-                {
-                    Toggle = bool.Parse(devStatus.First(x => x.Key == "switch").Value),
-                    CurrentTemperature = int.Parse(devStatus.First(x => x.Key == "upper_temp").Value) / 2,
-                    TargetTemperature = int.Parse(devStatus.First(x => x.Key == "temp_set").Value) / 2
-                };
+                _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                    new { 
+                        Event = "power_changed",
+                        Value = devStatus.First(x => x.Key == "switch").Value
+                    })
+                ));
 
-                var json = JsonConvert.SerializeObject(status);
+                _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                    new
+                    {
+                        Event = "upper_temperature_changed",
+                        Value = int.Parse(devStatus.First(x => x.Key == "upper_temp").Value) / 2
+                    })
+                ));
 
-                _client.Publish(VariableExtension.STATUS_TOPIC + "-echo", Encoding.UTF8.GetBytes(json));
+                _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
+                    new
+                    {
+                        Event = "target_temperature_changed",
+                        Value = int.Parse(devStatus.First(x => x.Key == "temp_set").Value) / 2
+                    })
+                ));
             }
             catch (Exception ex)
             {
