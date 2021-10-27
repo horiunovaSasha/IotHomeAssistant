@@ -91,14 +91,14 @@ namespace Tuya.Thermostat
                         VariableExtension.DEVICE_ID,
                         new Commands(
                         new List<Command>() {
-                            new Command("temp_set", int.Parse(payload.Value) *2)
+                            new Command("temp_set", int.Parse(payload.Value.ToString()) *2)
                         }));
 
                     _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
                        new
                        {
-                           Event = "power_changed",
-                           Value = int.Parse(payload.Value) * 2
+                           Event = "target_temperature_changed",
+                           Value = payload.Value
                        })
                    ));
                 }
