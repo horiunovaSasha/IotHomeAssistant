@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.64
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTHomeAssistant.Web", "IoTHomeAssistant.Web\IoTHomeAssistant.Web.csproj", "{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTHomeAssistant.Domain", "IoTHomeAssistant.Domain\IoTHomeAssistant.Domain.csproj", "{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoTHomeAssistant.Infrastructure", "IoTHomeAssistant.Infrastructure\IoTHomeAssistant.Infrastructure.csproj", "{FF7CBF9B-C266-4F4A-A853-317A3E36BD50}"
@@ -22,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6F6F824-2A01-412D-AB30-BBBBE0000A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{973DEB4C-58C0-4CAF-AA1A-A83AB030E90E}.Release|Any CPU.ActiveCfg = Release|Any CPU
