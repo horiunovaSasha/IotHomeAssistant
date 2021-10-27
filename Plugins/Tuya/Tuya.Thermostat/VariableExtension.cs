@@ -65,20 +65,6 @@ namespace Tuya.Thermostat
                 }
             }
 
-            MQTT_ADDR = "192.168.1.226";
-
-            CMD_TOPIC = "CMD_Thermostat_12";
-
-            STATUS_TOPIC = "GET_STATUS_Thermostat_12";
-
-            SEND_STATUS_TOPIC = "RECEIVE_EVENTS_Thermostat_12";
-
-            DEVICE_ID = "30612735a4e57c82ee92";
-
-            CLIENT_KEY = "ppf8mp4tasw33xg0wb46";
-
-            CLIENT_SECRET = "0b327d5c7f0d423797dc7326a198377a";
-
             if (string.IsNullOrEmpty(MQTT_ADDR))
             {
                 throw new ArgumentException("MQTT_ADDR Environment variable is required!");
