@@ -32,7 +32,7 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Items
                 .WithUrl(NavigationManager.ToAbsoluteUri("/event-publisher"))
                 .Build();
 
-            hubConnection.On<string>($"Event_{WidgetItem.DeviceId}_{WidgetItem.EventId}", (payload) =>
+            hubConnection.On<string>($"{EventTypeEnum.status_changed}_{WidgetItem.DeviceId}", (payload) =>
             {
                 int value = 0;
                 if (int.TryParse(payload, out value))
