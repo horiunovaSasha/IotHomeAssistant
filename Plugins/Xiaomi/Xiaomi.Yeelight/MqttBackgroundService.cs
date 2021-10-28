@@ -58,7 +58,7 @@ namespace Xiaomi.Yeelight
 
         private async Task ExecCommand(byte[] msg)
         {
-            try
+            //try
             {
                 var message = Encoding.UTF8.GetString(msg);
                 var payload = JsonConvert.DeserializeObject<CommandPayload>(message);
@@ -111,15 +111,15 @@ namespace Xiaomi.Yeelight
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
 
         private async Task SendStatus()
         {
-            try
+            //try
             {
                 var light = new YeelightAPI.Device(VariableExtension.IP_ADDRESS, 55443);
 
@@ -154,10 +154,10 @@ namespace Xiaomi.Yeelight
                     light.Disconnect();
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
         }
 
         private string GetHtmlColor(object rgb)
