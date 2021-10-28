@@ -1,9 +1,11 @@
-﻿using IoTHomeAssistant.Domain.Options;
+﻿using IoTHomeAssistant.Domain.Dto;
+using IoTHomeAssistant.Domain.Options;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading;
@@ -32,6 +34,7 @@ namespace IoTHomeAssistant.Domain.Services
             {
                 var deviceService = scope.ServiceProvider.GetRequiredService<IDeviceService>();
                 var deviceEvents = await deviceService.GetDeviceEventsAsync(null);
+                var devices = await deviceService.GetDevicesAsync(null);
                 var eventPublisher = new HubConnectionBuilder()
                    .WithUrl(new Uri("https://localhost:5001/event-publisher"))
                    .Build();
@@ -39,16 +42,21 @@ namespace IoTHomeAssistant.Domain.Services
                 _client.Connect(MQTT_CLIENT_ID);
                 await eventPublisher.StartAsync();
 
-                foreach (var deviceEvent in deviceEvents)
+                foreach (var device in devices)
                 {
-                    var eventName = $"Event_{deviceEvent.DeviceId}_{deviceEvent.EventId}";
+                    var eventName = $"RECEIVE_EVENTS_{device.Type}_{device.Id}";
 
                     _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
                     {
                         if (e.Topic == eventName)
                         {
-                            var payload = e.Message != null && e.Message.Length > 0 ? Encoding.UTF8.GetString(e.Message): string.Empty;
-                            eventPublisher.SendAsync("PublishEvent", eventName, payload).Wait();
+                            var payload = JsonConvert.DeserializeObject<EventPayload>(Encoding.UTF8.GetString(e.Message));
+                            if (eventPublisher.State != HubConnectionState.Connected)
+                            {
+                                eventPublisher.StartAsync().Wait();
+                            }
+
+                            eventPublisher.SendAsync("PublishEvent", $"{payload.Event}_{device.Id}", payload.Value).Wait();
                         }
                     };
 

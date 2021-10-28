@@ -54,6 +54,17 @@ namespace Xiaomi.Yeelight
 
             }
 
+            SEND_STATUS_TOPIC = "RECEIVE_EVENTS_Light_16";
+
+            IP_ADDRESS = "192.168.1.139";
+
+            MQTT_ADDR = "192.168.1.226";
+
+            CMD_TOPIC = "CMD_Light_16";
+
+            STATUS_TOPIC = "GET_STATUS_Light_16";
+
+
             if (string.IsNullOrEmpty(MQTT_ADDR))
             {
                 throw new ArgumentException("MQTT_ADDR Environment variable is required!");

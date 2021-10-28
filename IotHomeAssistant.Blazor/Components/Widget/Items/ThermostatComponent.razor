@@ -10,20 +10,20 @@
                 <label class="h3">@WidgetItem.Title</label>
                 <img src="https://cdn-icons-png.flaticon.com/512/599/599502.png" width="40" class="mr-2 mb-2" />
                 <ItemContextMenuComponent IsPreview="IsPreview"
-                                          OnEdit="() => OnEditWidget.InvokeAsync()"
-                                          OnDelete="() => OnDeleteWidget.InvokeAsync()" />
+                    OnEdit="() => OnEditWidget.InvokeAsync()"
+                    OnDelete="() => OnDeleteWidget.InvokeAsync()" />
             </div>
             <div class="col-12 d-flex justify-content-between">
                 <img src="https://image.flaticon.com/icons/png/512/741/741236.png" height="96" />
                 <div>
-                    <button type="button" class="e-control e-btn e-lib mr-2 mb-2">-</button>
-                    <span class="h2">65º</span>
-                    <button type="button" class="e-control e-btn e-lib ml-2 mb-2">+</button>
+                    <button type="button" class="e-control e-btn e-lib mr-2 mb-2" @onclick="Down">-</button>
+                    <span class="h2">@(temperature)º</span>
+                    <button type="button" class="e-control e-btn e-lib ml-2 mb-2" @onclick="Up">+</button>
                 </div>
             </div>
             <div class="col-12" style="padding-right: 2.6em; margin-top: -2.5em;">
                 <div class="float-right">
-                    <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
+                    <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" ValueChange="Change" TChecked="bool" OnLabel="ON" OffLabel="OFF"></SfSwitch>
                 </div>
             </div>
         </div>

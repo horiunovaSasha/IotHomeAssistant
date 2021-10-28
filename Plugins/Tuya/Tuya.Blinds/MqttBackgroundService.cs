@@ -68,7 +68,7 @@ namespace Tuya.Blinds
 
                 await tuya.SendCommands(
                     VariableExtension.DEVICE_ID,
-                    new Tuya.Request.Commands("control", payload.Command));
+                    new Request.Commands("control", payload.Command));
 
                 _continue = payload.Command != "stop";
                 await Task.Delay(1500);
@@ -90,20 +90,35 @@ namespace Tuya.Blinds
 
                 var deviceStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
 
-                var percent = deviceStatus.FirstOrDefault(x => x.Key == "percent_control").Value;
-                _client.Publish(VariableExtension.STATUS_TOPIC + "-echo", Encoding.UTF8.GetBytes(percent));
+                var percent = deviceStatus.FirstOrDefault(x => x.Key == "percent_control").Value;                
 
                 while (_continue && untilStop && (percent != "0" && percent != "100"))
                 {
                     deviceStatus = await tuya.GetDeviceStatus(VariableExtension.DEVICE_ID);
 
                     percent = deviceStatus.FirstOrDefault(x => x.Key == "percent_control").Value;
-                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(percent));
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(
+                            new
+                            {
+                                Event = "status_changed",
+                                Value = percent
+                            }
+                        )
+                    ));
 
                     await Task.Delay(100);
                 }
 
-                _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(percent));
+                _client.Publish(VariableExtension.SEND_STATUS_TOPIC, Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(
+                            new
+                            {
+                                Event = "status_changed",
+                                Value = percent
+                            }
+                        )
+                    ));
             }
             catch (Exception ex)
             {

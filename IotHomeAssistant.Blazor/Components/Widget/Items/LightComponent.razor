@@ -16,8 +16,8 @@
                     <ItemContextMenuComponent IsPreview="IsPreview"
                         OnEdit="() => OnEditWidget.InvokeAsync()"
                         OnDelete="() => OnDeleteWidget.InvokeAsync()" />
-                    <SfSwitch CssClass="e-large mb-4" @bind-Checked="isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch><br />
-                    <SfColorPicker Mode="ColorPickerMode.Palette" ShowButtons="false"></SfColorPicker>
+                    <SfSwitch CssClass="e-large mb-4" @bind-Checked="isChecked" OnLabel="ON" OffLabel="OFF" ValueChange="Change" TChecked="bool"></SfSwitch><br />
+                    <SfColorPicker Mode="ColorPickerMode.Palette" @bind-Value="color" ValueChange="ColorSelect" ShowButtons="false"></SfColorPicker>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="col-12 text-center">
                 <img src="https://image.flaticon.com/icons/png/512/880/880950.png" class="ml-3" height="30" />
                 <span>
-                    <input type="range" class="form-range pt-1 pr-0" min="0" max="100" />
+                    <input type="range" class="form-range pt-1 pr-0" min="10" max="99" value="@brightness" @onchange="(args) => ChangeBrightness(args)" />
                 </span>
                 <img src="https://image.flaticon.com/icons/png/512/880/880909.png" height="40" />
                 <span class="text-secondary text-uppercase">яскравість</span>

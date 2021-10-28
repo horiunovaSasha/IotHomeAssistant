@@ -5,7 +5,7 @@ namespace IoTHomeAssistant.Domain.Services
 {
     public class EventPublisher : Hub, IEventPublisher
     {
-        public async Task PublishEvent(string eventName, string payload)
+        public async Task PublishEvent(string eventName, object payload)
         {
             await Clients.All.SendAsync(eventName, payload);
         }

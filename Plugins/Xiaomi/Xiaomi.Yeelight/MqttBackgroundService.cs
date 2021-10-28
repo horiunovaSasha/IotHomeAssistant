@@ -58,7 +58,7 @@ namespace Xiaomi.Yeelight
 
         private async Task ExecCommand(byte[] msg)
         {
-            //try
+            try
             {
                 var message = Encoding.UTF8.GetString(msg);
                 var payload = JsonConvert.DeserializeObject<CommandPayload>(message);
@@ -111,61 +111,66 @@ namespace Xiaomi.Yeelight
                     }
                 }
             }
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private async Task SendStatus()
         {
-            //try
+            try
             {
                 var light = new YeelightAPI.Device(VariableExtension.IP_ADDRESS, 55443);
 
                 if (await light.Connect())
                 {
+                    var powerEvent = new
+                    {
+                        Event = "power_changed",
+                        Value = (await light.GetProp(PROPERTIES.power)).ToString() == "on"
+                    };
+
+                    var brightnessEvent = new
+                    {
+                        Event = "brightness_changed",
+                        Value = await light.GetProp(PROPERTIES.bright)
+                    };
+
+                    var colorEvent = new
+                    {
+                        Event = "color_changed",
+                        Value = GetHtmlColor(await light.GetProp(PROPERTIES.rgb))
+                    };
+
                     _client.Publish(VariableExtension.SEND_STATUS_TOPIC, 
                         Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
-                            new { 
-                                Event = "power_changed", 
-                                Value= (await light.GetProp(PROPERTIES.power)).ToString() == "on"
-                            }
+                           powerEvent
                         )));
 
                     _client.Publish(VariableExtension.SEND_STATUS_TOPIC,
                         Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
-                            new
-                            {
-                                Event = "brightness_changed",
-                                Value = await light.GetProp(PROPERTIES.bright)
-                            }
+                            brightnessEvent
                         )));
 
                     _client.Publish(VariableExtension.SEND_STATUS_TOPIC,
                         Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(
-                            new
-                            {
-                                Event = "color_changed",
-                                Value =  GetHtmlColor(await light.GetProp(PROPERTIES.rgb))
-                            }
+                            colorEvent
                         )));
 
                     light.Disconnect();
                 }
             }
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        private string GetHtmlColor(object rgb)
+        private string GetHtmlColor(object value)
         {
-            var color = ColorTranslator.FromOle(int.Parse(rgb.ToString()));
-            var html = ColorTranslator.ToHtml(color);
-
-            return $"#{html.Substring(5, 2)}{html.Substring(3, 2)}{html.Substring(1, 2)}";
+            var color = Color.FromArgb(int.Parse(value.ToString()));
+            return ColorTranslator.ToHtml(color);
         }
     }
 }

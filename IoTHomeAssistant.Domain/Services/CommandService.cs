@@ -26,12 +26,12 @@ namespace IoTHomeAssistant.Domain.Services
             var payload = Encoding.UTF8.GetBytes(
                 JsonConvert.SerializeObject(new { command, value }));
 
-            await Publish(deviceId, "control", payload);
+            await Publish(deviceId, "CMD", payload);
         }
 
         public async Task GetStatus(int deviceId)
         {
-            await Publish(deviceId, "status", new byte[] { });
+            await Publish(deviceId, "GET_STATUS", new byte[] { });
         }
 
         private async Task Publish(int deviceId, string topic, byte[] payload)
@@ -43,7 +43,7 @@ namespace IoTHomeAssistant.Domain.Services
                 var client = new MqttClient(_options.MqttBrokerAddress);
                 client.Connect(MQTT_CLIENT_ID + deviceId);
 
-                client.Publish($"{device.Type.ToString().ToLower()}_{topic}_{deviceId}", payload);
+                client.Publish($"{topic}_{device.Type}_{deviceId}", payload);
             }
         }
     }
