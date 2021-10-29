@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using IoTHomeAssistant.Domain.Enums;
+using IoTHomeAssistant.Domain.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Threading.Tasks;
 
@@ -11,12 +13,12 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Items
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        public ICommandService CommandService { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
-            if (!IsPreview && WidgetItem.Id > 0)
-            {
-                SubscribeOnEvent();
-            }
+            SubscribeOnEvent();
         }
 
         public async Task SubscribeOnEvent()
@@ -25,13 +27,14 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Items
                 .WithUrl(NavigationManager.ToAbsoluteUri("/event-publisher"))
                 .Build();
 
-            hubConnection.On<string>($"Event_{WidgetItem.DeviceId}_{WidgetItem.EventId}", (payload) =>
+            hubConnection.On<string>($"{WidgetItem.EventType}_{WidgetItem.DeviceId}", (payload) =>
             {
                 value = payload;
                 StateHasChanged();
             });
 
             await hubConnection.StartAsync();
+            await CommandService.GetStatus(WidgetItem.DeviceId);
         }
     }
 }

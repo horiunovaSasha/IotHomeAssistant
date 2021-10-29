@@ -57,7 +57,11 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Edit
                 EditContext.Validate();
                 EditContext.NotifyValidationStateChanged();
 
-                WidgetItem.DeviceId = deviceEvents.First(x => x.EventId == args.Value).DeviceId;
+                var deviceEvent = deviceEvents.First(x => x.EventId == args.Value);
+                WidgetItem.EventId = args.Value;
+                WidgetItem.EventType = deviceEvent.EventType;
+                WidgetItem.DeviceId = deviceEvent.DeviceId;
+
                 await previewComponent.SubscribeOnEvent();
             }
         }

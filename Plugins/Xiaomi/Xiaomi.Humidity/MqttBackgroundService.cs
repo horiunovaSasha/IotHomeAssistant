@@ -39,7 +39,7 @@ namespace Xiaomi.Humidity
                       JsonConvert.SerializeObject(new
                       {
                           Event = "humidity_changed",
-                          Value = e.Message
+                          Value = Encoding.UTF8.GetString(e.Message)
                       }));
 
                     _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);

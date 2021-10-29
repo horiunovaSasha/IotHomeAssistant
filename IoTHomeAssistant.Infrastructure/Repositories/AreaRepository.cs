@@ -17,8 +17,8 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         {
             return await _dbSet
                 .AsNoTracking()
-                .Include(x => x.Widgets)
-                .ThenInclude(x => x.Icon)
+                .Include("Widgets.Icon")
+                .Include("Widgets.Event")
                 .ToListAsync();
         }
     }

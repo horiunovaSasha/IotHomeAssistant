@@ -38,7 +38,7 @@ namespace Xiaomi.Temperature
                     var payload = Encoding.UTF8.GetBytes(
                         JsonConvert.SerializeObject(new {
                             Event = "temperature_changed",
-                            Value = e.Message
+                            Value = Encoding.UTF8.GetString(e.Message)
                         }));
 
                     _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);

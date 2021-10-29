@@ -2,6 +2,7 @@
 {
     public enum EventTypeEnum
     {
+        no_event = 0,
         status_changed = 1,
         power_changed = 2,
         target_temperature_changed = 3,

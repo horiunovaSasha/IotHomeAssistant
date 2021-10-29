@@ -89,7 +89,8 @@ namespace IoTHomeAssistant.Domain.Services
                         DeviceId = deviceId,
                         DeviceName = deviceName,
                         EventId = eventItem.Id,
-                        EventTitle = eventItem.Title
+                        EventTitle = eventItem.Title,
+                        EventType = eventItem.Type
                     });
                 }
             }

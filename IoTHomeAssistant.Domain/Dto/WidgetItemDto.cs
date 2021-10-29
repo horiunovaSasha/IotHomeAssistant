@@ -14,6 +14,7 @@ namespace IoTHomeAssistant.Domain.Dto
         public int DeviceId { get; set; }
 
         public int EventId { get; set; }
+        public EventTypeEnum EventType { get; set; }
 
         public int IconId { get; set; }        
 
@@ -47,9 +48,10 @@ namespace IoTHomeAssistant.Domain.Dto
                 DeviceId = widgetItem.DeviceId.Value;
             }
 
-            if (widgetItem.EventId.HasValue)
+            if (widgetItem.Event != null)
             {
-                EventId = widgetItem.EventId.Value;
+                EventId = widgetItem.Event.Id;
+                EventType = widgetItem.Event.Type;
             }
 
             if (widgetItem.JobTaskId.HasValue)
