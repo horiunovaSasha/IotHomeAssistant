@@ -87,16 +87,19 @@ namespace Xiaomi.Hub
             {
                 if (!_thSensors.ContainsKey(thSensor.Sid))
                 {
+                    Console.WriteLine($"Discovered: {thSensor.Name} {thSensor.Sid}");
                     _thSensors.Add(thSensor.Sid, thSensor);
                 }
 
                 thSensor.OnHumidityChange += (_, e) =>
                 {
+                    Console.WriteLine($"Humidity Change: {e.Humidity}");
                     _client.Publish($"{XIAOMI_HUMIDITY_CHANGED}_{thSensor.Sid}", Encoding.UTF8.GetBytes(e.Humidity.ToString()));
                 };
 
                 thSensor.OnTemperatureChange += (_, e) =>
                 {
+                    Console.WriteLine($"Temperature Change: {e.Temperature}");
                     _client.Publish($"{XIAOMI_TEMPERATURE_CHANGED}_{thSensor.Sid}", Encoding.UTF8.GetBytes(e.Temperature.ToString()));
                 };
             };
