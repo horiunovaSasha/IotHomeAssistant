@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading;
@@ -35,11 +36,25 @@ namespace Xiaomi.Motion
 
                 if (e.Topic == $"{XIAOMI_MOTION_DETECTED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.ON_MOTION_DETECTED_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(new
+                        {
+                            Event = "motion_detected",
+                            Value = "ЗАФІКСОВАНО РУХ"
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
                 if (e.Topic == $"{XIAOMI_MOTION_STOPPED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.ON_MOTION_STOPPED_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(new
+                        {
+                            Event = "motion_stopped",
+                            Value = "рух відсутній"
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
             };
 

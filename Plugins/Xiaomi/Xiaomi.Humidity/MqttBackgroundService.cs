@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading;
@@ -34,7 +35,14 @@ namespace Xiaomi.Humidity
                 
                 if (e.Topic == $"{XIAOMI_HUMIDITY_CHANGED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                      JsonConvert.SerializeObject(new
+                      {
+                          Event = "humidity_changed",
+                          Value = e.Message
+                      }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
             };
 

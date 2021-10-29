@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading;
@@ -35,11 +36,25 @@ namespace Xiaomi.DoorWindow
 
                 if (e.Topic == $"{XIAOMI_DOORWINDOW_CLOSED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.ON_CLOSED_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(new
+                        {
+                            Event = "doorwindow_closed",
+                            Value = "Закрито"
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
                 if (e.Topic == $"{XIAOMI_DOORWINDOW_OPENED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.ON_OPENED_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(new
+                        {
+                            Event = "doorwindow_opened",
+                            Value = "Відкрито"
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
             };
 

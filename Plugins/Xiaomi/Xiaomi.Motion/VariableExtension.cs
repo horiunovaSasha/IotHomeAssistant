@@ -6,8 +6,7 @@ namespace Xiaomi.Motion
     static class VariableExtension
     {
         static public string STATUS_TOPIC { get; private set; }
-        static public string ON_MOTION_DETECTED_TOPIC { get; private set; }
-        static public string ON_MOTION_STOPPED_TOPIC { get; private set; }
+        static public string SEND_STATUS_TOPIC { get; private set; }
         static public string MQTT_ADDR { get; private set; }
         static public string MQTT_USR { get; private set; }
         static public string MQTT_PWD { get; private set; }
@@ -22,14 +21,9 @@ namespace Xiaomi.Motion
                     STATUS_TOPIC = arg.Value?.ToString();
                 }
 
-                if (arg.Key.ToString() == "ON_MOTION_DETECTED_TOPIC")
+                if (arg.Key.ToString() == "SEND_STATUS_TOPIC")
                 {
-                    ON_MOTION_DETECTED_TOPIC = arg.Value?.ToString();
-                }
-                
-                if (arg.Key.ToString() == "ON_MOTION_STOPPED_TOPIC")
-                {
-                    ON_MOTION_STOPPED_TOPIC = arg.Value?.ToString();
+                    SEND_STATUS_TOPIC = arg.Value?.ToString();
                 }
 
                 if (arg.Key.ToString() == "MQTT_ADDR")
@@ -64,14 +58,9 @@ namespace Xiaomi.Motion
                 throw new ArgumentException("STATUS_TOPIC Environment variable is required!");
             }
 
-            if (string.IsNullOrEmpty(ON_MOTION_DETECTED_TOPIC))
+            if (string.IsNullOrEmpty(SEND_STATUS_TOPIC))
             {
-                throw new ArgumentException("ON_MOTION_DETECTED_TOPIC Environment variable is required!");
-            }
-            
-            if (string.IsNullOrEmpty(ON_MOTION_STOPPED_TOPIC))
-            {
-                throw new ArgumentException("ON_MOTION_DETECTED_TOPIC Environment variable is required!");
+                throw new ArgumentException("SEND_STATUS_TOPIC Environment variable is required!");
             }
 
             if (string.IsNullOrEmpty(DEVICE_ID))

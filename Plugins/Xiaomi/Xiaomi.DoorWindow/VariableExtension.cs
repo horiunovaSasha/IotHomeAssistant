@@ -6,8 +6,7 @@ namespace Xiaomi.DoorWindow
     static class VariableExtension
     {
         static public string STATUS_TOPIC { get; private set; }
-        static public string ON_OPENED_TOPIC { get; private set; }
-        static public string ON_CLOSED_TOPIC { get; private set; }
+        static public string SEND_STATUS_TOPIC { get; private set; }
         static public string MQTT_ADDR { get; private set; }
         static public string MQTT_USR { get; private set; }
         static public string MQTT_PWD { get; private set; }
@@ -22,14 +21,9 @@ namespace Xiaomi.DoorWindow
                     STATUS_TOPIC = arg.Value?.ToString();
                 }
 
-                if (arg.Key.ToString() == "ON_OPENED_TOPIC")
+                if (arg.Key.ToString() == "SEND_STATUS_TOPIC")
                 {
-                    ON_OPENED_TOPIC = arg.Value?.ToString();
-                }
-
-                if (arg.Key.ToString() == "ON_CLOSED_TOPIC")
-                {
-                    ON_CLOSED_TOPIC = arg.Value?.ToString();
+                    SEND_STATUS_TOPIC = arg.Value?.ToString();
                 }
 
                 if (arg.Key.ToString() == "MQTT_ADDR")
@@ -64,14 +58,9 @@ namespace Xiaomi.DoorWindow
                 throw new ArgumentException("STATUS_TOPIC Environment variable is required!");
             }
 
-            if (string.IsNullOrEmpty(ON_OPENED_TOPIC))
+            if (string.IsNullOrEmpty(SEND_STATUS_TOPIC))
             {
-                throw new ArgumentException("ON_OPENED_TOPIC Environment variable is required!");
-            }
-
-            if (string.IsNullOrEmpty(ON_CLOSED_TOPIC))
-            {
-                throw new ArgumentException("ON_CLOSED_TOPIC Environment variable is required!");
+                throw new ArgumentException("SEND_STATUS_TOPIC Environment variable is required!");
             }
 
             if (string.IsNullOrEmpty(DEVICE_ID))

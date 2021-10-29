@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading;
@@ -35,11 +36,25 @@ namespace Xiaomi.WaterLeak
 
                 if (e.Topic == $"{XIAOMI_WATERLEAK_DETECTED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.ON_WATER_LEAK_DETECTED_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(new
+                        {
+                            Event = "waterleak_detected",
+                            Value = "ЗАФІКСОВАНО ПРОТІКАННЯ"
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
                 if (e.Topic == $"{XIAOMI_WATERLEAK_STOPPED}_{VariableExtension.DEVICE_ID}")
                 {
-                    _client.Publish(VariableExtension.ON_WATER_LEAK_STOPPED_TOPIC, e.Message);
+                    var payload = Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(new
+                        {
+                            Event = "waterleak_stopped",
+                            Value = "все ок"
+                        }));
+
+                    _client.Publish(VariableExtension.SEND_STATUS_TOPIC, payload);
                 }
             };
 
