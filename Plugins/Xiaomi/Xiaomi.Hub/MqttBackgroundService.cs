@@ -36,6 +36,7 @@ namespace Xiaomi.Hub
         private Dictionary<string, ThSensor> _thSensors;
         private Dictionary<string, DoorWindowSensor> _doorWidowSensors;
         private Dictionary<string, MotionSensor> _motionSensors;
+        private Dictionary<string, AqaraMotionSensor> _aqaraMotionSensors;
         private Dictionary<string, WaterLeakSensor> _waterLeakSensors;
 
         public MqttBackgroundService()
@@ -46,6 +47,7 @@ namespace Xiaomi.Hub
             _thSensors = new Dictionary<string, ThSensor>();
             _doorWidowSensors = new Dictionary<string, DoorWindowSensor>();
             _motionSensors = new Dictionary<string, MotionSensor>();
+            _aqaraMotionSensors = new Dictionary<string, AqaraMotionSensor>();
             _waterLeakSensors = new Dictionary<string, WaterLeakSensor>();
         }
 
@@ -70,6 +72,7 @@ namespace Xiaomi.Hub
                         break;
                     case XIAOMI_GET_MOTION:
                         SendMotionState(id);
+                        SendAqaraMotionState(id);
                         break;
                     case XIAOMI_GET_WATERLEAK:
                         SendWaterLeakState(id);
@@ -141,6 +144,25 @@ namespace Xiaomi.Hub
                 
                 sensor.OnNoMotion += (_, e) => {
                     Console.WriteLine($"OnNoMotion: {sensor.Sid}");
+                    _client.Publish($"{XIAOMI_MOTION_STOPPED}_{sensor.Sid}", new byte[] { });
+                };
+            };
+
+            _miHome.OnAqaraMotionSensor += (_, sensor) =>
+            {
+                Console.WriteLine($"Discovered AqaraMotionSensor: {sensor.Name} {sensor.Sid}");
+                if (!_motionSensors.ContainsKey(sensor.Sid))
+                {
+                    _aqaraMotionSensors.Add(sensor.Sid, sensor);
+                }
+
+                sensor.OnMotion += (_, e) => {
+                    Console.WriteLine($"OnAqaraMotion: {sensor.Sid}");
+                    _client.Publish($"{XIAOMI_MOTION_DETECTED}_{sensor.Sid}", new byte[] { });
+                };
+
+                sensor.OnNoMotion += (_, e) => {
+                    Console.WriteLine($"OnAqaraNoMotion: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_MOTION_STOPPED}_{sensor.Sid}", new byte[] { });
                 };
             };
@@ -220,6 +242,23 @@ namespace Xiaomi.Hub
             if (_motionSensors.ContainsKey(id))
             {
                 var sensor = _motionSensors[id];
+
+                if (sensor.Status == "Move")
+                {
+                    _client.Publish($"{XIAOMI_MOTION_DETECTED}_{sensor.Sid}", new byte[] { });
+                }
+                else
+                {
+                    _client.Publish($"{XIAOMI_MOTION_STOPPED}_{sensor.Sid}", new byte[] { });
+                }
+            }
+        }
+
+        private void SendAqaraMotionState(string id)
+        {
+            if (_aqaraMotionSensors.ContainsKey(id))
+            {
+                var sensor = _aqaraMotionSensors[id];
 
                 if (sensor.Status == "Move")
                 {
