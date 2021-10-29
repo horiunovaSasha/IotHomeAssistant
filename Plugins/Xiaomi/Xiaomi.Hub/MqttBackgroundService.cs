@@ -87,7 +87,7 @@ namespace Xiaomi.Hub
             {
                 if (!_thSensors.ContainsKey(thSensor.Sid))
                 {
-                    Console.WriteLine($"Discovered: {thSensor.Name} {thSensor.Sid}");
+                    Console.WriteLine($"Discovered TH: {thSensor.Name} {thSensor.Sid}");
                     _thSensors.Add(thSensor.Sid, thSensor);
                 }
 
@@ -106,6 +106,8 @@ namespace Xiaomi.Hub
 
             _miHome.OnDoorWindowSensor += (_, sensor) =>
             {
+                Console.WriteLine($"Discovered DoorWindowSensor: {sensor.Name} {sensor.Sid}");
+
                 if (!_doorWidowSensors.ContainsKey(sensor.Sid))
                 {
                     _doorWidowSensors.Add(sensor.Sid, sensor);
@@ -113,42 +115,51 @@ namespace Xiaomi.Hub
 
                 sensor.OnClose += (_, e) =>
                 {
+                    Console.WriteLine($"OnClose: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_DOORWINDOW_CLOSED}_{sensor.Sid}", new byte[] { });
                 };
 
                 sensor.OnOpen += (_, e) =>
                 {
+                    Console.WriteLine($"OnOpen: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_DOORWINDOW_OPENED}_{sensor.Sid}", new byte[] { });
                 };
             };
 
             _miHome.OnMotionSensor += (_, sensor) =>
             {
+                Console.WriteLine($"Discovered MotionSensor: {sensor.Name} {sensor.Sid}");
                 if (!_motionSensors.ContainsKey(sensor.Sid))
                 {
                     _motionSensors.Add(sensor.Sid, sensor);
                 }
 
                 sensor.OnMotion += (_, e) => {
+                    Console.WriteLine($"OnMotion: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_MOTION_DETECTED}_{sensor.Sid}", new byte[] { });
                 };
                 
                 sensor.OnNoMotion += (_, e) => {
+                    Console.WriteLine($"OnNoMotion: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_MOTION_STOPPED}_{sensor.Sid}", new byte[] { });
                 };
             };
 
             _miHome.OnWaterLeakSensor += (_, sensor) => {
+                Console.WriteLine($"Discovered WaterLeak: {sensor.Name} {sensor.Sid}");
+                
                 if (!_waterLeakSensors.ContainsKey(sensor.Sid))
                 {
                     _waterLeakSensors.Add(sensor.Sid, sensor);
                 }
 
                 sensor.OnLeak += (_, e) => {
+                    Console.WriteLine($"OnLeak: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_WATERLEAK_DETECTED}_{sensor.Sid}", new byte[] { });
                 };
 
                 sensor.OnNoLeak += (_, e) => {
+                    Console.WriteLine($"OnNoLeak: {sensor.Sid}");
                     _client.Publish($"{XIAOMI_WATERLEAK_STOPPED}_{sensor.Sid}", new byte[] { });
                 };
             };
