@@ -13,7 +13,7 @@
                         <div class="col-12 d-flex justify-content-between">
                             <span class="h5 w-100">@WidgetItem.Title</span>
                             <span>
-                                <SfSwitch CssClass="e-large" @bind-Checked="_isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
+                                <SfSwitch CssClass="e-large" @bind-Checked="_isChecked"  ValueChange="Change" TChecked="bool" OnLabel="ON" OffLabel="OFF"></SfSwitch>
                                 <ItemContextMenuComponent IsPreview="IsPreview"
                                     OnEdit="() => OnEditWidget.InvokeAsync()"
                                     OnDelete="() => OnDeleteWidget.InvokeAsync()" />
