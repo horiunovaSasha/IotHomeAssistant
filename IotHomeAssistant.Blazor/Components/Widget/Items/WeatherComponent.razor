@@ -2,55 +2,46 @@
 @using IotHomeAssistant.Blazor.Data;
 @inherits BaseItemComponent
 
-@if (WidgetItem.Type == WidgetItemTypeEnum.WeatherForecast)
+@if (WidgetItem.Type == WidgetItemTypeEnum.WeatherForecast && currentWeather != null)
 {
-<div class="card-wrapper">
+<div class="card-wrapper weather">
     <div class="row">        
         <div class="col-12 col-md-4 col-sm-3">
             <h5>@WidgetItem.Title</h5>
-            <h6>П'ятниця, 1 Жовтня</h6>
-            <h5>19:06</h5>
+            <h6>@(Days[((int)dateTime.DayOfWeek) - 1]), @(dateTime.Day) @(Months[dateTime.Month - 1])</h6>
         </div>
 
         <div class="col-7 col-md-5 col-sm-5">
             <div class="row">
-                <i class="wi wi-cloudy main-icon"></i>
+                <img class="main-img" src="http://openweathermap.org/img/wn/@($"{currentWeather.Weather.First().Icon}@")2x.png" />
                 <div>
-                    <span class="main-temp">16</span>
-                    <p class="desc">кілька хмар</p>
+                    <span class="main-temp">@((int)currentWeather.Main.Temp)</span>
+                    <p class="desc">@currentWeather.Weather?.FirstOrDefault()?.Description</p>
                 </div>
                 <p class="celcius">°C</p>
             </div>
         </div>
 
         <div class="col-5 col-sm-4 col-md-3 text-right">
-            <h6>Вологість: 37%</h6>
-            <h6>Вітер: 5.85m/s</h6>
-            <h6>B:16° H:6°</h6>
+            <h6>Вологість: @(currentWeather.Main.Humidity)%</h6>
+            <h6>Вітер: @(currentWeather.Wind.Speed)m/s</h6>
+            <h6>H:@(minTemp)° B:@(maxTemp)°</h6>
             <ItemContextMenuComponent IsPreview="IsPreview"
                 OnEdit="() => OnEditWidget.InvokeAsync()"
                 OnDelete="() => OnDeleteWidget.InvokeAsync()" />
         </div>
 
-        <div class="col-lg-3 col-md-6 border-right text-center">
-            СБ <i class="wi forecast-icon wi-cloudy"></i><br />
-            <span class="mr-3">18°</span> 5°
-        </div>
-
-        <div class="col-lg-3 col-md-6 border-right text-center">
-            НД <i class="wi forecast-icon wi-day-cloudy"></i><br />
-            <span class="mr-3">19°</span> 6°
-        </div>
-
-        <div class="col-lg-3 col-md-6 border-right text-center">
-            ПН <i class="wi forecast-icon wi-cloudy"></i><br />
-            <span class="mr-3">18°</span> 7°
-        </div>
-
-        <div class="col-lg-3 col-md-6 text-center">
-            ВТ <i class="wi forecast-icon wi-cloud"></i><br />
-            <span class="mr-3">17°</span>6°
-        </div>
+        @{
+            dayOfWeek = (int)dateTime.DayOfWeek;
+        }
+        @foreach (var item in dailyWeather)
+        {
+            <div class="col-lg-3 col-md-6 border-right text-center">
+                @ShortDays[dayOfWeek] <img height="75" src="http://openweathermap.org/img/wn/@($"{item.Weather.First().Icon}@")2x.png"/><br />
+                <span class="mr-3">@((int)item.Temp.Min)°</span> @((int)item.Temp.Max)°
+            </div>
+            dayOfWeek++;
+        }
     </div>
 </div>
     //https://api.openweathermap.org/data/2.5/onecall?lat=48.2915&lon=25.9403&exclude=current,minutely,hourly,alerts&lang=ua&units=metric&appid=9c25b6c6b12f8ad20a25e9dd63d0f80f

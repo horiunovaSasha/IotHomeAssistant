@@ -2,8 +2,17 @@
     padding-top: 1.7em;
 }
 
+.weather .border-right:last-child {
+    border: none !important;
+} 
+
 .main-icon {
     font-size: 65px;
+}
+
+.main-img {
+    margin-top: -20px;
+    height: 100px;
 }
 
 .main-temp {
