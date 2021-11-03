@@ -13,6 +13,8 @@
         waterleak_detected = 8,
         waterleak_stopped = 9,
         motion_detected = 10,
-        motion_stopped = 11
+        motion_stopped = 11,
+        air_mode_changed = 12,
+        air_speed_changed = 13
     }
 }

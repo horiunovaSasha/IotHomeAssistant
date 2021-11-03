@@ -4,13 +4,17 @@
     line-height: 1.5rem;
 }
 
-    .nav-item ::deep a.active {
-        background-color: rgba(169, 185, 249, 0.25);
-    }
+.nav-item ::deep a.active {
+    background-color: rgba(169, 185, 249, 0.25);
+}
 
-    .nav-item ::deep a:hover {
-        background-color: rgba(169, 185, 249, 0.15);
-    }
+.nav-item ::deep a:hover {
+    background-color: rgba(169, 185, 249, 0.15);
+}
+
+.nav-item a {
+    cursor: pointer;
+}
 
 
 .illustration-pro {
@@ -126,41 +130,3 @@
                 height: 10px;
                 background: #4C4F5A;
             }
-
-/*    .illustration-pro.public .blinds-rows {
-        transform: translateY(-160px);
-        transition: 12s ease transform;
-    }
-
-        .illustration-pro.public .blinds-rows::before, .illustration-pro.public .blinds-rows::after {
-            opacity: 0;
-            transition: 1s ease opacity;
-        }
-
-    .illustration-pro.public .blinds-row {
-        opacity: 0;
-        transition: 12s ease opacity;
-    }
-
-        .illustration-pro.public .blinds-row:last-child {
-            opacity: 1;
-        }
-
-    .illustration-pro.private .blinds-rows {
-        transform: translateY(0);
-        transition: 12s ease transform;
-    }
-
-        .illustration-pro.private .blinds-rows::before, .illustration-pro.private .blinds-rows::after {
-            opacity: 1;
-        }
-
-    .illustration-pro.private .blinds-row {
-        opacity: 1;
-        transition: 1s ease transform;
-    }
-
-    .illustration-pro.private .code svg {
-        opacity: 0.2;
-        transition: 1s ease opacity;
-    }*/

@@ -178,6 +178,7 @@ namespace IoTHomeAssistant.Domain.Services
             return $"{plugin.DeviceType}-{plugin.Title}-{DateTime.Now.Ticks}"
                 .Trim()
                 .Replace(" ", string.Empty)
+                .Replace("&", string.Empty)
                 .ToLower();
         }
 

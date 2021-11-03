@@ -13,45 +13,52 @@
             <div class="col-12">
                 <img src="https://image.flaticon.com/icons/png/512/911/911409.png" height="96">
                 <div class="float-right" style="width: 175px">
-                    <button type="button" class="e-control e-btn e-lib mr-2 mb-2">-</button>
-                    <span class="h2">22º</span>
-                    <button type="button" class="e-control e-btn e-lib ml-2 mb-2">+</button>
+                    <button type="button" class="e-control e-btn e-lib mr-2 mb-2" @onclick="Down">-</button>
+                    <span class="h2" style="opacity: @(isChecked ? "1" : "0.4")">@(temperature)º</span>
+                    <button type="button" class="e-control e-btn e-lib ml-2 mb-2" @onclick="Up">+</button>
                 </div>
             </div>
             <div class="col-12" style="padding-right: 2.6em; margin-top: -2.5em;">
                 <div class="float-right">
-                    <ItemContextMenuComponent IsPreview="IsPreview"
-                        OnEdit="() => OnEditWidget.InvokeAsync()"
-                        OnDelete="() => OnDeleteWidget.InvokeAsync()" />
-                    <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" OnLabel="ON" OffLabel="OFF"></SfSwitch>
+                    <SfSwitch CssClass="e-large mr-4" @bind-Checked="isChecked" ValueChange="Change" TChecked="bool" OnLabel="ON" OffLabel="OFF"></SfSwitch>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 text-center pr-5">
                 <img src="https://cdn-icons-png.flaticon.com/512/1179/1179825.png" width="35" height="35" />
-                <input type="range" class="form-range ml-2 mr-2" min="1" max="4" step="1" />Min
+                <input type="range" class="form-range ml-2 mr-2" min="0" max="5" step="1" disabled="@(!isChecked)" value="@((int)speed)" @onchange="(args) => ChangeSpeed(args)" />@(speed.ToString())
             </div>
-            <div class="col-12 mt-4 d-flex justify-content-between pr-sm-1 pl-sm-1 pr-4 pl-4">
-                <span>
-                    <img src="https://cdn-icons-png.flaticon.com/512/3338/3338663.png" width="35" /><br />
-                    Auto
+            <div class="col-12 mt-4 d-flex justify-content-between pr-sm-1 pl-sm-1 pr-4 pl-4" style="opacity: @(isChecked ? "1" : "0.4")">
+                <span class="nav-item">
+                    <a class="nav-link @(AirModeEnum.auto == mode ? "active": "")" @onclick="() => SetMode(AirModeEnum.auto)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3338/3338663.png" width="35" /><br />
+                        Auto
+                    </a>
                 </span>
-                <span>
-                    <img src="https://cdn-icons-png.flaticon.com/512/642/642000.png" width="35" /><br />
-                    Cool
+                <span class="nav-item">
+                    <a class="nav-link @(AirModeEnum.cool == mode ? "active": "")" @onclick="() => SetMode(AirModeEnum.cool)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/642/642000.png" width="35" /><br />
+                        Cool
+                    </a>
                 </span>
-                <span>
-                    <img src="https://cdn-icons-png.flaticon.com/512/824/824686.png" width="35" /><br />
-                    &nbsp;Dry
+                <span class="nav-item">
+                    <a class="nav-link @(AirModeEnum.dry == mode ? "active": "")" @onclick="() => SetMode(AirModeEnum.dry)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/824/824686.png" width="35" /><br />
+                        &nbsp;Dry
+                    </a>
                 </span>
-                <span>
-                    <img src="https://cdn-icons-png.flaticon.com/512/979/979619.png" width="35" /><br />
-                    &nbsp;Fan
+                <span class="nav-item">
+                    <a class="nav-link @(AirModeEnum.fan == mode ? "active": "")" @onclick="() => SetMode(AirModeEnum.fan)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/979/979619.png" width="35" /><br />
+                        &nbsp;Fan
+                    </a>
                 </span>
-                <span>
-                    <img src="https://cdn-icons-png.flaticon.com/512/3380/3380402.png" width="35" /><br />
-                    Heat
+                <span class="nav-item">
+                    <a class="nav-link @(AirModeEnum.heating == mode ? "active": "")" @onclick="() => SetMode(AirModeEnum.heating)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3380/3380402.png" width="35" /><br />
+                        Heat
+                    </a>
                 </span>
             </div>
         </div>
