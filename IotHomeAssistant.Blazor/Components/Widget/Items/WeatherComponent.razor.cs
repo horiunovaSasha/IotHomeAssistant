@@ -13,7 +13,7 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Items
     {
         private const string APP_KEY = "9c25b6c6b12f8ad20a25e9dd63d0f80f";
 
-        private static List<string> Days = new List<string>() { "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя" };
+        private static List<string> Days = new List<string>() { "Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота" };
         private static List<string> ShortDays = new List<string>() { "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "НД" };
         private static List<string> Months = new List<string>() { "Січня", "Лютого", "Березня", "Квітня", "Травня", "Червня", "Липня", "Серпня", "Вересня", "Жовтня", "Листопада", "Грудня" };
 

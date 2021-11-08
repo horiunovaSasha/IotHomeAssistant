@@ -41,7 +41,7 @@
         @foreach (WidgetItem widget in area.Widgets)
         {
             WidgetItemDto widgetDto = new WidgetItemDto(widget);
-            <div class="col-md-12 col-lg-6 col-xl-4">
+        <div class="col-md-12 col-lg-6 col-xl-4" dropzone="move" ondragover="event.preventDefault();">
                 <InfoComponent WidgetItem="widgetDto"
                     OnEditWidget="() => widgetModal.UpdateWidget(widgetDto)"
                     OnDeleteWidget="() => OnDeleteWidget(widgetDto.Id)">

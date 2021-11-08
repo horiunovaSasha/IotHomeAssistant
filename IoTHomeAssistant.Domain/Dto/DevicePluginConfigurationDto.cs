@@ -5,6 +5,7 @@ namespace IoTHomeAssistant.Domain.Dto
     public class DevicePluginConfigurationDto
     {
         public int Id { get; set; }
+        public int PluginConfigurationId { get; set; }
 
         [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
         public string Title { get; set; }

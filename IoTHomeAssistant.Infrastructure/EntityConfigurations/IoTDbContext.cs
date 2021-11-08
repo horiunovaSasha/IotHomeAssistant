@@ -18,7 +18,6 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
         {
             base.OnModelCreating(builder);
 
-            builder.ApplyConfiguration(new ColorConfiguration());
             builder.ApplyConfiguration(new IconConfiguration());
             builder.ApplyConfiguration(new AreaConfiguration());
             builder.ApplyConfiguration(new DeviceConfiguration());
@@ -32,10 +31,11 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.ApplyConfiguration(new JobTaskExecutionConfiguration());
             builder.ApplyConfiguration(new JobConfiguration());
             builder.ApplyConfiguration(new EventConfiguration());
-            builder.ApplyConfiguration(new EventCollectionConfiguration());
             builder.ApplyConfiguration(new CommandConfiguration());
-            builder.ApplyConfiguration(new CommandCollectionConfiguration());
-            builder.ApplyConfiguration(new DeviceEventCollectionConfiguration());
+            builder.ApplyConfiguration(new DeviceEventConfiguration());
+            builder.ApplyConfiguration(new DeviceTypeEventConfiguration());
+            builder.ApplyConfiguration(new DeviceCommandConfiguration());
+            builder.ApplyConfiguration(new DeviceTypeCommandConfiguration());
         }
     }
 }

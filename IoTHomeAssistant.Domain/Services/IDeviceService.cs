@@ -12,7 +12,7 @@ namespace IoTHomeAssistant.Domain.Services
         Task<Device> GetDeviceAsync(int id);
         Task SaveDeviceAsync(DeviceEditDto device);
         
-        Task RemoveDeviceAsync(int id);
+        Task RemoveDeviceAsync(DeviceEditDto device);
         Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request);
         Task<List<Device>> GetDevicesAsync(DeviceTypeEnum? deviceType);
         Task<List<DeviceEventDto>> GetDeviceEventsAsync(bool? hasValue);

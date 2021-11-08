@@ -31,8 +31,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
             var infoDeviceTypes = new List<DeviceTypeEnum>() {
                  DeviceTypeEnum.DoorWindowSensor,
                  DeviceTypeEnum.MotionDetector,
-                 DeviceTypeEnum.TemperatureSensor,
-                 DeviceTypeEnum.WeatherStation
+                 DeviceTypeEnum.TemperatureSensor
             };
 
             return _dbSet
@@ -47,12 +46,18 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
 
         public async Task<List<Device>> GetDevicesAsync(DeviceTypeEnum? deviceType)
         {
-            return await _dbSet
-                .AsNoTracking()
-                .Where(x => !deviceType.HasValue || x.Type == deviceType.Value)
-                .Include(x => x.DeviceEvents.EventCollection.Events)
-                .Include(x => x.CommandCollection.Commands)
-                .ToListAsync();
+            try
+            {
+                return await _dbSet
+                    .AsNoTracking()
+                    .Where(x => !deviceType.HasValue || x.Type == deviceType.Value)
+                    .Include("DeviceEvents.Event")
+                    .Include("DeviceCommands.Command")
+                    .ToListAsync();
+            } catch( Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request)

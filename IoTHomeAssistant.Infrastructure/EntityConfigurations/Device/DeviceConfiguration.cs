@@ -13,8 +13,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.Type).IsRequired();
 
             builder.HasOne(x => x.PluginDevice);
-            builder.HasOne(x => x.DeviceEvents);
-            builder.HasOne(x => x.CommandCollection);
+            builder.HasMany(x => x.DeviceEvents).WithOne(x => x.Device).HasForeignKey(x => x.DeviceId);
         }
     }
 }

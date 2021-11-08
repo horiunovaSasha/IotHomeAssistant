@@ -6,6 +6,11 @@
 
 @inject IDeviceService deviceService;
 
+<DeleteConfirmComponent @ref="deleteConfirmation"
+    Title="Ви дійсно бажаєте вилучити даний пристрій?"
+    OnConfirm="DeleteAsync">
+</DeleteConfirmComponent>
+
 <SfGrid DataSource="@devices" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="DeviceDto"></GridEvents>
     <GridPageSettings PageSize="10"></GridPageSettings>
@@ -30,7 +35,7 @@
     </DialogButtons>
 </SfDialog>
 
-<EditDeviceComponent @ref="editModal"></EditDeviceComponent>
+<EditDeviceComponent @ref="editModal" OnSave="InitDevices"></EditDeviceComponent>
 
 @code{
     SfGrid<DeviceDto> grid;
@@ -40,16 +45,11 @@
     bool noItemsModalVisible = false;
 
     private List<ItemModel> Toolbaritems;
+    DeleteConfirmComponent deleteConfirmation;
 
     protected override void OnInitialized()
     {
-        devices = deviceService.GetPaggedList(
-            new PageRequest()
-            {
-                PageNumber = 1,
-                PageSize = 10000
-            })
-            .Result.Items;
+        InitDevices();
 
         Toolbaritems = new List<ItemModel>() {
             new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
@@ -82,12 +82,37 @@
             if (selectedItem == null)
             {
                 noItemsModalVisible = true;
+            } else
+            {
+                deleteConfirmation.Show();
             }
         }
+    }
+
+    private async Task DeleteAsync()
+    {
+        var selectedItem = grid.SelectedRecords.FirstOrDefault();
+        await deviceService.RemoveDeviceAsync(new DeviceEditDto()
+        {
+            Id = selectedItem.Id,
+            DockerImageId = selectedItem.DockerImageId
+        });
+
+        InitDevices();
     }
 
     private void CloseDialog()
     {
         noItemsModalVisible = false;
+    }
+
+    private void InitDevices() {
+        devices = deviceService.GetPaggedList(
+            new PageRequest()
+            {
+                PageNumber = 1,
+                PageSize = 10000
+            })
+            .Result.Items;
     }
 }

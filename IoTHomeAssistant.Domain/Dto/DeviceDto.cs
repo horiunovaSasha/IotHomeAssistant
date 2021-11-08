@@ -11,11 +11,13 @@ namespace IoTHomeAssistant.Domain.Dto
             Title = device.Title;
             Type = device.Type.ToString();
             Plugin = device.PluginDevice?.Plugin?.Title;
+            DockerImageId = device.PluginDevice?.Plugin?.DockerImageId;
         }
 
         public int Id { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }
         public string Plugin { get; set; }
+        public string DockerImageId { get; set; }
     }
 }

@@ -27,6 +27,10 @@ namespace IotHomeAssistant.Blazor.Components
         protected IDeviceService _deviceService { get; set; }
         [Inject]
         protected IPluginService _pluginService { get; set; }
+
+        [Parameter]
+        public EventCallback OnSave { get; set; }
+
         protected DeviceEditDto Device { get; set; } = new DeviceEditDto();
 
         public void AddDevice()
@@ -48,10 +52,12 @@ namespace IotHomeAssistant.Blazor.Components
                 Type = device.Type.ToString(),
                 Plugin = device.PluginDevice?.PluginId ?? 0,
                 DockerImageId = device.PluginDevice?.Plugin?.DockerImageId ?? string.Empty,
+                PluginDeviceId = device.PluginDevice?.Id ?? 0,
                 Configurations = device.PluginDevice?.Configurations
                         .Select(x => new DevicePluginConfigurationDto()
                         {
-                            Id = x.PluginConfigurationId,
+                            Id = x.Id,
+                            PluginConfigurationId = x.PluginConfigurationId,
                             Title = x.PluginConfiguration?.Title,
                             Description = x.PluginConfiguration?.Description,
                             Key = x.PluginConfiguration?.Key,
@@ -105,7 +111,7 @@ namespace IotHomeAssistant.Blazor.Components
                     {
                         Device.Configurations.Add(new DevicePluginConfigurationDto()
                         {
-                            Id = item.Id,
+                            PluginConfigurationId = item.Id,
                             Key = item.Key,
                             Title = item.Title,
                             Description = item.Description,
@@ -121,6 +127,7 @@ namespace IotHomeAssistant.Blazor.Components
         {
             _deviceService.SaveDeviceAsync(Device);
 
+            OnSave.InvokeAsync();
             StateHasChanged();
             Hide();
         }

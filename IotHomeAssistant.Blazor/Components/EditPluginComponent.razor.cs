@@ -37,7 +37,7 @@ namespace IotHomeAssistant.Blazor.Components
             {
                 Configurations = new List<DevicePluginConfigurationDto>()
                 {
-                    new DevicePluginConfigurationDto(){Id =0}
+                    new DevicePluginConfigurationDto(){PluginConfigurationId =0}
                 }
             };
             _typeEnabled = true;
@@ -58,7 +58,7 @@ namespace IotHomeAssistant.Blazor.Components
                 Configurations = plugin.Configurations?
                         .Select(x => new DevicePluginConfigurationDto()
                         {
-                            Id = x.Id,
+                            PluginConfigurationId = x.Id,
                             Title = x.Title,
                             Description = x.Description,
                             Value = x.Key,
@@ -94,7 +94,7 @@ namespace IotHomeAssistant.Blazor.Components
                 DockerImageSource = Plugin.DockerConfiguration,
                 Configurations = Plugin.Configurations
                 .Select(x => new PluginConfiguration() { 
-                    Id = x.Id,
+                    Id = x.PluginConfigurationId,
                     Title = x.Title,
                     Key = x.Value,
                     Type = Enum.Parse<ConfigurationTypeEnum>(x.Type),

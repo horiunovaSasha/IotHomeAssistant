@@ -15,6 +15,8 @@
         motion_detected = 10,
         motion_stopped = 11,
         air_mode_changed = 12,
-        air_speed_changed = 13
+        air_speed_changed = 13,
+        doorwindow_opened = 14,
+        doorwindow_closed = 15
     }
 }

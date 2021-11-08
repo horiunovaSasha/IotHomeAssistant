@@ -8,7 +8,7 @@
     <div class="row">        
         <div class="col-12 col-md-4 col-sm-3">
             <h5>@WidgetItem.Title</h5>
-            <h6>@(Days[((int)dateTime.DayOfWeek) - 1]), @(dateTime.Day) @(Months[dateTime.Month - 1])</h6>
+            <h6>@(Days[(int)dateTime.DayOfWeek]), @(dateTime.Day) @(Months[dateTime.Month - 1])</h6>
         </div>
 
         <div class="col-7 col-md-5 col-sm-5">
@@ -40,7 +40,13 @@
                 @ShortDays[dayOfWeek] <img height="75" src="http://openweathermap.org/img/wn/@($"{item.Weather.First().Icon}@")2x.png"/><br />
                 <span class="mr-3">@((int)item.Temp.Min)°</span> @((int)item.Temp.Max)°
             </div>
-            dayOfWeek++;
+            if (dayOfWeek < 6)
+            {
+                dayOfWeek++;
+            } else
+            {
+                dayOfWeek = 0;
+            }
         }
     </div>
 </div>

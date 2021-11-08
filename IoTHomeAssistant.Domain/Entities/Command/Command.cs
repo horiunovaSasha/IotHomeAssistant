@@ -1,4 +1,4 @@
-namespace IoTHomeAssistant.Domain.Entities.Command
+namespace IoTHomeAssistant.Domain.Entities
 {
     public class Command : IEntity<int>
     {

@@ -10,10 +10,10 @@ namespace IoTHomeAssistant.Domain.Enums
         Blinds = 6,
         MotionDetector = 7,
         DoorWindowSensor = 8,
-        SmokeFireSensor = 9,
+        //SmokeFireSensor = 9,
         WaterLeakSensor = 10,
         TemperatureSensor = 11,
-        WeatherStation = 12,
-        Hub = 13
+        //WeatherStation = 12,
+        HumiditySersor = 13
     }
 }
