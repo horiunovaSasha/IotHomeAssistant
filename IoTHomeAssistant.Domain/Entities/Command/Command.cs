@@ -5,5 +5,7 @@ namespace IoTHomeAssistant.Domain.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public string Key { get; set; }
+
+        public virtual CommandValueType ValueType { get; set; }
     }
 }

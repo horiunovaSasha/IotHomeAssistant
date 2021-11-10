@@ -33,7 +33,7 @@ namespace IoTHomeAssistant.Domain.Services
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var deviceService = scope.ServiceProvider.GetRequiredService<IDeviceService>();
-                var deviceEvents = await deviceService.GetDeviceEventsAsync(null);
+                var deviceEvents = await deviceService.GetDeviceEventsAsync();
                 var devices = await deviceService.GetDevicesAsync(null);
                 var eventPublisher = new HubConnectionBuilder()
                    .WithUrl(new Uri("https://localhost:5001/event-publisher"))

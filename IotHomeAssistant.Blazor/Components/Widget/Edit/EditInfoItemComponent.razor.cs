@@ -33,7 +33,7 @@ namespace IotHomeAssistant.Blazor.Components.Widget.Edit
 
         protected override async Task OnInitializedAsync()
         {
-            deviceEvents = await DeviceService.GetDeviceEventsAsync(true);
+            deviceEvents = (await DeviceService.GetDeviceEventsAsync());
         }
 
         private void SelectIcon()

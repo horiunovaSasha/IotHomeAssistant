@@ -9,5 +9,7 @@ namespace IoTHomeAssistant.Domain.Entities
         public string Key { get; set; }
         public EventTypeEnum Type { get; set; }
         public bool HasValue { get; set; }
+
+        public virtual EventValueType ValueType { get; set; }
     }
 }

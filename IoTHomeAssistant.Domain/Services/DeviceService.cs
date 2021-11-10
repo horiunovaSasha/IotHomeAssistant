@@ -56,25 +56,28 @@ namespace IoTHomeAssistant.Domain.Services
                             Value = x.Value
                         }
                     ).ToList()
-                },
-                DeviceEvents = events.Select(x =>
+                }
+                
+            };
+
+            if (deviceDto.Id == 0)
+            {
+                device.DeviceEvents = events.Select(x =>
                     new Entities.DeviceEvent()
                     {
                         DeviceId = deviceDto.Id,
                         EventId = x.EventId
                     })
-                    .ToList(),
-                DeviceCommands = commands.Select(x =>
+                    .ToList();
+
+                device.DeviceCommands = commands.Select(x =>
                     new Entities.DeviceCommand()
                     {
                         DeviceId = deviceDto.Id,
                         CommandId = x.CommandId
                     })
-                    .ToList()
-            };
+                    .ToList();
 
-            if (deviceDto.Id == 0)
-            {
                 await _deviceRepository.AddAsync(device);
                 await _deviceRepository.CommitAsync();
 
@@ -106,20 +109,20 @@ namespace IoTHomeAssistant.Domain.Services
             return await _deviceRepository.GetDevicesAsync(deviceType);
         }
 
-        public async Task<List<DeviceEventDto>> GetDeviceEventsAsync(bool? hasValue)
+        public async Task<List<DeviceEventDto>> GetDeviceEventsAsync()
         {
             var deviceEvents = new List<DeviceEventDto>();
             var devices = (await GetDevicesAsync())
                 .Where(x =>
                     x.DeviceEvents != null &&
-                    x.DeviceEvents.Any(e => !hasValue.HasValue || e.Event.HasValue == hasValue.Value));
+                    x.DeviceEvents.Any());
 
             foreach (var device in devices)
             {
                 var deviceId = device.Id;
                 var deviceName = device.Title;
 
-                foreach (var eventItem in device.DeviceEvents.Where(e => !hasValue.HasValue || e.Event.HasValue == hasValue.Value))
+                foreach (var eventItem in device.DeviceEvents)
                 {
                     deviceEvents.Add(new DeviceEventDto()
                     {
@@ -127,12 +130,42 @@ namespace IoTHomeAssistant.Domain.Services
                         DeviceName = deviceName,
                         EventId = eventItem.Id,
                         EventTitle = eventItem.Event.Title,
-                        EventType = eventItem.Event.Type
+                        EventType = eventItem.Event.Type,
+                        ValueType = eventItem.Event.ValueType
                     });
                 }
             }
 
             return deviceEvents;
+        }
+
+        public async Task<List<DeviceCommandDto>> GetDeviceCommandsAsync()
+        {
+            var deviceCommands = new List<DeviceCommandDto>();
+            var devices = (await GetDevicesAsync())
+                .Where(x =>
+                    x.DeviceCommands != null &&
+                    x.DeviceCommands.Any());
+
+            foreach (var device in devices)
+            {
+                var deviceId = device.Id;
+                var deviceName = device.Title;
+
+                foreach (var item in device.DeviceCommands)
+                {
+                    deviceCommands.Add(new DeviceCommandDto()
+                    {
+                        DeviceId = deviceId,
+                        DeviceName = deviceName,
+                        CommandId = item.Id,
+                        CommandTitle = item.Command.Title,
+                        ValueType = item.Command.ValueType
+                    });
+                }
+            }
+
+            return deviceCommands;
         }
 
         public async Task<PageResponse<DeviceDto>> GetPaggedList(PageRequest request)

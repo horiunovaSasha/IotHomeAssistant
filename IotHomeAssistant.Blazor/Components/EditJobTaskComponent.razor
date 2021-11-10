@@ -1,7 +1,8 @@
 ﻿@using IoTHomeAssistant.Domain.Entities;
 @using IoTHomeAssistant.Domain.Enums;
-@using IoTHomeAssistant.Domain.Dto.Pagging;
+@using IoTHomeAssistant.Domain.Dto;
 @using Syncfusion.Blazor.Calendars;
+@using System.Linq;
 
 <SfDialog IsModal="true" @bind-Visible="@_visible" MinHeight="51.3em" ID="jobTaskEditModal">
     <DialogTemplates>
@@ -31,82 +32,116 @@
                                     <div class="col-lg-12 conditions">
                                         @foreach (var item in JobTask.Conditions.ToList())
                                         {
-                                            <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4">
+                                                <SfDropDownList TValue="ConditionTypeEnum" TItem="ConditionType" FloatLabelType="@FloatLabelType.Auto" Placeholder="Умова" DataSource="@conditionTypes" @bind-Value="@item.Type">
+                                                    <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                </SfDropDownList>
+                                            </div>
+                                            @if (item.Type == ConditionTypeEnum.EventOccurred)
+                                            {
+                                                <div class="col-lg-8 col-md-7">
+                                                    <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Подія" FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="@eventId">
+                                                        <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                                                    </SfDropDownList>
+                                                </div>
+                                            }
+                                            @if (item.Type == ConditionTypeEnum.TaskTriggered)
+                                            {
+                                                <div class="col-lg-8 col-md-7">
+                                                    <SfDropDownList TValue="int" TItem="JobTask" FloatLabelType="@FloatLabelType.Auto" Placeholder="Автоматизація" DataSource="@jobTasks">
+                                                        <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
+                                                    </SfDropDownList>
+                                                </div>
+                                            }
+                                            @if (item.Type == ConditionTypeEnum.EveryTime)
+                                            {
+                                                <div class="col-lg-4 col-md-4">
+                                                    <SfDropDownList TValue="string" TItem="Day" FloatLabelType="@FloatLabelType.Auto" Placeholder="День тижня" DataSource="@days">
+                                                        <DropDownListFieldSettings Value="ID" Text="Text"></DropDownListFieldSettings>
+                                                    </SfDropDownList>
+                                                </div>
+                                                <div class="col-lg-4 col-md-3">
+                                                    <SfDatePicker TValue="DateTime" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.DateTime"></SfDatePicker>
+                                                </div>
+                                            }
+                                            @if (item.Type == ConditionTypeEnum.Once)
+                                            {
                                                 <div class="col-lg-3 col-md-4">
-                                                    <SfDropDownList TValue="ConditionTypeEnum" TItem="ConditionType" Placeholder="Умова" DataSource="@conditionTypes" @bind-Value="@item.Type">
+                                                    <SfDropDownList TValue="ConditionOperationEnum" FloatLabelType="@FloatLabelType.Auto" TItem="Operation" Placeholder="Операція" DataSource="@operations">
                                                         <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
                                                     </SfDropDownList>
                                                 </div>
-                                                @if (item.Type == ConditionTypeEnum.EventOccurred)
-                                                {
-                                                    <div class="col-lg-8 col-md-7">
-                                                        <SfDropDownList TValue="int" TItem="DeviceEvent" Placeholder="Подія" DataSource="@deviceEvents">
-                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
-                                                        </SfDropDownList>
-                                                    </div>
-                                                }
-                                                @if (item.Type == ConditionTypeEnum.TaskTriggered)
-                                                {
-                                                    <div class="col-lg-8 col-md-7">
-                                                        <SfDropDownList TValue="int" TItem="JobTask" Placeholder="Автоматизація" DataSource="@jobTasks">
-                                                            <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
-                                                        </SfDropDownList>
-                                                    </div>
-                                                }
-                                                @if (item.Type == ConditionTypeEnum.EveryTime)
-                                                {
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <SfDropDownList TValue="string" TItem="Day" Placeholder="День тижня" DataSource="@days">
-                                                            <DropDownListFieldSettings Value="ID" Text="Text"></DropDownListFieldSettings>
-                                                        </SfDropDownList>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-3">
-                                                        <SfDatePicker TValue="DateTime" @bind-Value="@item.DateTime"></SfDatePicker>
-                                                    </div>
-                                                }
-                                                @if (item.Type == ConditionTypeEnum.Once)
-                                                {
-                                                    <div class="col-lg-3 col-md-4">
-                                                        <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" Placeholder="Операція" DataSource="@operations">
-                                                            <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
-                                                        </SfDropDownList>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4">
-                                                        <SfDatePicker TValue="DateTime" @bind-Value="@item.DateTime"></SfDatePicker>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4">
-                                                        <SfTimePicker TValue="DateTime" Step=60 Format="HH:mm" @bind-Value="@item.DateTime">
-                                                        </SfTimePicker>
-                                                    </div>
-                                                }
-                                                @if (item.Type == ConditionTypeEnum.ConditionIsMet)
-                                                {
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <SfDropDownList TValue="int" TItem="DeviceEvent" Placeholder="Подія" DataSource="@deviceEvents">
-                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
-                                                        </SfDropDownList>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4">
-                                                        <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" Placeholder="Операція" DataSource="@operations">
-                                                            <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
-                                                        </SfDropDownList>
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-4">
-                                                        <SfTextBox Placeholder="Значення"></SfTextBox>
-                                                    </div>
-
-                                                }
-                                                <div class="@(item.Type == ConditionTypeEnum.Nothing ? "col-lg-9" : "col-lg-1") @(item.Type == ConditionTypeEnum.Once || item.Type == ConditionTypeEnum.ConditionIsMet ? "col-md-8" : "col-md-1") ">
-                                                    @if (JobTask.Conditions.Count > 1)
+                                                <div class="col-lg-3 col-md-4">
+                                                    <SfDatePicker TValue="DateTime" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.DateTime"></SfDatePicker>
+                                                </div>
+                                                <div class="col-lg-2 col-md-4">
+                                                    <SfTimePicker TValue="DateTime" FloatLabelType="@FloatLabelType.Auto" Step=60 Format="HH:mm" @bind-Value="@item.DateTime">
+                                                    </SfTimePicker>
+                                                </div>
+                                            }
+                                            @if (item.Type == ConditionTypeEnum.ConditionIsMet)
+                                            {
+                                               deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == eventId);
+                                                
+                                                <div class="col-lg-4 col-md-4">
+                                                    <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="@deviceEventPlaceHolder"  FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="@eventId">
+                                                        <DropDownListFieldSettings GroupBy="DeviceName" Text="EventTitle" Value="EventId"></DropDownListFieldSettings>
+                                                        <DropDownListEvents TValue="int" TItem="DeviceEventDto" ValueChange="OnChangeDeviceEvent"></DropDownListEvents>
+                                                    </SfDropDownList>
+                                                </div>
+                                                <div class="col-lg-2 col-md-4">
+                                                    @if (deviceEvent != null && (deviceEvent.ValueType.Type == EventValueTypeEnum.Boolean ||
+                                                         deviceEvent.ValueType.Type == EventValueTypeEnum.Collection))
                                                     {
-                                                        <div class="d-flex justify-content-end">
-                                                            <a @onclick="() => RemoveCondition(item)" class="delete-condition">
-                                                                <span class="e-delete e-icons e-btn-icon e-icon-left"></span>
-                                                            </a>
-                                                        </div>
+                                                        <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" FloatLabelType="@FloatLabelType.Auto" Placeholder="Операція" DataSource="@collectionOperations">
+                                                            <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
+                                                    }
+                                                    else
+                                                    {
+                                                        <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" FloatLabelType="@FloatLabelType.Auto" Placeholder="Операція" DataSource="@operations">
+                                                            <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
+                                                        </SfDropDownList>
                                                     }
                                                 </div>
+                                                <div class="col-lg-2 col-md-4">
+
+                                                    @if (deviceEvent != null)
+                                                    {                                                        
+                                                        @if (deviceEvent.ValueType.Type == EventValueTypeEnum.String)
+                                                        {
+                                                            <SfTextBox Placeholder="Значення" FloatLabelType="@FloatLabelType.Auto"></SfTextBox>
+                                                        }
+                                                        @if (deviceEvent.ValueType.Type == EventValueTypeEnum.Number)
+                                                        {
+                                                            Dictionary<string, object> numberAttr = new Dictionary<string, object> {
+                                                                {"min", deviceEvent.ValueType.Min}, {"max", deviceEvent.ValueType.Max}
+                                                            };
+                                                            <SfTextBox Placeholder="Значення" Type="InputType.Number" @attributes="numberAttr" FloatLabelType="@FloatLabelType.Auto"></SfTextBox>
+                                                        }
+                                                        @if (deviceEvent.ValueType.Type == EventValueTypeEnum.Boolean ||
+                                                            deviceEvent.ValueType.Type == EventValueTypeEnum.Collection)
+                                                        {                                                            
+                                                            <SfDropDownList TValue="string" TItem="EventValueTypeItem" FloatLabelType="@FloatLabelType.Auto" Placeholder="Значення" DataSource="@deviceEvent.ValueType.Items">
+                                                                <DropDownListFieldSettings Value="Value" Text="Title"></DropDownListFieldSettings>
+                                                            </SfDropDownList>
+                                                        }
+                                                    }
+                                                </div>
+
+                                            }
+                                            <div class="@(item.Type == ConditionTypeEnum.Nothing ? "col-lg-9" : "col-lg-1") @(item.Type == ConditionTypeEnum.Once || item.Type == ConditionTypeEnum.ConditionIsMet ? "col-md-8" : "col-md-1") ">
+                                                @if (JobTask.Conditions.Count > 1)
+                                                {
+                                                    <div class="d-flex justify-content-end">
+                                                        <a @onclick="() => RemoveCondition(item)" class="delete-condition">
+                                                            <span class="e-delete e-icons e-btn-icon e-icon-left"></span>
+                                                        </a>
+                                                    </div>
+                                                }
                                             </div>
+                                        </div>
                                             <hr class="d-none d-sm-block d-md-block d-lg-none mt-1" />
                                         }
 
@@ -140,7 +175,7 @@
                                                 @if (item.Type == JobExecTypeEnum.Command)
                                                 {
                                                     <div class="col-lg-4 col-md-4">
-                                                        <SfDropDownList TValue="int" TItem="DeviceEvent" Placeholder="Подія" DataSource="@deviceEvents">
+                                                        <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Подія" DataSource="@deviceEvents">
                                                             <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
                                                         </SfDropDownList>
                                                     </div>
@@ -215,32 +250,6 @@
         new Day() { ID= "7", Text= "Неділя" }
     };
 
-    List<DeviceEvent> deviceEvents = new List<DeviceEvent>() {
-            new DeviceEvent()
-            {
-                DeviceName = "Датчик відкривання вікна на кухні",
-                EventId = 1,
-                EventTitle = "Відкрито"
-            },
-            new DeviceEvent()
-            {
-                DeviceName = "Датчик протікання води",
-                EventId = 3,
-                EventTitle = "Стався витік води"
-            },
-            new DeviceEvent()
-            {
-                DeviceName = "Датчик протікання води",
-                EventId = 4,
-                EventTitle = "Витік води ліквідовано"
-            },
-            new DeviceEvent()
-            {
-                DeviceName = "Датчик відкривання вікна на кухні",
-                EventId = 2,
-                EventTitle = "Закрито"
-            }
-        };
 
     List<Operation> operations = new List<Operation>()
     {
@@ -250,6 +259,12 @@
         new Operation() { Value = ConditionOperationEnum.More, Text = "<"},
         new Operation() { Value = ConditionOperationEnum.LessOrEqual, Text = "<="},
         new Operation() { Value = ConditionOperationEnum.MoreOrEqual, Text = ">="},
+    };
+
+    List<Operation> collectionOperations = new List<Operation>()
+    {
+        new Operation() { Value = ConditionOperationEnum.Equal, Text = "=="},
+        new Operation() { Value = ConditionOperationEnum.NotEqual, Text = "!="}
     };
 
     List<ConditionType> conditionTypes = new List<ConditionType>()

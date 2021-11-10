@@ -1,4 +1,5 @@
-﻿using IoTHomeAssistant.Domain.Enums;
+﻿using IoTHomeAssistant.Domain.Entities;
+using IoTHomeAssistant.Domain.Enums;
 
 namespace IoTHomeAssistant.Domain.Dto
 {
@@ -9,5 +10,6 @@ namespace IoTHomeAssistant.Domain.Dto
         public int EventId { get; set; }
         public string EventTitle { get; set; }
         public EventTypeEnum EventType { get; set; }
+        public EventValueType ValueType { get; set; }
     }
 }

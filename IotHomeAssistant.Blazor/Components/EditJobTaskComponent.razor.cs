@@ -1,7 +1,9 @@
-﻿using IoTHomeAssistant.Domain.Dto.Pagging;
+﻿using IoTHomeAssistant.Domain.Dto;
+using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Components;
+using Syncfusion.Blazor.DropDowns;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,12 +18,22 @@ namespace IotHomeAssistant.Blazor.Components
             Executions = new List<JobTaskExecution>()
         };
         protected List<JobTask> jobTasks;
+        protected List<DeviceEventDto> deviceEvents = new List<DeviceEventDto>();
+        protected DeviceEventDto deviceEvent;
+        protected int eventId = 0;
+
+        protected string deviceEventPlaceHolder = "Подія";
 
         [Inject]
         IJobTaskService JobTaskService { get; set; }
 
         [Inject]
         IDeviceService DeviceService { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            deviceEvents = await DeviceService.GetDeviceEventsAsync();
+        }
 
         public void AddJobTask()
         {
@@ -97,6 +109,15 @@ namespace IotHomeAssistant.Blazor.Components
               .Result
               .Items.Where(x => x.Id != JobTask.Id)
               .ToList();
+        }
+
+        private async Task OnChangeDeviceEvent() {
+            deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == eventId);
+            if (deviceEvent != null)
+            {
+                deviceEventPlaceHolder = deviceEvent.DeviceName;
+                StateHasChanged();
+            }
         }
     }
 }

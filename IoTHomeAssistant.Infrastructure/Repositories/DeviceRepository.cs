@@ -51,8 +51,8 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 return await _dbSet
                     .AsNoTracking()
                     .Where(x => !deviceType.HasValue || x.Type == deviceType.Value)
-                    .Include("DeviceEvents.Event")
-                    .Include("DeviceCommands.Command")
+                    .Include("DeviceEvents.Event.ValueType.Items")
+                    .Include("DeviceCommands.Command.ValueType.Items")
                     .ToListAsync();
             } catch( Exception ex)
             {

@@ -31,7 +31,11 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.ApplyConfiguration(new JobTaskExecutionConfiguration());
             builder.ApplyConfiguration(new JobConfiguration());
             builder.ApplyConfiguration(new EventConfiguration());
+            builder.ApplyConfiguration(new EventValueTypeConfiguration());
+            builder.ApplyConfiguration(new EventValueTypeItemConfiguration());
             builder.ApplyConfiguration(new CommandConfiguration());
+            builder.ApplyConfiguration(new CommandValueTypeConfiguration());
+            builder.ApplyConfiguration(new CommandValueTypeItemConfiguration());
             builder.ApplyConfiguration(new DeviceEventConfiguration());
             builder.ApplyConfiguration(new DeviceTypeEventConfiguration());
             builder.ApplyConfiguration(new DeviceCommandConfiguration());
