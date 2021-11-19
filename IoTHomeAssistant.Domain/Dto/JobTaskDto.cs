@@ -1,5 +1,5 @@
 ﻿using IoTHomeAssistant.Domain.Entities;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace IoTHomeAssistant.Domain.Dto
 {
@@ -7,16 +7,7 @@ namespace IoTHomeAssistant.Domain.Dto
     {
         public int Id { get; set; }
         public string Title { get; set; }
-
-        public string Conditions { get; set; }
-        public string Executions { get; set; }
-
-        public JobTaskDto(JobTask jobTask)
-        {
-            Id = jobTask.Id;
-            Title = jobTask.Title;
-            Conditions = string.Join(", ", jobTask.Conditions?.Select(x => x.Type));
-            Executions = string.Join(", ", jobTask.Executions?.Select(x => x.Type));
-        }
+        public virtual List<JobTaskConditionDto> Conditions { get; set; }
+        public virtual List<JobTaskExecutionDto> Executions { get; set; }
     }
 }

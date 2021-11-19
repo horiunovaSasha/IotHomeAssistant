@@ -3,7 +3,6 @@ using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Components;
-using Syncfusion.Blazor.DropDowns;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,16 +12,13 @@ namespace IotHomeAssistant.Blazor.Components
     public partial class EditJobTaskComponent
     {
         private bool _visible = false;
-        protected JobTask JobTask { get; set; } = new JobTask() { 
-            Conditions = new List<JobTaskCondition>(),
-            Executions = new List<JobTaskExecution>()
+        protected JobTaskDto JobTask { get; set; } = new JobTaskDto() { 
+            Conditions = new List<JobTaskConditionDto>(),
+            Executions = new List<JobTaskExecutionDto>()
         };
         protected List<JobTask> jobTasks;
         protected List<DeviceEventDto> deviceEvents = new List<DeviceEventDto>();
-        protected DeviceEventDto deviceEvent;
-        protected int eventId = 0;
-
-        protected string deviceEventPlaceHolder = "Подія";
+        protected List<DeviceCommandDto> deviceCommands = new List<DeviceCommandDto>();
 
         [Inject]
         IJobTaskService JobTaskService { get; set; }
@@ -33,19 +29,32 @@ namespace IotHomeAssistant.Blazor.Components
         protected override async Task OnInitializedAsync()
         {
             deviceEvents = await DeviceService.GetDeviceEventsAsync();
+            deviceCommands = await DeviceService.GetDeviceCommandsAsync();
         }
 
         public void AddJobTask()
         {
-            JobTask = new JobTask()
+            JobTask = new JobTaskDto()
             {
-                Conditions = new List<JobTaskCondition>()
+                Conditions = new List<JobTaskConditionDto>()
                 {
-                    new JobTaskCondition()
+                    new JobTaskConditionDto()
+                    {
+                        DeviceEvent = new DeviceEventDto
+                        {
+                            DeviceName = "Подія"
+                        }
+                    }
                 },
-                Executions = new List<JobTaskExecution>()
+                Executions = new List<JobTaskExecutionDto>()
                 {
-                    new JobTaskExecution()
+                    new JobTaskExecutionDto()
+                    {
+                        DeviceCommand = new DeviceCommandDto()
+                        {
+                            DeviceName = "Команда"
+                        }
+                    }
                 }
             };
 
@@ -55,7 +64,17 @@ namespace IotHomeAssistant.Blazor.Components
 
         public async Task EditJobTaskAsync(int id)
         {
-            JobTask = await JobTaskService.GetJobTask(id);
+            var task = await JobTaskService.GetJobTask(id);
+            JobTask = new JobTaskDto()
+            {
+                Id = task.Id,
+                Title = task.Title,
+                //Executions = task.Executions,
+                Conditions = task.Conditions
+                    .Select(x => JobTaskConditionDto.Convert(x))
+                    .ToList()
+            };
+
             InitJobTasks();
 
             Show();
@@ -79,13 +98,13 @@ namespace IotHomeAssistant.Blazor.Components
             Hide();
         }
 
-        private EventCallback RemoveCondition(JobTaskCondition condition)
+        private EventCallback RemoveCondition(JobTaskConditionDto condition)
         {
             JobTask.Conditions.Remove(condition);
             return new EventCallback();
         }
 
-        private EventCallback RemoveExecution(JobTaskExecution execution)
+        private EventCallback RemoveExecution(JobTaskExecutionDto execution)
         {
             JobTask.Executions.Remove(execution);
             return new EventCallback();
@@ -93,13 +112,25 @@ namespace IotHomeAssistant.Blazor.Components
 
         private EventCallback AddCondition()
         {
-            JobTask.Conditions.Add(new JobTaskCondition());
+            JobTask.Conditions.Add(new JobTaskConditionDto() {
+                DeviceEvent = new DeviceEventDto
+                {
+                    DeviceName = "Подія"
+                }
+            });
             return new EventCallback();
         }
         
         private EventCallback AddExecution()
         {
-            JobTask.Executions.Add(new JobTaskExecution());
+            JobTask.Executions.Add(new JobTaskExecutionDto()
+            {
+                DeviceCommand = new DeviceCommandDto()
+                {
+                    DeviceName = "Команда"
+                }
+            });
+
             return new EventCallback();
         }
 
@@ -111,12 +142,26 @@ namespace IotHomeAssistant.Blazor.Components
               .ToList();
         }
 
-        private async Task OnChangeDeviceEvent() {
-            deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == eventId);
-            if (deviceEvent != null)
+        private async Task OnChangeDeviceEvent(JobTaskConditionDto item) {
+            if (item.TriggeredEventId.HasValue)
             {
-                deviceEventPlaceHolder = deviceEvent.DeviceName;
-                StateHasChanged();
+                var deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == item.TriggeredEventId.Value);
+                if (deviceEvent != null)
+                {
+                    item.DeviceEvent = deviceEvent;
+                }
+            }
+        }
+
+        private async Task OnChangeDeviceCommand(JobTaskExecutionDto item)
+        {
+            if (item.CommandId.HasValue)
+            {
+                var command = deviceCommands.FirstOrDefault(x => x.CommandId == item.CommandId.Value);
+                if (command != null)
+                {
+                    item.DeviceCommand = command;
+                }
             }
         }
     }

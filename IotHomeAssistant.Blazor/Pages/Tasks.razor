@@ -7,13 +7,13 @@
 @inject IJobTaskService jobTaskService;
 
 <SfGrid DataSource="@tasks" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
-    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="JobTaskDto"></GridEvents>
+    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="JobTaskItemDto"></GridEvents>
     <GridPageSettings PageSize="10"></GridPageSettings>
     <GridColumns>
-        <GridColumn Field=@nameof(JobTaskDto.Id) HeaderText="ID" TextAlign="TextAlign.Right" Width="20"></GridColumn>
-        <GridColumn Field=@nameof(JobTaskDto.Title) HeaderText="Назва" Width="150"></GridColumn>
-        <GridColumn Field=@nameof(JobTaskDto.Conditions) HeaderText="Налаштування" Width="130"></GridColumn>
-        <GridColumn Field=@nameof(JobTaskDto.Executions) HeaderText="Виконання" Width="120"></GridColumn>
+        <GridColumn Field=@nameof(JobTaskItemDto.Id) HeaderText="ID" TextAlign="TextAlign.Right" Width="20"></GridColumn>
+        <GridColumn Field=@nameof(JobTaskItemDto.Title) HeaderText="Назва" Width="150"></GridColumn>
+        <GridColumn Field=@nameof(JobTaskItemDto.Conditions) HeaderText="Налаштування" Width="130"></GridColumn>
+        <GridColumn Field=@nameof(JobTaskItemDto.Executions) HeaderText="Виконання" Width="120"></GridColumn>
     </GridColumns>
 </SfGrid>
 
@@ -33,9 +33,9 @@
 <EditJobTaskComponent @ref="editModal"></EditJobTaskComponent>
 
 @code{
-    SfGrid<JobTaskDto> grid;
+    SfGrid<JobTaskItemDto> grid;
     EditJobTaskComponent editModal;
-    public List<JobTaskDto> tasks { get; set; }
+    public List<JobTaskItemDto> tasks { get; set; }
 
     bool noItemsModalVisible = false;
 
@@ -50,7 +50,7 @@
                 PageSize = 10000
             })
             .Result.Items
-            .Select(x => new JobTaskDto(x))
+            .Select(x => new JobTaskItemDto(x))
             .ToList();
 
         Toolbaritems = new List<ItemModel>() {

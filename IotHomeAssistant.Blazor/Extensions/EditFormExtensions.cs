@@ -46,7 +46,8 @@ namespace IotHomeAssistant.Blazor.Extensions
             foreach (DictionaryEntry kv in (IDictionary)fieldStates)
             {
                 var messageStores = GetInstanceField(kv.Value.GetType(), kv.Value, "_validationMessageStores");
-                clearMethodInfo.Invoke(messageStores, null);
+                if (messageStores != null)
+                    clearMethodInfo.Invoke(messageStores, null);
             }
 
             if (markAsUnmodified)

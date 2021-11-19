@@ -41,7 +41,7 @@
                                             @if (item.Type == ConditionTypeEnum.EventOccurred)
                                             {
                                                 <div class="col-lg-8 col-md-7">
-                                                    <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Подія" FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="@eventId">
+                                                    <SfDropDownList TValue="int?" TItem="DeviceEventDto" Placeholder="Подія" FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="@item.TriggeredEventId">
                                                         <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
                                                     </SfDropDownList>
                                                 </div>
@@ -82,17 +82,15 @@
                                             }
                                             @if (item.Type == ConditionTypeEnum.ConditionIsMet)
                                             {
-                                               deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == eventId);
-                                                
                                                 <div class="col-lg-4 col-md-4">
-                                                    <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="@deviceEventPlaceHolder"  FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="@eventId">
+                                                    <SfDropDownList TValue="int?" TItem="DeviceEventDto" Placeholder="@item.DeviceEvent.DeviceName"  FloatLabelType="@FloatLabelType.Auto" DataSource="@deviceEvents" @bind-Value="@item.TriggeredEventId">
                                                         <DropDownListFieldSettings GroupBy="DeviceName" Text="EventTitle" Value="EventId"></DropDownListFieldSettings>
-                                                        <DropDownListEvents TValue="int" TItem="DeviceEventDto" ValueChange="OnChangeDeviceEvent"></DropDownListEvents>
+                                                        <DropDownListEvents TValue="int?" TItem="DeviceEventDto" ValueChange="() => OnChangeDeviceEvent(item)"></DropDownListEvents>
                                                     </SfDropDownList>
                                                 </div>
                                                 <div class="col-lg-2 col-md-4">
-                                                    @if (deviceEvent != null && (deviceEvent.ValueType.Type == EventValueTypeEnum.Boolean ||
-                                                         deviceEvent.ValueType.Type == EventValueTypeEnum.Collection))
+                                                    @if (item.DeviceEvent.ValueType != null && (item.DeviceEvent.ValueType.Type == EventValueTypeEnum.Boolean ||
+                                                         item.DeviceEvent.ValueType.Type == EventValueTypeEnum.Collection))
                                                     {
                                                         <SfDropDownList TValue="ConditionOperationEnum" TItem="Operation" FloatLabelType="@FloatLabelType.Auto" Placeholder="Операція" DataSource="@collectionOperations">
                                                             <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
@@ -107,23 +105,23 @@
                                                 </div>
                                                 <div class="col-lg-2 col-md-4">
 
-                                                    @if (deviceEvent != null)
+                                                    @if (item.DeviceEvent.ValueType != null)
                                                     {                                                        
-                                                        @if (deviceEvent.ValueType.Type == EventValueTypeEnum.String)
+                                                        @if (item.DeviceEvent.ValueType.Type == EventValueTypeEnum.String)
                                                         {
                                                             <SfTextBox Placeholder="Значення" FloatLabelType="@FloatLabelType.Auto"></SfTextBox>
                                                         }
-                                                        @if (deviceEvent.ValueType.Type == EventValueTypeEnum.Number)
+                                                        @if (item.DeviceEvent.ValueType.Type == EventValueTypeEnum.Number)
                                                         {
                                                             Dictionary<string, object> numberAttr = new Dictionary<string, object> {
-                                                                {"min", deviceEvent.ValueType.Min}, {"max", deviceEvent.ValueType.Max}
+                                                                {"min", item.DeviceEvent.ValueType.Min}, {"max", item.DeviceEvent.ValueType.Max}
                                                             };
                                                             <SfTextBox Placeholder="Значення" Type="InputType.Number" @attributes="numberAttr" FloatLabelType="@FloatLabelType.Auto"></SfTextBox>
                                                         }
-                                                        @if (deviceEvent.ValueType.Type == EventValueTypeEnum.Boolean ||
-                                                            deviceEvent.ValueType.Type == EventValueTypeEnum.Collection)
+                                                        @if (item.DeviceEvent.ValueType.Type == EventValueTypeEnum.Boolean ||
+                                                            item.DeviceEvent.ValueType.Type == EventValueTypeEnum.Collection)
                                                         {                                                            
-                                                            <SfDropDownList TValue="string" TItem="EventValueTypeItem" FloatLabelType="@FloatLabelType.Auto" Placeholder="Значення" DataSource="@deviceEvent.ValueType.Items">
+                                                            <SfDropDownList TValue="string" TItem="EventValueTypeItem" FloatLabelType="@FloatLabelType.Auto" Placeholder="Значення" DataSource="@item.DeviceEvent.ValueType.Items">
                                                                 <DropDownListFieldSettings Value="Value" Text="Title"></DropDownListFieldSettings>
                                                             </SfDropDownList>
                                                         }
@@ -131,7 +129,7 @@
                                                 </div>
 
                                             }
-                                            <div class="@(item.Type == ConditionTypeEnum.Nothing ? "col-lg-9" : "col-lg-1") @(item.Type == ConditionTypeEnum.Once || item.Type == ConditionTypeEnum.ConditionIsMet ? "col-md-8" : "col-md-1") ">
+                                            <div class="pt-4 @(item.Type == ConditionTypeEnum.Nothing ? "col-lg-9" : "col-lg-1") @(item.Type == ConditionTypeEnum.Once || item.Type == ConditionTypeEnum.ConditionIsMet ? "col-md-8" : "col-md-1") ">
                                                 @if (JobTask.Conditions.Count > 1)
                                                 {
                                                     <div class="d-flex justify-content-end">
@@ -160,14 +158,14 @@
                                         {
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4">
-                                                    <SfDropDownList TValue="JobExecTypeEnum" TItem="ExecutionType" Placeholder="Виконання" DataSource="@executionTypes" @bind-Value="@item.Type">
+                                                    <SfDropDownList TValue="JobExecTypeEnum" TItem="ExecutionType" Placeholder="Виконання" FloatLabelType="@FloatLabelType.Auto" DataSource="@executionTypes" @bind-Value="@item.Type">
                                                         <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
                                                     </SfDropDownList>
                                                 </div>
                                                 @if (item.Type == JobExecTypeEnum.TriggerTask)
                                                 {
                                                     <div class="col-lg-8 col-md-7">
-                                                        <SfDropDownList TValue="int" TItem="JobTask" Placeholder="Задача" DataSource="@jobTasks">
+                                                        <SfDropDownList TValue="int" TItem="JobTask" Placeholder="Задача" FloatLabelType="@FloatLabelType.Auto" DataSource="@jobTasks">
                                                             <DropDownListFieldSettings Value="Id" Text="Title"></DropDownListFieldSettings>
                                                         </SfDropDownList>
                                                     </div>
@@ -175,20 +173,39 @@
                                                 @if (item.Type == JobExecTypeEnum.Command)
                                                 {
                                                     <div class="col-lg-4 col-md-4">
-                                                        <SfDropDownList TValue="int" TItem="DeviceEventDto" Placeholder="Подія" DataSource="@deviceEvents">
-                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="EventId" Text="EventTitle"></DropDownListFieldSettings>
+                                                        <SfDropDownList TValue="int?" TItem="DeviceCommandDto" FloatLabelType="@FloatLabelType.Auto" Placeholder="@item.DeviceCommand.DeviceName" DataSource="@deviceCommands" @bind-Value="@item.CommandId">
+                                                            <DropDownListFieldSettings GroupBy="DeviceName" Value="CommandId" Text="CommandTitle"></DropDownListFieldSettings>
+                                                            <DropDownListEvents TValue="int?" TItem="DeviceCommandDto" ValueChange="() => OnChangeDeviceCommand(item)"></DropDownListEvents>
                                                         </SfDropDownList>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-3">
-                                                        <SfTextBox Placeholder="Значення" FloatLabelType="@FloatLabelType.Never" @bind-Value="@item.Value"></SfTextBox>
-                                                    </div>
+                                                    @if (item.DeviceCommand.ValueType != null)
+                                                    {                                                        
+                                                        @if (item.DeviceCommand.ValueType.Type == CommandValueTypeEnum.String)
+                                                        {
+                                                            <SfTextBox Placeholder="Значення" FloatLabelType="@FloatLabelType.Auto"></SfTextBox>
+                                                        }
+                                                        @if (item.DeviceCommand.ValueType.Type == CommandValueTypeEnum.Number)
+                                                        {
+                                                            Dictionary<string, object> numberAttr = new Dictionary<string, object> {
+                                                                {"min", item.DeviceCommand.ValueType.Min}, {"max", item.DeviceCommand.ValueType.Max}
+                                                            };
+                                                            <SfTextBox Placeholder="Значення" Type="InputType.Number" @attributes="numberAttr" FloatLabelType="@FloatLabelType.Auto"></SfTextBox>
+                                                        }
+                                                        @if (item.DeviceCommand.ValueType.Type == CommandValueTypeEnum.Boolean ||
+                                                            item.DeviceCommand.ValueType.Type == CommandValueTypeEnum.Collection)
+                                                        {                                                            
+                                                            <SfDropDownList TValue="string" TItem="CommandValueTypeItem" FloatLabelType="@FloatLabelType.Auto" Placeholder="Значення" DataSource="@item.DeviceCommand.ValueType.Items">
+                                                                <DropDownListFieldSettings Value="Value" Text="Title"></DropDownListFieldSettings>
+                                                            </SfDropDownList>
+                                                        }
+                                                    }
                                                 }
                                                 @if (item.Type == JobExecTypeEnum.Wait)
                                                 {
                                                     <div class="col-lg-4 col-md-3 ">
-                                                        <SfNumericTextBox Placeholder="Секунди" FloatLabelType="@FloatLabelType.Never" @bind-Value="@item.WaitSeconds"></SfNumericTextBox>
+                                                        <SfNumericTextBox Placeholder="Секунди" FloatLabelType="@FloatLabelType.Auto" @bind-Value="@item.WaitSeconds"></SfNumericTextBox>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 pt-1">
+                                                    <div class="col-lg-4 col-md-4 pt-4 mt-2">
                                                         @if (item.WaitSeconds != 11 && item.WaitSeconds % 10 == 1)
                                                         {
                                                             <span>Секунду</span>
