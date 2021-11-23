@@ -6,6 +6,11 @@
 
 @inject IJobTaskService jobTaskService;
 
+<DeleteConfirmComponent @ref="deleteConfirmation"
+    Title="Ви дійсно бажаєте вилучити дану автоматизації?"
+    OnConfirm="DeleteAsync">
+</DeleteConfirmComponent>
+
 <SfGrid DataSource="@tasks" @ref="grid" AllowPaging="true" AllowSorting="true" Toolbar="Toolbaritems">
     <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="JobTaskItemDto"></GridEvents>
     <GridPageSettings PageSize="10"></GridPageSettings>
@@ -30,18 +35,39 @@
     </DialogButtons>
 </SfDialog>
 
-<EditJobTaskComponent @ref="editModal"></EditJobTaskComponent>
+<EditJobTaskComponent @ref="editModal" OnSave="InitJobTasks"></EditJobTaskComponent>
 
 @code{
     SfGrid<JobTaskItemDto> grid;
     EditJobTaskComponent editModal;
     public List<JobTaskItemDto> tasks { get; set; }
 
+    DeleteConfirmComponent deleteConfirmation;
+
     bool noItemsModalVisible = false;
 
     private List<ItemModel> Toolbaritems;
 
     protected override void OnInitialized()
+    {
+        InitJobTasks();
+
+        Toolbaritems = new List<ItemModel>() {
+            new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
+            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
+            new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
+        };
+    }
+
+    private async Task DeleteAsync()
+    {
+        var selectedItem = grid.SelectedRecords.FirstOrDefault();
+        await jobTaskService.RemoveJobTask(selectedItem.Id);
+
+        InitJobTasks();
+    }
+
+    private void InitJobTasks()
     {
         tasks = jobTaskService.GetPaggedList(
             new PageRequest()
@@ -52,13 +78,8 @@
             .Result.Items
             .Select(x => new JobTaskItemDto(x))
             .ToList();
-
-        Toolbaritems = new List<ItemModel>() {
-            new ItemModel() { Text = "Додати", TooltipText = "Додати", PrefixIcon = "e-add", Id="1" },
-            new ItemModel() { Text = "Редагувати", TooltipText = "Редагувати", PrefixIcon = "e-edit", Id = "2" },
-            new ItemModel() { Text = "Видалити", TooltipText = "Видалити", PrefixIcon = "e-delete", Id = "3" }
-        };
     }
+
 
     public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
     {
@@ -85,6 +106,9 @@
             if (selectedItem == null)
             {
                 noItemsModalVisible = true;
+            } else
+            {
+                deleteConfirmation.Show();
             }
         }
     }

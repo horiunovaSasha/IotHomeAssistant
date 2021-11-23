@@ -42,7 +42,7 @@ namespace IoTHomeAssistant.Domain.Services
                     var dbIds = dbTask.Conditions.Select(x => x.Id).ToList();
                     var dbItem = dbTask.Conditions.FirstOrDefault(x => x.Id == item.Id);
 
-                    if (dbItem != null)
+                    if (item.Id != 0)
                     {
                         dbItem.DateTime = item.DateTime;
                         dbItem.Operation = item.Operation;
@@ -51,6 +51,7 @@ namespace IoTHomeAssistant.Domain.Services
                         dbItem.TriggeredTaskId = item.TriggeredTaskId;
                         dbItem.Type = item.Type;
                         dbItem.Value = item.Value;
+                        dbItem.Day = item.Day;
                     } else
                     {
                         dbTask.Conditions.Add(item);
@@ -71,7 +72,7 @@ namespace IoTHomeAssistant.Domain.Services
                     var dbIds = dbTask.Executions.Select(x => x.Id).ToList();
                     var dbItem = dbTask.Executions.FirstOrDefault(x => x.Id == item.Id);
 
-                    if (dbItem != null)
+                    if (item.Id != 0)
                     {
                         dbItem.CommandId = item.CommandId;
                         dbItem.DeviceId = item.DeviceId;

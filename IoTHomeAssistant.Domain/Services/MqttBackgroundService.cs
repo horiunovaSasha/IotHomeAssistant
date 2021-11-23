@@ -39,29 +39,29 @@ namespace IoTHomeAssistant.Domain.Services
                    .WithUrl(new Uri("https://localhost:5001/event-publisher"))
                    .Build();
 
-                _client.Connect(MQTT_CLIENT_ID);
-                await eventPublisher.StartAsync();
+_client.Connect(MQTT_CLIENT_ID);
+await eventPublisher.StartAsync();
 
-                foreach (var device in devices)
-                {
-                    var eventName = $"RECEIVE_EVENTS_{device.Type}_{device.Id}";
+foreach (var device in devices)
+{
+    var eventName = $"RECEIVE_EVENTS_{device.Type}_{device.Id}";
 
-                    _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
-                    {
-                        if (e.Topic == eventName)
-                        {
-                            var payload = JsonConvert.DeserializeObject<EventPayload>(Encoding.UTF8.GetString(e.Message));
-                            if (eventPublisher.State != HubConnectionState.Connected)
-                            {
-                                eventPublisher.StartAsync().Wait();
-                            }
+    _client.MqttMsgPublishReceived += (object sender, MqttMsgPublishEventArgs e) =>
+    {
+        if (e.Topic == eventName)
+        {
+            var payload = JsonConvert.DeserializeObject<EventPayload>(Encoding.UTF8.GetString(e.Message));
+            if (eventPublisher.State != HubConnectionState.Connected)
+            {
+                eventPublisher.StartAsync().Wait();
+            }
 
-                            eventPublisher.SendAsync("PublishEvent", $"{payload.Event}_{device.Id}", payload.Value).Wait();
-                        }
-                    };
+            eventPublisher.SendAsync("PublishEvent", $"{payload.Event}_{device.Id}", payload.Value).Wait();
+        }
+    };
 
-                    _client.Subscribe(new string[] { eventName }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-                }
+    _client.Subscribe(new string[] { eventName }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+}
             }
 
             await Task.CompletedTask;

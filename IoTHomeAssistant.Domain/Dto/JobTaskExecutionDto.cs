@@ -1,5 +1,6 @@
 ﻿using IoTHomeAssistant.Domain.Dto;
 using IoTHomeAssistant.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace IoTHomeAssistant.Domain.Entities
 {
@@ -7,11 +8,15 @@ namespace IoTHomeAssistant.Domain.Entities
     {
         public int Id { get; set; }
         public int JobTaskId { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Це поле обов'язкове!")]
         public JobExecTypeEnum Type { get; set; }
         public int? WaitSeconds { get; set; }
         public int? TriggeredTaskId { get; set; }
         public int? DeviceId { get; set; }
         public int? CommandId { get; set; }
+
+        [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
         public string Value { get; set; }
         public int Order { get; set; }
 
@@ -19,5 +24,41 @@ namespace IoTHomeAssistant.Domain.Entities
 
         public JobTask JobTask { get; set; }
         public JobTask TriggeredTask { get; set; }
+
+        public static JobTaskExecutionDto Convert(JobTaskExecution entity)
+        {
+            return new JobTaskExecutionDto()
+            {
+                Id = entity.Id,
+                JobTaskId = entity.JobTaskId,
+                Type = entity.Type,
+                WaitSeconds = entity.WaitSeconds,
+                DeviceId = entity.DeviceId,
+                TriggeredTaskId = entity.TriggeredTaskId,
+                CommandId = entity.CommandId,
+                Order = entity.Order,
+                Value = entity.Value,
+                JobTask = entity.JobTask,
+                TriggeredTask = entity.TriggeredTask
+            };
+        }
+
+        public static JobTaskExecution Convert(JobTaskExecutionDto dto)
+        {
+            return new JobTaskExecution()
+            {
+                Id = dto.Id,
+                JobTaskId = dto.JobTaskId,
+                Type = dto.Type,
+                WaitSeconds = dto.WaitSeconds,
+                DeviceId = dto.DeviceId,
+                TriggeredTaskId = dto.TriggeredTaskId,
+                CommandId = dto.CommandId,
+                Order = dto.Order,
+                Value = dto.Value,
+                JobTask = dto.JobTask,
+                TriggeredTask = dto.TriggeredTask
+            };
+        }
     }
 }

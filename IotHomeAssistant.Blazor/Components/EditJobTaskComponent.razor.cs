@@ -26,6 +26,9 @@ namespace IotHomeAssistant.Blazor.Components
         [Inject]
         IDeviceService DeviceService { get; set; }
 
+        [Parameter]
+        public EventCallback OnSave { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             deviceEvents = await DeviceService.GetDeviceEventsAsync();
@@ -69,11 +72,31 @@ namespace IotHomeAssistant.Blazor.Components
             {
                 Id = task.Id,
                 Title = task.Title,
-                //Executions = task.Executions,
+                Executions = task.Executions
+                    .Select(x => JobTaskExecutionDto.Convert(x))
+                    .ToList(),
                 Conditions = task.Conditions
                     .Select(x => JobTaskConditionDto.Convert(x))
                     .ToList()
             };
+
+            foreach(var item in JobTask.Conditions.Where(x => x.TriggeredEventId.HasValue))
+            {
+                var deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == item.TriggeredEventId.Value);
+                if (deviceEvent != null)
+                {
+                    item.DeviceEvent = deviceEvent;
+                }
+            }
+
+            foreach (var item in JobTask.Executions.Where(x => x.CommandId.HasValue))
+            {
+                var deviceCommand = deviceCommands.FirstOrDefault(x => x.CommandId == item.CommandId.Value);
+                if (deviceCommand != null)
+                {
+                    item.DeviceCommand = deviceCommand;
+                }
+            }
 
             InitJobTasks();
 
@@ -94,6 +117,27 @@ namespace IotHomeAssistant.Blazor.Components
 
         private void Save()
         {
+            var jobTask = new JobTask()
+            {
+                Id = JobTask.Id,
+                Title = JobTask.Title,
+                Conditions = JobTask.Conditions
+                    .Select(x => JobTaskConditionDto.Convert(x)).ToList(),
+                Executions = JobTask.Executions
+                    .Select(x => JobTaskExecutionDto.Convert(x)).ToList()
+            };
+
+            if (jobTask.Id == 0)
+            {
+                JobTaskService.AddJobTask(jobTask);
+            }
+            else
+            {
+                JobTaskService.UpdateJobTask(jobTask);
+            }
+
+            OnSave.InvokeAsync();
+
             StateHasChanged();
             Hide();
         }
