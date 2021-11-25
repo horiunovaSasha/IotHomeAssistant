@@ -76,6 +76,8 @@ namespace IotHomeAssistant.Blazor
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddTransient<UserManager<IdentityUser>>();
 
+            services.AddSingleton<JobTaskBackgroundService>();
+
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(

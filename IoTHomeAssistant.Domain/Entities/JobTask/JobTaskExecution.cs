@@ -17,5 +17,6 @@ namespace IoTHomeAssistant.Domain.Entities
 
         public virtual JobTask JobTask { get; set; }
         public virtual JobTask TriggeredTask { get; set; }
+        public virtual Command Command { get; set; }
     }
 }
