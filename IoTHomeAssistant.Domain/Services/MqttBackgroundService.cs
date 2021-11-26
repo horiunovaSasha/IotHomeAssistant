@@ -62,7 +62,7 @@ namespace IoTHomeAssistant.Domain.Services
                             }
 
                             eventPublisher.SendAsync("PublishEvent", $"{payload.Event}_{device.Id}", payload.Value).Wait();
-                            _jobTaskBackgroundService.OnEvent(device.Id, payload.Event, (string)payload.Value);
+                            _jobTaskBackgroundService.OnEvent(device.Id, payload.Event, payload.Value?.ToString());
                         }
                     };
 

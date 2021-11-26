@@ -20,6 +20,7 @@ using Syncfusion.Blazor;
 using Syncfusion.Licensing;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System;
 
 namespace IotHomeAssistant.Blazor
 {
@@ -36,22 +37,30 @@ namespace IotHomeAssistant.Blazor
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            string defaultConnectionString = "UnixIoTDefaultConnection";
+
+            if (Environment.OSVersion.VersionString.Contains("Windows"))
+                defaultConnectionString = "IoTDefaultConnection";
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                 options.UseSqlite(
+                    Configuration.GetConnectionString(defaultConnectionString)));
+
+            services.AddDbContext<IoTDbContext>(options =>
+                options.UseSqlite(
+                    Configuration.GetConnectionString(defaultConnectionString)));
+
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                  .AddRoles<IdentityRole>()
                  .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.Configure<MqttOption>(Configuration.GetSection("MqttConfiguration"));
-
-            services.AddDbContext<IoTDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("IoTDefaultConnection")));
 
             services.AddTransient<IIconRepository, IconRepository>();
             services.AddTransient<IPluginRepository, PluginRepository>();

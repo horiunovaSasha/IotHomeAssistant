@@ -38,6 +38,7 @@ namespace IoTHomeAssistant.Domain.Services
 
             if (deviceEvent != null) { 
                 var tasks = _jobTasks.Where(x =>
+                    x.Conditions != null &&
                     x.Conditions.Any(c => c.TriggeredEventId == deviceEvent.EventId));
 
                 foreach (var task in tasks)
