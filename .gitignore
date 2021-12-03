@@ -17,3 +17,4 @@ riderModule.iml
 /.vs/IoTHomeAssistant/v17/TestStore/0
 /Plugins/Sonoff/.vs/Sonoff/v17/.futdcache.v1
 /Plugins/Zigbee2Mqtt/.vs/Zigbee2Mqtt/v17/.futdcache.v1
+/Plugins/Zigbee2Mqtt/Zigbee2Mqtt.Switch/Zigbee2Mqtt.Switch.csproj.user
