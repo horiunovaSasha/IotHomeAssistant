@@ -3,6 +3,7 @@ using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 using Syncfusion.Blazor.DropDowns;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,10 @@ namespace IotHomeAssistant.Blazor.Components
 
         [Inject]
         protected IPluginService _pluginService { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected PluginEditDto Plugin { get; set; } = new PluginEditDto();
 
         public void AddPlugin()
@@ -84,7 +89,7 @@ namespace IotHomeAssistant.Blazor.Components
             StateHasChanged();
         }
 
-        private void Save()
+        private async Task SaveAsync()
         {
             var plugin = new Plugin()
             {
@@ -103,18 +108,28 @@ namespace IotHomeAssistant.Blazor.Components
                 .ToList()
             };
 
+            string notification = "Cтворення Docker образу в процесі і Вас буде повідомлено, як тільки образ створиться";
+
             if (Plugin.Id == 0)
             {
                 _pluginService.AddPlugin(plugin);
             } else
             {
                 _pluginService.UpdatePlugin(plugin);
+                notification = "Oновлення Docker образу в процесі і Вас буде повідомлено, як тільки образ оновиться";
             }
 
-            OnSave.InvokeAsync();
+            await OnSave.InvokeAsync();
 
             StateHasChanged();
             Hide();
+
+            var hubConnection = new HubConnectionBuilder()
+                .WithUrl(NavigationManager.ToAbsoluteUri("/event-publisher"))
+                .Build();
+
+            await hubConnection.StartAsync();
+            await hubConnection.SendAsync("PublishNotification", NotificationTypeEnum.Info, notification);
         }
 
         private void Clone()

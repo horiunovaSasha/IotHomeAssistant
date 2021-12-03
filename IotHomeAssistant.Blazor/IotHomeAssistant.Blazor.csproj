@@ -21,6 +21,7 @@
     <PackageReference Include="Syncfusion.Blazor.Cards" Version="19.3.0.44" />
     <PackageReference Include="Syncfusion.Blazor.Grid" Version="19.3.0.44" />
     <PackageReference Include="Syncfusion.Blazor.Maps" Version="19.3.0.44" />
+    <PackageReference Include="Syncfusion.Blazor.Notifications" Version="19.3.0.44" />
     <PackageReference Include="Syncfusion.Blazor.QueryBuilder" Version="19.3.0.44" />
   </ItemGroup>
 

@@ -25,7 +25,7 @@ namespace IoTHomeAssistant.Domain.Services
 
         public MqttBackgroundService(
             IServiceScopeFactory serviceScopeFactory, 
-            JobTaskBackgroundService jobTaskBackgroundService, 
+            JobTaskBackgroundService jobTaskBackgroundService,
             IOptions<MqttOption> options)
         {
             _serviceScopeFactory = serviceScopeFactory;

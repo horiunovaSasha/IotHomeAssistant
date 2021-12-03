@@ -210,7 +210,7 @@ namespace IoTHomeAssistant.Domain.Services
             }
 
             return Task.Run(() => {
-                Cmd("docker", $"run {string.Join(" ", envParams)} --name {device.DockerImageId}_{device.Id} {device.DockerImageId}");
+                Cmd("docker", $"run {string.Join(" ", envParams)} --name {device.DockerImageId}_{device.Id} --restart unless-stopped {device.DockerImageId}");
             });
         }
 

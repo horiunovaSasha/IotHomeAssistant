@@ -14,7 +14,7 @@
                     </ul>
                 </div>
                 <div id="right-side" class="p-4">
-                    <EditForm Model="@Plugin" OnValidSubmit="@Save">
+                    <EditForm Model="@Plugin" OnValidSubmit="@SaveAsync">
                         <DataAnnotationsValidator/>
                         <h4>@(Plugin.Id == 0 ? "Додавання розширення" : "Редагування розширення")</h4>
                         <hr/>

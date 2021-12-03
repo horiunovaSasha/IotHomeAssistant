@@ -10,6 +10,7 @@ using System.Linq;
 using System.Diagnostics;
 using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Dto;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -31,10 +32,24 @@ namespace IoTHomeAssistant.Domain.Services
         {
             plugin.DockerImageId = BuilDockerImageId(plugin);
 
-            Task.Run(() => {
-                var localPath = GitCloneAndReturnPath(plugin);
-                BuildDockerImage(localPath, plugin.DockerImageId);
+            Task.Run(async() =>
+            {
+                try
+                {
+                    var localPath = GitCloneAndReturnPath(plugin);
+                    BuildDockerImageAsync(localPath, plugin.DockerImageId, plugin.Title);
+                }
+                catch
+                {
+                    var eventPublisher = new HubConnectionBuilder()
+                        .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                        .Build();
+
+                    await eventPublisher.StartAsync();
+                    eventPublisher.SendAsync("PublishNotification", NotificationTypeEnum.Danger, $"Виникла помилка під час створення Docker образу для '{plugin.Title}'!");
+                }
             });
+
             await _pluginRepository.AddAsync(plugin);
             await _pluginRepository.CommitAsync();
         }
@@ -76,9 +91,20 @@ namespace IoTHomeAssistant.Domain.Services
                     }
                 }
 
-                Task.Run(() => {
-                    var localPath = GitCloneAndReturnPath(dbPlugin);
-                    UpdateDockerImage(localPath, dbPlugin.DockerImageId);
+                Task.Run(async () => {
+                    try
+                    {
+                        var localPath = GitCloneAndReturnPath(dbPlugin);
+                        UpdateDockerImage(localPath, dbPlugin.DockerImageId, plugin.Title);
+                    } catch
+                    {
+                        var eventPublisher = new HubConnectionBuilder()
+                            .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                            .Build();
+
+                        await eventPublisher.StartAsync();
+                        eventPublisher.SendAsync("PublishNotification", NotificationTypeEnum.Danger, $"Виникла помилка під час створення Docker образу для '{plugin.Title}'!");
+                    }
                 });
              
                 await _pluginRepository.UpdateAsync(dbPlugin);
@@ -102,22 +128,31 @@ namespace IoTHomeAssistant.Domain.Services
             return await _pluginRepository.GetPagedList(request);
         }
 
-        private void BuildDockerImage(string workingDir, string imageId)
+        private async Task BuildDockerImageAsync(string workingDir, string imageId, string pluginName)
         {
             var dockerfile = Path.Combine(workingDir, "Dockerfile");
             workingDir = Path.GetDirectoryName(workingDir);
+
+            var eventPublisher = new HubConnectionBuilder()
+                .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                .Build();
 
             var cmd = Cmd("docker", $"build -f \"{dockerfile}\" -t {imageId} \"{workingDir}\"");
 
             if (cmd.ExitCode != 0)
             {
-                var error = cmd.StandardError.ReadToEnd();
+                //var error = cmd.StandardError.ReadToEnd();
                 //if (!string.IsNullOrEmpty(error))
                 //{
-                //    return error;
                 //}
 
-                //return process.StandardOutput.ReadToEnd();
+                await eventPublisher.StartAsync();
+                await eventPublisher.SendAsync("PublishNotification", NotificationTypeEnum.Danger, $"Виникла помилка під час створення Docker образу для '{pluginName}'!");
+            }
+            else
+            {
+                await eventPublisher.StartAsync();
+                await eventPublisher.SendAsync("PublishNotification", NotificationTypeEnum.Success, $"Docker образ для '{pluginName}' успішно створено!");
             }
 
             while(!workingDir.EndsWith(imageId))
@@ -126,11 +161,9 @@ namespace IoTHomeAssistant.Domain.Services
             }
 
             DeleteDirectory(workingDir);
-
-            //return string.Empty;
         }
 
-        private void UpdateDockerImage(string workingDir, string imageId)
+        private void UpdateDockerImage(string workingDir, string imageId, string pluginName)
         {
             var cmd = Cmd("docker", $"ps -aqf \"ancestor={imageId}\"");
 
@@ -148,7 +181,7 @@ namespace IoTHomeAssistant.Domain.Services
                 Cmd("docker", $"rmi -f {imgId}");
             }
 
-            BuildDockerImage(workingDir, imageId);
+            BuildDockerImageAsync(workingDir, imageId, pluginName);
         }
 
         private Process Cmd(string filename, string command)

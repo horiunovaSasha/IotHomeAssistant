@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using Syncfusion.Blazor.Notifications;
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="main">
@@ -18,6 +19,9 @@
         </div>
 
         <div class="content p-2 mt-2">
+             <SfToast ID="toast_default" @ref="ToastObj" CssClass="@cssClass" Title="@notificationType" Content="@ToastContent" Timeout="7500" Icon="e-meeting">
+                <ToastPosition X="Right"></ToastPosition>
+            </SfToast>
             @Body
         </div>        
     </div>
