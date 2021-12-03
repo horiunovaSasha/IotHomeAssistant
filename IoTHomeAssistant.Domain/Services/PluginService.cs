@@ -42,7 +42,7 @@ namespace IoTHomeAssistant.Domain.Services
                 catch
                 {
                     var eventPublisher = new HubConnectionBuilder()
-                        .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                        .WithUrl(new Uri("http://localhost:5000/event-publisher"))
                         .Build();
 
                     await eventPublisher.StartAsync();
@@ -99,7 +99,7 @@ namespace IoTHomeAssistant.Domain.Services
                     } catch
                     {
                         var eventPublisher = new HubConnectionBuilder()
-                            .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                            .WithUrl(new Uri("http://localhost:5000/event-publisher"))
                             .Build();
 
                         await eventPublisher.StartAsync();
@@ -134,7 +134,7 @@ namespace IoTHomeAssistant.Domain.Services
             workingDir = Path.GetDirectoryName(workingDir);
 
             var eventPublisher = new HubConnectionBuilder()
-                .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                .WithUrl(new Uri("http://localhost:5000/event-publisher"))
                 .Build();
 
             var cmd = Cmd("docker", $"build -f \"{dockerfile}\" -t {imageId} \"{workingDir}\"");

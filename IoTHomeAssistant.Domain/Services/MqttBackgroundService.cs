@@ -41,7 +41,7 @@ namespace IoTHomeAssistant.Domain.Services
                 var deviceEvents = await deviceService.GetDeviceEventsAsync();
                 var devices = await deviceService.GetDevicesAsync(null);
                 var eventPublisher = new HubConnectionBuilder()
-                   .WithUrl(new Uri("https://localhost:5001/event-publisher"))
+                   .WithUrl(new Uri("http://localhost:5000/event-publisher"))
                    .Build();
 
                 _client.Connect(MQTT_CLIENT_ID);
