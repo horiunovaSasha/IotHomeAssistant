@@ -10,8 +10,9 @@ namespace Zigbee2Mqtt.Switch
 {
     public class MqttBackgroundService : IHostedService, IDisposable
     {
-        private const string MQTT_CLIENT_ID = "Tasmora.Switch";
+        private const string MQTT_CLIENT_ID = "Zigbee2Mqtt.Switch";
         private const string SET_POWER = "set_power";
+        private const string SET_POWER_TOGGLE = "set_power_toggle";
         private const string POWER_CHANGED = "power_changed";
 
         private IMqttClient _mqttClient;
@@ -49,6 +50,17 @@ namespace Zigbee2Mqtt.Switch
                     if (payload.Command == SET_POWER)
                     {
                         var toggle = Encoding.UTF8.GetBytes("{\"state\": \"" + (payload.Value ? "ON" : "OFF") + "\"}");
+                        var cmd = new MqttApplicationMessageBuilder()
+                         .WithTopic($"zigbee2mqtt/{VariableExtension.DEVICE_ID}/set")
+                         .WithPayload(toggle)
+                         .Build();
+
+                        await _mqttClient.PublishAsync(cmd, CancellationToken.None);
+                    }
+                    
+                    if (payload.Command == SET_POWER_TOGGLE)
+                    {
+                        var toggle = Encoding.UTF8.GetBytes("{\"state\": \"TOGGLE\"}");
                         var cmd = new MqttApplicationMessageBuilder()
                          .WithTopic($"zigbee2mqtt/{VariableExtension.DEVICE_ID}/set")
                          .WithPayload(toggle)

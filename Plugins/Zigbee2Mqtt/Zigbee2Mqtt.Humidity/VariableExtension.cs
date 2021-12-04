@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 
-namespace Zigbee2Mqtt.Switch
+namespace Zigbee2Mqtt.Humidity
 {
     static class VariableExtension
     {
-        static public string CMD_TOPIC { get; private set; }
         static public string STATUS_TOPIC { get; private set; }
         static public string SEND_STATUS_TOPIC { get; private set; }
         static public string MQTT_ADDR { get; private set; }
@@ -16,19 +15,14 @@ namespace Zigbee2Mqtt.Switch
         {
             foreach (DictionaryEntry arg in Environment.GetEnvironmentVariables())
             {
-                if (arg.Key.ToString() == "CMD_TOPIC")
-                {
-                    CMD_TOPIC = arg.Value?.ToString();
-                }
-
-                if (arg.Key.ToString() == "STATUS_TOPIC")
-                {
-                    STATUS_TOPIC = arg.Value?.ToString();
-                }
-
                 if (arg.Key.ToString() == "SEND_STATUS_TOPIC")
                 {
                     SEND_STATUS_TOPIC = arg.Value?.ToString();
+                }
+                
+                if (arg.Key.ToString() == "STATUS_TOPIC")
+                {
+                    STATUS_TOPIC = arg.Value?.ToString();
                 }
 
                 if (arg.Key.ToString() == "MQTT_ADDR")
@@ -52,30 +46,19 @@ namespace Zigbee2Mqtt.Switch
                 }
             }
 
-            MQTT_ADDR = "192.168.1.89";
-            CMD_TOPIC = "turn_light";
-            STATUS_TOPIC = "turn_light_get_status";
-            SEND_STATUS_TOPIC = "turn_light_info";
-            DEVICE_ID = "living_room_light";
-
-            if (string.IsNullOrEmpty(CMD_TOPIC))
-            {
-                throw new ArgumentException("CMD_TOPIC Environment variable is required!");
-            }
-
             if (string.IsNullOrEmpty(MQTT_ADDR))
             {
                 throw new ArgumentException("MQTT_ADDR Environment variable is required!");
             }
 
-            if (string.IsNullOrEmpty(STATUS_TOPIC))
-            {
-                throw new ArgumentException("STATUS_TOPIC Environment variable is required!");
-            }
-
             if (string.IsNullOrEmpty(SEND_STATUS_TOPIC))
             {
                 throw new ArgumentException("SEND_STATUS_TOPIC Environment variable is required!");
+            } 
+            
+            if (string.IsNullOrEmpty(STATUS_TOPIC))
+            {
+                throw new ArgumentException("STATUS_TOPIC Environment variable is required!");
             }
 
             if (string.IsNullOrEmpty(DEVICE_ID))
