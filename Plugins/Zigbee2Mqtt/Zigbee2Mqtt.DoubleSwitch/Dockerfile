@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["Zigbee2Mqtt.DoubleSwitch/Zigbee2Mqtt.DoubleSwitch.csproj", "Zigbee2Mqtt.DoubleSwitch/"]
 RUN dotnet restore "Zigbee2Mqtt.DoubleSwitch/Zigbee2Mqtt.DoubleSwitch.csproj"
 COPY . .
-WORKDIR "/src/ZIgbee2Mqtt.DoubleSwitch"
+WORKDIR "/src/Zigbee2Mqtt.DoubleSwitch"
 RUN dotnet build "Zigbee2Mqtt.DoubleSwitch.csproj" -c Release -o /app/build
 
 FROM build AS publish
