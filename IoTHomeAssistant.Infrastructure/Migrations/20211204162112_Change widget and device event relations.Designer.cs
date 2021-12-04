@@ -3,14 +3,16 @@ using System;
 using IoTHomeAssistant.Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IoTHomeAssistant.Infrastructure.Migrations
 {
     [DbContext(typeof(IoTDbContext))]
-    partial class IoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211204162112_Change widget and device event relations")]
+    partial class Changewidgetanddeviceeventrelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,7 +395,7 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("DeviceCommandId")
+                    b.Property<int?>("CommandId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("DeviceId")
@@ -419,7 +421,7 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeviceCommandId");
+                    b.HasIndex("CommandId");
 
                     b.HasIndex("JobTaskId");
 
@@ -580,6 +582,9 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("DeviceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("IconId")
@@ -755,9 +760,9 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
 
             modelBuilder.Entity("IoTHomeAssistant.Domain.Entities.JobTaskExecution", b =>
                 {
-                    b.HasOne("IoTHomeAssistant.Domain.Entities.DeviceCommand", "DeviceCommand")
+                    b.HasOne("IoTHomeAssistant.Domain.Entities.Command", "Command")
                         .WithMany()
-                        .HasForeignKey("DeviceCommandId");
+                        .HasForeignKey("CommandId");
 
                     b.HasOne("IoTHomeAssistant.Domain.Entities.JobTask", "JobTask")
                         .WithMany("Executions")
@@ -769,7 +774,7 @@ namespace IoTHomeAssistant.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("TriggeredTaskId");
 
-                    b.Navigation("DeviceCommand");
+                    b.Navigation("Command");
 
                     b.Navigation("JobTask");
 

@@ -27,7 +27,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
                 return new PageResponse<JobTask>()
                 {
                     Items = await _dbSet
-                        .Include(x => x.Executions)
+                        .Include("Executions.DeviceCommand.Command")
                         .Include(x => x.Conditions)
                         .Skip(skipRows)
                         .Take(request.PageSize)

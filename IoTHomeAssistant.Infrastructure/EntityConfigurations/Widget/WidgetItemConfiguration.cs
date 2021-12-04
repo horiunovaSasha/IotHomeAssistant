@@ -18,7 +18,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.DeviceId);
             builder.Property(x => x.IconId);
             builder.Property(x => x.AreaId);
-            builder.Property(x => x.EventId);
+            builder.Property(x => x.DeviceEventId);
             builder.Property(x => x.JobTaskId);
             builder.Property(x => x.Latitude);
             builder.Property(x => x.Longitude);
@@ -26,7 +26,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.HasOne(x => x.Area);
             builder.HasOne(x => x.Icon);
             builder.HasOne(x => x.Device);
-            builder.HasOne(x => x.Event);
+            builder.HasOne(x => x.DeviceEvent);
 
         }
     }

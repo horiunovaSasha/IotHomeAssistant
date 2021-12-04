@@ -13,7 +13,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
             builder.Property(x => x.JobTaskId).IsRequired();
             builder.Property(x => x.Type).IsRequired();
             builder.Property(x => x.Order).IsRequired();
-            builder.Property(x => x.CommandId);
+            builder.Property(x => x.DeviceCommandId);
             builder.Property(x => x.DeviceId);
             builder.Property(x => x.WaitSeconds);
             builder.Property(x => x.TriggeredTaskId);
@@ -21,6 +21,7 @@ namespace IoTHomeAssistant.Infrastructure.EntityConfigurations
 
             builder.HasOne(x => x.JobTask).WithMany(x => x.Executions).HasForeignKey(x => x.JobTaskId);
             builder.HasOne(x => x.TriggeredTask);
+            builder.HasOne(x => x.DeviceCommand);
         }
     }
 }

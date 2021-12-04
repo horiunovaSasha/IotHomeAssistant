@@ -97,7 +97,7 @@
                                                             <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
                                                         </SfDropDownList>
                                                     }
-                                                    else
+                                                    else if (item.DeviceEvent.EventHasValue)
                                                     {
                                                         <SfDropDownList TValue="ConditionOperationEnum?" TItem="Operation" FloatLabelType="@FloatLabelType.Auto" Placeholder="Операція" DataSource="@operations" @bind-Value="@item.Operation">
                                                             <DropDownListFieldSettings Value="Value" Text="Text"></DropDownListFieldSettings>
@@ -174,7 +174,7 @@
                                                 @if (item.Type == JobExecTypeEnum.Command)
                                                 {
                                                     <div class="col-lg-4 col-md-4">
-                                                        <SfDropDownList TValue="int?" TItem="DeviceCommandDto" FloatLabelType="@FloatLabelType.Auto" Placeholder="@item.DeviceCommand.DeviceName" DataSource="@deviceCommands" @bind-Value="@item.CommandId">
+                                                        <SfDropDownList TValue="int?" TItem="DeviceCommandDto" FloatLabelType="@FloatLabelType.Auto" Placeholder="@item.DeviceCommand.DeviceName" DataSource="@deviceCommands" @bind-Value="@item.DeviceCommandId">
                                                             <DropDownListFieldSettings GroupBy="DeviceName" Value="CommandId" Text="CommandTitle"></DropDownListFieldSettings>
                                                             <DropDownListEvents TValue="int?" TItem="DeviceCommandDto" ValueChange="() => OnChangeDeviceCommand(item)"></DropDownListEvents>
                                                         </SfDropDownList>

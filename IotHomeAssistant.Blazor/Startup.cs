@@ -62,6 +62,16 @@ namespace IotHomeAssistant.Blazor
 
             services.Configure<MqttOption>(Configuration.GetSection("MqttConfiguration"));
 
+            var hostSection = Configuration.GetSection("HostConfiguration");
+            services.Configure<IoTHomeAssistant.Domain.Options.HostOptions>(hostSection);
+
+            var hostConfig = hostSection.Get<IoTHomeAssistant.Domain.Options.HostOptions>();
+
+            services.AddSingleton(options =>
+            {
+                return hostConfig;
+            });
+
             services.AddTransient<IIconRepository, IconRepository>();
             services.AddTransient<IPluginRepository, PluginRepository>();
             services.AddTransient<IDeviceRepository, DeviceRepository>();

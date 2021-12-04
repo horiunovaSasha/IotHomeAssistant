@@ -12,7 +12,7 @@ namespace IoTHomeAssistant.Domain.Entities
 
         public int AreaId { get; set; }
         public int? DeviceId { get; set; }
-        public int? EventId { get; set; }
+        public int? DeviceEventId { get; set; }
         public int? IconId { get; set; }
         public int? JobTaskId { get; set; }
         public double? Latitude { get; set; }
@@ -21,6 +21,6 @@ namespace IoTHomeAssistant.Domain.Entities
         public virtual Icon Icon { get; set; }
         public virtual Device Device { get; set; }
         public virtual Area Area { get; set; }
-        public virtual Event Event { get; set; }
+        public virtual DeviceEvent DeviceEvent { get; set; }
     }
 }

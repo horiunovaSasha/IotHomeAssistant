@@ -45,7 +45,7 @@ namespace IoTHomeAssistant.Domain.Services
 
             if (widgetItem.EventId > 0)
             {
-                widget.EventId = widgetItem.EventId;
+                widget.DeviceEventId = widgetItem.EventId;
             }
 
             if (widgetItem.JobTaskId > 0)

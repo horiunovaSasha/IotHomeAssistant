@@ -80,6 +80,8 @@ namespace IotHomeAssistant.Blazor.Components
                     .ToList()
             };
 
+            
+
             foreach(var item in JobTask.Conditions.Where(x => x.TriggeredEventId.HasValue))
             {
                 var deviceEvent = deviceEvents.FirstOrDefault(x => x.EventId == item.TriggeredEventId.Value);
@@ -89,13 +91,23 @@ namespace IotHomeAssistant.Blazor.Components
                 }
             }
 
-            foreach (var item in JobTask.Executions.Where(x => x.CommandId.HasValue))
+            foreach (var item in JobTask.Executions.Where(x => x.DeviceCommandId.HasValue))
             {
-                var deviceCommand = deviceCommands.FirstOrDefault(x => x.CommandId == item.CommandId.Value);
+                var deviceCommand = deviceCommands.FirstOrDefault(x => x.CommandId == item.DeviceCommandId.Value);
                 if (deviceCommand != null)
                 {
                     item.DeviceCommand = deviceCommand;
                 }
+            }
+
+            foreach (var item in JobTask.Conditions.Where(x => !x.TriggeredEventId.HasValue))
+            {
+                item.DeviceEvent = new DeviceEventDto { DeviceName = "Подія" };
+            }
+
+            foreach (var item in JobTask.Executions.Where(x => !x.DeviceCommandId.HasValue))
+            {
+                item.DeviceCommand = new DeviceCommandDto() { DeviceName = "Команда" };
             }
 
             InitJobTasks();
@@ -199,9 +211,9 @@ namespace IotHomeAssistant.Blazor.Components
 
         private async Task OnChangeDeviceCommand(JobTaskExecutionDto item)
         {
-            if (item.CommandId.HasValue)
+            if (item.DeviceCommandId.HasValue)
             {
-                var command = deviceCommands.FirstOrDefault(x => x.CommandId == item.CommandId.Value);
+                var command = deviceCommands.FirstOrDefault(x => x.CommandId == item.DeviceCommandId.Value);
                 if (command != null)
                 {
                     item.DeviceCommand = command;

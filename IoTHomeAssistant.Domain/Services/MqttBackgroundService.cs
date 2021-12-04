@@ -22,15 +22,18 @@ namespace IoTHomeAssistant.Domain.Services
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly JobTaskBackgroundService _jobTaskBackgroundService;
         private readonly MqttClient _client;
+        private readonly HostOptions _hostOptions;
 
         public MqttBackgroundService(
             IServiceScopeFactory serviceScopeFactory, 
             JobTaskBackgroundService jobTaskBackgroundService,
-            IOptions<MqttOption> options)
+            IOptions<MqttOption> options,
+            HostOptions hostOptions)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _jobTaskBackgroundService = jobTaskBackgroundService;
             _client = new MqttClient(options.Value.MqttBrokerAddress);
+            _hostOptions = hostOptions;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -41,7 +44,7 @@ namespace IoTHomeAssistant.Domain.Services
                 var deviceEvents = await deviceService.GetDeviceEventsAsync();
                 var devices = await deviceService.GetDevicesAsync(null);
                 var eventPublisher = new HubConnectionBuilder()
-                   .WithUrl(new Uri("http://localhost:5000/event-publisher"))
+                   .WithUrl(new Uri($"{_hostOptions.Host}/event-publisher"))
                    .Build();
 
                 _client.Connect(MQTT_CLIENT_ID);

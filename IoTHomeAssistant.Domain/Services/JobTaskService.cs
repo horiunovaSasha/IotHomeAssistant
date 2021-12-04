@@ -1,6 +1,7 @@
 ﻿using IoTHomeAssistant.Domain.Dto.Pagging;
 using IoTHomeAssistant.Domain.Entities;
 using IoTHomeAssistant.Domain.Repositories;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,15 +18,22 @@ namespace IoTHomeAssistant.Domain.Services
 
         public async Task AddJobTask(JobTask jobTask)
         {
-            int order = 1;
+            try
+            {
+                int order = 1;
 
-            jobTask.Executions.ForEach(x => { 
-                x.Order = order; 
-                order++; 
-            });
+                jobTask.Executions.ForEach(x =>
+                {
+                    x.Order = order;
+                    order++;
+                });
 
-            await _jobTaskRepository.AddAsync(jobTask);
-            await _jobTaskRepository.CommitAsync();
+                await _jobTaskRepository.AddAsync(jobTask);
+                await _jobTaskRepository.CommitAsync();
+            } catch(Exception ex)
+            {
+
+            }
         }
 
         public async Task UpdateJobTask(JobTask jobTask)
@@ -74,7 +82,7 @@ namespace IoTHomeAssistant.Domain.Services
 
                     if (item.Id != 0)
                     {
-                        dbItem.CommandId = item.CommandId;
+                        dbItem.DeviceCommandId = item.DeviceCommandId;
                         dbItem.DeviceId = item.DeviceId;
                         dbItem.WaitSeconds = item.WaitSeconds;
                         dbItem.TriggeredTaskId = item.TriggeredTaskId;

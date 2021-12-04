@@ -11,12 +11,12 @@ namespace IoTHomeAssistant.Domain.Entities
         public int? WaitSeconds { get; set; }
         public int? TriggeredTaskId { get; set; }
         public int? DeviceId { get; set; }
-        public int? CommandId { get; set; }
+        public int? DeviceCommandId { get; set; }
         public string Value { get; set; }
         public int Order { get; set; }
 
         public virtual JobTask JobTask { get; set; }
         public virtual JobTask TriggeredTask { get; set; }
-        public virtual Command Command { get; set; }
+        public virtual DeviceCommand DeviceCommand { get; set; }
     }
 }

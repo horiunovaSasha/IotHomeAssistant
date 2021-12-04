@@ -11,5 +11,6 @@ namespace IoTHomeAssistant.Domain.Dto
         public string EventTitle { get; set; }
         public EventTypeEnum EventType { get; set; }
         public EventValueType ValueType { get; set; }
+        public bool EventHasValue { get; set; }
     }
 }

@@ -131,7 +131,8 @@ namespace IoTHomeAssistant.Domain.Services
                         EventId = eventItem.Id,
                         EventTitle = eventItem.Event.Title,
                         EventType = eventItem.Event.Type,
-                        ValueType = eventItem.Event.ValueType
+                        ValueType = eventItem.Event.ValueType,
+                        EventHasValue = eventItem.Event.HasValue
                     });
                 }
             }

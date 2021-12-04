@@ -14,7 +14,7 @@ namespace IoTHomeAssistant.Domain.Entities
         public int? WaitSeconds { get; set; }
         public int? TriggeredTaskId { get; set; }
         public int? DeviceId { get; set; }
-        public int? CommandId { get; set; }
+        public int? DeviceCommandId { get; set; }
 
         [Required(ErrorMessage = "Це поле обов'язкове для заповнення!")]
         public string Value { get; set; }
@@ -35,7 +35,7 @@ namespace IoTHomeAssistant.Domain.Entities
                 WaitSeconds = entity.WaitSeconds,
                 DeviceId = entity.DeviceId,
                 TriggeredTaskId = entity.TriggeredTaskId,
-                CommandId = entity.CommandId,
+                DeviceCommandId = entity.DeviceCommandId,
                 Order = entity.Order,
                 Value = entity.Value,
                 JobTask = entity.JobTask,
@@ -45,7 +45,7 @@ namespace IoTHomeAssistant.Domain.Entities
 
         public static JobTaskExecution Convert(JobTaskExecutionDto dto)
         {
-            return new JobTaskExecution()
+            var item = new JobTaskExecution()
             {
                 Id = dto.Id,
                 JobTaskId = dto.JobTaskId,
@@ -53,12 +53,19 @@ namespace IoTHomeAssistant.Domain.Entities
                 WaitSeconds = dto.WaitSeconds,
                 DeviceId = dto.DeviceId,
                 TriggeredTaskId = dto.TriggeredTaskId,
-                CommandId = dto.CommandId,
+                DeviceCommandId = dto.DeviceCommandId,
                 Order = dto.Order,
                 Value = dto.Value,
                 JobTask = dto.JobTask,
                 TriggeredTask = dto.TriggeredTask
             };
+
+            if (dto.DeviceCommand != null)
+            {
+                item.DeviceId = dto.DeviceCommand.DeviceId;
+            }
+
+            return item;
         }
     }
 }

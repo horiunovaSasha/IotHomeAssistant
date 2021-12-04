@@ -11,16 +11,19 @@ using System.Diagnostics;
 using IoTHomeAssistant.Domain.Enums;
 using IoTHomeAssistant.Domain.Dto;
 using Microsoft.AspNetCore.SignalR.Client;
+using IoTHomeAssistant.Domain.Options;
 
 namespace IoTHomeAssistant.Domain.Services
 {
     public class PluginService : IPluginService
     {
         private readonly IPluginRepository _pluginRepository;
+        private readonly HostOptions _hostOptions;
 
-        public PluginService(IPluginRepository pluginRepository)
+        public PluginService(IPluginRepository pluginRepository, HostOptions hostOptions)
         {
             _pluginRepository = pluginRepository;
+            _hostOptions = hostOptions;
         }
 
         public List<Plugin> GetPlugins()
@@ -42,7 +45,7 @@ namespace IoTHomeAssistant.Domain.Services
                 catch
                 {
                     var eventPublisher = new HubConnectionBuilder()
-                        .WithUrl(new Uri("http://localhost:5000/event-publisher"))
+                        .WithUrl(new Uri($"{_hostOptions.Host}/event-publisher"))
                         .Build();
 
                     await eventPublisher.StartAsync();
@@ -99,7 +102,7 @@ namespace IoTHomeAssistant.Domain.Services
                     } catch
                     {
                         var eventPublisher = new HubConnectionBuilder()
-                            .WithUrl(new Uri("http://localhost:5000/event-publisher"))
+                            .WithUrl(new Uri($"{_hostOptions.Host}/event-publisher"))
                             .Build();
 
                         await eventPublisher.StartAsync();
@@ -134,7 +137,7 @@ namespace IoTHomeAssistant.Domain.Services
             workingDir = Path.GetDirectoryName(workingDir);
 
             var eventPublisher = new HubConnectionBuilder()
-                .WithUrl(new Uri("http://localhost:5000/event-publisher"))
+                .WithUrl(new Uri($"{_hostOptions.Host}/event-publisher"))
                 .Build();
 
             var cmd = Cmd("docker", $"build -f \"{dockerfile}\" -t {imageId} \"{workingDir}\"");

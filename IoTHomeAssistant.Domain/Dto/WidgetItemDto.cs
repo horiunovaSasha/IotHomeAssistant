@@ -48,10 +48,10 @@ namespace IoTHomeAssistant.Domain.Dto
                 DeviceId = widgetItem.DeviceId.Value;
             }
 
-            if (widgetItem.Event != null)
+            if (widgetItem.DeviceEvent?.Event != null)
             {
-                EventId = widgetItem.Event.Id;
-                EventType = widgetItem.Event.Type;
+                EventId = widgetItem.DeviceEvent.Id;
+                EventType = widgetItem.DeviceEvent.Event.Type;
             }
 
             if (widgetItem.JobTaskId.HasValue)

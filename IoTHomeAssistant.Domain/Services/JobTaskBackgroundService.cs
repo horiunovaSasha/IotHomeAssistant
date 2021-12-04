@@ -47,18 +47,25 @@ namespace IoTHomeAssistant.Domain.Services
                     {
                         if (item.Type == Enums.ConditionTypeEnum.ConditionIsMet)
                         {
-                            switch (deviceEvent.ValueType.Type)
+                            if (deviceEvent.ValueType != null)
                             {
-                                case Enums.EventValueTypeEnum.String:
-                                    isSuccess = item.Compare(value);
-                                    break;
-                                case Enums.EventValueTypeEnum.Boolean:
-                                case Enums.EventValueTypeEnum.Collection:
-                                    isSuccess = item.Compare(deviceEvent, value);
-                                    break;
-                                case Enums.EventValueTypeEnum.Number:
-                                    isSuccess = item.CompareFloat(value);
-                                    break;
+                                switch (deviceEvent.ValueType.Type)
+                                {
+                                    case Enums.EventValueTypeEnum.String:
+                                        isSuccess = item.Compare(value);
+                                        break;
+                                    case Enums.EventValueTypeEnum.Boolean:
+                                    case Enums.EventValueTypeEnum.Collection:
+                                        isSuccess = item.Compare(deviceEvent, value);
+                                        break;
+                                    case Enums.EventValueTypeEnum.Number:
+                                        isSuccess = item.CompareFloat(value);
+                                        break;
+                                }
+                            } else
+                            {
+                                //just event happens
+                                isSuccess = true;
                             }
                         }
                     }
@@ -83,7 +90,7 @@ namespace IoTHomeAssistant.Domain.Services
                 var jobTaskRepository = scope.ServiceProvider.GetRequiredService<IJobTaskRepository>();
                 var deviceService = scope.ServiceProvider.GetRequiredService<IDeviceService>();
 
-                _jobTasks = jobTaskRepository.Get().ToList();
+                _jobTasks = jobTaskRepository.GetPaggedList(new Dto.Pagging.PageRequest() { PageNumber = 1, PageSize = 1000 }).Result.Items;
                 _deviceEvents = deviceService.GetDeviceEventsAsync().Result;
             }
         }
@@ -160,9 +167,12 @@ namespace IoTHomeAssistant.Domain.Services
                     var commandService = scope.ServiceProvider.GetRequiredService<ICommandService>();
                     foreach (var exec in task.Executions)
                     {
-                        if (exec.Type == Enums.JobExecTypeEnum.Command && exec.DeviceId.HasValue && exec.Command != null)
+                        if (exec.Type == Enums.JobExecTypeEnum.Command && 
+                            exec.DeviceId.HasValue && 
+                            exec.DeviceCommand != null && 
+                            exec.DeviceCommand.Command != null)
                         {
-                            commandService.Exec(exec.DeviceId.Value, exec.Command.Key, exec.Value);
+                            commandService.Exec(exec.DeviceId.Value, exec.DeviceCommand.Command.Key, exec.Value);
                         }
 
                         if (exec.Type == Enums.JobExecTypeEnum.Wait && exec.WaitSeconds.HasValue)
