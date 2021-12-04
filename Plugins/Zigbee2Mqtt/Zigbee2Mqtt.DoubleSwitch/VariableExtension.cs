@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Zigbee2Mqtt.Switch
+namespace Zigbee2Mqtt.DoubleSwitch
 {
     static class VariableExtension
     {
@@ -11,6 +11,7 @@ namespace Zigbee2Mqtt.Switch
         static public string MQTT_USR { get; private set; }
         static public string MQTT_PWD { get; private set; }
         static public string DEVICE_ID { get; private set; }
+        static public string SIDE { get; private set; }
 
         static VariableExtension()
         {
@@ -49,6 +50,16 @@ namespace Zigbee2Mqtt.Switch
                 if (arg.Key.ToString() == "DEVICE_ID")
                 {
                     DEVICE_ID = arg.Value?.ToString();
+                }
+
+                if (arg.Key.ToString() == "DEVICE_ID")
+                {
+                    DEVICE_ID = arg.Value?.ToString();
+                }
+                
+                if (arg.Key.ToString() == "SIDE")
+                {
+                    SIDE = arg.Value?.ToString();
                 }
             }
 
