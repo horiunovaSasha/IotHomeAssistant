@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zigbee2Mqtt.Switch", "Zigbee2Mqtt.Switch\Zigbee2Mqtt.Switch.csproj", "{02F629AB-465F-453B-92DE-FA138D1F16AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zigbee2Mqtt.Temperature", "Zigbee2Mqtt.TemperatureHumidity\Zigbee2Mqtt.Temperature.csproj", "{B51C1003-BB8B-484D-89ED-8D67015B4F9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zigbee2Mqtt.Temperature", "Zigbee2Mqtt.Temperature\Zigbee2Mqtt.Temperature.csproj", "{B51C1003-BB8B-484D-89ED-8D67015B4F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zigbee2Mqtt.Humidity", "Zigbee2Mqtt.Humidity\Zigbee2Mqtt.Humidity.csproj", "{FB14A042-6373-47A5-87FA-BDDBE4821D6B}"
 EndProject
