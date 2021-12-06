@@ -10,7 +10,7 @@ namespace Zigbee2Mqtt.DoubleSwitch
 {
     public class MqttBackgroundService : IHostedService, IDisposable
     {
-        private const string MQTT_CLIENT_ID = "Zigbee2Mqtt.Switch";
+        private const string MQTT_CLIENT_ID = "Zigbee2Mqtt.DoubleSwitch";
         private const string SET_POWER = "set_power";
         private const string SET_POWER_TOGGLE = "set_power_toggle";
         private const string POWER_CHANGED = "power_changed";
@@ -21,7 +21,7 @@ namespace Zigbee2Mqtt.DoubleSwitch
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             var options = new MqttClientOptionsBuilder()
-                .WithClientId(MQTT_CLIENT_ID + VariableExtension.DEVICE_ID)
+                .WithClientId(MQTT_CLIENT_ID + VariableExtension.DEVICE_ID + VariableExtension.SIDE)
                 .WithTcpServer(VariableExtension.MQTT_ADDR)
                 .WithCredentials(VariableExtension.MQTT_USR, VariableExtension.MQTT_PWD)
                 .Build();
