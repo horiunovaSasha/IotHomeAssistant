@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IoTHomeAssistant.Domain.Services
 {
@@ -45,7 +46,7 @@ namespace IoTHomeAssistant.Domain.Services
                 {
                     foreach (var item in task.Conditions)
                     {
-                        if (item.Type == Enums.ConditionTypeEnum.ConditionIsMet)
+                        if (isSuccess && item.Type == Enums.ConditionTypeEnum.ConditionIsMet)
                         {
                             if (deviceEvent.ValueType != null)
                             {
@@ -67,6 +68,16 @@ namespace IoTHomeAssistant.Domain.Services
                                 //just event happens
                                 isSuccess = true;
                             }
+                        }
+
+                        if (isSuccess && item.Type == Enums.ConditionTypeEnum.EveryTime)
+                        {
+                            isSuccess = CompareEveryTime(item, now);
+                        }
+
+                        if (isSuccess && item.Type == Enums.ConditionTypeEnum.Once)
+                        {
+                            isSuccess = item.Compare(now);
                         }
                     }
 
@@ -97,7 +108,6 @@ namespace IoTHomeAssistant.Domain.Services
 
         private void OnOnceTimeEvent(object stateInfo)
         {
-            var isSuccess = true; 
             var now = DateTime.Now;
             var tasks = _jobTasks.Where(t =>
                 t.Conditions != null &&
@@ -106,18 +116,12 @@ namespace IoTHomeAssistant.Domain.Services
 
             foreach (var task in tasks)
             {
-                foreach(var item in task.Conditions)
-                {
-                    if (item.Type == Enums.ConditionTypeEnum.Once)
-                    {
-                        isSuccess = item.Compare(now);
-                    }
-                }
+                var items = task.Conditions
+                    .Where(c => c.Type == Enums.ConditionTypeEnum.Once)
+                    .ToList();
 
-                if (isSuccess)
+                if (items.Count == 1 && items.First().Compare(now))
                     acceptedTasks.Add(task);
-
-                isSuccess = true;
             }
 
             foreach (var task in acceptedTasks)
@@ -128,7 +132,6 @@ namespace IoTHomeAssistant.Domain.Services
 
         private void OnEveryTimeEvent(object stateInfo)
         {
-            var isSuccess = true;
             var now = DateTime.Now;
             var tasks = _jobTasks.Where(t => 
                 t.Conditions != null &&
@@ -138,18 +141,12 @@ namespace IoTHomeAssistant.Domain.Services
 
             foreach (var task in tasks)
             {
-                foreach (var item in task.Conditions)
-                {
-                    if (item.Type == Enums.ConditionTypeEnum.EveryTime)
-                    {
-                        isSuccess = CompareEveryTime(item, now);
-                    }
-                }
+                var items = task.Conditions
+                   .Where(c => c.Type == Enums.ConditionTypeEnum.EveryTime)
+                   .ToList();
 
-                if (isSuccess)
+                if (items.Count == 1 && CompareEveryTime(items.First(), now))
                     acceptedTasks.Add(task);
-
-                isSuccess = true;
             }
            
             foreach (var task in acceptedTasks)
@@ -158,9 +155,21 @@ namespace IoTHomeAssistant.Domain.Services
             }
         }
 
+        public void Execute(int jobTaskId)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var repo = scope.ServiceProvider.GetRequiredService<IJobTaskRepository>();
+                var task = repo.GetJobTaskAsync(jobTaskId).Result;
+
+                if (task != null)
+                    Execute(task);
+            }
+        }
+
         private void Execute(JobTask task)
         {
-            new Thread(() =>
+            Task.Run( () =>
             {
                 using (var scope = _scopeFactory.CreateScope())
                 {
@@ -177,7 +186,7 @@ namespace IoTHomeAssistant.Domain.Services
 
                         if (exec.Type == Enums.JobExecTypeEnum.Wait && exec.WaitSeconds.HasValue)
                         {
-                            Thread.Sleep(exec.WaitSeconds.Value * 1000);
+                            Task.Delay(exec.WaitSeconds.Value * 1000).Wait();
                         }
 
                         if (exec.Type == Enums.JobExecTypeEnum.TriggerTask && exec.TriggeredTaskId.HasValue)
@@ -190,15 +199,18 @@ namespace IoTHomeAssistant.Domain.Services
                         }
                     }
                 }
-            }).Start();
+            });
         }
 
         private bool CompareEveryTime(JobTaskCondition item, DateTime now)
         {
-            return item.Day.HasValue &&
-                ((int)now.DayOfWeek) == item.Day.Value &&
-                now.Hour == item.DateTime.Hour &&
-                now.Minute >= item.DateTime.Minute;
+            if (item.Day.HasValue)
+                return ((int)now.DayOfWeek) == item.Day.Value &&
+                    now.Hour == item.DateTime.Hour &&
+                    now.Minute >= item.DateTime.Minute;
+            else
+                return now.Hour == item.DateTime.Hour &&
+                    now.Minute >= item.DateTime.Minute;
         }
     }
 }

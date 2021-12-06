@@ -49,7 +49,7 @@ namespace IoTHomeAssistant.Infrastructure.Repositories
         {
             return await _dbSet
                 .Include(x => x.Conditions)
-                .Include(x => x.Executions)
+                .Include("Executions.DeviceCommand.Command")
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 

@@ -26,6 +26,13 @@ namespace IoTHomeAssistant.Domain.Extensions
 
             var conditionValue = condition.DateTime;
 
+            if (conditionValue.Year == 1 && conditionValue.Month == 1 && conditionValue.Day == 1)
+            {
+                conditionValue = conditionValue.AddYears(value.Year - 1);
+                conditionValue = conditionValue.AddMonths(value.Month - 1);
+                conditionValue = conditionValue.AddDays(value.Day - 1);
+            }
+
             switch (condition.Operation.Value)
             {
                 case Enums.ConditionOperationEnum.Equal:
@@ -33,13 +40,13 @@ namespace IoTHomeAssistant.Domain.Extensions
                 case Enums.ConditionOperationEnum.NotEqual:
                     return conditionValue != value;
                 case Enums.ConditionOperationEnum.More:
-                    return conditionValue > value;
+                    return value > conditionValue;
                 case Enums.ConditionOperationEnum.Less:
-                    return conditionValue < value;
+                    return value < conditionValue;
                 case Enums.ConditionOperationEnum.MoreOrEqual:
-                    return conditionValue >= value;
+                    return value >= conditionValue;
                 case Enums.ConditionOperationEnum.LessOrEqual:
-                    return conditionValue <= value;
+                    return value <= conditionValue;
                 default:
                     return false;
             }

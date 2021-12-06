@@ -1,0 +1,20 @@
+﻿a:hover {
+    cursor: pointer;
+}
+
+.nav-item ::deep a {
+    border-radius: 4px;
+    line-height: 1.5rem;
+}
+
+    .nav-item ::deep a.active {
+        background-color: rgba(169, 185, 249, 0.25);
+    }
+
+    .nav-item ::deep a:hover {
+        background-color: rgba(169, 185, 249, 0.15);
+    }
+
+.nav-item a {
+    cursor: pointer;
+}

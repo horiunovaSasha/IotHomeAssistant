@@ -102,6 +102,8 @@ namespace Gree.AirConditioner
                                 Translation.MqttToAirSpeed[payload.Value]);
                         }
                     }
+
+                    await _controller.UpdateDeviceStatus();
                 }
 
                 if (e.ApplicationMessage.Topic == VariableExtension.STATUS_TOPIC)

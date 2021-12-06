@@ -18,3 +18,6 @@ riderModule.iml
 /Plugins/Sonoff/.vs/Sonoff/v17/.futdcache.v1
 /Plugins/Zigbee2Mqtt/.vs/Zigbee2Mqtt/v17/.futdcache.v1
 /Plugins/Zigbee2Mqtt/Zigbee2Mqtt.Switch/Zigbee2Mqtt.Switch.csproj.user
+/Plugins/Tuya/.vs/Tuya/v17/.futdcache.v1
+/Plugins/Gree/.vs/Gree/v17/.futdcache.v1
+/Plugins/Xiaomi/.vs/Xiaomi/v17/.futdcache.v1

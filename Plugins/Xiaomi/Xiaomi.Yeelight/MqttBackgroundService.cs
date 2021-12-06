@@ -31,6 +31,7 @@ namespace Xiaomi.Yeelight
                 if (e.Topic == VariableExtension.CMD_TOPIC)
                 {
                     await ExecCommand(e.Message);
+                    await SendStatus();
                 }
 
                 if (e.Topic == VariableExtension.STATUS_TOPIC)

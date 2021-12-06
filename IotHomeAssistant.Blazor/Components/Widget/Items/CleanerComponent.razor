@@ -20,17 +20,23 @@
                 </div>
             </div>
             <div class="col-12 mt-4 d-flex justify-content-between">
-                <span class="text-center pl-4">
+                <span class="text-center pl-4 nav-item">
+                    <a class="nav-link" @onclick="Start">
                     <img src="https://cdn-icons-png.flaticon.com/512/2813/2813516.png" width="35" /><br />
                     Start
+                    </a>
                 </span>
-                <span class="text-center">
+                <span class="text-center nav-item">
+                    <a class="nav-link" @onclick="Pause">
                     <img src="https://cdn-icons-png.flaticon.com/512/2611/2611514.png" width="35" /><br />
                     Pause
+                    </a>
                 </span>
-                <span class="text-center pr-4">
+                <span class="text-center pr-4 nav-item">
+                    <a class="nav-link" @onclick="GoToCharge">
                     <img src="https://cdn-icons-png.flaticon.com/512/977/977972.png" width="35" /><br />
                     Go to Charge
+                    </a>
                 </span>
             </div>
         </div>

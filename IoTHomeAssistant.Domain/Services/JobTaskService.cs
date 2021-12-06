@@ -10,14 +10,16 @@ namespace IoTHomeAssistant.Domain.Services
     public class JobTaskService : IJobTaskService
     {
         private readonly IJobTaskRepository _jobTaskRepository;
+        private readonly JobTaskBackgroundService _jobTaskBackgroundService;
 
-        public JobTaskService(IJobTaskRepository pluginRepository)
+        public JobTaskService(IJobTaskRepository pluginRepository, JobTaskBackgroundService jobTaskBackgroundService)
         {
             _jobTaskRepository = pluginRepository;
+            _jobTaskBackgroundService = jobTaskBackgroundService;
         }
 
         public async Task AddJobTask(JobTask jobTask)
-        {
+       {
             try
             {
                 int order = 1;
@@ -30,6 +32,7 @@ namespace IoTHomeAssistant.Domain.Services
 
                 await _jobTaskRepository.AddAsync(jobTask);
                 await _jobTaskRepository.CommitAsync();
+                _jobTaskBackgroundService.UpdateState();
             } catch(Exception ex)
             {
 
@@ -111,6 +114,7 @@ namespace IoTHomeAssistant.Domain.Services
 
                 await _jobTaskRepository.UpdateAsync(dbTask);
                 await _jobTaskRepository.CommitAsync();
+                _jobTaskBackgroundService.UpdateState();
             }
         }
 
