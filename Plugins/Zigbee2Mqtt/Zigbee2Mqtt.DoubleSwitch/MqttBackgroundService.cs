@@ -10,7 +10,7 @@ namespace Zigbee2Mqtt.DoubleSwitch
 {
     public class MqttBackgroundService : IHostedService, IDisposable
     {
-        private const string MQTT_CLIENT_ID = "Zigbee2Mqtt.Switch";
+        private const string MQTT_CLIENT_ID = "Zigbee2Mqtt.DoubleSwitch";
         private const string SET_POWER = "set_power";
         private const string SET_POWER_TOGGLE = "set_power_toggle";
         private const string POWER_CHANGED = "power_changed";
