@@ -169,7 +169,7 @@ namespace IoTHomeAssistant.Domain.Services
 
         private void Execute(JobTask task)
         {
-            Task.Run( () =>
+            Task.Run(async () =>
             {
                 using (var scope = _scopeFactory.CreateScope())
                 {
@@ -186,7 +186,7 @@ namespace IoTHomeAssistant.Domain.Services
 
                         if (exec.Type == Enums.JobExecTypeEnum.Wait && exec.WaitSeconds.HasValue)
                         {
-                            Task.Delay(exec.WaitSeconds.Value * 1000).Wait();
+                            await Task.Delay(exec.WaitSeconds.Value * 1000);
                         }
 
                         if (exec.Type == Enums.JobExecTypeEnum.TriggerTask && exec.TriggeredTaskId.HasValue)
