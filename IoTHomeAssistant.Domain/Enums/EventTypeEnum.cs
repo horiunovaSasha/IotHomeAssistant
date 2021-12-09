@@ -17,6 +17,8 @@
         air_mode_changed = 12,
         air_speed_changed = 13,
         doorwindow_opened = 14,
-        doorwindow_closed = 15
+        doorwindow_closed = 15,
+        sunrise_occurred = 16,
+        sunset_occurred = 17
     }
 }
